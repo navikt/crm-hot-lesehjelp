@@ -1,0 +1,37 @@
+name: "[HELPER] Deployment"
+on:
+  workflow_dispatch:
+    inputs:
+      packageId:
+        description: "Package ID"
+        required: true
+        type: string
+      org:
+        description: "Org (preprod, dev, uat, sit)"
+        required: true
+        type: choice
+        options:
+        - preprod
+        - sit
+        - crm-uat
+        - uat
+        - dev
+jobs:
+  debug:
+    name: Debug Information
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print input values
+        run: |
+          echo "Org: ${{ inputs.org }}"
+          echo "Package ID: ${{ inputs.packageId }}"
+          echo "Initiator: ${{ github.actor }}"
+
+  deploy-package:
+    name: Deploy Package
+    uses: navikt/crm-workflows-base/.github/workflows/deployPackage.yml@master
+    with:
+      packageId: ${{ inputs.packageId }}
+      org: ${{ inputs.org }}
+      unpackagable: ./force-app/unpackagable-with-auto-deploy
+    secrets: inherit

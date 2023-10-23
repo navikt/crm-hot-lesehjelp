@@ -1,0 +1,10 @@
+name: "[PR] Validate"
+on:
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  run-pr-validation:
+    name: Validate PR
+    uses: navikt/crm-workflows-base/.github/workflows/validate.yml@master
+    secrets: inherit

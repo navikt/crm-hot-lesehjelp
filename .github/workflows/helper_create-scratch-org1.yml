@@ -1,0 +1,13 @@
+name: "[HELPER] Create Scratch Org"
+on:
+  workflow_dispatch:
+    inputs:
+      branchName:
+        description: "New branch (or pick existing above)"
+jobs:
+  create-scratch-org:
+    name: Create Scratch Org
+    uses: navikt/crm-workflows-base/.github/workflows/createScratchOrg.yml@master
+    with:
+      branchName: ${{ github.event.inputs.branchName }}
+    secrets: inherit

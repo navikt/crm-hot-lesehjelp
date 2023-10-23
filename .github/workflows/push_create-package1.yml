@@ -1,0 +1,13 @@
+name: "[PUSH] Create Package"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "force-app/**"
+jobs:
+  create-package:
+    name: Run Package Creation
+    uses: navikt/crm-workflows-base/.github/workflows/packageCreate.yml@master
+    secrets: inherit

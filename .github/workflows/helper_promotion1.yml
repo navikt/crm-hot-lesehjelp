@@ -1,0 +1,27 @@
+name: "[HELPER] Promote Package"
+on:
+  workflow_dispatch:
+    inputs:
+      packageId:
+        description: "Package ID"
+        required: true
+      comment:
+        description: "Release Comment"
+        required: true
+jobs:
+  debug:
+    name: Debug Information
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print input values
+        run: |
+          echo "Promoting Package ID: ${{ github.event.inputs.packageId }}"
+          echo "Initiator: ${{ github.actor }}"
+
+  run-package-promotion:
+    name: Promote Package
+    uses: navikt/crm-workflows-base/.github/workflows/packagePromotion.yml@master
+    with:
+      packageId: ${{ inputs.packageId }}
+      comment: ${{ inputs.comment }}
+    secrets: inherit
