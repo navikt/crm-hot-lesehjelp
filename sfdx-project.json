@@ -1,12 +1,18 @@
 {
-    "packageDirectories": [
-        {
-            "path": "force-app",
-            "default": true
-        }
-    ],
-    "namespace": "",
-    "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "57.0",
-    "packageAliases": {}
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true,
+      "package": "crm-hot-lesehjelp",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": ""
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "57.0",
+  "packageAliases": {
+    "crm-hot-lesehjelp": "0Ho7U0000004CApSAM"
+  }
 }
