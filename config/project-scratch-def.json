@@ -18,7 +18,11 @@
         "ServiceCloud",
         "LiveAgent",
         "LightningServiceConsole",
-        "ContactsToMultipleAccounts"
+        "ContactsToMultipleAccounts",
+        "FieldService:5",
+        "FieldServiceDispatcherUser:5",
+        "FieldServiceMobileUser:5",
+        "FieldServiceSchedulingUser:5"
     ],
     "country": "NO",
     "language": "en_US",
@@ -35,6 +39,15 @@
         },
         "languageSettings": {
             "enableTranslationWorkbench": true
+        },
+        "fieldServiceSettings": {
+            "fieldServiceOrgPref": true,
+            "doesShareSaParentWoWithAr": false,
+            "doesShareSaWithAr": false,
+            "enableWorkOrders": true,
+            "isGeoCodeSyncEnabled": false,
+            "isLocationHistoryEnabled": false,
+            "fieldServiceNotificationsOrgPref": true
         },
         "nameSettings": {
             "enableMiddleName": true
