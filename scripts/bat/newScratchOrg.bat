@@ -13,4 +13,7 @@ call sf package install --package 04t7U000000Y26AQAS --no-prompt --installation-
 echo "Dytter kildekoden til scratch org'en"
 call sf project deploy start
 
+echo "Tildeler tilatelsessett til brukeren"
+call sf org assign permset --name HOT_Lesehjelp_Admin
+
 echo "Ferdig"
