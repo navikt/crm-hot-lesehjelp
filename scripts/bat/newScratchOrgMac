@@ -15,4 +15,7 @@ sf package install --package 04t7U000000Y26AQAS --no-prompt --installation-key $
 # Dytt kildekoden til scratch org'en
 sf project deploy start
 
+# Tildel tilatelsessett til brukeren
+sf org assign permset --name HOT_Lesehjelp_Admin
+
 # done
