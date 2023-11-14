@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Weekday</label>
     <required>true</required>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

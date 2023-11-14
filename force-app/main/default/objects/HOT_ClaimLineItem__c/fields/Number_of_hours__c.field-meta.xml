@@ -6,6 +6,7 @@
     <precision>4</precision>
     <required>true</required>
     <scale>1</scale>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>
