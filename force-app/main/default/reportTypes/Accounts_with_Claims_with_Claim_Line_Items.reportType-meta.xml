@@ -540,6 +540,19 @@
             <field>Date__c</field>
             <table>Account.Claims__r.Claim_Line_Items__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Number_of_hours__c</field>
+            <table>Account.Claims__r.Claim_Line_Items__r</table>
+        </columns>
         <masterLabel>Claim Line Items</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_hours__c</field>
+            <table>Account.Claims__r</table>
+        </columns>
+        <masterLabel>Claims</masterLabel>
     </sections>
 </ReportType>

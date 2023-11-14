@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Krav</label>
-    <name>Claim__c</name>
-    <relationshipLabel></relationshipLabel>
+    <label>Antall timer</label>
+    <name>Number_of_hours__c</name>
 </CustomFieldTranslation>
