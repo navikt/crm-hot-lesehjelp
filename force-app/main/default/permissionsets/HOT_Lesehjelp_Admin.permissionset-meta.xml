@@ -10,6 +10,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.IsNotificationSent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Status__c</field>
         <readable>true</readable>
@@ -17,11 +22,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.Total_hours__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_Claim__c.isNotificationSent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
