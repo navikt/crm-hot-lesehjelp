@@ -6,8 +6,8 @@
     <externalId>false</externalId>
     <label>Account</label>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Claims</relationshipLabel>
-    <relationshipName>Claims</relationshipName>
+    <relationshipLabel>User in claims</relationshipLabel>
+    <relationshipName>account</relationshipName>
     <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
