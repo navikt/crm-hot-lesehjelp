@@ -3,7 +3,7 @@
     <fullName>Total_hours__c</fullName>
     <externalId>false</externalId>
     <label>Total hours</label>
-    <summarizedField>HOT_ClaimLineItem__c.Number_of_hours__c</summarizedField>
+    <summarizedField>HOT_ClaimLineItem__c.NumberOfHours__c</summarizedField>
     <summaryForeignKey>HOT_ClaimLineItem__c.Claim__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>
