@@ -2,50 +2,20 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Weekday__c</fullName>
     <externalId>false</externalId>
+    <formula>CASE(MOD( DATEVALUE(StartTime__c) - DATE(1900, 1, 7), 7), 
+0, &quot;Søndag&quot;,
+1, &quot;Mandag&quot;,
+2, &quot;Tirsdag&quot;,
+3, &quot;Onsdag&quot;,
+4, &quot;Torsdag&quot;,
+5, &quot;Fredag&quot;,
+6, &quot;Lørdag&quot;,
+&quot;Error&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Weekday</label>
-    <required>true</required>
-    <trackHistory>true</trackHistory>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Mandag</fullName>
-                <default>false</default>
-                <label>Mandag</label>
-            </value>
-            <value>
-                <fullName>Tirsdag</fullName>
-                <default>false</default>
-                <label>Tirsdag</label>
-            </value>
-            <value>
-                <fullName>Onsdag</fullName>
-                <default>false</default>
-                <label>Onsdag</label>
-            </value>
-            <value>
-                <fullName>Torsdag</fullName>
-                <default>false</default>
-                <label>Torsdag</label>
-            </value>
-            <value>
-                <fullName>Fredag</fullName>
-                <default>false</default>
-                <label>Fredag</label>
-            </value>
-            <value>
-                <fullName>Lørdag</fullName>
-                <default>false</default>
-                <label>Lørdag</label>
-            </value>
-            <value>
-                <fullName>Søndag</fullName>
-                <default>false</default>
-                <label>Søndag</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

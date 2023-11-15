@@ -16,10 +16,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Weekday__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
                 <field>WorkType__c</field>
             </layoutItems>
             <layoutItems>
@@ -41,6 +37,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>NumberOfHours__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Weekday__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
