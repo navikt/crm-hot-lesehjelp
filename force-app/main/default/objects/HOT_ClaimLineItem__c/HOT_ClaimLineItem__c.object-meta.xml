@@ -165,6 +165,6 @@
     </nameField>
     <pluralLabel>Claim Line Items</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

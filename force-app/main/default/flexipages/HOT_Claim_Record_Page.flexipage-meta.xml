@@ -38,8 +38,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Name</fieldItem>
-                <identifier>RecordNameField</identifier>
+                <fieldItem>Record.Claimant__c</fieldItem>
+                <identifier>RecordClaimant_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -48,8 +48,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Claimant__c</fieldItem>
-                <identifier>RecordClaimant_cField</identifier>
+                <fieldItem>Record.Name</fieldItem>
+                <identifier>RecordNameField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
