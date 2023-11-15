@@ -58,16 +58,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.NumberOfHours__c</fieldItem>
-                <identifier>RecordNumberOfHours_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Weekday__c</fieldItem>
                 <identifier>RecordWeekday_cField</identifier>
             </fieldInstance>
@@ -80,6 +70,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.WorkType__c</fieldItem>
                 <identifier>RecordWorkType_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumberOfHours__c</fieldItem>
+                <identifier>RecordNumberOfHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c5baebb1-c70d-43d2-912f-d6db51cdf9ef</name>

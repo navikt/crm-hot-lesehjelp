@@ -27,10 +27,6 @@
                 <field>Date__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>NumberOfHours__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Organization__c</field>
             </layoutItems>
@@ -41,6 +37,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EndTime__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NumberOfHours__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
