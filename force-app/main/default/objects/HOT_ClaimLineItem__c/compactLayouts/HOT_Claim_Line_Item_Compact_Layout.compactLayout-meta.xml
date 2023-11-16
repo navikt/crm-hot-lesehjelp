@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HOT_Claim_Line_Item_Compact_Layout</fullName>
+    <fields>Claim__c</fields>
+    <label>HOT_Claim_Line_Item_Compact_Layout</label>
+</CompactLayout>
