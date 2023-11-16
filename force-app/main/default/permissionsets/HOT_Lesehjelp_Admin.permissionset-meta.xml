@@ -89,4 +89,12 @@
         <object>HOT_Claim__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>HOT_ClaimLineItem__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>HOT_Claim__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
