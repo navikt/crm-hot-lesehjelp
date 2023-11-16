@@ -12,6 +12,8 @@
     <label>Lesehjelp</label>
     <navType>Standard</navType>
     <tabs>standard-Account</tabs>
+    <tabs>HOT_Claim__c</tabs>
+    <tabs>HOT_ClaimLineItem__c</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
