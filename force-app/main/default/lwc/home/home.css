@@ -69,6 +69,8 @@
 }
 .box {
     flex-grow: 1;
+    /* Ta på width om du vil fjerne kul layout */
+    /* width: 50%; */
     margin: 0.5rem;
     padding: 2rem;
     background-color: #9cd0f7;
