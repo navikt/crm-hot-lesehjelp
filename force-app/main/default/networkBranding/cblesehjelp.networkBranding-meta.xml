@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NetworkBranding xmlns="http://soap.sforce.com/2006/04/metadata">
-    <network>lesehjelp1</network>
+    <network>lesehjelp</network>
     <primaryColor>#1797C0</primaryColor>
     <primaryComplementColor>#FFFFFF</primaryComplementColor>
     <quaternaryColor>#B1BAC1</quaternaryColor>
