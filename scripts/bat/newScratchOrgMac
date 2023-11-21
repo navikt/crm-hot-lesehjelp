@@ -18,4 +18,7 @@ sf project deploy start
 # Tildel tilatelsessett til brukeren
 sf org assign permset --name HOT_Lesehjelp_Admin
 
+# # Publish Experience Site
+# sf community publish --name Lesehjelp
+
 # done

@@ -222,46 +222,46 @@ force-app/main/default/pages/ForgotPasswordConfirm.page-meta.xml
 force-app/main/default/pages/ForgotPasswordConfirm.page
 force-app/main/default/pages/ForgotPassword.page-meta.xml
 force-app/main/default/pages/ForgotPassword.page
-# force-app/main/default/pages/FileNotFound.page-meta.xml
-# force-app/main/default/pages/FileNotFound.page
-# force-app/main/default/pages/Exception.page-meta.xml
-# force-app/main/default/pages/Exception.page
-# force-app/main/default/pages/CommunitiesTemplate.page-meta.xml
-# force-app/main/default/pages/CommunitiesTemplate.page
-# force-app/main/default/pages/CommunitiesSelfRegConfirm.page-meta.xml
-# force-app/main/default/pages/CommunitiesSelfRegConfirm.page
-# force-app/main/default/pages/CommunitiesSelfReg.page-meta.xml
-# force-app/main/default/pages/CommunitiesSelfReg.page
-# force-app/main/default/pages/CommunitiesLogin.page-meta.xml
-# force-app/main/default/pages/CommunitiesLogin.page
-# force-app/main/default/pages/CommunitiesLanding.page-meta.xml
-# force-app/main/default/pages/CommunitiesLanding.page
-# force-app/main/default/pages/ChangePassword.page-meta.xml
-# force-app/main/default/pages/ChangePassword.page
-# force-app/main/default/pages/BandwidthExceeded.page-meta.xml
-# force-app/main/default/pages/BandwidthExceeded.page
-# force-app/main/default/pages/AnswersHome.page-meta.xml
-# force-app/main/default/pages/AnswersHome.page
-# force-app/main/default/classes/SiteRegisterControllerTest.cls-meta.xml
-# force-app/main/default/classes/SiteRegisterControllerTest.cls
-# force-app/main/default/classes/SiteRegisterController.cls-meta.xml
-# force-app/main/default/classes/SiteRegisterController.cls
-# force-app/main/default/classes/SiteLoginControllerTest.cls-meta.xml
-# force-app/main/default/classes/SiteLoginControllerTest.cls
-# force-app/main/default/classes/SiteLoginController.cls-meta.xml
-# force-app/main/default/classes/SiteLoginController.cls
-# force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls-meta.xml
-# force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls
-# force-app/main/default/classes/MicrobatchSelfRegController.cls-meta.xml
-# force-app/main/default/classes/MicrobatchSelfRegController.cls
-# force-app/main/default/classes/LightningSelfRegisterControllerTest.cls-meta.xml
-# force-app/main/default/classes/LightningSelfRegisterControllerTest.cls
-# force-app/main/default/classes/LightningSelfRegisterController.cls-meta.xml
-# force-app/main/default/classes/LightningSelfRegisterController.cls
-# force-app/main/default/classes/LightningLoginFormControllerTest.cls-meta.xml
-# force-app/main/default/classes/LightningLoginFormControllerTest.cls
-# force-app/main/default/classes/LightningLoginFormController.cls-meta.xml
-# force-app/main/default/classes/LightningLoginFormController.cls
+force-app/main/default/pages/FileNotFound.page-meta.xml
+force-app/main/default/pages/FileNotFound.page
+force-app/main/default/pages/Exception.page-meta.xml
+force-app/main/default/pages/Exception.page
+force-app/main/default/pages/CommunitiesTemplate.page-meta.xml
+force-app/main/default/pages/CommunitiesTemplate.page
+force-app/main/default/pages/CommunitiesSelfRegConfirm.page-meta.xml
+force-app/main/default/pages/CommunitiesSelfRegConfirm.page
+force-app/main/default/pages/CommunitiesSelfReg.page-meta.xml
+force-app/main/default/pages/CommunitiesSelfReg.page
+force-app/main/default/pages/CommunitiesLogin.page-meta.xml
+force-app/main/default/pages/CommunitiesLogin.page
+force-app/main/default/pages/CommunitiesLanding.page-meta.xml
+force-app/main/default/pages/CommunitiesLanding.page
+force-app/main/default/pages/ChangePassword.page-meta.xml
+force-app/main/default/pages/ChangePassword.page
+force-app/main/default/pages/BandwidthExceeded.page-meta.xml
+force-app/main/default/pages/BandwidthExceeded.page
+force-app/main/default/pages/AnswersHome.page-meta.xml
+force-app/main/default/pages/AnswersHome.page
+force-app/main/default/classes/SiteRegisterControllerTest.cls-meta.xml
+force-app/main/default/classes/SiteRegisterControllerTest.cls
+force-app/main/default/classes/SiteRegisterController.cls-meta.xml
+force-app/main/default/classes/SiteRegisterController.cls
+force-app/main/default/classes/SiteLoginControllerTest.cls-meta.xml
+force-app/main/default/classes/SiteLoginControllerTest.cls
+force-app/main/default/classes/SiteLoginController.cls-meta.xml
+force-app/main/default/classes/SiteLoginController.cls
+force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls-meta.xml
+force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls
+force-app/main/default/classes/MicrobatchSelfRegController.cls-meta.xml
+force-app/main/default/classes/MicrobatchSelfRegController.cls
+force-app/main/default/classes/LightningSelfRegisterControllerTest.cls-meta.xml
+force-app/main/default/classes/LightningSelfRegisterControllerTest.cls
+force-app/main/default/classes/LightningSelfRegisterController.cls-meta.xml
+force-app/main/default/classes/LightningSelfRegisterController.cls
+force-app/main/default/classes/LightningLoginFormControllerTest.cls-meta.xml
+force-app/main/default/classes/LightningLoginFormControllerTest.cls
+force-app/main/default/classes/LightningLoginFormController.cls-meta.xml
+force-app/main/default/classes/LightningLoginFormController.cls
 force-app/main/default/classes/LightningForgotPasswordControllerTest.cls-meta.xml
 force-app/main/default/classes/LightningForgotPasswordControllerTest.cls
 force-app/main/default/classes/LightningForgotPasswordController.cls-meta.xml
@@ -270,15 +270,15 @@ force-app/main/default/classes/ForgotPasswordControllerTest.cls-meta.xml
 force-app/main/default/classes/ForgotPasswordControllerTest.cls
 force-app/main/default/classes/ForgotPasswordController.cls-meta.xml
 force-app/main/default/classes/ForgotPasswordController.cls
-# force-app/main/default/classes/CommunitiesSelfRegControllerTest.cls-meta.xml
-# force-app/main/default/classes/CommunitiesSelfRegControllerTest.cls
-# force-app/main/default/classes/CommunitiesSelfRegController.cls-meta.xml
-# force-app/main/default/classes/CommunitiesSelfRegController.cls
-# force-app/main/default/classes/CommunitiesSelfRegConfirmControllerTest.cls-meta.xml
-# force-app/main/default/classes/CommunitiesSelfRegConfirmControllerTest.cls
-# force-app/main/default/classes/CommunitiesSelfRegConfirmController.cls-meta.xml
-# force-app/main/default/classes/CommunitiesSelfRegConfirmController.cls
-# force-app/main/default/classes/CommunitiesLoginControllerTest.cls-meta.xml
-# force-app/main/default/classes/CommunitiesLoginControllerTest.cls
-# force-app/main/default/classes/CommunitiesLoginController.cls-meta.xml
-# force-app/main/default/classes/CommunitiesLoginController.cls
+force-app/main/default/classes/CommunitiesSelfRegControllerTest.cls-meta.xml
+force-app/main/default/classes/CommunitiesSelfRegControllerTest.cls
+force-app/main/default/classes/CommunitiesSelfRegController.cls-meta.xml
+force-app/main/default/classes/CommunitiesSelfRegController.cls
+force-app/main/default/classes/CommunitiesSelfRegConfirmControllerTest.cls-meta.xml
+force-app/main/default/classes/CommunitiesSelfRegConfirmControllerTest.cls
+force-app/main/default/classes/CommunitiesSelfRegConfirmController.cls-meta.xml
+force-app/main/default/classes/CommunitiesSelfRegConfirmController.cls
+force-app/main/default/classes/CommunitiesLoginControllerTest.cls-meta.xml
+force-app/main/default/classes/CommunitiesLoginControllerTest.cls
+force-app/main/default/classes/CommunitiesLoginController.cls-meta.xml
+force-app/main/default/classes/CommunitiesLoginController.cls
