@@ -111,7 +111,7 @@ Default_Tolketjenesten.audience-meta.xml
 **/pages/MyProfilePage.page
 **/pages/FileNotFound.page
 **/pages/Unauthorized.page
-**/pages/CommunitiesLogin.page
+# **/pages/CommunitiesLogin.page
 **/pages/SiteLogin.page
 **/pages/ForgotPassword.page
 **/pages/UnderConstruction.page
