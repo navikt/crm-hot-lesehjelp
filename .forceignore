@@ -91,10 +91,10 @@ Default_Tolketjenesten.audience-meta.xml
 # **/classes/LightningLoginFormControllerTest.cls
 # **/classes/LightningSelfRegisterController.cls
 # **/classes/LightningSelfRegisterControllerTest.cls
-**/classes/SiteLoginController.cls
-**/classes/SiteLoginControllerTest.cls
-**/classes/SiteRegisterController.cls
-**/classes/SiteRegisterControllerTest.cls
+# **/classes/SiteLoginController.cls
+# **/classes/SiteLoginControllerTest.cls
+# **/classes/SiteRegisterController.cls
+# **/classes/SiteRegisterControllerTest.cls
 **/pages/AnswersHome.page
 **/pages/ForgotPasswordConfirm.page
 **/pages/CommunitiesSelfRegConfirm.page
