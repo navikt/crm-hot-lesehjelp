@@ -95,7 +95,7 @@ Default_Tolketjenesten.audience-meta.xml
 # **/classes/SiteLoginControllerTest.cls
 # **/classes/SiteRegisterController.cls
 # **/classes/SiteRegisterControllerTest.cls
-**/pages/AnswersHome.page
+# **/pages/AnswersHome.page
 **/pages/ForgotPasswordConfirm.page
 **/pages/CommunitiesSelfRegConfirm.page
 **/pages/SiteRegisterConfirm.page
