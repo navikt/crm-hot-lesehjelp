@@ -83,8 +83,8 @@ Default_Tolketjenesten.audience-meta.xml
 # **/classes/CommunitiesSelfRegConfirmControllerTest.cls
 **/classes/CommunitiesSelfRegController.cls
 **/classes/CommunitiesSelfRegControllerTest.cls
-**/classes/ForgotPasswordController.cls
-**/classes/ForgotPasswordControllerTest.cls
+# **/classes/ForgotPasswordController.cls
+# **/classes/ForgotPasswordControllerTest.cls
 # **/classes/LightningForgotPasswordController.cls
 # **/classes/LightningForgotPasswordControllerTest.cls
 **/classes/LightningLoginFormController.cls
