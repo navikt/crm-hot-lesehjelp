@@ -11,7 +11,7 @@
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "57.0",
+  "sourceApiVersion": "59.0",
   "packageAliases": {
     "crm-hot-lesehjelp": "0Ho7U0000004CApSAM"
   }
