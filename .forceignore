@@ -79,8 +79,8 @@ Default_Tolketjenesten.audience-meta.xml
 #          **/classes/CommunitiesLandingControllerTest.cls
 # **/classes/CommunitiesLoginController.cls
 # **/classes/CommunitiesLoginControllerTest.cls
-**/classes/CommunitiesSelfRegConfirmController.cls
-**/classes/CommunitiesSelfRegConfirmControllerTest.cls
+# **/classes/CommunitiesSelfRegConfirmController.cls
+# **/classes/CommunitiesSelfRegConfirmControllerTest.cls
 **/classes/CommunitiesSelfRegController.cls
 **/classes/CommunitiesSelfRegControllerTest.cls
 **/classes/ForgotPasswordController.cls
