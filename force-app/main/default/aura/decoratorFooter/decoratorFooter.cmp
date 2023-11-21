@@ -1,3 +1,0 @@
-<aura:component implements="forceCommunity:availableForAllPageTypes">
-    <!-- Component content goes here -->
-</aura:component>
