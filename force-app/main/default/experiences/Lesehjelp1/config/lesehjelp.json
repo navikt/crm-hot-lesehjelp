@@ -1,0 +1,60 @@
+{
+  "forgotPasswordRouteId" : "3b85d269-8d60-49d0-9465-de55bb53d9be",
+  "isAvailableToGuests" : false,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "074aa555-7a39-4317-a91b-306363f3ce87",
+  "mainAppPageId" : "6bcbac01-70a6-4366-9c18-a2124d8b8c67",
+  "preferredDomain" : "none",
+  "selfRegistrationRouteId" : "3020ac0a-68fc-4950-9ba5-4a90cb5a085c",
+  "trustedSitesForScript" : [ {
+    "id" : "7eb443d9-76bb-448f-9a69-06533c1531e6",
+    "isActive" : true,
+    "trustedSiteName" : "NAV",
+    "trustedSiteUrl" : "https://www.nav.no",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "f5173634-8dbc-4b33-b321-456e3b3c202a",
+    "isActive" : true,
+    "trustedSiteName" : "Dekoratoren",
+    "trustedSiteUrl" : "https://dekoratoren.ekstern.dev.nav.no",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "05348708-3828-4756-89f5-73d4433a703c",
+    "isActive" : true,
+    "trustedSiteName" : "Google_Tag_Manager",
+    "trustedSiteUrl" : "https://googletagmanager.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "2b7a0d22-7540-4da8-a8ff-161c01292d88",
+    "isActive" : true,
+    "trustedSiteName" : "Account_psplugin",
+    "trustedSiteUrl" : "https://account.psplugin.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "3ad792db-14ba-40bd-b3c2-8afe1fb82e1e",
+    "isActive" : true,
+    "trustedSiteName" : "In2_taskanalytics",
+    "trustedSiteUrl" : "https://in2.taskanalytics.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "f73e9c84-7019-4b59-abff-8621cfc3c3b3",
+    "isActive" : true,
+    "trustedSiteName" : "Google_Analytics",
+    "trustedSiteUrl" : "https://google-analytics.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "ff01b43e-3d27-4eff-8782-d19bc196489b",
+    "isActive" : true,
+    "trustedSiteName" : "Static_Hotjar",
+    "trustedSiteUrl" : "https://static.hotjar.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "71ab5f70-03ab-4273-8c61-b88f88106974",
+    "isActive" : true,
+    "trustedSiteName" : "Script_Hotjar",
+    "trustedSiteUrl" : "https://script.hotjar.com",
+    "type" : "trustedSitesForScripts"
+  } ],
+  "type" : "site"
+}
