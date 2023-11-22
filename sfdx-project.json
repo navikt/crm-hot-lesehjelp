@@ -6,13 +6,29 @@
       "package": "crm-hot-lesehjelp",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
-      "versionDescription": ""
+      "versionDescription": "",
+      "dependencies": [
+                {
+                    "package": "crm-platform-base",
+                    "versionNumber": "0.198.0.LATEST"
+                },{
+                    "package": "crm-community-base",
+                    "versionNumber": "0.94.0.LATEST"
+                },
+                {
+                    "package": "crm-platform-access-control",
+                    "versionNumber": "0.101.0.LATEST"
+                }
+            ]
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0",
   "packageAliases": {
-    "crm-hot-lesehjelp": "0Ho7U0000004CApSAM"
+    "crm-hot-lesehjelp": "0Ho7U0000004CApSAM",
+    "crm-platform-base": "0Ho2o0000008ORmCAM",
+    "crm-community-base": "0Ho2o0000008OSzCAM",
+    "crm-platform-access-control": "0Ho2o0000008OR3CAM"
   }
 }
