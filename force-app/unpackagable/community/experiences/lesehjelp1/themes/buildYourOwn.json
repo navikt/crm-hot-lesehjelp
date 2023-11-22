@@ -1,0 +1,126 @@
+{
+  "activeBrandingSetId" : "8f7fd5c4-17de-4d66-8478-9f7fcdc2e62c",
+  "customCSS" : "",
+  "developerName" : "starter",
+  "id" : "5d90847c-1405-4389-b7bf-41af59664982",
+  "label" : "Build Your Own",
+  "layouts" : {
+    "Inner" : "498f9995-e041-49a2-b1a9-16d04036fbf2",
+    "Login" : "50279e79-7af3-40ba-9e39-481772d627df",
+    "ServiceNotAvailable" : "718c70e9-30b0-4c29-be49-7a72b2da57cc"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "50279e79-7af3-40ba-9e39-481772d627df",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "2ee81f76-2ea3-40f7-9cd5-1899db691918",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "e7db8db6-ac9e-42c1-83fe-22ec1cf7dd9c",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "1c4b5ed1-8342-4018-9ef4-0d1b9462ae2e",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1920,
+      "isPageWidthFixed" : false
+    },
+    "componentName" : "siteforce:starterBody",
+    "id" : "498f9995-e041-49a2-b1a9-16d04036fbf2",
+    "label" : "Default",
+    "regions" : [ {
+      "components" : [ {
+        "componentAttributes" : {
+          "maxAutoCompleteResults" : 5,
+          "searchLabel" : "Search...",
+          "searchObjects" : [ {
+            "isPublic" : true,
+            "name" : "Account"
+          } ]
+        },
+        "componentName" : "forceCommunity:globalSearchInput",
+        "id" : "4439a767-77c3-4e09-84db-06be43becab2",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "134ac761-6bc4-457a-b9c8-290f3510b798",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "accountManagementLabel" : "Account Management",
+          "communityBuilderLabel" : "Experience Builder",
+          "communitySetupLabel" : "Salesforce Setup",
+          "contactSupportLabel" : "Contact Support",
+          "filterName" : "MyCases",
+          "homeLabel" : "Home",
+          "includeContactSupport" : true,
+          "includeMessages" : false,
+          "loginLabel" : "Login",
+          "logoutLabel" : "Logout",
+          "myAccountLabel" : "My Account",
+          "showAccountManagement" : true,
+          "showUserSettings" : true,
+          "userSettingsLabel" : "My Settings",
+          "viewProfileLabel" : "My Profile"
+        },
+        "componentName" : "selfService:userProfileMenu",
+        "id" : "6924865c-d2ac-442f-af1a-016fa7077e84",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "3e6befab-3d94-4265-acc7-35ca96cc8635",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "",
+          "hideAppLauncher" : true,
+          "hideHomeText" : true
+        },
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "7c0e8571-dfb2-404c-a214-279eee5aa225",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "71243606-e0b2-4c2d-8c36-d23295489d85",
+      "regionName" : "navBar",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "718c70e9-30b0-4c29-be49-7a72b2da57cc",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "2c0ec008-cb29-43ba-aca5-19e0de80d82f",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "a871b343-ad78-4e76-82e3-527569e57623",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}
