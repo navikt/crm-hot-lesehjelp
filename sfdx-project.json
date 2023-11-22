@@ -11,14 +11,15 @@
                 {
                     "package": "crm-platform-base",
                     "versionNumber": "0.198.0.LATEST"
-                },{
-                    "package": "crm-community-base",
-                    "versionNumber": "0.94.0.LATEST"
                 },
                 {
                     "package": "crm-platform-access-control",
                     "versionNumber": "0.101.0.LATEST"
+                },{
+                    "package": "crm-community-base",
+                    "versionNumber": "0.94.0.LATEST"
                 }
+                
             ]
     }
   ],
