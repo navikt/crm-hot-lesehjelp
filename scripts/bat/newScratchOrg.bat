@@ -16,4 +16,7 @@ call sf project deploy start
 echo "Tildeler tilatelsessett til brukeren"
 call sf org assign permset --name HOT_Lesehjelp_Admin
 
+echo "Publish Experience Site"
+call sf community publish --name lesehjelp
+
 echo "Ferdig"
