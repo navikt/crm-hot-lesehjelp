@@ -68,58 +68,59 @@
 **/workflows/Contract__c*
 **/layouts/CustomOpportunity__c-Custom Opportunity Layout.layout-meta.xml
 
+# Community
+Default_lesehjelp.audience-meta.xml
+force-app/main/default/audience/Default_lesehjelp.audience-meta.xml
 
-# # community classes
-# ----------------------------------------------------------------------------------------
-# #          **/classes/ChangePasswordController.cls
-# #          **/classes/ChangePasswordControllerTest.cls
-# #          **/classes/CommunitiesLandingController.cls
-# #          **/classes/CommunitiesLandingControllerTest.cls
-# **/classes/CommunitiesLoginController.cls
-# **/classes/CommunitiesLoginControllerTest.cls
-# **/classes/CommunitiesSelfRegConfirmController.cls
-# **/classes/CommunitiesSelfRegConfirmControllerTest.cls
-# **/classes/CommunitiesSelfRegController.cls
-# **/classes/CommunitiesSelfRegControllerTest.cls
-# **/classes/ForgotPasswordController.cls
-# **/classes/ForgotPasswordControllerTest.cls
-# **/classes/LightningForgotPasswordController.cls
-# **/classes/LightningForgotPasswordControllerTest.cls
-# **/classes/LightningLoginFormController.cls
-# **/classes/LightningLoginFormControllerTest.cls
-# **/classes/LightningSelfRegisterController.cls
-# **/classes/LightningSelfRegisterControllerTest.cls
-# **/classes/SiteLoginController.cls
-# **/classes/SiteLoginControllerTest.cls
-# **/classes/SiteRegisterController.cls
-# **/classes/SiteRegisterControllerTest.cls
-# **/pages/AnswersHome.page
-# **/pages/ForgotPasswordConfirm.page
-# **/pages/CommunitiesSelfRegConfirm.page
-# **/pages/SiteRegisterConfirm.page
-# **/pages/BandwidthExceeded.page
-# **/pages/IdeasHome.page
-# **/pages/CommunitiesTemplate.page
-# **/pages/SiteTemplate.page
-# #          **/pages/ChangePassword.page
+
+# community classes
+#          **/classes/ChangePasswordController.cls
+#          **/classes/ChangePasswordControllerTest.cls
+#          **/classes/CommunitiesLandingController.cls
+#          **/classes/CommunitiesLandingControllerTest.cls
+**/classes/CommunitiesLoginController.cls
+**/classes/CommunitiesLoginControllerTest.cls
+**/classes/CommunitiesSelfRegConfirmController.cls
+**/classes/CommunitiesSelfRegConfirmControllerTest.cls
+**/classes/CommunitiesSelfRegController.cls
+**/classes/CommunitiesSelfRegControllerTest.cls
+**/classes/ForgotPasswordController.cls
+**/classes/ForgotPasswordControllerTest.cls
+**/classes/LightningForgotPasswordController.cls
+**/classes/LightningForgotPasswordControllerTest.cls
+**/classes/LightningLoginFormController.cls
+**/classes/LightningLoginFormControllerTest.cls
+**/classes/LightningSelfRegisterController.cls
+**/classes/LightningSelfRegisterControllerTest.cls
+**/classes/SiteLoginController.cls
+**/classes/SiteLoginControllerTest.cls
+**/classes/SiteRegisterController.cls
+**/classes/SiteRegisterControllerTest.cls
+**/pages/AnswersHome.page
+**/pages/ForgotPasswordConfirm.page
+**/pages/CommunitiesSelfRegConfirm.page
+**/pages/SiteRegisterConfirm.page
+**/pages/BandwidthExceeded.page
+**/pages/IdeasHome.page
+**/pages/CommunitiesTemplate.page
+**/pages/SiteTemplate.page
+#          **/pages/ChangePassword.page
 # **/pages/InMaintenance.page
 # **/pages/Exception.page
 # **/pages/StdExceptionTemplate.page
-# #          **/pages/CommunitiesLanding.page
-# **/pages/MyProfilePage.page
+#          **/pages/CommunitiesLanding.page
+**/pages/MyProfilePage.page
 # **/pages/FileNotFound.page
-# **/pages/Unauthorized.page
-# **/pages/CommunitiesLogin.page
-# **/pages/SiteLogin.page
-# **/pages/ForgotPassword.page
-# **/pages/UnderConstruction.page
+**/pages/Unauthorized.page
+**/pages/CommunitiesLogin.page
+**/pages/SiteLogin.page
+**/pages/ForgotPassword.page
+**/pages/UnderConstruction.page
 # **/pages/CommunitiesSelfReg.page
-# **/pages/SiteRegister.page
+**/pages/SiteRegister.page
 # **/aura/forgotPassword
-# **/aura/loginForm
-# **/aura/selfRegister
-# **/aura/setExpId
-# **/components/SiteFooter.component
-# **/components/SiteHeader.component
-# **/components/SiteLogin.component
-# **/components/SitePoweredBy.component
+**/aura/loginForm
+**/aura/selfRegister
+**/aura/setExpId
+**/aura/
+**/navigationMenus/*
