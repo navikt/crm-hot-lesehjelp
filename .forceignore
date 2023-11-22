@@ -109,13 +109,13 @@ force-app/main/default/audience/Default_lesehjelp.audience-meta.xml
 # **/pages/Exception.page
 # **/pages/StdExceptionTemplate.page
 #          **/pages/CommunitiesLanding.page
-# **/pages/MyProfilePage.page
+**/pages/MyProfilePage.page
 # **/pages/FileNotFound.page
-# **/pages/Unauthorized.page
-# **/pages/CommunitiesLogin.page
-# **/pages/SiteLogin.page
-# **/pages/ForgotPassword.page
-# **/pages/UnderConstruction.page
+**/pages/Unauthorized.page
+**/pages/CommunitiesLogin.page
+**/pages/SiteLogin.page
+**/pages/ForgotPassword.page
+**/pages/UnderConstruction.page
 # **/pages/CommunitiesSelfReg.page
 # **/pages/SiteRegister.page
 # **/aura/forgotPassword
