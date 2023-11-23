@@ -22,8 +22,8 @@
   }, {
     "components" : [ {
       "componentAttributes" : { },
-      "componentName" : "c:home",
-      "id" : "1a7cbb7b-bfd6-4f62-b105-e60e39f65ca2",
+      "componentName" : "c:hot_lesehjelp_home",
+      "id" : "7d7cb450-152a-4039-8a5e-c5681870aa1c",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
