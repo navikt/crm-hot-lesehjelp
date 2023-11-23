@@ -4,15 +4,13 @@
 
         <div class="container">
             <div class="alerts">
-                <a if:true={waitingClaims} href="https://www.youtube.com" class="alert"
+                <a if:true={waitingClaims} href="" class="alert"
                     ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
                 ></a>
-                <a href="https://www.youtube.com" class="alert"
+                <a href="" class="alert"
                     ><c-alert-banner type="Information" message="INFOTEKST HER."></c-alert-banner
                 ></a>
-                <a href="https://www.youtube.com" class="alert"
-                    ><c-alert-banner type="Error" message="FEIL TEKST HER."></c-alert-banner
-                ></a>
+                <a href="" class="alert"><c-alert-banner type="Error" message="FEIL TEKST HER."></c-alert-banner></a>
             </div>
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
