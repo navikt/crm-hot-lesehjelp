@@ -7,6 +7,8 @@
     background-color: green;
     padding-top: -20px;
     */
+    width: 80%;
+    margin: auto;
 }
 .alerts {
     display: flex;
@@ -63,6 +65,10 @@
     .alert {
         display: block;
     }
+    .content {
+        width: 95%;
+        margin: auto;
+    }
 }
 .box-elements {
     padding: 2px;
@@ -98,10 +104,26 @@
     cursor: pointer;
 }
 .box img {
-    width: 3em;
-    height: 3em;
+    width: 3.5em;
+    height: 3.5em;
 }
-h2 {
+.box-small img {
+    width: 2em;
+    height: 2em;
+}
+.box p {
+    font-size: large;
+    font-family: 'Source Sans Pro';
+}
+.box-small h2 {
+    font-size: large;
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
+}
+.box h2 {
     margin: 0;
     margin-bottom: auto;
+    font-size: large;
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
 }
