@@ -3,7 +3,7 @@ import { getRecord } from 'lightning/uiRecordApi';
 import USER_ID from '@salesforce/user/Id';
 import NAME_FIELD from '@salesforce/schema/User.FirstName';
 
-export default class Hot_welcomeMessage extends LightningElement {
+export default class Hot_welcomeName extends LightningElement {
     @track name;
     @wire(getRecord, {
         recordId: USER_ID,
