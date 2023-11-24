@@ -1,7 +1,8 @@
 .portal-hilsen {
-    font-size: 1.33rem;
+    font-size: 2rem;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     font-family: Arial, sans-serif;
     padding-bottom: 10px;
+    padding-left: 10px;
 }

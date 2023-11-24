@@ -1,8 +1,7 @@
 <template>
     <div class="content">
-        <c-hot_welcome-message></c-hot_welcome-message>
-
         <div class="container">
+            <c-hot_welcome-message></c-hot_welcome-message>
             <div class="alerts">
                 <a if:true={waitingClaims} href="" class="alert"
                     ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
@@ -15,6 +14,7 @@
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
+                    <!-- <c-icon icon="SendFilled"></c-icon> -->
                 </div>
                 <div class="box-elements">
                     <h2>Nytt krav</h2>
