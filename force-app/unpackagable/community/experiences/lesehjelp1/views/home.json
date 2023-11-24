@@ -21,11 +21,9 @@
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<div>     <p><span style='font-size: 48px;'>Let's get started!</span></p>     <ol>         <li><span style='font-size: 18px;'>Unfamiliar with Build Your Own? Click Take a Tour in the Help menu.</span></li>         <li><span style='font-size: 18px;'>Want to add more pages? Take a look at the Pages menu.</span></li>         <li><span style='font-size: 18px;'>Want more components on your page? Drag and drop components from the Components panel.</span></li>         <li><span style='font-size: 18px;'>Want your users to see your company logo? Head on over to the Theme panel.</span></li>         <li><span style='font-size: 18px;'>Refine the look of your site with a custom theme layout. See the Experience Cloud Developer Guide.</span></li>     </ol> </div>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "b6a8d4be-faa4-427f-a309-a259e77d1ba9",
+      "componentAttributes" : { },
+      "componentName" : "c:hot_lesehjelp_home",
+      "id" : "68d78557-d04e-4a76-8e43-322f062b0868",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

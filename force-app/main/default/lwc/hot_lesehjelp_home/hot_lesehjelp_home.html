@@ -1,0 +1,70 @@
+<template>
+    <div class="content">
+        <div class="container">
+            <c-hot_welcome-message></c-hot_welcome-message>
+            <div class="alerts">
+                <a if:true={waitingClaims} href="" class="alert"
+                    ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
+                ></a>
+                <a href="" class="alert"
+                    ><c-alert-banner type="Information" message="INFOTEKST HER."></c-alert-banner
+                ></a>
+                <a href="" class="alert"><c-alert-banner type="Error" message="FEIL TEKST HER."></c-alert-banner></a>
+            </div>
+            <a class="box" href={pageLinks.newClaim}>
+                <div class="box-elements">
+                    <img src={nyttKravImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Nytt krav</h2>
+                    <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
+                </div>
+            </a>
+            <a class="box" href="">
+                <div class="box-elements">
+                    <img src={mineKravImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Mine innsendte krav</h2>
+                    <p>Her får du en oversikt over dine innsendte krav.</p>
+                </div>
+            </a>
+            <a class="box" href="">
+                <div class="box-elements">
+                    <img src={mineVedtakImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Vedtak</h2>
+                    <p>Her får du en oversikt over dine vedtak.</p>
+                </div>
+            </a>
+            <a class="box" href="">
+                <div class="box-elements">
+                    <img src={mineKravTilGodkjenningImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Krav til godkjenning</h2>
+                    <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
+                </div>
+            </a>
+        </div>
+        <div class="container-bottom">
+            <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp">
+                <div class="box-elements">
+                    <img src={veiledningImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Veiledning</h2>
+                </div>
+            </a>
+            <a class="box-small" href="">
+                <div class="box-elements">
+                    <img src={mineSiderImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Mine sider</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</template>
