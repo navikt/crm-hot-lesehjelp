@@ -1,13 +1,13 @@
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import CLAIMSEND from '@salesforce/resourceUrl/TasklistSendFill';
-import FIGURE from '@salesforce/resourceUrl/FigureFill';
-import TASKLIST from '@salesforce/resourceUrl/TaskListFill';
-import FOLDER from '@salesforce/resourceUrl/FolderFill';
-import PERSON from '@salesforce/resourceUrl/PersonFill';
-import INFORMATION from '@salesforce/resourceUrl/InformationFill';
+import CLAIMSEND from '@salesforce/resourceUrl/TasklistSendIcon';
+import FIGURE from '@salesforce/resourceUrl/Figure';
+import TASKLIST from '@salesforce/resourceUrl/TaskList';
+import FOLDER from '@salesforce/resourceUrl/Folder';
+import PERSON from '@salesforce/resourceUrl/Person';
+import INFORMATION from '@salesforce/resourceUrl/Information';
 
-export default class Hot_home extends NavigationMixin(LightningElement) {
+export default class hot_lesehjelp_home extends NavigationMixin(LightningElement) {
     nyttKravImg = CLAIMSEND;
     mineVedtakImg = FIGURE;
     mineKravTilGodkjenningImg = TASKLIST;
