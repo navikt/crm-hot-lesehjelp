@@ -1,16 +1,16 @@
 <template>
     <div class="content">
-        <div class="container">
-            <c-hot_welcome-name></c-hot_welcome-name>
-            <div class="alerts">
-                <a if:true={waitingClaims} href="" class="alert"
-                    ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
-                ></a>
-                <a href="" class="alert"
-                    ><c-alert-banner type="Information" message="INFOTEKST HER."></c-alert-banner
-                ></a>
-                <a href="" class="alert"><c-alert-banner type="Error" message="FEIL TEKST HER."></c-alert-banner></a>
+        <div class="info-container">
+            <div class="welcomeName"><c-hot_welcome-name></c-hot_welcome-name></div>
+            <div class="welcomeAlerts">
+                <div class="alerts">
+                    <a if:true={waitingClaims} href="" class="alert"
+                        ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
+                    ></a>
+                </div>
             </div>
+        </div>
+        <div class="container" if:false={hasDecisions}>
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
@@ -29,6 +29,8 @@
                     <p>Her får du en oversikt over dine innsendte krav.</p>
                 </div>
             </a>
+        </div>
+        <div class="container" if:true={hasDecisions}>
             <a class="box" href="">
                 <div class="box-elements">
                     <img src={mineVedtakImg} alt="Knapp" />
