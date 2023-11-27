@@ -7,16 +7,10 @@
                     <a if:true={waitingClaims} href="" class="alert"
                         ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
                     ></a>
-                    <!-- <a href="" class="alert"
-                        ><c-alert-banner type="Information" message="INFOTEKST HER."></c-alert-banner
-                    ></a>
-                    <a href="" class="alert"
-                        ><c-alert-banner type="Error" message="FEIL TEKST HER."></c-alert-banner
-                    ></a> -->
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" if:false={hasDecisions}>
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
@@ -35,7 +29,9 @@
                     <p>Her får du en oversikt over dine innsendte krav.</p>
                 </div>
             </a>
-            <!-- <a class="box" href="">
+        </div>
+        <div class="container" if:true={hasDecisions}>
+            <a class="box" href="">
                 <div class="box-elements">
                     <img src={mineVedtakImg} alt="Knapp" />
                 </div>
@@ -52,7 +48,7 @@
                     <h2>Krav til godkjenning</h2>
                     <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
                 </div>
-            </a> -->
+            </a>
         </div>
         <div class="container-bottom">
             <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp">
