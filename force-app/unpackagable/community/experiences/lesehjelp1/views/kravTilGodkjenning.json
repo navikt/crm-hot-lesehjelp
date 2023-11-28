@@ -2,7 +2,7 @@
   "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "e6cbc9d4-962f-48a0-8192-fd9aba943ddd",
+  "id" : "6f71221a-f1b7-4903-bd2b-4b4594f00275",
   "label" : "Krav til godkjenning",
   "regions" : [ {
     "components" : [ {
@@ -11,36 +11,36 @@
         "env" : "Dev"
       },
       "componentName" : "c:decoratorHeader",
-      "id" : "193e6d0b-6351-412c-a3aa-32665d3617d8",
+      "id" : "6f99a4be-2c6c-4db0-a0ea-97609ecff457",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "8e6f1f25-25f6-4302-8b22-b621be6f127f",
+    "id" : "02728e8d-5421-4f2d-8c16-8756a1a31399",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:hot_claimList",
-      "id" : "90a88ecb-a119-4ec7-8d8c-1e2f025f45c0",
+      "id" : "340efbbd-d0d3-4172-a3d5-979019f4eb9b",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "475dc278-17cb-447e-8deb-6c9615c600e1",
+    "id" : "c828343b-520f-4760-9e90-28a2e84ee6f9",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:decoratorFooter",
-      "id" : "25a9fd27-f203-4e25-9e89-254ae85ded11",
+      "id" : "3880dee6-1b68-41d6-a8cf-277e3062e39e",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "4f132b24-7884-462f-87e7-c7e0ea864cf7",
+    "id" : "14c90544-956d-46c1-95d1-4ec7b642e1a3",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -51,15 +51,15 @@
         "title" : "Krav til godkjenning"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "c54b7498-ec89-47cc-987a-6307207cab34",
+      "id" : "5c2acd7f-96e5-4911-a93d-85cebb434ba2",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "33d24bf1-263c-4613-8d5e-1f521754f2fe",
+    "id" : "bd59c94f-530f-47ef-9c19-6b174243861a",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
   "type" : "view",
-  "viewType" : "custom-mottat-krav"
+  "viewType" : "custom-krav-til-godkjenning"
 }

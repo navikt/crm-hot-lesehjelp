@@ -1,12 +1,12 @@
 {
-  "activeViewId" : "e6cbc9d4-962f-48a0-8192-fd9aba943ddd",
+  "activeViewId" : "6f71221a-f1b7-4903-bd2b-4b4594f00275",
   "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
   "configurationTags" : [ ],
   "devName" : "Krav_til_godkjenning__c",
-  "id" : "20ce5647-f366-44c4-94c7-8f7d41df3281",
+  "id" : "6b80b08a-b2d7-470d-8457-18ac0e2123d6",
   "label" : "Krav til godkjenning",
   "pageAccess" : "UseParent",
-  "routeType" : "custom-mottat-krav",
+  "routeType" : "custom-krav-til-godkjenning",
   "type" : "route",
   "urlPrefix" : "krav-til-godkjenning"
 }
