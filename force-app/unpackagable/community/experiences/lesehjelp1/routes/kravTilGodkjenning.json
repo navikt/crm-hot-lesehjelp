@@ -8,5 +8,5 @@
   "pageAccess" : "UseParent",
   "routeType" : "custom-mottat-krav",
   "type" : "route",
-  "urlPrefix" : "mottat-krav"
+  "urlPrefix" : "krav-til-godkjenning"
 }

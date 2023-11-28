@@ -29,7 +29,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
             newClaim: baseURL + '/nytt-krav',
             myClaimantClaims: baseURL + '/mine-krav',
             myEntitlements: baseURL + '/mine-vedtak',
-            myRecievedClaims: baseURL + '/mottat-krav',
+            myClaimsToReview: baseURL + '/krav-til-godkjenning',
             myPage: baseURL + '/mine-sider',
             veiledning: 'https://www.nav.no/lese-og-sekretaerhjelp'
         };
