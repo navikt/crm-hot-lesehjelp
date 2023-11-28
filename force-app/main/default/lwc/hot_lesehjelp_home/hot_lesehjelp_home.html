@@ -20,18 +20,18 @@
                     <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
                 </div>
             </a>
-            <a class="box" href="">
+            <a class="box" href={pageLinks.myClaimantClaims}>
                 <div class="box-elements">
                     <img src={mineKravImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
                     <h2>Mine innsendte krav</h2>
-                    <p>Her får du en oversikt over dine innsendte krav.</p>
+                    <p>Her får du en oversikt over alle dine innsendte krav.</p>
                 </div>
             </a>
         </div>
         <div class="container" if:true={hasDecisions}>
-            <a class="box" href="">
+            <a class="box" href={pageLinks.myDecisions}>
                 <div class="box-elements">
                     <img src={mineVedtakImg} alt="Knapp" />
                 </div>
@@ -40,7 +40,7 @@
                     <p>Her får du en oversikt over dine vedtak.</p>
                 </div>
             </a>
-            <a class="box" href="">
+            <a class="box" href={pageLinks.myRecievedClaims}>
                 <div class="box-elements">
                     <img src={mineKravTilGodkjenningImg} alt="Knapp" />
                 </div>
