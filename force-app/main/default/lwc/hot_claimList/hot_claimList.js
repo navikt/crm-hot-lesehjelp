@@ -10,7 +10,7 @@ export default class Hot_claimList extends LightningElement {
         },
         {
             label: 'Krav til godkjenning',
-            href: 'mottat-krav'
+            href: 'krav-til-godkjenning'
         }
     ];
 }
