@@ -28,7 +28,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
         this.pageLinks = {
             newClaim: baseURL + '/nytt-krav',
             myClaimantClaims: baseURL + '/mine-krav',
-            myDecisions: baseURL + '/mine-vedtak',
+            myEntitlements: baseURL + '/mine-vedtak',
             myRecievedClaims: baseURL + '/mottat-krav',
             myPage: baseURL + '/mine-sider',
             veiledning: 'https://www.nav.no/lese-og-sekretaerhjelp'
