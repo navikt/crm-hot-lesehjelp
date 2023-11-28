@@ -16,8 +16,8 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
     veiledningImg = INFORMATION;
 
     @track pageLinks = {};
-    @track waitingClaims = true;
-    @track hasDecisions = false;
+    @track waitingClaims = false;
+    @track hasDecisions = true;
 
     connectedCallback() {
         sessionStorage.clear(); // Clear session storage when on home
@@ -27,10 +27,10 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
         let baseURL = baseURLArray.join('/');
         this.pageLinks = {
             newClaim: baseURL + '/nytt-krav',
-            myRequests: baseURL + '/innsendte-krav',
-            myRequestsOther: baseURL + '/mine-vedtak',
-            myPage: baseURL + '/mien-krav',
-            myThreads: baseURL + '/mine-sider',
+            myClaimantClaims: baseURL + '/mine-krav',
+            myEntitlements: baseURL + '/mine-vedtak',
+            myRecievedClaims: baseURL + '/mottat-krav',
+            myPage: baseURL + '/mine-sider',
             veiledning: 'https://www.nav.no/lese-og-sekretaerhjelp'
         };
     }
