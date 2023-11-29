@@ -69,6 +69,11 @@
         <field>HOT_Claim__c.Total_hours__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_EnititlementForReadingAid__c.Person__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>HOT Lesehjelp Admin</label>
     <objectPermissions>
@@ -89,12 +94,25 @@
         <object>HOT_Claim__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>HOT_EnititlementForReadingAid__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <tabSettings>
         <tab>HOT_ClaimLineItem__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>HOT_Claim__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>HOT_EnititlementForReadingAid__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
