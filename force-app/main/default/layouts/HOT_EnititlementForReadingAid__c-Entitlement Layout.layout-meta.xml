@@ -24,7 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Total_Hours__c</field>
+                <field>TotalHours__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
