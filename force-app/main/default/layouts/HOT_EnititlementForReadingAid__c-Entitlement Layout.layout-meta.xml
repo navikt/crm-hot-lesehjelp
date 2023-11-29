@@ -16,11 +16,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>From_Date__c</field>
+                <field>FromDateTime__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>To_Date__c</field>
+                <field>ToDateTime__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
