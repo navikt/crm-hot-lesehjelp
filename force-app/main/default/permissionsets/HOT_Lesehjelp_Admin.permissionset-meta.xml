@@ -66,7 +66,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>HOT_Claim__c.Total_hours__c</field>
+        <field>HOT_Claim__c.TotalHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

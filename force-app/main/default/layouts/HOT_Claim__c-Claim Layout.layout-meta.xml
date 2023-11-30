@@ -24,7 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Total_hours__c</field>
+                <field>TotalHours__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
