@@ -1,0 +1,8 @@
+.button-container {
+    text-align: center;
+    max-width: 792px;
+    padding: 3rem 2rem 0rem 2rem;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}

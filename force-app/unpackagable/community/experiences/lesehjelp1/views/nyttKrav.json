@@ -2,8 +2,8 @@
   "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "5b02e13a-0e51-4fa3-9890-e7e8bfe69f57",
-  "label" : "Home",
+  "id" : "7a459c90-7f08-40d0-acab-fd5de1731c48",
+  "label" : "Nytt krav",
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
@@ -11,36 +11,36 @@
         "env" : "Dev"
       },
       "componentName" : "c:decoratorHeader",
-      "id" : "3d734f87-6cca-4dea-a318-670b96463bf7",
+      "id" : "ade30180-c119-459d-b001-ffe3dccbabc4",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "4fd1702d-59d5-4494-960b-48424d685a22",
+    "id" : "b023953a-8ee3-4051-8dcb-0e3b8bc7c3e7",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
-      "componentName" : "c:hot_lesehjelp_home",
-      "id" : "68d78557-d04e-4a76-8e43-322f062b0868",
+      "componentName" : "c:hot_claimFormWrapper",
+      "id" : "073e2568-a23a-4d4a-b4a0-d15301b56e07",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "6914476d-b2d6-47e7-8408-bb318afcfb33",
+    "id" : "381e13a1-18bb-4d67-bc28-63617db0af06",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:decoratorFooter",
-      "id" : "295918d5-d77d-4f2b-b352-18df3d7abf52",
+      "id" : "571d726a-e64f-4983-aff1-f711ddef0531",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "665a8945-5f14-4040-a0d4-5d642608cd82",
+    "id" : "ce4f8039-6baf-4a1a-9cbb-9bebb346026b",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -48,18 +48,18 @@
       "componentAttributes" : {
         "customHeadTags" : "",
         "description" : "",
-        "title" : "Home"
+        "title" : "Nytt krav"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "5bd000af-df33-4af3-ad99-2d1214476661",
+      "id" : "c46ae370-9d35-48d1-9c83-551905b3dbdd",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "5e02e912-21bb-4d67-97b2-eac6b0e3f56f",
+    "id" : "be244519-bae9-42a8-811b-5d2e640cc8f5",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
   "type" : "view",
-  "viewType" : "home"
+  "viewType" : "custom-nytt-krav"
 }

@@ -1,0 +1,46 @@
+.listClass {
+    padding: 2vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: beige;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+.travelTimesToInputContainer {
+    padding-bottom: 1vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.travelTimesFromInputContainer {
+    padding-bottom: 1vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.travelTimesRadioButtonContainer {
+    width: 100%;
+    padding-top: 1rem;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .listClass {
+        align-items: start;
+        padding-bottom: 1vw;
+        display: flex;
+        flex-direction: column;
+    }
+}
+.header {
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    line-height: 1.3rem;
+    margin: 0;
+    font-family: Source Sans Pro, Arial, sans-serif;
+    color: #262626;
+}
+.header:focus {
+    outline: none;
+}
