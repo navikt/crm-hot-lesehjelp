@@ -71,6 +71,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.UserPersonNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Person__c.HOT_isLOS__c</field>
         <readable>true</readable>
     </fieldPermissions>
