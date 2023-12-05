@@ -109,6 +109,11 @@
         <field>HOT_Claim__c.TotalHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Person__c.HOT_isLOS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>HOT Lesehjelp Admin</label>
     <objectPermissions>
