@@ -8,23 +8,7 @@
                 <h2 class="typo-overskrift">Krav til godkjenning</h2>
                 <div if:true={showRecievedClaimslist} class="recievedClaimslist">
                     <div>
-                        <!-- <template for:each={recievedClaims} for:item="claims">
-                            <button
-                                key={claim.Id}
-                                class="claim-single"
-                                data-id={claim.Id}
-                                onclick={goToClaim}
-                            >
-                                <div class="table-data">
-                                    <h2>{claim.HOT_Subject__c}</h2>
-                                    <p class="cursive">
-                                        {notification.created} {notification.HOT_NotificationChannel__c}
-                                    </p>
-                                </div>
-                                <br />
-                                <p>{notification.HOT_NotificationText__c}</p>
-                            </button>
-                        </template> -->
+                        <!-- listen kommer her -->
                     </div>
                     <div if:true={noRecievedClaims} style="text-align: center">
                         <br />
