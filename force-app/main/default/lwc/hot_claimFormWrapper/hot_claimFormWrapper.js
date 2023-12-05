@@ -7,6 +7,10 @@ export default class Hot_claimFormWrapper extends LightningElement {
     @track recordId = null;
     @track spin = false;
     @track isLos = true;
+    @track previousPage = 'home';
+    @track claimTypeResult = {};
+    @track currentPage = '';
+
     breadcrumbs = [
         {
             label: 'Lesehjelp',
@@ -17,15 +21,11 @@ export default class Hot_claimFormWrapper extends LightningElement {
             href: 'nytt-krav'
         }
     ];
-    @track previousPage = 'home';
-    @track claimTypeResult = {};
-    @track currentPage = '';
 
     handleRequestType(event) {
         this.claimTypeResult = event.detail;
         this.claimTypeChosen = true;
         this.fieldValues.Type__c = this.claimTypeResult.type;
-        console.log('denne' + this.claimTypeResult.type);
         this.currentPage = 'userInfo';
     }
     handleBackButtonClicked() {
@@ -40,7 +40,6 @@ export default class Hot_claimFormWrapper extends LightningElement {
         for (let f in this.fieldValues) {
             console.log(this.fieldValues[f]);
         }
-        console.log('navn: ' + this.fieldValues.UserName__c);
     }
     handleNextButtonClicked() {
         this.getComponentValues();
@@ -78,7 +77,6 @@ export default class Hot_claimFormWrapper extends LightningElement {
             this.fieldValues[k] = fields[k];
         }
     }
-    //
     setComponentValuesInWrapper(fields) {
         for (let k in fields) {
             this.componentValues[k] = fields[k];
