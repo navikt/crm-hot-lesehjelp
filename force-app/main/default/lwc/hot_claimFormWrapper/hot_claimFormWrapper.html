@@ -4,6 +4,16 @@
             <div class="hot">
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
+            <c-alertdialog
+                header={modalHeader}
+                content={modalContent}
+                desktop-style="text-align: center; white-space: pre-line; min-width: 50%;"
+                mobile-style="text-align: center; white-space: pre-line; max-width: 100%; min-width: 100%;"
+                center-buttons="true"
+                no-cancel-button={noCancelButton}
+                onbuttonclick={handleAlertDialogClick}
+            >
+            </c-alertdialog>
             <main class="main-content submitted-false">
                 <div class="skjema skjema-max-width">
                     <a if:false={isLos} href="" class="alert"

@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import createNewClaimFromCommunity from '@salesforce/apex/hot_claimController.createNewClaimFromCommunity';
 
 export default class Hot_claimFormWrapper extends LightningElement {
     @track claimTypeChosen = false;
@@ -123,12 +124,29 @@ export default class Hot_claimFormWrapper extends LightningElement {
         // } else {
         //     this.spin = false;
         // }
+        //this.handleError();
+        //JSON.stringify(this.request);
     }
-    handleSuccess() {
+    handleSuccess(event) {
         console.log('sucess');
     }
-    handleError() {
-        console.log('error');
+    modalHeader = '';
+    modalContent = '';
+    noCancelButton = true;
+
+    handleError(event) {
+        console.log('error:::::' + event.detail.detail);
+        this.template.querySelector('[data-id="saveButton"]').disabled = false;
+        this.modalHeader = 'Noe gikk galt';
+        this.noCancelButton = true;
+        // if (event.detail.detail === 'Fant ingen virksomhet med dette organisasjonsnummeret.') {
+        //     this.modalContent =
+        //         'Fant ingen virksomhet med organisasjonsnummer.';
+        // } else {
+        this.modalContent = 'lol ' + event.detail.detail;
+        // }
+        this.template.querySelector('c-alertdialog').showModal();
+        this.spin = false;
     }
     hideFormAndShowLoading() {
         this.template.querySelector('.submitted-false').classList.add('hidden');
@@ -172,10 +190,34 @@ export default class Hot_claimFormWrapper extends LightningElement {
             console.log('Reisetid fra oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelFromString);
             console.log('-------------------------------------------------');
         }
+
+        this.template.querySelector('lightning-record-edit-form').submit(this.fieldValues);
+
+        // const claimLineItems = timeInput.map((item) => {
+        //     return { ...item };
+        // });
+
+        // try {
+        //     createNewClaimFromCommunity({
+        //         userName: this.fieldValues.UserName__c,
+        //         userPersonNumber: this.fieldValues.UserPersonNumber__c,
+        //         userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
+        //         claimType: this.fieldValues.Type__c,
+        //         onEmployer: String(selectedValueOnEmployer),
+        //         employerName: this.fieldValues.EmployerName__c,
+        //         organizationNumber: this.fieldValues.EmployerNumber__c,
+        //         employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+        //         claimLineItems: claimLineItems
+        //     }).then((result) => {
+        //         console.log('lager' + result);
+        //     });
+        // } catch (error) {
+        //     console.log('failser' + error);
+        // }
+
         //console.log(this.componentValues);
         // test.Status__c = 'Sent';
         // console.log(this.test.Status__c);
-        // this.template.querySelector('lightning-record-edit-form').submit(this.test);
     }
     signingClaim() {}
 }
