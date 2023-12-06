@@ -26,7 +26,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
     handleRequestType(event) {
         this.claimTypeResult = event.detail;
         this.claimTypeChosen = true;
-        this.fieldValues.Type__c = this.claimTypeResult.type;
+        this.fieldValues.ClaimType__c = this.claimTypeResult.type;
         this.currentPage = 'userInfo';
     }
     handleBackButtonClicked() {
@@ -100,35 +100,14 @@ export default class Hot_claimFormWrapper extends LightningElement {
         event.preventDefault();
         console.log('submitter');
         this.spin = true;
-        // this.getFieldValuesFromSubForms();
-        // let status = 'Åpen';
-        // if (this.isEditOrCopyMode) {
-        //     this.deleteMarkedFiles();
-        //     status = await getRequestStatus({ recordId: this.recordId });
-        //     if (status !== null && status !== 'Åpen') {
-        //         this.showModalOnEditNotAllowed();
-        //     }
-        // }
-        //let hasErrors = this.handleValidation();
-        // if (!hasErrors && (status === 'Åpen' || status === null)) {
         this.template.querySelector('[data-id="saveButton"]').disabled = true;
-        //     this.promptOverlap().then((overlapOk) => {
-        //         if (overlapOk) {
+
         this.hideFormAndShowLoading();
         this.submitForm();
-        //             this.submitForm();
-        //         } else {
-        //             this.spin = false;
-        //         }
-        //     });
-        // } else {
-        //     this.spin = false;
-        // }
-        //this.handleError();
-        //JSON.stringify(this.request);
     }
     handleSuccess(event) {
         console.log('sucess');
+        this.recordId = event.detail.id;
     }
     modalHeader = '';
     modalContent = '';
@@ -159,7 +138,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
         // FOR DEBUGGING. HENTER UT ALLE FELTENE
         console.log('Antall kravlinjer:' + timeInput.length);
-        console.log('Type: ' + this.fieldValues.Type__c);
+        console.log('Type: ' + this.fieldValues.ClaimType__c);
         console.log('Brukers navn: ' + this.fieldValues.UserName__c);
         const selectedValue = this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons.find(
             (option) => option.checked
@@ -190,7 +169,15 @@ export default class Hot_claimFormWrapper extends LightningElement {
             console.log('Reisetid fra oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelFromString);
             console.log('-------------------------------------------------');
         }
-
+        if (
+            selectedValueOnEmployer == 'false' ||
+            selectedValueOnEmployer == 'null' ||
+            selectedValueOnEmployer == null
+        ) {
+            this.fieldValues.OnEmployer__c = 'false';
+        } else {
+            this.fieldValues.OnEmployer__c = selectedValueOnEmployer;
+        }
         this.template.querySelector('lightning-record-edit-form').submit(this.fieldValues);
 
         // const claimLineItems = timeInput.map((item) => {
@@ -202,7 +189,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
         //         userName: this.fieldValues.UserName__c,
         //         userPersonNumber: this.fieldValues.UserPersonNumber__c,
         //         userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
-        //         claimType: this.fieldValues.Type__c,
+        //         claimType: this.fieldValues.ClaimType__c,
         //         onEmployer: String(selectedValueOnEmployer),
         //         employerName: this.fieldValues.EmployerName__c,
         //         organizationNumber: this.fieldValues.EmployerNumber__c,
