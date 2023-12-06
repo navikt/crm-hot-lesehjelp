@@ -15,8 +15,8 @@ export default class Hot_claimForm extends LightningElement {
     };
     @track componentValues = {
         onEmployerRadioButtons: [
-            { label: 'Ja', value: 'yes' },
-            { label: 'Nei', value: 'no', checked: true }
+            { label: 'Ja', value: 'true' },
+            { label: 'Nei', value: 'false', checked: true }
         ],
         isOptionalFields: false
     };
@@ -35,7 +35,7 @@ export default class Hot_claimForm extends LightningElement {
             }
         }
         const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
-        if (selectedValue.value === 'yes') {
+        if (selectedValue.value === 'true') {
             this.employerClaim = true;
         } else {
             this.employerClaim = false;
