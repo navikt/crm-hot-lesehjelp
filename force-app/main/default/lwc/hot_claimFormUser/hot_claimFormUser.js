@@ -1,5 +1,5 @@
 import { LightningElement, track, wire, api } from 'lwc';
-export default class hot_claimFormUser extends LightningElement {
+export default class Hot_claimFormUser extends LightningElement {
     @track isPersonNumber = true;
     @track fieldValues = {
         UserName__c: '',
