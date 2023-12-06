@@ -108,7 +108,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
         //         this.showModalOnEditNotAllowed();
         //     }
         // }
-        let hasErrors = this.handleValidation();
+        //let hasErrors = this.handleValidation();
         // if (!hasErrors && (status === 'Åpen' || status === null)) {
         this.template.querySelector('[data-id="saveButton"]').disabled = true;
         //     this.promptOverlap().then((overlapOk) => {
