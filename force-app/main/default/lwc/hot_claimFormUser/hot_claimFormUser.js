@@ -1,5 +1,5 @@
 import { LightningElement, track, wire, api } from 'lwc';
-export default class Hot_claimFormUser extends LightningElement {
+export default class hot_claimFormUser extends LightningElement {
     @track isPersonNumber = true;
     @track fieldValues = {
         UserName__c: '',
@@ -44,6 +44,11 @@ export default class Hot_claimFormUser extends LightningElement {
                 hasErrors += 1;
             }
         });
+        hasErrors += this.isPersonNumber
+            ? this.template.querySelectorAll('c-input')[1].validatePersonNumber()
+            : this.template
+                  .querySelectorAll('c-input')[1]
+                  .validatePhoneLength('Telefonnummer må være 8 siffer langt (ingen landskode).');
         return hasErrors;
     }
 
