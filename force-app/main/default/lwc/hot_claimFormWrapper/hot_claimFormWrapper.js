@@ -139,6 +139,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
 
     submitForm() {
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
+        // FOR DEBUGGING. HENTER UT ALLE FELTENE
         console.log('Antall kravlinjer:' + timeInput.length);
         console.log('Type: ' + this.fieldValues.Type__c);
         console.log('Brukers navn: ' + this.fieldValues.UserName__c);
