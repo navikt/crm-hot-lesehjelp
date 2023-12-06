@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UserPhoneNumber__c</fullName>
-    <description>Phone number of the user who got the reading aid.</description>
+    <description>Phone number of the user who got the reading aid. From form</description>
     <externalId>false</externalId>
     <label>User Phone Number</label>
     <required>false</required>
