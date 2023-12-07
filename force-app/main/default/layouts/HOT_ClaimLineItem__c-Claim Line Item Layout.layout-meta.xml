@@ -52,15 +52,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>TravelFare__c</field>
+                <field>TravelRate__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>StandardFare__c</field>
+                <field>NormalRate__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>AdditionalFare__c</field>
+                <field>IncreasedRate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
