@@ -94,10 +94,11 @@ export default class Hot_claimFormWrapper extends LightningElement {
             this.setComponentValuesInWrapper(reqFormUser.getComponentValues());
         }
     }
-    async handleSubmit(event) {
+    handleSubmit(event) {
+        event.preventDefault();
+        //event.stopPropagation();
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        event.preventDefault();
         console.log('submitter');
         this.spin = true;
         this.template.querySelector('[data-id="saveButton"]').disabled = true;
