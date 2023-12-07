@@ -29,13 +29,13 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.Weekday__c</field>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.Task__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.WorkTypeName__c</field>
+        <field>HOT_ClaimLineItem__c.Weekday__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

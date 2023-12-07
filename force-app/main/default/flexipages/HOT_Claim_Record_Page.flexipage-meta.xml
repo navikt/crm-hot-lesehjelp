@@ -102,6 +102,36 @@
                 <identifier>RecordTotalHoursUtdanning_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Account__c</fieldItem>
+                <identifier>RecordAccount_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CreatedById</fieldItem>
+                <identifier>RecordCreatedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LastModifiedById</fieldItem>
+                <identifier>RecordLastModifiedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-f3bb207f-cc3e-4c81-9e89-ccc7fd5339e3</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -112,8 +142,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.IsNotificationSent__c</fieldItem>
-                <identifier>RecordIsNotificationSent_cField</identifier>
+                <fieldItem>Record.ClaimType__c</fieldItem>
+                <identifier>RecordClaimType_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -132,8 +162,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Account__c</fieldItem>
-                <identifier>RecordAccount_cField</identifier>
+                <fieldItem>Record.OnEmployer__c</fieldItem>
+                <identifier>RecordOnEmployer_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -142,8 +172,15 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.LastModifiedById</fieldItem>
-                <identifier>RecordLastModifiedByIdField</identifier>
+                <fieldItem>Record.EmployerName__c</fieldItem>
+                <identifier>RecordEmployerName_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.OnEmployer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -152,8 +189,35 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.CreatedById</fieldItem>
-                <identifier>RecordCreatedByIdField</identifier>
+                <fieldItem>Record.OrganizationNumber__c</fieldItem>
+                <identifier>RecordOrganizationNumber_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.OnEmployer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EmployerExpensesPerHour__c</fieldItem>
+                <identifier>RecordEmployerExpensesPerHour_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IsNotificationSent__c</fieldItem>
+                <identifier>RecordIsNotificationSent_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b9ed18d5-948e-4786-a959-b5cb0ae8a21d</name>

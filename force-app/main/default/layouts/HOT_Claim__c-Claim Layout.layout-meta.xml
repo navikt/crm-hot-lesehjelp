@@ -46,6 +46,10 @@
                 <behavior>Required</behavior>
                 <field>Claimant__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OnEmployer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
