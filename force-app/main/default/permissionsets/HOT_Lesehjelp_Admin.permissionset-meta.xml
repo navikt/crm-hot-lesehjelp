@@ -6,7 +6,7 @@
     </applicationVisibilities>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.AdditionalFare__c</field>
+        <field>HOT_ClaimLineItem__c.IncreasedRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -26,7 +26,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.StandardFare__c</field>
+        <field>HOT_ClaimLineItem__c.NormalRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -36,7 +36,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.TravelFare__c</field>
+        <field>HOT_ClaimLineItem__c.TravelRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
