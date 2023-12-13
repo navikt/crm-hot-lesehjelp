@@ -39,10 +39,6 @@
                 <field>Weekday__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>WorkTypeName__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>TypeOfTask__c</field>
             </layoutItems>
