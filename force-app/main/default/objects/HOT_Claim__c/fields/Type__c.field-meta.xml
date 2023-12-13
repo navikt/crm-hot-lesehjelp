@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Arbeid</fullName>
+                <default>false</default>
+                <label>Arbeid</label>
+            </value>
+            <value>
+                <fullName>Dagliglivet</fullName>
+                <default>false</default>
+                <label>Dagliglivet</label>
+            </value>
+            <value>
+                <fullName>Organisasjon</fullName>
+                <default>false</default>
+                <label>Organisasjon</label>
+            </value>
+            <value>
+                <fullName>Utdanning, opplæring eller arbeidstrening</fullName>
+                <default>false</default>
+                <label>Utdanning, opplæring eller arbeidstrening</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -70,7 +70,7 @@
                             <value>Status__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Total_hours__c</value>
+                            <value>TotalHours__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -133,7 +133,7 @@
                             <value>Status__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Total_hours__c</value>
+                            <value>TotalHours__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
