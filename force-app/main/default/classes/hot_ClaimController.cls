@@ -58,12 +58,12 @@ public without sharing class hot_ClaimController {
 
                 String startTimeClaim =String.valueOf(claimLineItem.get('startTime'));
                 Long timestampMillisStart = Long.valueOf(startTimeClaim);
-                Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart); // divide by 1000 to convert to seconds
+                Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
                 cli.StartTime__c = convertedDatetimeStart;
 
                 String endTimeClaim =String.valueOf(claimLineItem.get('endTime'));
                 Long timestampMillisEnd = Long.valueOf(endTimeClaim);
-                Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd); // divide by 1000 to convert to seconds
+                Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
                 cli.EndTime__c = convertedDatetimeEnd;
 
                 String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
@@ -93,8 +93,8 @@ public without sharing class hot_ClaimController {
                 }
                 else{
                     cli.HasTravelFrom__c=true;
-                    //legg inn tider her
-                     String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
+
+                    String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
                     Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
                     cli.TravelFrom__c =convertedTravelFromDate;
 
@@ -103,7 +103,7 @@ public without sharing class hot_ClaimController {
                     Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
                     cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
 
-                     String travelFromEndTime =String.valueOf(claimLineItem.get('endTimeTravelFrom'));
+                    String travelFromEndTime =String.valueOf(claimLineItem.get('endTimeTravelFrom'));
                     Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
                     Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
                     cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
@@ -112,7 +112,7 @@ public without sharing class hot_ClaimController {
          }
          try{
             insert claimLineItemList;
-            return 'la'+claimLineItemList.size();
+            return '';
         }
         catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
@@ -133,8 +133,8 @@ public without sharing class hot_ClaimController {
 
          try{
             insert newClaim;
-            String he=createClaimLineItems(newClaim, claimLineItems);
-            return 'ok'+he;
+            String result=createClaimLineItems(newClaim, claimLineItems);
+            return 'ok'+result;
         }
         catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
@@ -159,7 +159,8 @@ public without sharing class hot_ClaimController {
 
         try{
             insert newClaim;
-            return 'ok';
+            String result=createClaimLineItems(newClaim, claimLineItems);
+            return 'ok'+result;
         }
         catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();

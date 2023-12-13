@@ -22,70 +22,62 @@
                             message="Det ser ikke ut som du er registrert som lesehjelp. Første gangen må du ta kontakt med NAV for å få et nummer."
                         ></c-alert-banner
                     ></a>
-                    <lightning-record-edit-form
-                        object-api-name="HOT_Claim__c"
-                        density="comfy"
-                        onsuccess={handleSuccess}
-                        onerror={handleError}
-                        onsubmit={handleSubmit}
-                    >
-                        <c-hot_claim-form-type
-                            if:false={claimTypeChosen}
-                            onclaimformtyperesult={handleRequestType}
-                            previous-page={previousPage}
-                        ></c-hot_claim-form-type>
-                        <div if:true={claimTypeChosen} class="actual-form">
-                            <c-hot_claim-form-user
-                                parent-field-values={fieldValues}
-                                if:false={claimTypeResult.claimForm}
-                                class="subform"
-                                parent-claim-component-values={componentValues}
-                            ></c-hot_claim-form-user>
-                            <c-hot_claim-form
-                                class="subform"
-                                if:true={claimTypeResult.claimForm}
-                                parent-field-values={fieldValues}
-                                parent-claim-component-values={componentValues}
-                            ></c-hot_claim-form>
-                            <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
-                                <c-checkbox
-                                    label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
-                                    oncheckboxclick={signingClaim}
-                                    name="confirmationCheckbox"
-                                    aria-label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
-                                ></c-checkbox>
-                            </div>
-                            <div class="button-container">
-                                <c-button
-                                    button-label="Send inn"
-                                    button-styling="primary"
-                                    type="submit"
-                                    data-id="saveButton"
-                                    if:true={claimTypeResult.claimForm}
-                                    onbuttonclick={handleSendButtonClicked}
-                                    desktop-style="width: 8rem; justify-content: center"
-                                    mobile-style="width: 8rem; justify-content: center"
-                                    style="padding-bottom: 1em"
-                                ></c-button>
-                                <c-button
-                                    button-label="Neste"
-                                    button-styling="primary"
-                                    if:false={claimTypeResult.claimForm}
-                                    onbuttonclick={handleNextButtonClicked}
-                                    desktop-style="width: 8rem; justify-content: center"
-                                    mobile-style="width: 8rem; justify-content: center"
-                                    style="padding-bottom: 1em"
-                                ></c-button>
-                                <c-button
-                                    button-label="Forrige"
-                                    button-styling="secondary"
-                                    onbuttonclick={handleBackButtonClicked}
-                                    desktop-style="width: 8rem; justify-content: center"
-                                    mobile-style="width: 8rem; justify-content: center"
-                                ></c-button>
-                            </div>
+                    <c-hot_claim-form-type
+                        if:false={claimTypeChosen}
+                        onclaimformtyperesult={handleRequestType}
+                        previous-page={previousPage}
+                    ></c-hot_claim-form-type>
+                    <div if:true={claimTypeChosen} class="actual-form">
+                        <c-hot_claim-form-user
+                            parent-field-values={fieldValues}
+                            if:false={claimTypeResult.claimForm}
+                            class="subform"
+                            parent-claim-component-values={componentValues}
+                        ></c-hot_claim-form-user>
+                        <c-hot_claim-form
+                            class="subform"
+                            if:true={claimTypeResult.claimForm}
+                            parent-field-values={fieldValues}
+                            parent-claim-component-values={componentValues}
+                        ></c-hot_claim-form>
+                        <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
+                            <c-checkbox
+                                label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                                oncheckboxclick={signingClaim}
+                                name="confirmationCheckbox"
+                                aria-label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                            ></c-checkbox>
                         </div>
-                    </lightning-record-edit-form>
+                        <div class="button-container">
+                            <c-button
+                                button-label="Send inn"
+                                button-styling="primary"
+                                type="submit"
+                                data-id="saveButton"
+                                if:true={claimTypeResult.claimForm}
+                                onbuttonclick={handleSendButtonClicked}
+                                desktop-style="width: 8rem; justify-content: center"
+                                mobile-style="width: 8rem; justify-content: center"
+                                style="padding-bottom: 1em"
+                            ></c-button>
+                            <c-button
+                                button-label="Neste"
+                                button-styling="primary"
+                                if:false={claimTypeResult.claimForm}
+                                onbuttonclick={handleNextButtonClicked}
+                                desktop-style="width: 8rem; justify-content: center"
+                                mobile-style="width: 8rem; justify-content: center"
+                                style="padding-bottom: 1em"
+                            ></c-button>
+                            <c-button
+                                button-label="Forrige"
+                                button-styling="secondary"
+                                onbuttonclick={handleBackButtonClicked}
+                                desktop-style="width: 8rem; justify-content: center"
+                                mobile-style="width: 8rem; justify-content: center"
+                            ></c-button>
+                        </div>
+                    </div>
                 </div>
             </main>
             <div class="main-content hidden submitted-true">
@@ -110,9 +102,9 @@
                     </h2>
                     <br />
                     <c-button
-                        button-label="Gå til mine bestillinger"
+                        button-label="Gå til mine krav"
                         button-styling="primary"
-                        onbuttonclick={goToMyRequests}
+                        onbuttonclick={goToMyClaims}
                         desktop-style="width: 16rem; justify-content: center"
                         mobile-style="width: 16rem; justify-content: center"
                     ></c-button>

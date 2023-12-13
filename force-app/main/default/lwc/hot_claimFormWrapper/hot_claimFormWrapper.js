@@ -1,7 +1,8 @@
 import { LightningElement, track } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/hot_claimController.createNewClaimFromCommunity';
 
-export default class Hot_claimFormWrapper extends LightningElement {
+export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
     @track fieldValues = {};
     @track componentValues = {};
@@ -11,6 +12,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
     @track previousPage = 'home';
     @track claimTypeResult = {};
     @track currentPage = '';
+    @track submitSuccessMessage = '';
 
     breadcrumbs = [
         {
@@ -52,10 +54,14 @@ export default class Hot_claimFormWrapper extends LightningElement {
         }
     }
     handleSendButtonClicked() {
-        let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
-        console.log('timeInput: ' + timeInput[0].startTimeString);
-        console.log('timeInput: ' + timeInput[0].task);
-        console.log('timeInput: ' + timeInput[1].task);
+        this.getComponentValues();
+        this.getFieldValuesFromSubForms();
+        console.log('submitter');
+        this.spin = true;
+        this.template.querySelector('[data-id="saveButton"]').disabled = true;
+
+        this.hideFormAndShowLoading();
+        this.submitForm();
     }
 
     handleValidation() {
@@ -94,45 +100,35 @@ export default class Hot_claimFormWrapper extends LightningElement {
             this.setComponentValuesInWrapper(reqFormUser.getComponentValues());
         }
     }
-    handleSubmit(event) {
-        event.preventDefault();
-        //event.stopPropagation();
-        this.getComponentValues();
-        this.getFieldValuesFromSubForms();
-        console.log('submitter');
-        this.spin = true;
-        this.template.querySelector('[data-id="saveButton"]').disabled = true;
 
-        this.hideFormAndShowLoading();
-        this.submitForm();
-    }
-    handleSuccess(event) {
-        console.log('sucess');
-        this.recordId = event.detail.id;
-    }
     modalHeader = '';
     modalContent = '';
     noCancelButton = true;
 
-    handleError(event) {
-        console.log('error:::::' + event.detail.detail);
-        this.template.querySelector('[data-id="saveButton"]').disabled = false;
-        this.modalHeader = 'Noe gikk galt';
-        this.noCancelButton = true;
-        // if (event.detail.detail === 'Fant ingen virksomhet med dette organisasjonsnummeret.') {
-        //     this.modalContent =
-        //         'Fant ingen virksomhet med organisasjonsnummer.';
-        // } else {
-        this.modalContent = 'lol ' + event.detail.detail;
-        // }
-        this.template.querySelector('c-alertdialog').showModal();
-        this.spin = false;
+    hideLoading() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        window.scrollTo(0, 0);
     }
+
     hideFormAndShowLoading() {
         this.template.querySelector('.submitted-false').classList.add('hidden');
         this.template.querySelector('.submitted-loading').classList.remove('hidden');
         this.template.querySelector('.h2-loadingMessage').focus();
         window.scrollTo(0, 0);
+    }
+    hideFormAndShowSuccess() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        this.template.querySelector('.submitted-false').classList.add('hidden');
+        this.template.querySelector('.submitted-true').classList.remove('hidden');
+        this.template.querySelector('.h2-successMessage').focus();
+    }
+    hideFormAndShowError(errorMessage) {
+        this.template.querySelector('[data-id="saveButton"]').disabled = false;
+        this.modalHeader = 'Noe gikk galt';
+        this.noCancelButton = true;
+        this.modalContent = errorMessage;
+        this.template.querySelector('c-alertdialog').showModal();
+        this.spin = false;
     }
 
     submitForm() {
@@ -176,13 +172,10 @@ export default class Hot_claimFormWrapper extends LightningElement {
             selectedValueOnEmployer.value == 'null' ||
             selectedValueOnEmployer.value == null
         ) {
-            console.log('false11111');
             this.fieldValues.OnEmployer__c = 'false';
         } else {
-            console.log('true1111');
             this.fieldValues.OnEmployer__c = selectedValueOnEmployer;
         }
-        //this.template.querySelector('lightning-record-edit-form').submit(this.fieldValues);
 
         const claimLineItems = timeInput.map((item) => {
             return { ...item };
@@ -200,8 +193,14 @@ export default class Hot_claimFormWrapper extends LightningElement {
                 employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
                 claimLineItems: claimLineItems
             }).then((result) => {
-                console.log('typen er ' + this.fieldValues.ClaimType__c);
-                console.log('lager' + result);
+                if (result == 'ok') {
+                    console.log('alt ble registrert korrekt');
+                    this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
+                    this.hideFormAndShowSuccess();
+                } else {
+                    this.hideLoading();
+                    this.hideFormAndShowError(result);
+                }
             });
         } catch (error) {
             console.log('failer' + error);
@@ -212,4 +211,13 @@ export default class Hot_claimFormWrapper extends LightningElement {
         // console.log(this.test.Status__c);
     }
     signingClaim() {}
+
+    goToMyClaims() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'mine-krav'
+            }
+        });
+    }
 }
