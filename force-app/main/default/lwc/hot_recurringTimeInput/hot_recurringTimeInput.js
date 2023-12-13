@@ -25,11 +25,9 @@ export default class Hot_recurringTimeInput extends LightningElement {
     repeatingOptions = [
         { label: 'Velg oppgave', name: '', selected: true, disabled: true },
         { label: 'Møte', name: 'Møte' },
-        { label: 'Lese', name: 'Lese' },
-        { label: 'Skriving', name: 'Skriving' },
         { label: 'Arkivering', name: 'Arkivering' },
-        { label: 'Lese epost', name: 'Lese epost' },
-        { label: 'Lese avis', name: 'Lese avis' },
+        { label: 'Lest avis', name: 'Lest avis' },
+        { label: 'Lest e-post', name: 'Lest e-post' },
         { label: 'Post', name: 'Post' },
         { label: 'Referat', name: 'Referat' }
     ];

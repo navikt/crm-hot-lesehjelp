@@ -157,6 +157,7 @@ export default class Hot_claimFormWrapper extends LightningElement {
             console.log('Id/Nr: ' + timeInput[i].Id);
             console.log('Dato: ' + timeInput[i].date);
             console.log('Starttidspunkt: ' + timeInput[i].startTimeString);
+            console.log('Starttidspunkt: ' + timeInput[i].startTime);
             console.log('Slutttidspunkt: ' + timeInput[i].endTimeString);
             console.log('Oppgave: ' + timeInput[i].task);
             console.log('Reisetid til oppdrag?: ' + timeInput[i].hasTravelTo);

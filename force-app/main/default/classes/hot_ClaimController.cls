@@ -49,15 +49,22 @@ public without sharing class hot_ClaimController {
              for (Map<String, Object> claimLineItem : claimLineItems) {
                 HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c();
                 cli.Claim__c=claim.Id;
-                // String dateString = claimLineItem.get('date');
-                // Date convertedDate = Date.valueOf(dateString);
-                // cli.Date__c =convertedDate;
-                // cli.Task__c=String.valueOf(claimLineItem.get('task'));
-                // String startTimeString = (String)claimLineItem.get('startTimeString');
-                // cli.StartTime__c = DateTime.valueOf(startTimeString);
-                // String endTimeString = (String)claimLineItem.get('endTimeString');
-                // cli.EndTime__c = DateTime.valueOf(endTimeString);
 
+                String dateClaim = String.valueOf(claimLineItem.get('date'));
+                Date convertedDate = Date.valueOf(dateClaim);
+                cli.Date__c =convertedDate;
+
+                cli.TypeOfTask__c=String.valueOf(claimLineItem.get('task'));
+
+                String startTimeClaim =String.valueOf(claimLineItem.get('startTime'));
+                Long timestampMillisStart = Long.valueOf(startTimeClaim);
+                Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart); // divide by 1000 to convert to seconds
+                cli.StartTime__c = convertedDatetimeStart;
+
+                String endTimeClaim =String.valueOf(claimLineItem.get('endTime'));
+                Long timestampMillisEnd = Long.valueOf(endTimeClaim);
+                Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd); // divide by 1000 to convert to seconds
+                cli.EndTime__c = convertedDatetimeEnd;
 
                 String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
                 if(hasTravelToValue=='false' ||hasTravelToValue=='null' || hasTravelToValue==null){
@@ -65,7 +72,20 @@ public without sharing class hot_ClaimController {
                 }
                 else{
                     cli.HasTravelTo__c=true;
-                    //legg inn tider her
+
+                    String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
+                    Date convertedTravelToDate = Date.valueOf(dateTravelTo);
+                    cli.TravelTo__c =convertedTravelToDate;
+
+                    String travelToStartTime =String.valueOf(claimLineItem.get('startTimeTravelTo'));
+                    Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
+                    Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
+                    cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
+
+                     String travelToEndTime =String.valueOf(claimLineItem.get('endTimeTravelTo'));
+                    Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
+                    Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
+                    cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
                 }
                 String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
                 if(hasTravelFromValue=='false' ||hasTravelFromValue=='null' || hasTravelFromValue==null){
@@ -74,6 +94,19 @@ public without sharing class hot_ClaimController {
                 else{
                     cli.HasTravelFrom__c=true;
                     //legg inn tider her
+                     String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
+                    Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
+                    cli.TravelFrom__c =convertedTravelFromDate;
+
+                    String travelFromStartTime =String.valueOf(claimLineItem.get('startTimeTravelFrom'));
+                    Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
+                    Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
+                    cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
+
+                     String travelFromEndTime =String.valueOf(claimLineItem.get('endTimeTravelFrom'));
+                    Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
+                    Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
+                    cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                 }
                 claimLineItemList.add(cli);
          }
