@@ -1,7 +1,7 @@
 Account account1 = new Account();
 account1.name = 'Jedi Order';
 account1.INT_OrganizationNumber__c = '101010101';
-upsert account1;
+insert account1;
 
 Account account2 = new Account();
 account2.name = 'The Empire';
@@ -23,7 +23,7 @@ personAccount1.FirstName = 'JarJar';
 personAccount1.LastName = 'Binks';
 personAccount1.INT_fnr__c = '01010101010';
 personAccount1.INT_KrrMobilePhone__c = '00807060';
-upsert personAccount1;
+insert personAccount1;
 
 Account personAccount2 = new Account();
 personAccount2.FirstName = 'Darth';
