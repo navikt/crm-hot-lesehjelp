@@ -181,8 +181,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.UserPhoneNumber__c</field>
-<<<<<<< HEAD
-=======
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -192,8 +190,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Entitlement__c.Type__c</field>
->>>>>>> 0aedc5b3a6d06869f4f93c563bcac81d91942b79
+        <field>HOT_Claim__c.UserPhoneNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
