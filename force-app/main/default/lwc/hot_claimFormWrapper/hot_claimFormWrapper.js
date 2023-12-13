@@ -171,37 +171,40 @@ export default class Hot_claimFormWrapper extends LightningElement {
             console.log('-------------------------------------------------');
         }
         if (
-            selectedValueOnEmployer == 'false' ||
-            selectedValueOnEmployer == 'null' ||
-            selectedValueOnEmployer == null
+            selectedValueOnEmployer.value == 'false' ||
+            selectedValueOnEmployer.value == 'null' ||
+            selectedValueOnEmployer.value == null
         ) {
+            console.log('false11111');
             this.fieldValues.OnEmployer__c = 'false';
         } else {
+            console.log('true1111');
             this.fieldValues.OnEmployer__c = selectedValueOnEmployer;
         }
-        this.template.querySelector('lightning-record-edit-form').submit(this.fieldValues);
+        //this.template.querySelector('lightning-record-edit-form').submit(this.fieldValues);
 
-        // const claimLineItems = timeInput.map((item) => {
-        //     return { ...item };
-        // });
+        const claimLineItems = timeInput.map((item) => {
+            return { ...item };
+        });
 
-        // try {
-        //     createNewClaimFromCommunity({
-        //         userName: this.fieldValues.UserName__c,
-        //         userPersonNumber: this.fieldValues.UserPersonNumber__c,
-        //         userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
-        //         claimType: this.fieldValues.ClaimType__c,
-        //         onEmployer: String(selectedValueOnEmployer),
-        //         employerName: this.fieldValues.EmployerName__c,
-        //         organizationNumber: this.fieldValues.EmployerNumber__c,
-        //         employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
-        //         claimLineItems: claimLineItems
-        //     }).then((result) => {
-        //         console.log('lager' + result);
-        //     });
-        // } catch (error) {
-        //     console.log('failser' + error);
-        // }
+        try {
+            createNewClaimFromCommunity({
+                userName: this.fieldValues.UserName__c,
+                userPersonNumber: this.fieldValues.UserPersonNumber__c,
+                userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
+                claimType: this.fieldValues.ClaimType__c,
+                onEmployer: selectedValueOnEmployer.value,
+                employerName: this.fieldValues.EmployerName__c,
+                organizationNumber: this.fieldValues.EmployerNumber__c,
+                employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                claimLineItems: claimLineItems
+            }).then((result) => {
+                console.log('typen er ' + this.fieldValues.ClaimType__c);
+                console.log('lager' + result);
+            });
+        } catch (error) {
+            console.log('failer' + error);
+        }
 
         //console.log(this.componentValues);
         // test.Status__c = 'Sent';

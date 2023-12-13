@@ -7,8 +7,8 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
     @track radiobuttons = [
         { label: 'Dagliglivet', value: 'Dagliglivet', checked: true },
         { label: 'Arbeid', value: 'Arbeid' },
-        { label: 'Org.virksomhet/politisk/sos.arb', value: 'Org.virksomhet/politisk/sos.arb' },
-        { label: 'Utdanning', value: 'Utdanning' }
+        { label: 'Organisasjon', value: 'Organisasjon' },
+        { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning, opplæring eller arbeidstrening' }
     ];
     @track result = {
         type: this.currentClaimType
