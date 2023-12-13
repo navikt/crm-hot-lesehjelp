@@ -58,8 +58,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Total_hours__c</fieldItem>
-                <identifier>RecordTotal_hours_cField</identifier>
+                <fieldItem>Record.Type__c</fieldItem>
+                <identifier>RecordType_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TotalHours__c</fieldItem>
+                <identifier>RecordTotalHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

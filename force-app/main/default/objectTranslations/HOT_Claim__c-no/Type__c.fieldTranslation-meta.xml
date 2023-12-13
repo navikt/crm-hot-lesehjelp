@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Lesehjelpen gjelder</label>
+    <name>Type__c</name>
+    <picklistValues>
+        <masterLabel>Arbeid</masterLabel>
+        <translation></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dagliglivet</masterLabel>
+        <translation></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Organisasjon</masterLabel>
+        <translation></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Utdanning, opplæring eller arbeidstrening</masterLabel>
+        <translation></translation>
+    </picklistValues>
+</CustomFieldTranslation>
