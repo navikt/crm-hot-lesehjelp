@@ -233,7 +233,7 @@
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>HOT Entitlement Record Page</masterLabel>
-    <sobjectType>Entitlement__c</sobjectType>
+    <sobjectType>HOT_Entitlement__c</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
         <properties>
