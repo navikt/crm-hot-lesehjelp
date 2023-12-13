@@ -27,7 +27,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Entitlement__c.Type__c</field>
-        <field>HOT_ClaimLineItem__c.IncreasedRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
