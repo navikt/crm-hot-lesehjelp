@@ -31,6 +31,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.IncreasedRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
