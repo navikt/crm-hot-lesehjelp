@@ -19,4 +19,7 @@ call sf org assign permset --name HOT_Lesehjelp_Admin
 echo "Publish Experience Site"
 call sf community publish --name lesehjelp
 
+echo "Creating testdata"
+call scripts/apex/createTestData.apex
+
 echo "Ferdig"
