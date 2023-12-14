@@ -62,10 +62,11 @@ entitlement2.FromDate__c = Date.today();
 entitlement2.ToDate__c = Date.today().addYears(1);
 insert entitlement2;
 
-HOT_Claim__c claim1 = new HOT_Claim__c();
 List<Account> accountClaimer = [SELECT Id FROM Account WHERE Name = 'Darth Vader'];
-claim1.Claimant__c = accountClaimer[0].Id;
 List<Account> accountUser = [SELECT Id FROM Account WHERE Name = 'Luke Skywalker'];
+
+HOT_Claim__c claim1 = new HOT_Claim__c();
+claim1.Claimant__c = accountClaimer[0].Id;
 claim1.Account__c = accountUser[0].Id;
 claim1.Type__c = 'Utdanning, opplæring eller arbeidstrening';
 claim1.TotalHoursOrgPolSoc__c = 12.00;
