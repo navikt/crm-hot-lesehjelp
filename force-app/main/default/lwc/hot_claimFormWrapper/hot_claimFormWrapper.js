@@ -124,11 +124,26 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     }
     hideFormAndShowError(errorMessage) {
         this.template.querySelector('[data-id="saveButton"]').disabled = false;
-        this.modalHeader = 'Noe gikk galt';
+        this.modalHeader = 'Noe gikk galt!';
         this.noCancelButton = true;
-        this.modalContent = errorMessage;
+        if (errorMessage == 'no account') {
+            this.modalContent = 'Kunne ikke finne person basert på informasjonen du skrev inn.';
+        } else if (errorMessage == 'no organization') {
+            this.modalContent = 'Kunne ikke finne bedrift/organisasjon basert på informasjonen du skrev inn.';
+        } else {
+            this.modalContent = errorMessage;
+        }
+
         this.template.querySelector('c-alertdialog').showModal();
         this.spin = false;
+    }
+    handleAlertDialogClick() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'home'
+            }
+        });
     }
 
     submitForm() {
@@ -194,7 +209,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 claimLineItems: claimLineItems
             }).then((result) => {
                 if (result == 'ok') {
-                    console.log('alt ble registrert korrekt');
                     this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
                     this.hideFormAndShowSuccess();
                 } else {
@@ -203,12 +217,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 }
             });
         } catch (error) {
-            console.log('failer' + error);
+            this.hideFormAndShowError(error);
         }
-
-        //console.log(this.componentValues);
-        // test.Status__c = 'Sent';
-        // console.log(this.test.Status__c);
     }
     signingClaim() {}
 
