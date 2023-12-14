@@ -28,12 +28,10 @@ public without sharing class hot_ClaimController {
                         result = 'no organization';
                         return result;
                     } else {
-                        // Check if the organization list is not empty before accessing its elements
                         if (!organization.isEmpty()) {
-                            // create organization claim
                             result = createClaimOrganization(account[0], organization[0], claimType, onEmployer, employerName, organizationNumber, employerExpensesPerHour, claimLineItems);
                         } else {
-                            result = 'no organization'; // Handle the case where the organization list is empty
+                            result = 'no organization'; 
                         }
                     }
                 }
