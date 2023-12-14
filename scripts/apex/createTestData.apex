@@ -21,28 +21,28 @@ insert account4;
 Account personAccount1 = new Account();
 personAccount1.FirstName = 'JarJar';
 personAccount1.LastName = 'Binks';
-personAccount1.INT_fnr__c = '01010101010';
+personAccount1.INT_PersonIdent__c = '01010101010';
 personAccount1.INT_KrrMobilePhone__c = '00807060';
 insert personAccount1;
 
 Account personAccount2 = new Account();
 personAccount2.FirstName = 'Darth';
 personAccount2.LastName = 'Vader';
-personAccount2.INT_fnr__c = '02020202020';
+personAccount2.INT_PersonIdent__c = '02020202020';
 personAccount2.INT_KrrMobilePhone__c = '00203040';
 insert personAccount2;
 
 Account personAccount3 = new Account();
 personAccount3.FirstName = 'Luke';
 personAccount3.LastName = 'Skywalker';
-personAccount3.INT_fnr__c = '03030303030';
+personAccount3.INT_PersonIdent__c = '03030303030';
 personAccount3.INT_KrrMobilePhone__c = '87654321';
 insert personAccount3;
 
 Account personAccount4 = new Account();
 personAccount4.FirstName = 'Han';
 personAccount4.LastName = 'Solo';
-personAccount4.INT_fnr__c = '04040404040';
+personAccount4.INT_PersonIdent__c = '04040404040';
 personAccount4.INT_KrrMobilePhone__c = '12345678';
 insert personAccount4;
 
