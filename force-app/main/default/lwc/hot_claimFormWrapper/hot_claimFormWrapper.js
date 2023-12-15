@@ -1,6 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import createNewClaimFromCommunity from '@salesforce/apex/hot_claimController.createNewClaimFromCommunity';
+import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;

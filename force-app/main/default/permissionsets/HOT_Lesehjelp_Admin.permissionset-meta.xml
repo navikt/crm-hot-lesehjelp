@@ -5,7 +5,7 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>hot_ClaimController</apexClass>
+        <apexClass>HOT_ClaimController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <fieldPermissions>
@@ -105,6 +105,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.Claimant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Claim__c.CommentFromNAV__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -170,6 +175,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Claim__c.UserName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -185,22 +195,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Entitlement__c.FromDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Entitlement__c.ToDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-     <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Entitlement__c.Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>HOT_Entitlement__c.EntitledHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Entitlement__c.FromDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -210,7 +210,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Claim__c.UserPhoneNumber__c</field>
+        <field>HOT_Entitlement__c.ToDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Entitlement__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -238,7 +243,7 @@
         <object>HOT_Claim__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-     <objectPermissions>
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
