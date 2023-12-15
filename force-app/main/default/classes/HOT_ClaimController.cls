@@ -1,4 +1,4 @@
-public without sharing class hot_ClaimController {
+public without sharing class HOT_ClaimController {
     @AuraEnabled
        public static String createNewClaimFromCommunity(String userName, String userPersonNumber, String userPhoneNumber, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
             String result='';
