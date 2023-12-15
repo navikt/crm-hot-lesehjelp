@@ -1,0 +1,30 @@
+<template>
+    <section class="sub-form">
+        <div class="skjema-form">
+            <c-radiobuttons
+                helptext-content="Du kan sende inn flere krav, men hvert krav kan kun bestå av én type lesehjelp."
+                radiobuttons={radiobuttons}
+                onradiobuttonsclick={handleClaimTypeChange}
+                header="Hvilken type lesehjelp gjelder kravet for?"
+                group-name="testRadioGroup"
+            ></c-radiobuttons>
+
+            <div class="button-container">
+                <c-button
+                    button-label="Neste"
+                    button-styling="primary"
+                    onbuttonclick={sendResult}
+                    desktop-style="width: 8rem; justify-content: center"
+                    mobile-style="width: 8rem; justify-content: center"
+                ></c-button>
+                <c-button
+                    button-label="Avbryt"
+                    button-styling="tertiary"
+                    onbuttonclick={goToPreviousPage}
+                    desktop-style="width: 8rem; justify-content: center"
+                    mobile-style="width: 8rem; justify-content: center"
+                ></c-button>
+            </div>
+        </div>
+    </section>
+</template>
