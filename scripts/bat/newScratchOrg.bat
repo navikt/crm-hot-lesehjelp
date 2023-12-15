@@ -20,6 +20,6 @@ echo "Publish Experience Site"
 call sf community publish --name lesehjelp
 
 echo "Creating testdata"
-call scripts/apex/createTestData.apex
+call sf apex run --file scripts/apex/createTestData.apex
 
 echo "Ferdig"

@@ -22,6 +22,6 @@ sf org assign permset --name HOT_Lesehjelp_Admin
 sf community publish --name lesehjelp
 
 # Oppretter testdata
-'scripts/apex/createTestData.apex'
+sf apex run --file scripts/apex/createTestData.apex
 
 # done
