@@ -65,6 +65,6 @@ export default class Hot_claimForm extends LightningElement {
     }
     @api
     getTimeInput() {
-        return this.template.querySelector('c-hot_recurring-time-input').getTimeInput();
+        return this.template.querySelector('c-hot_claim-line-time-input').getTimeInput();
     }
 }
