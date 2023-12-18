@@ -2,6 +2,7 @@
 # profiles
 # ----------------------------------------------------------------------------------------
 **/profiles/*
+!**/profiles/HOT LOS Saksbehandler.profile-meta.xml
 
 
 # NOTE!! Do NOT use **/ before
