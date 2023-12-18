@@ -1,0 +1,101 @@
+<template>
+    <div class="body">
+        <div class="content">
+            <div class="hot">
+                <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
+            </div>
+            <main class="mainContent">
+                <h2 class="typo-overskrift">Mine innsendte krav</h2>
+                <div if:true={showClaimlist}>
+                    <div if:true={noClaims} style="text-align: center">
+                        <br />
+                        <p class="typo-normal">Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
+                    </div>
+                    <div if:false={noClaims}>
+                        <p class="typo-normal">
+                            Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
+                        </p>
+                        <template for:each={claims} for:item="claim">
+                            <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
+                                <div class="container">
+                                    <p><strong>{claim.Name} - {claim.madeBy}</strong></p>
+                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                </div>
+
+                                <p>Lesehjelp for {claim.Account__r.Name}</p>
+                                <p>Status: {claim.Status__c}</p>
+                                <br />
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </main>
+            <div
+                class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay details hidden"
+                style="z-index: 9999; background-color: rgba(50, 65, 79, 0.8)"
+                tabindex="-1"
+                aria-label="Informasjon om kravet"
+            >
+                <div
+                    class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container"
+                    role="dialog"
+                    aria-labelledby="comment-header-id"
+                >
+                    <section>
+                        <div>
+                            <h2 class="typo-undertittel">Innholdet i {recordName}</h2>
+                        </div>
+                        <div if:true={noClaimLineItems} style="text-align: center">
+                            <br />
+                            <p class="typo-normal">Dette kravet hadde ingen linjer.</p>
+                        </div>
+                        <div if:false={noClaimLineItems}>
+                            <p>{record.madeBy}</p>
+                            <p><strong>Type lesehjelp: </strong>{record.Type__c}</p>
+                            <p if:true={record.OnEmployer__c}><strong>Organisasjon: </strong>{record.Organization__r.Name}</p>
+                            <p><strong>Innsendt dato:</strong> {record.created}</p>
+                            <p><strong>Lesehjelp for:</strong> {record.Account__r.Name}</p>
+                            <p><strong>Status:</strong> {record.Status__c}</p>
+                            </br>
+
+                            <template for:each={claimLineItems} for:item="cli">
+                                <div class="cli-container" key={cli.Id}>
+                                    <p><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
+                                    <p><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
+                                    <p><Strong>Periode: </Strong>{cli.period}</p>
+                                    <p><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
+                                    <p if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
+                                    <p><Strong>Hatt reise fra: </Strong>{cli.hasTravelFrom}</p>
+                                    <p if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
+                                </div>
+                            </template>
+                            <div class="buttons">
+                            <!-- <c-button
+                                button-label="Trekk kravet"
+                                button-styling="primary"
+                                disabled={record.isCancelButtonDisabled}
+                                onbuttonclick={cancelClaim}
+                                desktop-style="width: 8rem; justify-content: center"
+                                mobile-style="width: 8rem; justify-content: center"
+                            ></c-button> -->
+                        </div>
+                        </div>
+                    </section>
+                    <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
+                        <span class="text-hide">Lukk</span>
+                    </button>
+                    <c-alertdialog
+        header={modalHeader}
+        content={modalContent}
+        desktop-style="text-align: center; white-space: pre-line; width: 50%"
+        mobile-style="text-align: center; white-space: pre-line; width: 100%; max-width: 100%;"
+        center-buttons="true"
+        no-cancel-button={noCancelButton}
+        onbuttonclick={handleAlertDialogClick}
+    >
+    </c-alertdialog>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
