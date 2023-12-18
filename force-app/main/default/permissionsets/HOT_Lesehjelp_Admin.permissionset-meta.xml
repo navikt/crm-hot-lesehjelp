@@ -4,9 +4,28 @@
         <application>HOT_Lesehjelp</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>HOT_ClaimController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.HasTravelFrom__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.HasTravelTo__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -36,7 +55,47 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.Task__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelFromEndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelFromStartTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelFrom__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelToEndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelToStartTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TravelTo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TypeOfTask__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -45,8 +104,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.WorkTypeName__c</field>
+        <editable>true</editable>
+        <field>HOT_Claim__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -57,6 +116,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.ApprovedByUser__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.Claimant__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -77,6 +141,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.IsNotificationSent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.OnEmployer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.OrganizationNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.Organization__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -107,6 +186,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.TotalHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.UserName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.UserPersonNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.UserPhoneNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

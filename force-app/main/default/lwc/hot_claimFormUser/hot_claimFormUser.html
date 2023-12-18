@@ -1,0 +1,52 @@
+<template>
+    <section class="bruker-info-skjema sub-form">
+        <div style="flex-direction: row; display: flex">
+            <h2 class="header" tabindex="-1">Informasjon om hvem du har vært lesehjelp for</h2>
+            <c-helptext
+                text="Oppgi hvem du har vært lesehjelp for ved å legge inn navn og fødselsnummer eller telefonnummer."
+                hover-text="Hjelpeknapp for informasjon om bruker."
+            ></c-helptext>
+        </div>
+        <br />
+        <c-input
+            label="Brukerens navn"
+            name="UserName__c"
+            value={fieldValues.UserName__c}
+            form="krav-skjema-input"
+            error-text="Brukers navn må fylles ut."
+        ></c-input>
+        <br />
+        <c-radiobuttons
+            radiobuttons={componentValues.userPhoneNumberOrUserPersonNumberRadioButtons}
+            onradiobuttonsclick={handlePhoneNumberogPersonNumberRadioButtons}
+            header="Fyll inn brukerens fødselsnummer eller telefonnummer"
+            group-name="radioGroup2"
+            flex-direction="row"
+            name="UserPhoneNumberOrUserPersonNumber__c"
+        ></c-radiobuttons>
+        <br />
+        <c-input
+            if:true={isPersonNumber}
+            label="Brukerens fødselsnummer"
+            name="UserPersonNumber__c"
+            form="krav-skjema-input"
+            value={fieldValues.UserPersonNumber__c}
+            error-text="Ikke gyldig fødselsnummer."
+            max-length="11"
+            desktop-style="width: 50%"
+            mobile-style="width: 100%"
+        ></c-input>
+        <c-input
+            if:false={isPersonNumber}
+            label="Brukerens telefonnummer"
+            name="UserPhoneNumber__c"
+            form="krav-skjema-input"
+            value={fieldValues.UserPhoneNumber__c}
+            error-text="Ikke gyldig mobilnr."
+            max-length="11"
+            desktop-style="width: 50%"
+            mobile-style="width: 100%"
+        ></c-input>
+        <br />
+    </section>
+</template>

@@ -1,0 +1,50 @@
+<template>
+    <section class="bruker-info-skjema sub-form">
+        <h2 class="header" tabindex="-1">Informasjon</h2>
+        <div style="flex-direction: row; display: flex"></div>
+        <br />
+        <c-radiobuttons
+            helptext-content="Velg ja om det er arbeidsgiver som skal få refusjon."
+            radiobuttons={componentValues.onEmployerRadioButtons}
+            onradiobuttonsclick={handleOnEmployerRadioButtons}
+            header="Sender du inn skjema på vegne av arbeidsgiver?"
+            group-name="radioGroup2"
+            flex-direction="row"
+            name="OnEmployer__c"
+        ></c-radiobuttons>
+        <br />
+        <div if:true={employerClaim}>
+            <c-input
+                if:true={employerClaim}
+                label="Arbeidsgiver navn"
+                name="EmployerName__c"
+                value={fieldValues.EmployerName__c}
+                form="krav-skjema-input"
+                error-text="Tolkebrukers navn må fylles ut."
+            ></c-input>
+            <br />
+            <c-input
+                if:true={employerClaim}
+                label="Organisasjonsnummer"
+                name="EmployerNumber__c"
+                value={fieldValues.EmployerNumber__c}
+                form="krav-skjema-input"
+                error-text="Tolkebrukers navn må fylles ut."
+            ></c-input>
+            <br />
+            <c-input
+                if:true={employerClaim}
+                label="Arbeidsgiver brutto lønnsutgifter per time"
+                name="EmployerExpensesPerHour__c"
+                value={fieldValues.EmployerExpensesPerHour__c}
+                form="krav-skjema-input"
+                error-text="Tolkebrukers navn må fylles ut."
+            ></c-input>
+            <br />
+        </div>
+        <h2 class="typo-undertittel" tabindex="-1">Legg inn alle tidspunkter og oppgavetyper som dette kravet skal inneholde</h2>
+    </br>
+        <c-hot_claim-line-time-input></c-hot_claim-line-time-input>
+        <br />
+    </section>
+</template>
