@@ -30,10 +30,10 @@ export default class Hot_claimantClaimList extends LightningElement {
 
     goToClaim(event) {
         const clickedButton = event.target;
-        const notificationElement = clickedButton.closest('[data-id]');
+        const claimElement = clickedButton.closest('[data-id]');
 
-        if (notificationElement) {
-            const notificationId = notificationElement.getAttribute('data-id');
+        if (claimElement) {
+            const notificationId = claimElement.getAttribute('data-id');
             console.log(notificationId);
             getClaimLineItems({
                 recordId: notificationId
