@@ -33,16 +33,16 @@ export default class Hot_claimantClaimList extends LightningElement {
         const claimElement = clickedButton.closest('[data-id]');
 
         if (claimElement) {
-            const notificationId = claimElement.getAttribute('data-id');
-            console.log(notificationId);
+            const claimId = claimElement.getAttribute('data-id');
+            console.log(claimId);
             getClaimLineItems({
-                recordId: notificationId
+                recordId: claimId
             })
                 .then((result) => {
                     console.log(result);
 
                     this.claims.forEach((element) => {
-                        if (element.Id == notificationId) {
+                        if (element.Id == claimId) {
                             this.record = element;
                             this.recordName = element.Name;
                         }
