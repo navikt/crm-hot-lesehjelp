@@ -10,7 +10,7 @@ import { LightningElement, track, wire, api } from 'lwc';
 //     chosenDaysWithinPeriod
 // } from './hot_recurringTimeInput_validationRules';
 
-export default class Hot_recurringTimeInput extends LightningElement {
+export default class Hot_claimLineTimeInput extends LightningElement {
     @track times = [];
     @track isOnlyOneTime = true;
     uniqueIdCounter = 0;
