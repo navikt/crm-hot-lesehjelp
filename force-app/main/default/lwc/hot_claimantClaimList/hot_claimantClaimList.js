@@ -1,4 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
 import getMyClaims from '@salesforce/apex/HOT_ClaimController.getMyClaims';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 
@@ -23,6 +24,9 @@ export default class Hot_claimantClaimList extends LightningElement {
 
     @track record;
     @track isNotCancelable = true;
+    connectedCallback() {
+        refreshApex(this.wiredClaimsResult);
+    }
 
     goToClaim(event) {
         const clickedButton = event.target;
