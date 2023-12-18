@@ -10,6 +10,11 @@
     </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -50,6 +55,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.Task__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelFromEndTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -81,6 +91,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelTo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.TypeOfTask__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
