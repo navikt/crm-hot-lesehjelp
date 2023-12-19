@@ -29,7 +29,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         { label: 'Lest avis', name: 'Lest avis' },
         { label: 'Lest e-post', name: 'Lest e-post' },
         { label: 'Post', name: 'Post' },
-        { label: 'Referat', name: 'Referat' }
+        { label: 'Referat', name: 'Referat' },
+        { label: 'Annet (spesifiser i tilleggsinformasjon)', name: 'Annet (spesifiser i tilleggsinformasjon)' }
     ];
     setTimesValue(timeObject) {
         return {
