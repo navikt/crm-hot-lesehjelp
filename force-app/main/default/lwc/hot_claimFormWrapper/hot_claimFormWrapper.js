@@ -47,10 +47,12 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleNextButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        this.currentPage = 'claimForm';
-        this.claimTypeResult.claimForm = true;
+
         if (this.handleValidation()) {
             return;
+        } else {
+            this.currentPage = 'claimForm';
+            this.claimTypeResult.claimForm = true;
         }
     }
     handleSendButtonClicked() {
