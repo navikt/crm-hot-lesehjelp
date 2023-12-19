@@ -10,6 +10,12 @@ call sf package install --package 04t7U0000004e8tQAA --no-prompt --installation-
 echo "Installerer crm-community-base ver. 0.93"
 call sf package install --package 04t7U000000Y26AQAS --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
+echo "Installerer crm-henvendelse-base ver. 0.18"
+call sf package install --package 04t7U000000LPPAQA4 --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+
+echo "Installerer crm-platform-integratione ver. 0.107"
+call sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+
 echo "Dytter kildekoden til scratch org'en"
 call sf project deploy start
 
