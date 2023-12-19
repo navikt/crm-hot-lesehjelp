@@ -3,6 +3,7 @@
         <h2 class="header" tabindex="-1">Informasjon</h2>
         <div style="flex-direction: row; display: flex"></div>
         <br />
+        <div if:true={isWorkClaimType}>
         <c-radiobuttons
             helptext-content="Velg ja om det er arbeidsgiver som skal få refusjon."
             radiobuttons={componentValues.onEmployerRadioButtons}
@@ -41,6 +42,7 @@
                 error-text="Tolkebrukers navn må fylles ut."
             ></c-input>
             <br />
+            </div>
         </div>
         <h2 class="typo-undertittel" tabindex="-1">Legg inn alle tidspunkter og oppgavetyper som dette kravet skal inneholde</h2>
     </br>
