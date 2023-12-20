@@ -2,7 +2,9 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
+    @api claimType;
     @api parentClaimComponentValues;
+    @track isWorkClaimType = false;
 
     @track employerClaim;
     @track requestIds = '';
@@ -39,6 +41,12 @@ export default class Hot_claimForm extends LightningElement {
             this.employerClaim = true;
         } else {
             this.employerClaim = false;
+        }
+
+        if (this.claimType == 'Arbeid') {
+            this.isWorkClaimType = true;
+        } else {
+            this.isWorkClaimType = false;
         }
     }
 

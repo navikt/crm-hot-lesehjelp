@@ -44,11 +44,12 @@ export default class Hot_claimFormUser extends LightningElement {
                 hasErrors += 1;
             }
         });
-        // hasErrors += this.isPersonNumber
-        //     ? this.template.querySelectorAll('c-input')[1].validatePersonNumber()
-        //     : this.template
-        //           .querySelectorAll('c-input')[1]
-        //           .validatePhoneLength('Telefonnummer må være 8 siffer langt (ingen landskode).');
+
+        hasErrors += this.isPersonNumber
+            ? this.template.querySelectorAll('c-input')[1].validatePersonNumber()
+            : this.template
+                  .querySelectorAll('c-input')[1]
+                  .validatePhoneLength('Telefonnummer må være 8 siffer langt (ingen landskode).');
         return hasErrors;
     }
 

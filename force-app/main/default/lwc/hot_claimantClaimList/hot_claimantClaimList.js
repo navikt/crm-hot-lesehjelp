@@ -115,7 +115,7 @@ export default class Hot_claimantClaimList extends LightningElement {
     }
     setMadeBy(onEmployer) {
         if (onEmployer == true) {
-            return 'Innsendt på vegne av organisasjon';
+            return 'Innsendt på vegne av arbeidsgiver';
         } else {
             return 'Innsendt av deg';
         }

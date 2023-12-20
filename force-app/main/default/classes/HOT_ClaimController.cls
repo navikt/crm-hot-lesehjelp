@@ -64,6 +64,8 @@ public without sharing class HOT_ClaimController {
                 Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
                 cli.EndTime__c = convertedDatetimeEnd;
 
+                cli.AdditionalInformation__c=String.valueOf(claimLineItem.get('additionalInformation'));
+
                 String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
                 if(hasTravelToValue=='false' ||hasTravelToValue=='null' || hasTravelToValue==null){
                     cli.HasTravelTo__c=false;
@@ -210,5 +212,10 @@ public without sharing class HOT_ClaimController {
             WHERE Claimant__c=:currentUser.AccountId
         ];
         return claims;
+    }
+     @AuraEnabled(cacheable=true)
+    public static boolean checkIsLos(){
+            User currentUser = [SELECT Account.CRM_Person__r.HOT_isLOS__c FROM User WHERE Id = :UserInfo.getUserId()];
+            return currentUser.Account.CRM_Person__r.HOT_isLOS__c;
     }
 }
