@@ -132,6 +132,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.AdditionalInformation__c</fieldItem>
+                <identifier>RecordAdditionalInformation_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.StartTime__c</fieldItem>
                 <identifier>RecordStartTime_cField</identifier>
             </fieldInstance>

@@ -131,7 +131,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         if (errorMessage == 'no account') {
             this.modalContent = 'Kunne ikke finne person basert på informasjonen du skrev inn.';
         } else if (errorMessage == 'no organization') {
-            this.modalContent = 'Kunne ikke finne bedrift/organisasjon basert på informasjonen du skrev inn.';
+            this.modalContent = 'Kunne ikke finne arbeidsgiver basert på informasjonen du skrev inn.';
         } else {
             this.modalContent = errorMessage;
         }
@@ -173,6 +173,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             console.log('Starttidspunkt: ' + timeInput[i].startTime);
             console.log('Slutttidspunkt: ' + timeInput[i].endTimeString);
             console.log('Oppgave: ' + timeInput[i].task);
+            console.log('Har Tillegginformasjon: ' + timeInput[i].hasAdditionalInformation);
+            console.log('Tillegginformasjon: ' + timeInput[i].additionalInformation);
             console.log('Reisetid til oppdrag?: ' + timeInput[i].hasTravelTo);
             console.log('Reisetid til oppdrag dato: ' + timeInput[i].dateTravelTo);
             console.log('Reisetid til oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelToString);

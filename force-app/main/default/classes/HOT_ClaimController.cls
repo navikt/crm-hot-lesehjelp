@@ -64,6 +64,8 @@ public without sharing class HOT_ClaimController {
                 Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
                 cli.EndTime__c = convertedDatetimeEnd;
 
+                cli.AdditionalInformation__c=String.valueOf(claimLineItem.get('additionalInformation'));
+
                 String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
                 if(hasTravelToValue=='false' ||hasTravelToValue=='null' || hasTravelToValue==null){
                     cli.HasTravelTo__c=false;

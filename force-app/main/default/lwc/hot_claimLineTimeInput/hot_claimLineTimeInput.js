@@ -56,8 +56,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             startTimeTravelFrom: timeObject === null ? null : timeObject.startTimeTravelFrom,
             startTimeTravelFromString: timeObject === null ? null : timeObject.startTimeTravelFromString,
             endTimeTravelFrom: timeObject === null ? null : timeObject.endTimeTravelFrom,
-            randomNumber: timeObject === null ? null : timeObject.randomNumber
+            randomNumber: timeObject === null ? null : timeObject.randomNumber,
+            hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
+            additionalInformation: timeObject === null ? null : timeObject.additionalInformation
         };
+    }
+    handleAdditionalInformation(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].additionalInformation = event.detail;
     }
 
     getTimesIndex(name) {
@@ -81,6 +87,11 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].task = event.detail.name;
         console.log('yoo' + event.detail.name);
+        if (event.detail.name == 'Annet (spesifiser i tilleggsinformasjon)') {
+            this.times[index].hasAdditionalInformation = true;
+        } else {
+            this.times[index].hasAdditionalInformation = false;
+        }
     }
     handleStartTimeChange(event) {
         const index = this.getTimesIndex(event.target.name);
