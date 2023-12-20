@@ -1,6 +1,7 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
+import checkIsLos from '@salesforce/apex/HOT_ClaimController.checkIsLos';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -8,7 +9,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track componentValues = {};
     @track recordId = null;
     @track spin = false;
-    @track isLos = false;
+    @track isLos = true;
     @track previousPage = 'home';
     @track claimTypeResult = {};
     @track currentPage = '';
@@ -24,6 +25,11 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             href: 'nytt-krav'
         }
     ];
+    wiredResult;
+    @wire(checkIsLos)
+    wiredResult(result) {
+        this.isLos = result.data;
+    }
 
     handleRequestType(event) {
         this.claimTypeResult = event.detail;
