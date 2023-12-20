@@ -19,7 +19,7 @@
                     <a if:false={isLos} href="" class="alert"
                         ><c-alert-banner
                             type="Warning"
-                            message="Det ser ikke ut som du er registrert som lesehjelp. Første gangen må du ta kontakt med NAV for å få et nummer."
+                            message="Det ser ikke ut som du er registrert som lesehjelp. Før du sender inn kravet vil du bli bedt om å fylle ut litt informasjon om deg selv."
                         ></c-alert-banner
                     ></a>
                     <c-hot_claim-form-type
@@ -38,6 +38,7 @@
                             class="subform"
                             if:true={claimTypeResult.claimForm}
                             parent-field-values={fieldValues}
+                            claim-type={fieldValues.ClaimType__c}
                             parent-claim-component-values={componentValues}
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>

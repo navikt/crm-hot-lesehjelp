@@ -47,7 +47,20 @@
                     style={dateTimeDesktopStyle}
                 >
                 </c-picklist>
-                <div class="travelTimesRadioButtonContainer">
+        <div class="travelTimesRadioButtonContainer">
+                    <c-input
+                    if:true={it.value.hasAdditionalInformation}
+                                label="Tilleggsinformasjon"
+                                data-id="additionalInformation"
+                                type="text"
+                                name={it.value.id}
+                                onchange={handleAdditionalInformation}
+                                value={it.value.additionalInformation}
+                                error-text="Feltet må fylles ut."
+                                desktop-style="padding-top: 1vw;padding-bottom: 1vw "
+                                mobile-style="padding-bottom: 1vw"
+                                helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
+                            ></c-input>
                     <c-radiobuttons
             helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
             radiobuttons={componentValues.travelToRadioButtons}
