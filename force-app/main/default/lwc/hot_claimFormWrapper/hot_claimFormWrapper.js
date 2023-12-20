@@ -1,7 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
-import checkIsLos from '@salesforce/apex/HOT_ClaimController.checkIsLos';
+import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -155,6 +155,14 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     }
 
     submitForm() {
+        let newLOSInput = this.template.querySelector('c-hot_claim-form').getNewLOSInput();
+        console.log('Kontonummer: ' + newLOSInput.BankAccount__c);
+        console.log('Postnummer: ' + newLOSInput.PostalCode__c);
+        console.log('Poststed: ' + newLOSInput.PostalArea__c);
+        console.log('Mobilnr: ' + newLOSInput.PhoneNumber__c);
+        console.log('Epost: ' + newLOSInput.EmailAdress__c);
+        console.log('Adresse: ' + newLOSInput.Address__c);
+
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
         // FOR DEBUGGING. HENTER UT ALLE FELTENE
         console.log('Antall kravlinjer:' + timeInput.length);

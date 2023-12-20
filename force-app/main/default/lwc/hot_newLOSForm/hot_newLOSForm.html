@@ -1,0 +1,66 @@
+<template>
+    <section class="bruker-info-skjema sub-form">
+        <div style="flex-direction: row; display: flex">
+            <h2 class="header" tabindex="-1">Ny lesehjelp</h2>
+            <c-helptext
+                text="For å kunne registrere deg som ny lesehjelp trenger vi litt informasjon om deg. Ser du dette skjemaet flere ganger, kan du vente med å sende inn flere krav inntil du har blitt Lesehjelp."
+                hover-text="Hjelpeknapp for informasjon til ny lesehjelp."
+            ></c-helptext>
+        </div>
+        <br />
+        <c-input
+            label="Postnummer"
+            name="PostalCode__c"
+            onchange={setFieldValue}
+            value={fieldValues.PostalCode__c}
+            form="krav-skjema-input"
+            error-text="Postnummer må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Poststed"
+            name="PostalArea__c"
+            onchange={setFieldValue}
+            value={fieldValues.PostalArea__c}
+            form="krav-skjema-input"
+            error-text="Poststed må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Adresse"
+            name="Address__c"
+            onchange={setFieldValue}
+            value={fieldValues.Address__c}
+            form="krav-skjema-input"
+            error-text="Adresse må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Kontonummer"
+            name="BankAccount__c"
+            onchange={setFieldValue}
+            value={fieldValues.BankAccount__c}
+            form="krav-skjema-input"
+            error-text="Kontonummer må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Mobilnr"
+            name="PhoneNumber__c"
+            onchange={setFieldValue}
+            value={fieldValues.PhoneNumber__c}
+            form="krav-skjema-input"
+            error-text="Mobilnr må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Epost"
+            name="EmailAdress__c"
+            onchange={setFieldValue}
+            value={fieldValues.EmailAdress__c}
+            form="krav-skjema-input"
+            error-text="Epost må fylles ut."
+        ></c-input>
+        <br />
+    </section>
+</template>
