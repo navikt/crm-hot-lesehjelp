@@ -16,12 +16,6 @@
             </c-alertdialog>
             <main class="main-content submitted-false">
                 <div class="skjema skjema-max-width">
-                    <a if:false={isLos} href="" class="alert"
-                        ><c-alert-banner
-                            type="Warning"
-                            message="Det ser ikke ut som du er registrert som lesehjelp. Før du sender inn kravet vil du bli bedt om å fylle ut litt informasjon om deg selv."
-                        ></c-alert-banner
-                    ></a>
                     <c-hot_claim-form-type
                         if:false={claimTypeChosen}
                         onclaimformtyperesult={handleRequestType}
