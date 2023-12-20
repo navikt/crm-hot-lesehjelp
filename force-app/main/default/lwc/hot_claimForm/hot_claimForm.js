@@ -3,6 +3,7 @@ import { LightningElement, api, track } from 'lwc';
 export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
     @api claimType;
+    @api isLos;
     @api parentClaimComponentValues;
     @track isWorkClaimType = false;
 
@@ -74,5 +75,9 @@ export default class Hot_claimForm extends LightningElement {
     @api
     getTimeInput() {
         return this.template.querySelector('c-hot_claim-line-time-input').getTimeInput();
+    }
+    @api
+    getNewLOSInput() {
+        return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
     }
 }

@@ -40,13 +40,14 @@
                             parent-field-values={fieldValues}
                             claim-type={fieldValues.ClaimType__c}
                             parent-claim-component-values={componentValues}
+                            is-los={isLos}
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
                             <c-checkbox
-                                label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                                label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                                 oncheckboxclick={signingClaim}
                                 name="confirmationCheckbox"
-                                aria-label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                                aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                             ></c-checkbox>
                         </div>
                         <div class="button-container">

@@ -1,4 +1,4 @@
-public with sharing class HOT_ClaimLineItemController {
+public without sharing class HOT_ClaimLineItemController {
     @AuraEnabled(cacheable=true)
     public static List<HOT_ClaimLineItem__c> getClaimLineItems(String recordId){
             List<HOT_ClaimLineItem__c> claimLineItems = [
