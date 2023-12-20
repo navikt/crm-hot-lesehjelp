@@ -8,7 +8,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track componentValues = {};
     @track recordId = null;
     @track spin = false;
-    @track isLos = true;
+    @track isLos = false;
     @track previousPage = 'home';
     @track claimTypeResult = {};
     @track currentPage = '';
