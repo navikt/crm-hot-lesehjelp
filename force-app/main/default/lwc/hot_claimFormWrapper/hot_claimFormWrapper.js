@@ -1,6 +1,7 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
+import checkIsLos from '@salesforce/apex/HOT_ClaimController.checkIsLos';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -24,6 +25,11 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             href: 'nytt-krav'
         }
     ];
+    wiredResult;
+    @wire(checkIsLos)
+    wiredResult(result) {
+        this.isLos = result.data;
+    }
 
     handleRequestType(event) {
         this.claimTypeResult = event.detail;
@@ -47,10 +53,12 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleNextButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        this.currentPage = 'claimForm';
-        this.claimTypeResult.claimForm = true;
+
         if (this.handleValidation()) {
             return;
+        } else {
+            this.currentPage = 'claimForm';
+            this.claimTypeResult.claimForm = true;
         }
     }
     handleSendButtonClicked() {
@@ -129,7 +137,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         if (errorMessage == 'no account') {
             this.modalContent = 'Kunne ikke finne person basert på informasjonen du skrev inn.';
         } else if (errorMessage == 'no organization') {
-            this.modalContent = 'Kunne ikke finne bedrift/organisasjon basert på informasjonen du skrev inn.';
+            this.modalContent = 'Kunne ikke finne arbeidsgiver basert på informasjonen du skrev inn.';
         } else {
             this.modalContent = errorMessage;
         }
@@ -171,6 +179,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             console.log('Starttidspunkt: ' + timeInput[i].startTime);
             console.log('Slutttidspunkt: ' + timeInput[i].endTimeString);
             console.log('Oppgave: ' + timeInput[i].task);
+            console.log('Har Tillegginformasjon: ' + timeInput[i].hasAdditionalInformation);
+            console.log('Tillegginformasjon: ' + timeInput[i].additionalInformation);
             console.log('Reisetid til oppdrag?: ' + timeInput[i].hasTravelTo);
             console.log('Reisetid til oppdrag dato: ' + timeInput[i].dateTravelTo);
             console.log('Reisetid til oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelToString);
