@@ -62,6 +62,7 @@
                                 <div class="cli-container" key={cli.Id}>
                                     <p><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
                                     <p><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
+                                    <p if:true={cli.AdditionalInformation__c}><Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}</p>
                                     <p><Strong>Periode: </Strong>{cli.period}</p>
                                     <p><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
                                     <p if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
