@@ -9,9 +9,18 @@
         </div>
         <c-alert-banner
             type="Warning"
-            message="Det ser ikke ut som du er registrert som lesehjelp. Før du sender inn kravet vennligst se at all informasjon vi har om deg er korrekt."
+            message="Det ser ikke ut som du er registrert som lesehjelp. Før du sender inn ditt første krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen kommer fra Kontakt- og reservasjonsregisteret og opplysninger hentet fra Mine sider på NAV.no"
         ></c-alert-banner>
         <br />
+        <a
+            href="https://www.nav.no/person/personopplysninger/nb/"
+            target="_blank"
+            onclick={setKrrIntegrationStatusToQueued}
+        >
+            <p class="typo-normal">
+                <img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på NAV.no mine sider
+            </p>
+        </a>
         <c-input
             label="Adresse"
             name="Address__c"
