@@ -1,5 +1,6 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
+
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 export default class Hot_newLOSForm extends LightningElement {
     LinkImg = LINK;
