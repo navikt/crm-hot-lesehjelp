@@ -213,4 +213,33 @@ public without sharing class HOT_ClaimController {
         ];
         return claims;
     }
+    @AuraEnabled(cacheable=true)
+    public static List<HOT_Claim__c> getClaimsToApprove(){
+            User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+            List<HOT_Claim__c> claims = [
+            SELECT
+                Id,
+                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
+            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE)];
+        return claims;
+    }
+    @AuraEnabled
+    public static String approveClaim(String recordId){
+        List<HOT_Claim__c> claims = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].ApprovedByUser__c=true;
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
+    }
 }
