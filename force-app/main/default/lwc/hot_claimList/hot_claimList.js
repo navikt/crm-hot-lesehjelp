@@ -4,10 +4,12 @@ import { refreshApex } from '@salesforce/apex';
 import getClaimsToApprove from '@salesforce/apex/HOT_ClaimController.getClaimsToApprove';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 import approveClaim from '@salesforce/apex/HOT_ClaimController.approveClaim';
+import declineClaim from '@salesforce/apex/HOT_ClaimController.declineClaim';
 
 export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track showRecievedClaimslist = true;
     @track noRecievedClaims = true;
+    @track actionText = '';
     breadcrumbs = [
         {
             label: 'Lesehjelp',
@@ -171,6 +173,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track submitSuccessMessage = '';
 
     approveClaim() {
+        this.actionText = 'Godkjenner kravet...';
         console.log('approver');
         this.spin = true;
         this.hideFormAndShowLoading();
@@ -190,8 +193,34 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                 this.hideFormAndShowError(error);
             });
     }
+    declineClaim() {
+        this.actionText = 'Avslår kravet...';
+        console.log('approver');
+        this.spin = true;
+        this.hideFormAndShowLoading();
+        declineClaim({
+            recordId: this.record.Id
+        })
+            .then((result) => {
+                if (result == 'ok') {
+                    this.submitSuccessMessage = 'Kravet ble avslått av deg';
+                    this.hideFormAndShowSuccess();
+                } else {
+                    this.hideLoading();
+                    this.hideFormAndShowError(result);
+                }
+            })
+            .catch((error) => {
+                this.hideFormAndShowError(error);
+            });
+    }
 
     //SCREENS
+
+    modalHeader = '';
+    modalContent = '';
+    noCancelButton = true;
+
     hideFormAndShowLoading() {
         this.template.querySelector('.details').classList.add('hidden');
         this.template.querySelector('.main-content').classList.add('hidden');
@@ -210,7 +239,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         this.template.querySelector('.h2-successMessage').focus();
     }
     hideFormAndShowError(errorMessage) {
-        this.template.querySelector('[data-id="saveButton"]').disabled = false;
+        this.template.querySelector('.main-content').classList.remove('hidden');
         this.modalHeader = 'Noe gikk galt!';
         this.noCancelButton = true;
         if (errorMessage == 'no account') {
@@ -233,5 +262,14 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             }
         });
         console.log('tilbake2');
+    }
+    handleAlertDialogClick() {
+        window.scrollTo(0, 0);
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'krav-til-godkjenning'
+            }
+        });
     }
 }

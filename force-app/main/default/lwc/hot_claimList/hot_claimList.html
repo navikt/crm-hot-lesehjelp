@@ -4,6 +4,16 @@
             <div class="hot">
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
+            <c-alertdialog
+                header={modalHeader}
+                content={modalContent}
+                desktop-style="text-align: center; white-space: pre-line; min-width: 50%;"
+                mobile-style="text-align: center; white-space: pre-line; max-width: 100%; min-width: 100%;"
+                center-buttons="true"
+                no-cancel-button={noCancelButton}
+                onbuttonclick={handleAlertDialogClick}
+            >
+            </c-alertdialog>
             <main class="main-content submitted-false">
                 <h2 class="typo-overskrift">Krav til godkjenning</h2>
                 <div if:true={showRecievedClaimslist} class="recievedClaimslist">
@@ -96,7 +106,7 @@
                                 button-label="Avslå"
                                 button-styling="danger"
                                 disabled={notRedClaim}
-                                onbuttonclick={cancelClaim}
+                                onbuttonclick={declineClaim}
                                 desktop-style="width: 8rem; justify-content: center; margin-left: 1rem;"
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem;"
                             ></c-button> 
@@ -147,7 +157,7 @@
                         role="alert"
                         aria-live="polite"
                     >
-                        Godkjenner kravet...
+                        {actionText}
                     </h2>
                     <br />
                     <div if:true={spin} class="loader" style="display: flex; justify-content: center"></div>
