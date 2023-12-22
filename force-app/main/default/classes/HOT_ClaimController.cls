@@ -225,9 +225,30 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled
     public static String approveClaim(String recordId){
-        List<HOT_Claim__c> claims = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
         if(claims.size()==1){
             claims[0].ApprovedByUser__c=true;
+            claims[0].Status__c='Approved by user';
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
+    }
+     @AuraEnabled
+    public static String declineClaim(String recordId){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].ApprovedByUser__c=false;
+            claims[0].Status__c='Declined by user';
             try{
                 update claims;
                 return 'ok';
