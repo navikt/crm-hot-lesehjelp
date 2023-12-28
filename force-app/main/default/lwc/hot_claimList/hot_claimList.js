@@ -24,11 +24,14 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track claims;
 
     connectedCallback() {
-        //refreshApex(this.wiredClaimsResult);
+        refreshApex(this.wiredAllClaims);
     }
+    wiredAllClaims;
+
     wiredClaimsResult;
     @wire(getClaimsToApprove)
     wiredClaims(result) {
+        this.wiredAllClaims = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
             console.log('fant' + this.wiredClaimsResult.length);
