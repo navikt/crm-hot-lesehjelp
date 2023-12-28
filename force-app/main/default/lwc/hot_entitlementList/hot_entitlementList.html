@@ -1,0 +1,33 @@
+<template>
+    <div class="body">
+        <div class="content">
+            <div class="hot">
+                <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
+            </div>
+            <main class="mainContent">
+                <h2 class="typo-overskrift">Mine vedtak</h2>
+                <div if:true={showEntitlementlist}>
+                    <div if:true={noEntitlements} style="text-align: center">
+                        <br />
+                        <p class="typo-normal">Listen er tom. Du har ingen vedtak.</p>
+                    </div>
+                    <div if:false={noClaims}>
+                        <p class="typo-normal">Her finner du alle vedtakene du har.</p>
+                        <template for:each={claims} for:item="claim">
+                            <div key={claim.Id} class="claim-single" data-id={claim.Id}>
+                                <div class="container">
+                                    <p><strong>{claim.Name}</strong></p>
+                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                </div>
+
+                                <p>Lesehjelp for {claim.Account__r.Name}</p>
+                                <p>Status: {claim.Status__c}</p>
+                                <br />
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</template>

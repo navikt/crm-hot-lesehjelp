@@ -2,8 +2,8 @@
   "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "6f71221a-f1b7-4903-bd2b-4b4594f00275",
-  "label" : "Krav til godkjenning",
+  "id" : "9675d877-b76e-4443-9b5f-31c140326f65",
+  "label" : "Mine vedtak",
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
@@ -11,36 +11,36 @@
         "env" : "Dev"
       },
       "componentName" : "c:decoratorHeader",
-      "id" : "33fe5981-4e15-4f95-810e-1a96ff895b98",
+      "id" : "dcde2e21-3814-46de-9439-5216f147dc96",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "02728e8d-5421-4f2d-8c16-8756a1a31399",
+    "id" : "19228e78-8a0e-4f3a-a8c9-d2535968a8e9",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
-      "componentName" : "c:hot_claimList",
-      "id" : "6d791756-d6ee-4164-a653-1e7d53c7a207",
+      "componentName" : "c:hot_entitlementList",
+      "id" : "c211fd04-5e2e-42e4-85d7-86690a93c77c",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "c828343b-520f-4760-9e90-28a2e84ee6f9",
+    "id" : "d0cc79d5-3246-4b99-9d8b-e1f643d1fd1d",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:decoratorFooter",
-      "id" : "2555ecee-e26d-42ff-b625-1f9121a86af5",
+      "id" : "b0a22a8c-7822-46af-ba2b-c1e45810386d",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "14c90544-956d-46c1-95d1-4ec7b642e1a3",
+    "id" : "7dd7451b-098c-42ef-af6e-e1db756d749c",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -48,18 +48,18 @@
       "componentAttributes" : {
         "customHeadTags" : "",
         "description" : "",
-        "title" : "Krav til godkjenning"
+        "title" : "Mine vedtak"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "5c2acd7f-96e5-4911-a93d-85cebb434ba2",
+      "id" : "a942719f-54ea-4740-89ed-fe7d4a2069bc",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "bd59c94f-530f-47ef-9c19-6b174243861a",
+    "id" : "ace0dccb-7955-4bda-b1e0-a1d84d32c9b4",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
   "type" : "view",
-  "viewType" : "custom-krav-til-godkjenning"
+  "viewType" : "custom-mine-vedtak"
 }
