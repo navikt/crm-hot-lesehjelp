@@ -25,7 +25,7 @@ export default class Hot_claimantClaimList extends LightningElement {
     @track record;
     @track isNotCancelable = true;
     connectedCallback() {
-        refreshApex(this.wiredClaimsResult);
+        refreshApex(this.wiredAllClaim);
     }
 
     goToClaim(event) {
@@ -80,9 +80,12 @@ export default class Hot_claimantClaimList extends LightningElement {
     @track unmappedClaims;
     @track claims;
 
+    wiredAllClaim;
+
     wiredClaimsResult;
     @wire(getMyClaims)
     wiredClaims(result) {
+        this.wiredAllClaim = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
             console.log('fant' + this.wiredClaimsResult.length);
