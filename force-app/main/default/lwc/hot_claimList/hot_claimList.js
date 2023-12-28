@@ -242,14 +242,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         this.template.querySelector('.main-content').classList.remove('hidden');
         this.modalHeader = 'Noe gikk galt!';
         this.noCancelButton = true;
-        if (errorMessage == 'no account') {
-            this.modalContent = 'Kunne ikke finne person basert på informasjonen du skrev inn.';
-        } else if (errorMessage == 'no organization') {
-            this.modalContent = 'Kunne ikke finne arbeidsgiver basert på informasjonen du skrev inn.';
-        } else {
-            this.modalContent = errorMessage;
-        }
-
+        this.modalContent = errorMessage;
         this.template.querySelector('c-alertdialog').showModal();
         this.spin = false;
     }
