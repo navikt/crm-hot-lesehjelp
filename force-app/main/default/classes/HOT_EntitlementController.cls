@@ -3,7 +3,7 @@ public without sharing class HOT_EntitlementController {
     public static List<HOT_Entitlement__c> getEntitlements(){
             User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
             List<HOT_Entitlement__c> entitlements = [
-            SELECT Id,CreatedDate, FromDate__c, ToDate__c, Type__c
+            SELECT Id,CreatedDate, FromDate__c, ToDate__c, Type__c, Name
             FROM HOT_Entitlement__c
         ];
         return entitlements;
