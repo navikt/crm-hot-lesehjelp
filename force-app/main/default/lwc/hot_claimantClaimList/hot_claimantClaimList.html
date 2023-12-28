@@ -56,6 +56,8 @@
                             <p><strong>Innsendt dato:</strong> {record.created}</p>
                             <p><strong>Lesehjelp for:</strong> {record.Account__r.Name}</p>
                             <p><strong>Status:</strong> {record.Status__c}</p>
+                            <p if:true={record.CommentFromNAV__c}><strong>Kommentar fra saksebehandler:</strong></p>
+                            <p if:true={record.CommentFromNAV__c}>{record.CommentFromNAV__c}</p>
                             </br>
 
                             <template for:each={claimLineItems} for:item="cli">
