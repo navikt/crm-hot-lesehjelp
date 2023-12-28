@@ -4,7 +4,7 @@
 .content {
     width: 60%;
 }
-.claim-single {
+.entitlement-single {
     text-align: left;
     /* background-color: #cce1ff; */
     border: 3px solid #8cb6f0;
@@ -26,7 +26,7 @@ p {
     font-size: 1.1rem;
 }
 @media (max-width: 576px) {
-    .claim-single {
+    .entitlement-single {
         width: 100%;
         padding: 0.75rem;
     }

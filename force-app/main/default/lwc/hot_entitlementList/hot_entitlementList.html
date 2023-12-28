@@ -9,19 +9,17 @@
                 <div if:true={showEntitlementlist}>
                     <div if:true={noEntitlements} style="text-align: center">
                         <br />
-                        <p class="typo-normal">Listen er tom. Du har ingen vedtak.</p>
+                        <p class="typo-normal">Du har ingen vedtak.</p>
                     </div>
-                    <div if:false={noClaims}>
+                    <div if:false={noEntitlements}>
                         <p class="typo-normal">Her finner du alle vedtakene du har.</p>
-                        <template for:each={claims} for:item="claim">
-                            <div key={claim.Id} class="claim-single" data-id={claim.Id}>
+                        <template for:each={entitlements} for:item="entitlement">
+                            <div key={entitlement.Id} class="entitlement-single" data-id={entitlement.Id}>
                                 <div class="container">
-                                    <p><strong>{claim.Name}</strong></p>
-                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                    <p><strong>Type: {entitlement.Type__c}</strong></p>
+                                    <p>Periode: {entitlement.period}</p>
                                 </div>
-
-                                <p>Lesehjelp for {claim.Account__r.Name}</p>
-                                <p>Status: {claim.Status__c}</p>
+                                <p>Gjenstående timer på vedtaket:</p>
                                 <br />
                             </div>
                         </template>
