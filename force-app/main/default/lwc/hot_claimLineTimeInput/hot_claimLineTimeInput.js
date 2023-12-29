@@ -202,6 +202,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateEndTime();
         hasErrors += this.validateType();
         hasErrors += this.validateAdditionalInformation();
+        hasErrors += this.validateTravelToDate();
         return hasErrors;
     }
     validateType() {
@@ -246,6 +247,18 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             errorMessage = requireInput(element.getValue(), 'Sluttid');
             if (errorMessage === '') {
                 errorMessage = startBeforeEnd(this.times[0].endTime, this.times[0].startTime);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelToDate() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="dateTravelTo"]').forEach((element, index) => {
+            let errorMessage = requireInput(element.value, 'Dato');
+            if (errorMessage === '') {
+                errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
             }
             element.sendErrorMessage(errorMessage);
             hasErrors += errorMessage !== '';
