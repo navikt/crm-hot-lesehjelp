@@ -64,7 +64,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleSendButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        console.log('submitter');
         this.spin = true;
         this.template.querySelector('[data-id="saveButton"]').disabled = true;
 

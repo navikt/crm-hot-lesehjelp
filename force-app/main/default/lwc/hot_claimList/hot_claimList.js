@@ -36,7 +36,6 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         this.wiredAllClaims = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
-            console.log('fant' + this.wiredClaimsResult.length);
             if (this.wiredClaimsResult.length != 0) {
                 this.noRecievedClaims = false;
             }
@@ -76,13 +75,10 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
         if (claimElement) {
             const claimId = claimElement.getAttribute('data-id');
-            console.log(claimId);
             getClaimLineItems({
                 recordId: claimId
             })
                 .then((result) => {
-                    console.log(result);
-
                     this.claims.forEach((element) => {
                         if (element.Id == claimId) {
                             this.record = element;
@@ -179,7 +175,6 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
     approveClaim() {
         this.actionText = 'Godkjenner kravet...';
-        console.log('approver');
         this.spin = true;
         this.hideFormAndShowLoading();
         approveClaim({
@@ -203,7 +198,6 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     declineClaimPromptReason() {}
     declineClaim() {
         this.actionText = 'Avslår kravet...';
-        console.log('approver');
         this.spin = true;
         this.hideFormAndShowLoading();
         declineClaim({
@@ -255,14 +249,12 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         this.spin = false;
     }
     goBack() {
-        console.log('tilbake');
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {
                 pageName: 'krav-til-godkjenning'
             }
         });
-        console.log('tilbake2');
     }
     handleAlertDialogClick() {
         window.scrollTo(0, 0);

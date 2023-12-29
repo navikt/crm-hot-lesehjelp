@@ -32,9 +32,7 @@ export default class Hot_entitlementList extends LightningElement {
     @wire(getEntitlements)
     wiredClaims(result) {
         this.wiredEntitlementsResult = result.data;
-        console.log(this.wiredEntitlementsResult);
         if (result.data) {
-            console.log('fant' + this.wiredEntitlementsResult.length);
             if (this.wiredEntitlementsResult.length != 0) {
                 this.noEntitlements = false;
             }

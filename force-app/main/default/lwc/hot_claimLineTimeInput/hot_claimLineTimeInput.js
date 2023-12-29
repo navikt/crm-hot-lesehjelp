@@ -86,7 +86,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     handleTaskChoiceMade(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].task = event.detail.name;
-        console.log('yoo' + event.detail.name);
         if (event.detail.name == 'Annet (spesifiser i tilleggsinformasjon)') {
             this.times[index].hasAdditionalInformation = true;
         } else {
@@ -268,14 +267,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let radiobuttonValues = event.detail;
         radiobuttonValues.forEach((element) => {
             if (element.checked) {
-                console.log(element.value);
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelTo = true;
                 } else {
                     this.times[index].hasTravelTo = false;
                 }
-                console.log('reise tid til? index' + index + ' ' + this.times[index].hasTravelTo);
             }
         });
     }
@@ -283,15 +280,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let radiobuttonValues = event.detail;
         radiobuttonValues.forEach((element) => {
             if (element.checked) {
-                console.log(element.value);
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelFrom = true;
                 } else {
                     this.times[index].hasTravelFrom = false;
                 }
-
-                console.log('reise tid fra? index' + index + ' ' + this.times[index].hasTravelFrom);
             }
         });
     }

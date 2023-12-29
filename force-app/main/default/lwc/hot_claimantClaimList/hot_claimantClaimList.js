@@ -36,13 +36,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
 
         if (claimElement) {
             const claimId = claimElement.getAttribute('data-id');
-            console.log(claimId);
             getClaimLineItems({
                 recordId: claimId
             })
                 .then((result) => {
-                    console.log(result);
-
                     this.claims.forEach((element) => {
                         if (element.Id == claimId) {
                             this.record = element;
@@ -90,7 +87,6 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.wiredAllClaim = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
-            console.log('fant' + this.wiredClaimsResult.length);
             if (this.wiredClaimsResult.length != 0) {
                 this.noClaims = false;
             }
@@ -200,10 +196,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.template.querySelector('c-alertdialog').showModal();
     }
     handleAlertDialogClick(event) {
-        console.log(event.detail);
         if (event.detail === 'confirm' && this.confirmButtonLabel != 'OK') {
-            //this.cancelAndRefreshApex();
-            console.log('trekker kravet');
             this.actionText = 'Trekker kravet';
             this.spin = true;
             this.hideFormAndShowLoading();
@@ -212,23 +205,18 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 recordId: this.record.Id
             })
                 .then((result) => {
-                    console.log('mmmm');
                     if (result == 'ok') {
-                        console.log('yes');
                         this.submitSuccessMessage = 'Kravet ble tilbaketrukket.';
                         this.hideFormAndShowSuccess();
                     } else {
                         this.hideLoading();
                         this.hideFormAndShowError(result);
-                        console.log('nei');
                     }
                 })
                 .catch((error) => {
                     this.hideFormAndShowError(error);
-                    console.log('denne');
                 });
         } else {
-            console.log('yoo');
         }
     }
     goBack() {
@@ -266,16 +254,11 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.template.querySelector('.details').classList.remove('hidden');
         this.template.querySelector('.details').focus();
         this.template.querySelector('.main-content').classList.remove('hidden');
-        console.log('2');
         this.modalHeader = 'Noe gikk galt!';
-        console.log('3');
         this.noCancelButton = true;
-        console.log('4');
         this.confirmButtonLabel = 'OK';
         this.modalContent = errorMessage;
-        console.log('4-3');
         this.showModal();
-        console.log('6');
         this.spin = false;
     }
 }
