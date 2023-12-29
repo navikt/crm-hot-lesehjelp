@@ -201,12 +201,20 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateStartTime();
         hasErrors += this.validateEndTime();
         hasErrors += this.validateType();
+        hasErrors += this.validateAdditionalInformation();
         return hasErrors;
     }
     validateType() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="taskType"]').forEach((checkbox) => {
             hasErrors += checkbox.validationHandler();
+        });
+        return hasErrors;
+    }
+    validateAdditionalInformation() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="additionalInformation"]').forEach((input) => {
+            hasErrors += input.validationHandler();
         });
         return hasErrors;
     }
