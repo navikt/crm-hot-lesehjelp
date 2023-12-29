@@ -20,5 +20,8 @@ export default class Hot_newLOSForm extends LightningElement {
 
     connectedCallback() {
         this.fieldValues.Address__c = 'test';
+        this.fieldValues.BankAccount__c = 'test';
+        this.fieldValues.PhoneNumber__c = 'test';
+        this.fieldValues.EmailAdress__c = 'test';
     }
 }
