@@ -38,10 +38,12 @@
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
                             <c-checkbox
+                                class="checkbox"
                                 label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                                 oncheckboxclick={signingClaim}
                                 name="confirmationCheckbox"
                                 aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                error-text="Denne må hukes av."
                             ></c-checkbox>
                         </div>
                         <div class="button-container">

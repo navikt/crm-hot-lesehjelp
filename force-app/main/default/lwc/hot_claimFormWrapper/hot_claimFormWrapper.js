@@ -64,11 +64,14 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleSendButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        this.spin = true;
-        this.template.querySelector('[data-id="saveButton"]').disabled = true;
-
-        this.hideFormAndShowLoading();
-        this.submitForm();
+        if (this.handleValidation()) {
+            return;
+        } else {
+            this.spin = true;
+            this.template.querySelector('[data-id="saveButton"]').disabled = true;
+            this.hideFormAndShowLoading();
+            this.submitForm();
+        }
     }
 
     handleValidation() {
@@ -76,6 +79,10 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.template.querySelectorAll('.subform').forEach((subForm) => {
             hasErrors += subForm.validateFields();
             console.log('feil' + hasErrors);
+        });
+        this.template.querySelectorAll('.checkbox').forEach((checkbox) => {
+            hasErrors += checkbox.validationHandler();
+            console.log('feil check' + hasErrors);
         });
         return hasErrors;
     }
