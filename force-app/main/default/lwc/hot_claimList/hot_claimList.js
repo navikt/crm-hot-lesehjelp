@@ -10,6 +10,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track showRecievedClaimslist = true;
     @track noRecievedClaims = true;
     @track actionText = '';
+
     breadcrumbs = [
         {
             label: 'Lesehjelp',
@@ -31,6 +32,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     wiredClaimsResult;
     @wire(getClaimsToApprove)
     wiredClaims(result) {
+        this.noRecievedClaims = true;
         this.wiredAllClaims = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
@@ -196,6 +198,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                 this.hideFormAndShowError(error);
             });
     }
+    declineReason;
+
+    declineClaimPromptReason() {}
     declineClaim() {
         this.actionText = 'Avslår kravet...';
         console.log('approver');

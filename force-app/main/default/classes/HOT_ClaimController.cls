@@ -219,8 +219,8 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
-            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE) AND (Claimant__c=:currentUser.AccountId)];
+                Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
+            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE) AND (Account__c=:currentUser.AccountId)];
         return claims;
     }
     @AuraEnabled
@@ -249,6 +249,25 @@ public without sharing class HOT_ClaimController {
         if(claims.size()==1){
             claims[0].ApprovedByUser__c=false;
             claims[0].Status__c='Declined by user';
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
+    }
+     @AuraEnabled
+    public static String cancelClaim(String recordId){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].Status__c='Withdrawn';
             try{
                 update claims;
                 return 'ok';

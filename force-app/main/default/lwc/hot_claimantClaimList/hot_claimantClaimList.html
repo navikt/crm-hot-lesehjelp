@@ -4,7 +4,7 @@
             <div class="hot">
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
-            <main class="mainContent">
+            <main class="main-content submitted-false">
                 <h2 class="typo-overskrift">Mine innsendte krav</h2>
                 <div if:true={showClaimlist}>
                     <div if:true={noClaims} style="text-align: center">
@@ -41,6 +41,17 @@
                     role="dialog"
                     aria-labelledby="comment-header-id"
                 >
+                <c-alertdialog
+                            header={modalHeader}
+                            content={modalContent}
+                            desktop-style="text-align: center; white-space: pre-line; width: 50%"
+                            mobile-style="text-align: center; white-space: pre-line; width: 100%; max-width: 100%;"
+                            center-buttons="true"
+                            no-cancel-button={noCancelButton}
+                            confirm-button-label={confirmButtonLabel}
+                            onbuttonclick={handleAlertDialogClick}
+                        >
+                    </c-alertdialog>
                     <section>
                         <div>
                             <h2 class="typo-undertittel">Innholdet i {recordName}</h2>
@@ -73,30 +84,66 @@
                                 </div>
                             </template>
                             <div class="buttons">
-                            <!-- <c-button
+                            <c-button
                                 button-label="Trekk kravet"
                                 button-styling="primary"
                                 disabled={record.isCancelButtonDisabled}
                                 onbuttonclick={cancelClaim}
                                 desktop-style="width: 8rem; justify-content: center"
                                 mobile-style="width: 8rem; justify-content: center"
-                            ></c-button> -->
+                            ></c-button>
                         </div>
                         </div>
                     </section>
                     <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
                         <span class="text-hide">Lukk</span>
                     </button>
-                    <c-alertdialog
-        header={modalHeader}
-        content={modalContent}
-        desktop-style="text-align: center; white-space: pre-line; width: 50%"
-        mobile-style="text-align: center; white-space: pre-line; width: 100%; max-width: 100%;"
-        center-buttons="true"
-        no-cancel-button={noCancelButton}
-        onbuttonclick={handleAlertDialogClick}
-    >
-    </c-alertdialog>
+                </div>
+            </div>
+              <div class="loading-content hidden submitted-true">
+                <div class="loading-content dialog-boks skjema-max-width">
+                    <lightning-icon
+                        icon-name="utility:success"
+                        alternative-text="Suksess"
+                        title="Suksess"
+                        variant="success"
+                        size="large"
+                    >
+                    </lightning-icon>
+                    <br />
+                    <h2
+                        class="typo-undertittel h2-successMessage"
+                        id="successMessage"
+                        tabindex="-1"
+                        role="alert"
+                        aria-live="polite"
+                    >
+                        {submitSuccessMessage}
+                    </h2>
+                    <br />
+                    <c-button
+                        button-label="Tilbake til liste"
+                        button-styling="primary"
+                        onbuttonclick={goBack}
+                        desktop-style="width: 16rem; justify-content: center"
+                        mobile-style="width: 16rem; justify-content: center"
+                    ></c-button> 
+                </div>
+            </div>
+            <div class="loading-content hidden submitted-loading">
+                <div class="loading-content dialog-boks skjema-max-width">
+                    <h2
+                        class="typo-undertittel h2-loadingMessage"
+                        id="loadingMessage"
+                        tabindex="-1"
+                        role="alert"
+                        aria-live="polite"
+                    >
+                        {actionText}
+                    </h2>
+                    <br />
+                    <div if:true={spin} class="loader" style="display: flex; justify-content: center"></div>
+                    <br />
                 </div>
             </div>
         </div>

@@ -1,9 +1,11 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { NavigationMixin } from 'lightning/navigation';
 import getMyClaims from '@salesforce/apex/HOT_ClaimController.getMyClaims';
+import cancelClaim from '@salesforce/apex/HOT_ClaimController.cancelClaim';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 
-export default class Hot_claimantClaimList extends LightningElement {
+export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
     @track showClaimlist = true;
     @track noClaims = true;
     @track noClaimLineItems = true;
@@ -182,7 +184,14 @@ export default class Hot_claimantClaimList extends LightningElement {
     noCancelButton = true;
     modalHeader = 'Varsel';
     modalContent = 'Noe gikk galt';
+    @track actionText = '';
+    @track confirmButtonLabel = '';
+
+    @track spin = false;
+    @track submitSuccessMessage = '';
+
     cancelClaim() {
+        this.confirmButtonLabel = 'Ja';
         this.modalContent = 'Er du sikker på at du vil trekke kravet ' + this.recordName + '?';
         this.noCancelButton = false;
         this.showModal();
@@ -191,10 +200,82 @@ export default class Hot_claimantClaimList extends LightningElement {
         this.template.querySelector('c-alertdialog').showModal();
     }
     handleAlertDialogClick(event) {
-        if (event.detail === 'confirm') {
+        console.log(event.detail);
+        if (event.detail === 'confirm' && this.confirmButtonLabel != 'OK') {
             //this.cancelAndRefreshApex();
             console.log('trekker kravet');
+            this.actionText = 'Trekker kravet';
+            this.spin = true;
+            this.hideFormAndShowLoading();
             this.isCancel = false;
+            cancelClaim({
+                recordId: this.record.Id
+            })
+                .then((result) => {
+                    console.log('mmmm');
+                    if (result == 'ok') {
+                        console.log('yes');
+                        this.submitSuccessMessage = 'Kravet ble tilbaketrukket.';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                        console.log('nei');
+                    }
+                })
+                .catch((error) => {
+                    this.hideFormAndShowError(error);
+                    console.log('denne');
+                });
+        } else {
+            console.log('yoo');
         }
+    }
+    goBack() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'mine-krav'
+            }
+        });
+    }
+    //SCREENS
+
+    modalHeader = '';
+    modalContent = '';
+    noCancelButton = true;
+
+    hideFormAndShowLoading() {
+        this.template.querySelector('.details').classList.add('hidden');
+        this.template.querySelector('.main-content').classList.add('hidden');
+        this.template.querySelector('.submitted-loading').classList.remove('hidden');
+        this.template.querySelector('.h2-loadingMessage').focus();
+        window.scrollTo(0, 0);
+    }
+    hideLoading() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        window.scrollTo(0, 0);
+    }
+    hideFormAndShowSuccess() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        this.template.querySelector('.submitted-false').classList.add('hidden');
+        this.template.querySelector('.submitted-true').classList.remove('hidden');
+        this.template.querySelector('.h2-successMessage').focus();
+    }
+    hideFormAndShowError(errorMessage) {
+        this.template.querySelector('.details').classList.remove('hidden');
+        this.template.querySelector('.details').focus();
+        this.template.querySelector('.main-content').classList.remove('hidden');
+        console.log('2');
+        this.modalHeader = 'Noe gikk galt!';
+        console.log('3');
+        this.noCancelButton = true;
+        console.log('4');
+        this.confirmButtonLabel = 'OK';
+        this.modalContent = errorMessage;
+        console.log('4-3');
+        this.showModal();
+        console.log('6');
+        this.spin = false;
     }
 }
