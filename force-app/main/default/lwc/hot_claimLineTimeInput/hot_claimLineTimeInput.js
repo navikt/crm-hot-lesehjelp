@@ -203,6 +203,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateType();
         hasErrors += this.validateAdditionalInformation();
         hasErrors += this.validateTravelToDate();
+        hasErrors += this.validateTravelToStartTime();
+        hasErrors += this.validateTravelToEndTime();
         return hasErrors;
     }
     validateType() {
@@ -259,6 +261,28 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             let errorMessage = requireInput(element.value, 'Dato');
             if (errorMessage === '') {
                 errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelToStartTime() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="startTimeTravelTo"]').forEach((element) => {
+            let errorMessage = requireInput(element.getValue(), 'Starttid');
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelToEndTime() {
+        let errorMessage = '';
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="endTimeTravelTo"]').forEach((element, index) => {
+            errorMessage = requireInput(element.getValue(), 'Sluttid');
+            if (errorMessage === '') {
+                errorMessage = startBeforeEnd(this.times[0].endTimeTravelTo, this.times[0].startTimeTravelTo);
             }
             element.sendErrorMessage(errorMessage);
             hasErrors += errorMessage !== '';
