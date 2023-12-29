@@ -99,6 +99,6 @@ export default class Hot_claimForm extends LightningElement {
     @api
     validateFields() {
         //LEGG PÅ VALIDERING PÅ TIME INPUTS
-        return 0;
+        return this.template.querySelector('c-hot_claim-line-time-input').validateFields();
     }
 }

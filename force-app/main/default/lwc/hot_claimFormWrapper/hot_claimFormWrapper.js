@@ -64,6 +64,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleSendButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
+
         if (this.handleValidation()) {
             return;
         } else {

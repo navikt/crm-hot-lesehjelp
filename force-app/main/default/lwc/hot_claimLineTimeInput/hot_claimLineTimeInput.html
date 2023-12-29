@@ -39,10 +39,11 @@
                 </br>
                 <c-picklist
                     name={it.value.id}
-                    choices={repeatingOptions}
+                    choices={taskOptions}
                     onpicklistvaluechange={handleTaskChoiceMade}
                     master-label="Oppgave"
-                    data-id="recurringType"
+                    data-id="taskType"
+                    error-text="Du må velge en oppgave."
                     desktop-style="padding-top: 1vw"
                     style={dateTimeDesktopStyle}
                 >

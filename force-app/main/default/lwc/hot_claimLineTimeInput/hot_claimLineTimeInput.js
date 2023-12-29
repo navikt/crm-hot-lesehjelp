@@ -1,14 +1,6 @@
 import { LightningElement, track, wire, api } from 'lwc';
 //import getTimes from '@salesforce/apex/HOT_RequestListController.getTimesNew';
-// import {
-//     requireInput,
-//     dateInPast,
-//     startBeforeEnd,
-//     requireRecurringDays,
-//     startDateBeforeRecurringEndDate,
-//     restrictTheNumberOfDays,
-//     chosenDaysWithinPeriod
-// } from './hot_recurringTimeInput_validationRules';
+import { requireInput, dateInPast, startBeforeEnd } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
     @track times = [];
@@ -22,8 +14,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[0].randomNumber = 2;
         this.updateIsOnlyOneTime();
     }
-    repeatingOptions = [
-        { label: 'Velg oppgave', name: '', selected: true, disabled: true },
+    taskOptions = [
+        { label: 'Velg oppgave', name: 'Placeholder', selected: true, disabled: true },
         { label: 'Møte', name: 'Møte' },
         { label: 'Arkivering', name: 'Arkivering' },
         { label: 'Lest avis', name: 'Lest avis' },
@@ -208,6 +200,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = this.validateDate();
         hasErrors += this.validateStartTime();
         hasErrors += this.validateEndTime();
+        hasErrors += this.validateType();
+        return hasErrors;
+    }
+    validateType() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="taskType"]').forEach((checkbox) => {
+            hasErrors += checkbox.validationHandler();
+        });
         return hasErrors;
     }
     validateDate() {
