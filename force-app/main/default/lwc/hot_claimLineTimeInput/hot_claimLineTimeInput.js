@@ -205,6 +205,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateTravelToDate();
         hasErrors += this.validateTravelToStartTime();
         hasErrors += this.validateTravelToEndTime();
+        hasErrors += this.validateTravelFromDate();
+        hasErrors += this.validateTravelFromStartTime();
+        hasErrors += this.validateTravelFromEndTime();
         return hasErrors;
     }
     validateType() {
@@ -283,6 +286,40 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             errorMessage = requireInput(element.getValue(), 'Sluttid');
             if (errorMessage === '') {
                 errorMessage = startBeforeEnd(this.times[0].endTimeTravelTo, this.times[0].startTimeTravelTo);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromDate() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="dateTravelFrom"]').forEach((element, index) => {
+            let errorMessage = requireInput(element.value, 'Dato');
+            if (errorMessage === '') {
+                errorMessage = dateInPast(this.times[index].dateTravelFromMilliseconds);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromStartTime() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="startTimeTravelFrom"]').forEach((element) => {
+            let errorMessage = requireInput(element.getValue(), 'Starttid');
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromEndTime() {
+        let errorMessage = '';
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="endTimeTravelFrom"]').forEach((element, index) => {
+            errorMessage = requireInput(element.getValue(), 'Sluttid');
+            if (errorMessage === '') {
+                errorMessage = startBeforeEnd(this.times[0].endTimeTravelFrom, this.times[0].startTimeTravelFrom);
             }
             element.sendErrorMessage(errorMessage);
             hasErrors += errorMessage !== '';
