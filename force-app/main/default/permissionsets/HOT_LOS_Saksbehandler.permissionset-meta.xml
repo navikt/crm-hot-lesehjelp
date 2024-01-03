@@ -46,11 +46,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.WorkTypeName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.ApprovedByNAV__c</field>
         <readable>true</readable>
