@@ -207,7 +207,7 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c
+                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c
             FROM HOT_Claim__c
             WHERE Claimant__c=:currentUser.AccountId
         ];
@@ -224,11 +224,12 @@ public without sharing class HOT_ClaimController {
         return claims;
     }
     @AuraEnabled
-    public static String approveClaim(String recordId){
-        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+    public static String approveClaim(String recordId, String comment){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c FROM HOT_Claim__c WHERE Id=:recordId];
         if(claims.size()==1){
             claims[0].ApprovedByUser__c=true;
             claims[0].Status__c='Approved by user';
+            claims[0].CommentFromUser__c=comment;
             try{
                 update claims;
                 return 'ok';
@@ -243,12 +244,13 @@ public without sharing class HOT_ClaimController {
             return '';
         }
     }
-     @AuraEnabled
-    public static String declineClaim(String recordId){
-        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+    @AuraEnabled
+    public static String declineClaim(String recordId, String comment){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c FROM HOT_Claim__c WHERE Id=:recordId];
         if(claims.size()==1){
             claims[0].ApprovedByUser__c=false;
             claims[0].Status__c='Declined by user';
+            claims[0].CommentFromUser__c=comment;
             try{
                 update claims;
                 return 'ok';

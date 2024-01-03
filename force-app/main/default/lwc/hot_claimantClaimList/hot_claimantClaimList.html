@@ -69,6 +69,8 @@
                             <p><strong>Status:</strong> {record.Status__c}</p>
                             <p if:true={record.CommentFromNAV__c}><strong>Kommentar fra saksebehandler:</strong></p>
                             <p if:true={record.CommentFromNAV__c}>{record.CommentFromNAV__c}</p>
+                             <p if:true={record.CommentFromUser__c}><strong>Kommentar fra bruker:</strong></p>
+                            <p if:true={record.CommentFromUser__c}>{record.CommentFromUser__c}</p>
                             </br>
 
                             <template for:each={claimLineItems} for:item="cli">

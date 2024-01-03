@@ -11,6 +11,10 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track noRecievedClaims = true;
     @track actionText = '';
 
+    @track fieldValues = {
+        CommentFromUser__c: ''
+    };
+
     breadcrumbs = [
         {
             label: 'Lesehjelp',
@@ -66,10 +70,17 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track recordName;
     @track recordType;
     @track recordClaimantName;
+    @track isDeclineClaim = false;
 
     @track record = {};
+    @track commentValue = '';
 
     goToClaim(event) {
+        this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
+        this.isDeclineClaim = false;
+        this.notRedClaim = true;
+        //this.template.querySelector('c-input').setValue('');
+        this.template.querySelector('c-checkbox').clearCheckboxValue();
         const clickedButton = event.target;
         const claimElement = clickedButton.closest('[data-id]');
 
@@ -174,11 +185,13 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track submitSuccessMessage = '';
 
     approveClaim() {
+        this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
         this.actionText = 'Godkjenner kravet...';
         this.spin = true;
         this.hideFormAndShowLoading();
         approveClaim({
-            recordId: this.record.Id
+            recordId: this.record.Id,
+            comment: this.fieldValues.CommentFromUser__c
         })
             .then((result) => {
                 if (result == 'ok') {
@@ -193,28 +206,34 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                 this.hideFormAndShowError(error);
             });
     }
-    declineReason;
 
     declineClaimPromptReason() {}
     declineClaim() {
-        this.actionText = 'Avslår kravet...';
-        this.spin = true;
-        this.hideFormAndShowLoading();
-        declineClaim({
-            recordId: this.record.Id
-        })
-            .then((result) => {
-                if (result == 'ok') {
-                    this.submitSuccessMessage = 'Kravet ble avslått av deg';
-                    this.hideFormAndShowSuccess();
-                } else {
-                    this.hideLoading();
-                    this.hideFormAndShowError(result);
-                }
+        this.isDeclineClaim = true;
+        if (this.handleValidation()) {
+            return;
+        } else {
+            this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
+            this.actionText = 'Avslår kravet...';
+            this.spin = true;
+            this.hideFormAndShowLoading();
+            declineClaim({
+                recordId: this.record.Id,
+                comment: this.fieldValues.CommentFromUser__c
             })
-            .catch((error) => {
-                this.hideFormAndShowError(error);
-            });
+                .then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ble avslått av deg';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                })
+                .catch((error) => {
+                    this.hideFormAndShowError(error);
+                });
+        }
     }
 
     //SCREENS
@@ -264,5 +283,14 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                 pageName: 'krav-til-godkjenning'
             }
         });
+    }
+    handleValidation() {
+        let hasErrors = false;
+        if (this.declineClaim) {
+            this.template.querySelectorAll('c-textarea').forEach((input) => {
+                hasErrors += input.validationHandler();
+            });
+        }
+        return hasErrors;
     }
 }

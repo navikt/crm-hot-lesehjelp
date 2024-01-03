@@ -84,8 +84,23 @@
                                     <p if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
                                 </div>
                             </template>
-                             <div class="confirmationCheckbox">
-                            <c-checkbox
+                        </br>
+                              <!-- <c-input
+                                    name="CommentFromUser__c"
+                                    label="Kommentar"
+                                    value={fieldValues.CommentFromUser__c}
+                                    helptext-hovertext="Dette må feltet fylles ut ved avslag."
+                                    error-text="Kommentar må fylles ut ved avslag."
+                                ></c-input> -->
+                                <c-textarea
+                                    name="CommentFromUser__c"
+                                    label="Kommentar"
+                                    value={fieldValues.CommentFromUser__c}
+                                    helptext-hovertext="Dette må feltet fylles ut ved avslag."
+                                    error-text="Kommentar må fylles ut ved avslag."
+                                ></c-textarea>
+                           <div class="confirmationCheckbox">
+                             <c-checkbox
                                 label="Jeg bekrefter at jeg har lest all informasjon i kravet."
                                 oncheckboxclick={approveClaimCheckboxHandle}
                                 name="confirmationCheckbox"
