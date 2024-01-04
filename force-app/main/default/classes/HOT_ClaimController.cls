@@ -207,15 +207,81 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c
+                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c
             FROM HOT_Claim__c
             WHERE Claimant__c=:currentUser.AccountId
         ];
         return claims;
     }
-     @AuraEnabled(cacheable=true)
-    public static boolean checkIsLos(){
-            User currentUser = [SELECT Account.CRM_Person__r.HOT_isLOS__c FROM User WHERE Id = :UserInfo.getUserId()];
-            return currentUser.Account.CRM_Person__r.HOT_isLOS__c;
+    @AuraEnabled(cacheable=true)
+    public static List<HOT_Claim__c> getClaimsToApprove(){
+            User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+            List<HOT_Claim__c> claims = [
+            SELECT
+                Id,
+                Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
+            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE) AND (Account__c=:currentUser.AccountId)];
+        return claims;
+    }
+    @AuraEnabled
+    public static String approveClaim(String recordId, String comment){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].ApprovedByUser__c=true;
+            claims[0].Status__c='Approved by user';
+            claims[0].CommentFromUser__c=comment;
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
+    }
+    @AuraEnabled
+    public static String declineClaim(String recordId, String comment){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].ApprovedByUser__c=false;
+            claims[0].Status__c='Declined by user';
+            claims[0].CommentFromUser__c=comment;
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
+    }
+     @AuraEnabled
+    public static String cancelClaim(String recordId){
+        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id=:recordId];
+        if(claims.size()==1){
+            claims[0].Status__c='Withdrawn';
+            try{
+                update claims;
+                return 'ok';
+            }
+                catch (Exception e) {
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
+                return e.getMessage();
+            }
+        }else{
+            return '';
+        }
     }
 }

@@ -16,12 +16,6 @@
             </c-alertdialog>
             <main class="main-content submitted-false">
                 <div class="skjema skjema-max-width">
-                    <a if:false={isLos} href="" class="alert"
-                        ><c-alert-banner
-                            type="Warning"
-                            message="Det ser ikke ut som du er registrert som lesehjelp. Før du sender inn kravet vil du bli bedt om å fylle ut litt informasjon om deg selv."
-                        ></c-alert-banner
-                    ></a>
                     <c-hot_claim-form-type
                         if:false={claimTypeChosen}
                         onclaimformtyperesult={handleRequestType}
@@ -40,13 +34,16 @@
                             parent-field-values={fieldValues}
                             claim-type={fieldValues.ClaimType__c}
                             parent-claim-component-values={componentValues}
+                            is-los={isLos}
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
                             <c-checkbox
-                                label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                                class="checkbox"
+                                label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                                 oncheckboxclick={signingClaim}
                                 name="confirmationCheckbox"
-                                aria-label="Jeg bekrefter at skjemaet inneholder korrekt informasjon."
+                                aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                error-text="Denne må hukes av."
                             ></c-checkbox>
                         </div>
                         <div class="button-container">

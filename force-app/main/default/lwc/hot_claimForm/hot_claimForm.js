@@ -3,6 +3,8 @@ import { LightningElement, api, track } from 'lwc';
 export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
     @api claimType;
+    @api isLos;
+    @track showNewLos = false;
     @api parentClaimComponentValues;
     @track isWorkClaimType = false;
 
@@ -23,6 +25,9 @@ export default class Hot_claimForm extends LightningElement {
         isOptionalFields: false
     };
     connectedCallback() {
+        if (this.isLos == false && this.employerClaim != true) {
+            this.showNewLos = true;
+        }
         this.showDiv = true;
         setTimeout(() => this.template.querySelector('h2').focus());
 
@@ -39,8 +44,14 @@ export default class Hot_claimForm extends LightningElement {
         const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
         if (selectedValue.value === 'true') {
             this.employerClaim = true;
+            if (this.isLos == false) {
+                this.showNewLos = false;
+            }
         } else {
             this.employerClaim = false;
+            if (this.isLos == false) {
+                this.showNewLos = true;
+            }
         }
 
         if (this.claimType == 'Arbeid') {
@@ -54,8 +65,14 @@ export default class Hot_claimForm extends LightningElement {
         this.componentValues.onEmployerRadioButtons = event.detail;
         if (event.detail[0].checked) {
             this.employerClaim = true;
+            if (this.isLos == false) {
+                this.showNewLos = false;
+            }
         } else {
             this.employerClaim = false;
+            if (this.isLos == false) {
+                this.showNewLos = true;
+            }
         }
     }
     @api getComponentValues() {
@@ -74,5 +91,14 @@ export default class Hot_claimForm extends LightningElement {
     @api
     getTimeInput() {
         return this.template.querySelector('c-hot_claim-line-time-input').getTimeInput();
+    }
+    @api
+    getNewLOSInput() {
+        return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
+    }
+    @api
+    validateFields() {
+        //LEGG PÅ VALIDERING PÅ TIME INPUTS
+        return this.template.querySelector('c-hot_claim-line-time-input').validateFields();
     }
 }

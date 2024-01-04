@@ -1,14 +1,6 @@
 import { LightningElement, track, wire, api } from 'lwc';
 //import getTimes from '@salesforce/apex/HOT_RequestListController.getTimesNew';
-// import {
-//     requireInput,
-//     dateInPast,
-//     startBeforeEnd,
-//     requireRecurringDays,
-//     startDateBeforeRecurringEndDate,
-//     restrictTheNumberOfDays,
-//     chosenDaysWithinPeriod
-// } from './hot_recurringTimeInput_validationRules';
+import { requireInput, dateInPast, startBeforeEnd } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
     @track times = [];
@@ -22,8 +14,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[0].randomNumber = 2;
         this.updateIsOnlyOneTime();
     }
-    repeatingOptions = [
-        { label: 'Velg oppgave', name: '', selected: true, disabled: true },
+    taskOptions = [
+        { label: 'Velg oppgave', name: 'Placeholder', selected: true, disabled: true },
         { label: 'Møte', name: 'Møte' },
         { label: 'Arkivering', name: 'Arkivering' },
         { label: 'Lest avis', name: 'Lest avis' },
@@ -86,7 +78,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     handleTaskChoiceMade(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].task = event.detail.name;
-        console.log('yoo' + event.detail.name);
         if (event.detail.name == 'Annet (spesifiser i tilleggsinformasjon)') {
             this.times[index].hasAdditionalInformation = true;
         } else {
@@ -209,6 +200,28 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = this.validateDate();
         hasErrors += this.validateStartTime();
         hasErrors += this.validateEndTime();
+        hasErrors += this.validateType();
+        hasErrors += this.validateAdditionalInformation();
+        hasErrors += this.validateTravelToDate();
+        hasErrors += this.validateTravelToStartTime();
+        hasErrors += this.validateTravelToEndTime();
+        hasErrors += this.validateTravelFromDate();
+        hasErrors += this.validateTravelFromStartTime();
+        hasErrors += this.validateTravelFromEndTime();
+        return hasErrors;
+    }
+    validateType() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="taskType"]').forEach((checkbox) => {
+            hasErrors += checkbox.validationHandler();
+        });
+        return hasErrors;
+    }
+    validateAdditionalInformation() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="additionalInformation"]').forEach((input) => {
+            hasErrors += input.validationHandler();
+        });
         return hasErrors;
     }
     validateDate() {
@@ -245,6 +258,74 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         });
         return hasErrors;
     }
+    validateTravelToDate() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="dateTravelTo"]').forEach((element, index) => {
+            let errorMessage = requireInput(element.value, 'Dato');
+            if (errorMessage === '') {
+                errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelToStartTime() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="startTimeTravelTo"]').forEach((element) => {
+            let errorMessage = requireInput(element.getValue(), 'Starttid');
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelToEndTime() {
+        let errorMessage = '';
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="endTimeTravelTo"]').forEach((element, index) => {
+            errorMessage = requireInput(element.getValue(), 'Sluttid');
+            if (errorMessage === '') {
+                errorMessage = startBeforeEnd(this.times[0].endTimeTravelTo, this.times[0].startTimeTravelTo);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromDate() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="dateTravelFrom"]').forEach((element, index) => {
+            let errorMessage = requireInput(element.value, 'Dato');
+            if (errorMessage === '') {
+                errorMessage = dateInPast(this.times[index].dateTravelFromMilliseconds);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromStartTime() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="startTimeTravelFrom"]').forEach((element) => {
+            let errorMessage = requireInput(element.getValue(), 'Starttid');
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
+    validateTravelFromEndTime() {
+        let errorMessage = '';
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="endTimeTravelFrom"]').forEach((element, index) => {
+            errorMessage = requireInput(element.getValue(), 'Sluttid');
+            if (errorMessage === '') {
+                errorMessage = startBeforeEnd(this.times[0].endTimeTravelFrom, this.times[0].startTimeTravelFrom);
+            }
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
+        });
+        return hasErrors;
+    }
 
     get dateTimeDesktopStyle() {
         let isDesktop = 'width: 100%;';
@@ -268,14 +349,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let radiobuttonValues = event.detail;
         radiobuttonValues.forEach((element) => {
             if (element.checked) {
-                console.log(element.value);
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelTo = true;
                 } else {
                     this.times[index].hasTravelTo = false;
                 }
-                console.log('reise tid til? index' + index + ' ' + this.times[index].hasTravelTo);
             }
         });
     }
@@ -283,15 +362,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let radiobuttonValues = event.detail;
         radiobuttonValues.forEach((element) => {
             if (element.checked) {
-                console.log(element.value);
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelFrom = true;
                 } else {
                     this.times[index].hasTravelFrom = false;
                 }
-
-                console.log('reise tid fra? index' + index + ' ' + this.times[index].hasTravelFrom);
             }
         });
     }

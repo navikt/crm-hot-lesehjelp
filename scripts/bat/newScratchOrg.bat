@@ -7,8 +7,8 @@ call sf package install --package 04t7U000000Y2gcQAC --no-prompt --installation-
 echo "Installerer crm-platform-access-control ver. 0.116"
 call sf package install --package 04t7U000000Y2ZlQAK --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installerer crm-community-base ver. 0.96"
-call sf package install --package 04t7U000000Y2bDQAS --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installerer crm-community-base ver. 0.97"
+call sf package install --package 04t7U000000Y2iYQAS --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Dytter kildekoden til scratch org'en"
 call sf project deploy start

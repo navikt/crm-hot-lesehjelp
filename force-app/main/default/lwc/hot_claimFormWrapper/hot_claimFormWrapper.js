@@ -1,7 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
-import checkIsLos from '@salesforce/apex/HOT_ClaimController.checkIsLos';
+import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -64,12 +64,15 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleSendButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        console.log('submitter');
-        this.spin = true;
-        this.template.querySelector('[data-id="saveButton"]').disabled = true;
 
-        this.hideFormAndShowLoading();
-        this.submitForm();
+        if (this.handleValidation()) {
+            return;
+        } else {
+            this.spin = true;
+            this.template.querySelector('[data-id="saveButton"]').disabled = true;
+            this.hideFormAndShowLoading();
+            this.submitForm();
+        }
     }
 
     handleValidation() {
@@ -77,6 +80,10 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.template.querySelectorAll('.subform').forEach((subForm) => {
             hasErrors += subForm.validateFields();
             console.log('feil' + hasErrors);
+        });
+        this.template.querySelectorAll('.checkbox').forEach((checkbox) => {
+            hasErrors += checkbox.validationHandler();
+            console.log('feil check' + hasErrors);
         });
         return hasErrors;
     }

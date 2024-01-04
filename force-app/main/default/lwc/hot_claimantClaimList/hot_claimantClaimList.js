@@ -1,9 +1,11 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { NavigationMixin } from 'lightning/navigation';
 import getMyClaims from '@salesforce/apex/HOT_ClaimController.getMyClaims';
+import cancelClaim from '@salesforce/apex/HOT_ClaimController.cancelClaim';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 
-export default class Hot_claimantClaimList extends LightningElement {
+export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
     @track showClaimlist = true;
     @track noClaims = true;
     @track noClaimLineItems = true;
@@ -25,7 +27,7 @@ export default class Hot_claimantClaimList extends LightningElement {
     @track record;
     @track isNotCancelable = true;
     connectedCallback() {
-        refreshApex(this.wiredClaimsResult);
+        refreshApex(this.wiredAllClaim);
     }
 
     goToClaim(event) {
@@ -34,13 +36,10 @@ export default class Hot_claimantClaimList extends LightningElement {
 
         if (claimElement) {
             const claimId = claimElement.getAttribute('data-id');
-            console.log(claimId);
             getClaimLineItems({
                 recordId: claimId
             })
                 .then((result) => {
-                    console.log(result);
-
                     this.claims.forEach((element) => {
                         if (element.Id == claimId) {
                             this.record = element;
@@ -80,12 +79,14 @@ export default class Hot_claimantClaimList extends LightningElement {
     @track unmappedClaims;
     @track claims;
 
+    wiredAllClaim;
+
     wiredClaimsResult;
     @wire(getMyClaims)
     wiredClaims(result) {
+        this.wiredAllClaim = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
-            console.log('fant' + this.wiredClaimsResult.length);
             if (this.wiredClaimsResult.length != 0) {
                 this.noClaims = false;
             }
@@ -179,7 +180,14 @@ export default class Hot_claimantClaimList extends LightningElement {
     noCancelButton = true;
     modalHeader = 'Varsel';
     modalContent = 'Noe gikk galt';
+    @track actionText = '';
+    @track confirmButtonLabel = '';
+
+    @track spin = false;
+    @track submitSuccessMessage = '';
+
     cancelClaim() {
+        this.confirmButtonLabel = 'Ja';
         this.modalContent = 'Er du sikker på at du vil trekke kravet ' + this.recordName + '?';
         this.noCancelButton = false;
         this.showModal();
@@ -188,10 +196,69 @@ export default class Hot_claimantClaimList extends LightningElement {
         this.template.querySelector('c-alertdialog').showModal();
     }
     handleAlertDialogClick(event) {
-        if (event.detail === 'confirm') {
-            //this.cancelAndRefreshApex();
-            console.log('trekker kravet');
+        if (event.detail === 'confirm' && this.confirmButtonLabel != 'OK') {
+            this.actionText = 'Trekker kravet';
+            this.spin = true;
+            this.hideFormAndShowLoading();
             this.isCancel = false;
+            cancelClaim({
+                recordId: this.record.Id
+            })
+                .then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ble tilbaketrukket.';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                })
+                .catch((error) => {
+                    this.hideFormAndShowError(error);
+                });
+        } else {
         }
+    }
+    goBack() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'mine-krav'
+            }
+        });
+    }
+    //SCREENS
+
+    modalHeader = '';
+    modalContent = '';
+    noCancelButton = true;
+
+    hideFormAndShowLoading() {
+        this.template.querySelector('.details').classList.add('hidden');
+        this.template.querySelector('.main-content').classList.add('hidden');
+        this.template.querySelector('.submitted-loading').classList.remove('hidden');
+        this.template.querySelector('.h2-loadingMessage').focus();
+        window.scrollTo(0, 0);
+    }
+    hideLoading() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        window.scrollTo(0, 0);
+    }
+    hideFormAndShowSuccess() {
+        this.template.querySelector('.submitted-loading').classList.add('hidden');
+        this.template.querySelector('.submitted-false').classList.add('hidden');
+        this.template.querySelector('.submitted-true').classList.remove('hidden');
+        this.template.querySelector('.h2-successMessage').focus();
+    }
+    hideFormAndShowError(errorMessage) {
+        this.template.querySelector('.details').classList.remove('hidden');
+        this.template.querySelector('.details').focus();
+        this.template.querySelector('.main-content').classList.remove('hidden');
+        this.modalHeader = 'Noe gikk galt!';
+        this.noCancelButton = true;
+        this.confirmButtonLabel = 'OK';
+        this.modalContent = errorMessage;
+        this.showModal();
+        this.spin = false;
     }
 }
