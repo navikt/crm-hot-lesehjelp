@@ -4,6 +4,7 @@ import { NavigationMixin } from 'lightning/navigation';
 export default class Hot_claimFormType extends NavigationMixin(LightningElement) {
     @api previousPage = 'home';
     @track currentClaimType = 'Dagliglivet';
+    @track hasChanges = false;
 
     @track componentValues = {
         radiobuttons: [
@@ -36,6 +37,7 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
             }
         });
         this.result.type = this.currentClaimType;
+        this.hasChanges = true;
     }
 
     goToPreviousPage() {
@@ -49,21 +51,27 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
     }
 
     sendResult() {
+        console.log('sender');
         const selectedEvent = new CustomEvent('claimformtyperesult', {
             detail: this.result
         });
         this.dispatchEvent(selectedEvent);
     }
     connectedCallback() {
+        console.log('hae endringer ' + this.hasChanges + ' ' + this.currentClaimType);
         for (let field in this.parentClaimComponentValues) {
             if (this.componentValues[field] != null) {
                 this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
             }
         }
+        // this.componentValues.radiobuttons.forEach((element) => {
+        //     if ((element.checked = true)) {
+        //         this.currentClaimType = element.value;
+        //         this.result.type = element.value;
+        //     }
+        // });
 
-        if (this.claim.Id != '' && this.isEdit == true) {
-            console.log('rediger' + this.claim.Id);
-            console.log('rediger' + this.claim.Type);
+        if (this.claim.Id != '' && this.isEdit == true && this.hasChanges == false) {
             this.componentValues.radiobuttons.forEach((element) => {
                 if (element.value === this.claim.Type) {
                     element.checked = true;
@@ -71,6 +79,11 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
                     element.checked = false;
                 }
             });
+            for (let field in this.parentClaimComponentValues) {
+                if (this.componentValues[field] != null) {
+                    this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
+                }
+            }
         }
     }
 }

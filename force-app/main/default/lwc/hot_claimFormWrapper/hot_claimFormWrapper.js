@@ -71,6 +71,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.fieldValues.ClaimType__c = this.claimTypeResult.type;
         this.currentPage = 'userInfo';
         this.getComponentValues();
+        console.log('ny verdi ' + this.claimTypeResult.type);
     }
     handleBackButtonClicked() {
         this.getComponentValues();
