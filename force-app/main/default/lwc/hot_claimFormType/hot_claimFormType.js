@@ -51,7 +51,12 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
     }
 
     sendResult() {
-        console.log('sender');
+        this.componentValues.radiobuttons.forEach((element) => {
+            if (element.checked) {
+                this.currentClaimType = element.value;
+            }
+        });
+        this.result.type = this.currentClaimType;
         const selectedEvent = new CustomEvent('claimformtyperesult', {
             detail: this.result
         });
@@ -64,12 +69,6 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
                 this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
             }
         }
-        // this.componentValues.radiobuttons.forEach((element) => {
-        //     if ((element.checked = true)) {
-        //         this.currentClaimType = element.value;
-        //         this.result.type = element.value;
-        //     }
-        // });
 
         if (this.claim.Id != '' && this.isEdit == true && this.hasChanges == false) {
             this.componentValues.radiobuttons.forEach((element) => {
