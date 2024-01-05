@@ -58,7 +58,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.isLos = result.data;
     }
 
-    handleRequestType(event) {
+    handleClaimType(event) {
         this.claimTypeResult = event.detail;
         this.claimTypeChosen = true;
         this.fieldValues.ClaimType__c = this.claimTypeResult.type;
