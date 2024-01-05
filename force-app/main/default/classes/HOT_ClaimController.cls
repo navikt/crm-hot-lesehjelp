@@ -2,10 +2,12 @@ public without sharing class HOT_ClaimController {
     @AuraEnabled
        public static String createNewClaimFromCommunity(String userName, String userPersonNumber, String userPhoneNumber, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
             String result='';
+            Boolean claimCreatedFromIdent=false;
             List<String> idents = new List<String>();
 
              if (!String.isBlank(userPersonNumber)) {
                     idents.add(userPersonNumber.replaceAll(' ', ''));
+                    claimCreatedFromIdent=true;
                 }
                 if (!String.isBlank(userName)) {
                      idents.add(userName);
@@ -29,7 +31,7 @@ public without sharing class HOT_ClaimController {
                         return result;
                     } else {
                         if (!organization.isEmpty()) {
-                            result = createClaimOrganization(account[0], organization[0], claimType, onEmployer, employerName, organizationNumber, employerExpensesPerHour, claimLineItems);
+                            result = createClaimOrganization(claimCreatedFromIdent, userPersonNumber, userPhoneNumber, account[0], organization[0], claimType, onEmployer, employerName, organizationNumber, employerExpensesPerHour, claimLineItems);
                         } else {
                             result = 'no organization'; 
                         }
@@ -37,7 +39,7 @@ public without sharing class HOT_ClaimController {
                 }
                 else{
                     //create self claim
-                    result=createClaimSelf(account[0], claimType, claimLineItems);
+                    result=createClaimSelf(claimCreatedFromIdent,userPersonNumber, userPhoneNumber, account[0], claimType, claimLineItems);
                 }
             }
         return result;
@@ -51,9 +53,8 @@ public without sharing class HOT_ClaimController {
                 String dateClaim = String.valueOf(claimLineItem.get('date'));
                 Date convertedDate = Date.valueOf(dateClaim);
                 cli.Date__c =convertedDate;
-
+        
                 cli.TypeOfTask__c=String.valueOf(claimLineItem.get('task'));
-
                 String startTimeClaim =String.valueOf(claimLineItem.get('startTime'));
                 Long timestampMillisStart = Long.valueOf(startTimeClaim);
                 Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
@@ -121,7 +122,7 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    private static String createClaimSelf(Account account, String claimType, List<Map<String, Object>> claimLineItems ){
+    private static String createClaimSelf(Boolean claimCreatedFromIdent, String userPersonNumber, String userPhoneNumber, Account account, String claimType, List<Map<String, Object>> claimLineItems ){
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         
         HOT_Claim__c newClaim = new HOT_Claim__c();
@@ -129,7 +130,9 @@ public without sharing class HOT_ClaimController {
         newclaim.Account__c=account.Id;
         newClaim.onEmployer__c=false;
         newClaim.Type__c=claimType;
-
+        newClaim.ClaimCreatedFromIdent__c=claimCreatedFromIdent;
+        newClaim.UserPersonNumber__c=userPersonNumber;
+        newClaim.UserPhoneNumber__c=userPhoneNumber;
 
          try{
             insert newClaim;
@@ -143,10 +146,11 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    private static String createClaimOrganization(Account account, Account organization, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
+    private static String createClaimOrganization(Boolean claimCreatedFromIdent,String userPersonNumber, String userPhoneNumber, Account account, Account organization, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
 
         HOT_Claim__c newClaim = new HOT_Claim__c();
+        newClaim.UserPersonNumber__c=userPersonNumber;
         newClaim.Claimant__c=currentUser.AccountId;
         newclaim.Account__c=account.Id;
         newClaim.Organization__c=organization.Id;
@@ -156,6 +160,9 @@ public without sharing class HOT_ClaimController {
         Decimal strToDec = decimal.valueOf(employerExpensesPerHour);
         newClaim.EmployerExpensesPerHour__c=strToDec;
         newClaim.Type__c=claimType;
+        newClaim.ClaimCreatedFromIdent__c=claimCreatedFromIdent;
+        newClaim.UserPhoneNumber__c=userPhoneNumber;
+
 
         try{
             insert newClaim;
@@ -207,9 +214,8 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c
+                Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c
             FROM HOT_Claim__c
-            WHERE Claimant__c=:currentUser.AccountId
         ];
         return claims;
     }
@@ -220,7 +226,7 @@ public without sharing class HOT_ClaimController {
             SELECT
                 Id,
                 Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
-            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE) AND (Account__c=:currentUser.AccountId)];
+            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE)];
         return claims;
     }
     @AuraEnabled

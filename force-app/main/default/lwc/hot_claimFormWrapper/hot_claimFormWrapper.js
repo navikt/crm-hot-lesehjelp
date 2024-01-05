@@ -40,16 +40,23 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             }
         }
     }
+
+    @track claim = {};
+    @track isEdit = false;
     setFieldValuesFromURL(parsed_params) {
         console.log('parsed ' + parsed_params.fieldValues);
         console.log('type: ' + this.fieldValues.Type__c);
         this.fieldValues = JSON.parse(parsed_params.fieldValues);
         this.recordId = this.fieldValues.Id;
         console.log('fields ' + this.fieldValues);
-        // let requestIds = [];
-        // requestIds.push(this.fieldValues.Id);
-        // this.requestIds = requestIds;
-        //this.setCurrentForm();
+
+        this.isEdit = true;
+        this.claim.Id = this.fieldValues.Id;
+        this.claim.Type = this.fieldValues.Type__c;
+        this.claim.createdFromIdent = this.fieldValues.ClaimCreatedFromIdent__c;
+        this.claim.userPersonNumber = this.fieldValues.UserPersonNumber__c;
+        this.claim.userPhoneNumber = this.fieldValues.UserPhoneNumber__c;
+        this.claim.userName = this.fieldValues.Account__r.Name;
     }
 
     wiredResult;

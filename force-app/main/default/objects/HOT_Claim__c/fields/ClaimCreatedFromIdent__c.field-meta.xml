@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClaimCreatedFromIdent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check if the claim is created with ident (= true) or mobile number (= false)</description>
+    <externalId>false</externalId>
+    <label>Claim Created From Ident</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

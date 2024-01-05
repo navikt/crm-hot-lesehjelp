@@ -17,6 +17,9 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
 
     @api parentClaimComponentValues;
 
+    @api claim;
+    @api isEdit;
+
     @track result = {
         type: this.currentClaimType
     };
@@ -57,6 +60,17 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
                 this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
             }
         }
-        const selectedValue = this.componentValues.radiobuttons.find((option) => option.checked);
+
+        if (this.claim.Id != '' && this.isEdit == true) {
+            console.log('rediger' + this.claim.Id);
+            console.log('rediger' + this.claim.Type);
+            this.componentValues.radiobuttons.forEach((element) => {
+                if (element.value === this.claim.Type) {
+                    element.checked = true;
+                } else {
+                    element.checked = false;
+                }
+            });
+        }
     }
 }

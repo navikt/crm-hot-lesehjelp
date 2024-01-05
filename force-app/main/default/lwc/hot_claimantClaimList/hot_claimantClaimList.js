@@ -192,6 +192,18 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.noCancelButton = false;
         this.showModal();
     }
+    editClaim() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'nytt-krav'
+            },
+            state: {
+                fieldValues: JSON.stringify(this.record),
+                edit: true
+            }
+        });
+    }
     showModal() {
         this.template.querySelector('c-alertdialog').showModal();
     }

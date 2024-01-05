@@ -19,6 +19,8 @@
                     <c-hot_claim-form-type
                         if:false={claimTypeChosen}
                         onclaimformtyperesult={handleClaimType}
+                        claim={claim}
+                        is-edit={isEdit}
                         previous-page={previousPage}
                         parent-claim-component-values={componentValues}
                     ></c-hot_claim-form-type>
@@ -27,6 +29,8 @@
                             parent-field-values={fieldValues}
                             if:false={claimTypeResult.claimForm}
                             class="subform"
+                            claim={claim}
+                            is-edit={isEdit}
                             parent-claim-component-values={componentValues}
                         ></c-hot_claim-form-user>
                         <c-hot_claim-form
