@@ -20,6 +20,7 @@
                         if:false={claimTypeChosen}
                         onclaimformtyperesult={handleRequestType}
                         previous-page={previousPage}
+                        parent-claim-component-values={componentValues}
                     ></c-hot_claim-form-type>
                     <div if:true={claimTypeChosen} class="actual-form">
                         <c-hot_claim-form-user

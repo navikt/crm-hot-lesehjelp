@@ -2,6 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
+import { getParametersFromURL } from 'c/hot_URIDecoder';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -25,6 +26,32 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             href: 'nytt-krav'
         }
     ];
+
+    connectedCallback() {
+        let parsed_params = getParametersFromURL();
+        if (parsed_params != null) {
+            if (parsed_params.edit === 'true') {
+                this.breadcrumbs[this.breadcrumbs.length - 1].label = 'Rediger krav';
+                this.breadcrumbs[this.breadcrumbs.length - 1].href = 'nytt-krav';
+            }
+
+            if (parsed_params.fieldValues != null) {
+                this.setFieldValuesFromURL(parsed_params);
+            }
+        }
+    }
+    setFieldValuesFromURL(parsed_params) {
+        console.log('parsed ' + parsed_params.fieldValues);
+        console.log('type: ' + this.fieldValues.Type__c);
+        this.fieldValues = JSON.parse(parsed_params.fieldValues);
+        this.recordId = this.fieldValues.Id;
+        console.log('fields ' + this.fieldValues);
+        // let requestIds = [];
+        // requestIds.push(this.fieldValues.Id);
+        // this.requestIds = requestIds;
+        //this.setCurrentForm();
+    }
+
     wiredResult;
     @wire(checkIsLos)
     wiredResult(result) {
@@ -36,6 +63,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.claimTypeChosen = true;
         this.fieldValues.ClaimType__c = this.claimTypeResult.type;
         this.currentPage = 'userInfo';
+        this.getComponentValues();
     }
     handleBackButtonClicked() {
         this.getComponentValues();
@@ -106,6 +134,11 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     }
 
     getComponentValues() {
+        let reqFormType = this.template.querySelector('c-hot_claim-form-type');
+        if (reqFormType !== null) {
+            console.log('kjører');
+            this.setComponentValuesInWrapper(reqFormType.getComponentValues());
+        }
         let reqForm = this.template.querySelector('c-hot_claim-form');
         if (reqForm !== null) {
             this.setComponentValuesInWrapper(reqForm.getComponentValues());
