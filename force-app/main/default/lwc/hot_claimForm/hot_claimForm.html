@@ -17,6 +17,7 @@
         <div if:true={employerClaim}>
             <c-input
                 if:true={employerClaim}
+                disabled={disabledEmployer}
                 label="Arbeidsgiver navn"
                 name="EmployerName__c"
                 value={fieldValues.EmployerName__c}
@@ -27,6 +28,7 @@
             <c-input
                 if:true={employerClaim}
                 label="Organisasjonsnummer"
+                disabled={disabledEmployer}
                 name="EmployerNumber__c"
                 value={fieldValues.EmployerNumber__c}
                 form="krav-skjema-input"

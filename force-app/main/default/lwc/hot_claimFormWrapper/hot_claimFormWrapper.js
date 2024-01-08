@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
+import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 import { getParametersFromURL } from 'c/hot_URIDecoder';
 
@@ -12,6 +13,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track spin = false;
     @track isLos = true;
     @track previousPage = 'home';
+    @track submitButtonLabel = 'Send inn';
     @track claimTypeResult = {};
     @track currentPage = '';
     @track submitSuccessMessage = '';
@@ -51,6 +53,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         console.log('fields ' + this.fieldValues);
 
         this.isEdit = true;
+        this.submitButtonLabel = 'Lagre';
         this.claim.Id = this.fieldValues.Id;
         this.claim.Type = this.fieldValues.Type__c;
         this.claim.createdFromIdent = this.fieldValues.ClaimCreatedFromIdent__c;
@@ -99,6 +102,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         } else {
             this.currentPage = 'claimForm';
             this.claimTypeResult.claimForm = true;
+            console.log('kommer hit' + this.fieldValues.ClaimType__c);
         }
     }
     handleSendButtonClicked() {
@@ -258,28 +262,48 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             return { ...item };
         });
 
-        try {
-            createNewClaimFromCommunity({
-                userName: this.fieldValues.UserName__c,
-                userPersonNumber: this.fieldValues.UserPersonNumber__c,
-                userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
-                claimType: this.fieldValues.ClaimType__c,
-                onEmployer: selectedValueOnEmployer.value,
-                employerName: this.fieldValues.EmployerName__c,
-                organizationNumber: this.fieldValues.EmployerNumber__c,
-                employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
-                claimLineItems: claimLineItems
-            }).then((result) => {
-                if (result == 'ok') {
-                    this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
-                    this.hideFormAndShowSuccess();
-                } else {
-                    this.hideLoading();
-                    this.hideFormAndShowError(result);
-                }
-            });
-        } catch (error) {
-            this.hideFormAndShowError(error);
+        if (this.isEdit) {
+            try {
+                updateClaim({
+                    recordId: this.recordId,
+                    claimType: this.fieldValues.ClaimType__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ble lagret';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
+        } else {
+            try {
+                createNewClaimFromCommunity({
+                    userName: this.fieldValues.UserName__c,
+                    userPersonNumber: this.fieldValues.UserPersonNumber__c,
+                    userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
+                    claimType: this.fieldValues.ClaimType__c,
+                    onEmployer: selectedValueOnEmployer.value,
+                    employerName: this.fieldValues.EmployerName__c,
+                    organizationNumber: this.fieldValues.EmployerNumber__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    claimLineItems: claimLineItems
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
         }
     }
     signingClaim() {}

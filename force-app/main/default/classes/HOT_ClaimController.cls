@@ -332,4 +332,41 @@ public without sharing class HOT_ClaimController {
         }
         return times;
     }
+    @AuraEnabled
+    public static String updateClaim(String recordId, String claimType, String employerExpensesPerHour){
+        String result='';
+        User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+            List<HOT_Claim__c> claims = [
+            SELECT
+                Id,
+                Name, Claimant__c,OnEmployer__c, Type__c, EmployerExpensesPerHour__c, OrganizationNumber__c,Organization__c, EmployerName__c
+            FROM HOT_Claim__c WHERE Id=:recordId
+        ];
+        for(HOT_Claim__c claim: claims){
+            if(claimType == 'Arbeid'){
+                Decimal strToDec = decimal.valueOf(employerExpensesPerHour);
+                claim.EmployerExpensesPerHour__c=strToDec;
+            }
+            else{
+                claim.EmployerExpensesPerHour__c=NULL;
+                claim.OrganizationNumber__c=NULL;
+                claim.Organization__c=NULL;
+                claim.EmployerName__c=NULL;
+                claim.OnEmployer__c=false;
+            }
+            claim.Type__c=claimType;
+        }
+         try{
+            update claims;
+           // String result=createClaimLineItems(newClaim, claimLineItems);
+            return 'ok'+result;
+        }
+        catch (Exception e) {
+            LoggerUtility logger = new LoggerUtility();
+            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            logger.publishSynch();
+            return e.getMessage();
+        }
+
+    }
 }

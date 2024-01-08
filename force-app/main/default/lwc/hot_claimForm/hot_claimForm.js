@@ -9,6 +9,7 @@ export default class Hot_claimForm extends LightningElement {
     @track showNewLos = false;
     @api parentClaimComponentValues;
     @track isWorkClaimType = false;
+    @track disabledEmployer = false;
 
     @track employerClaim;
 
@@ -28,8 +29,13 @@ export default class Hot_claimForm extends LightningElement {
     connectedCallback() {
         if (this.claim.Id != '' && this.isEdit == true) {
             if (this.claim.onEmployer == true) {
-                this.isWorkClaimType = true;
+                if (this.claimType == 'Arbeid') {
+                    this.isWorkClaimType = true;
+                } else {
+                    this.isWorkClaimType = false;
+                }
                 this.employerClaim = true;
+                this.disabledEmployer = true;
                 this.fieldValues.EmployerName__c = this.claim.employerName;
                 this.fieldValues.EmployerNumber__c = this.claim.organizationNumber;
                 this.fieldValues.EmployerExpensesPerHour__c = this.claim.employerExpensesPerHour;
