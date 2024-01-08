@@ -18,14 +18,19 @@
                 <div class="skjema skjema-max-width">
                     <c-hot_claim-form-type
                         if:false={claimTypeChosen}
-                        onclaimformtyperesult={handleRequestType}
+                        onclaimformtyperesult={handleClaimType}
+                        claim={claim}
+                        is-edit={isEdit}
                         previous-page={previousPage}
+                        parent-claim-component-values={componentValues}
                     ></c-hot_claim-form-type>
                     <div if:true={claimTypeChosen} class="actual-form">
                         <c-hot_claim-form-user
                             parent-field-values={fieldValues}
                             if:false={claimTypeResult.claimForm}
                             class="subform"
+                            claim={claim}
+                            is-edit={isEdit}
                             parent-claim-component-values={componentValues}
                         ></c-hot_claim-form-user>
                         <c-hot_claim-form
@@ -34,6 +39,8 @@
                             parent-field-values={fieldValues}
                             claim-type={fieldValues.ClaimType__c}
                             parent-claim-component-values={componentValues}
+                            claim={claim}
+                            is-edit={isEdit}
                             is-los={isLos}
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
@@ -48,7 +55,7 @@
                         </div>
                         <div class="button-container">
                             <c-button
-                                button-label="Send inn"
+                                button-label={submitButtonLabel}
                                 button-styling="primary"
                                 type="submit"
                                 data-id="saveButton"

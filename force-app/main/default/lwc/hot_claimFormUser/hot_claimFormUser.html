@@ -14,6 +14,7 @@
             value={fieldValues.UserName__c}
             form="krav-skjema-input"
             error-text="Brukers navn må fylles ut."
+            disabled={isEdit}
         ></c-input>
         <br />
         <c-radiobuttons
@@ -23,6 +24,7 @@
             group-name="radioGroup2"
             flex-direction="row"
             name="UserPhoneNumberOrUserPersonNumber__c"
+            disabled={isEdit}
         ></c-radiobuttons>
         <br />
         <c-input
@@ -35,6 +37,7 @@
             max-length="11"
             desktop-style="width: 50%"
             mobile-style="width: 100%"
+            disabled={isEdit}
         ></c-input>
         <c-input
             if:false={isPersonNumber}
@@ -46,6 +49,7 @@
             max-length="11"
             desktop-style="width: 50%"
             mobile-style="width: 100%"
+            disabled={isEdit}
         ></c-input>
         <br />
     </section>

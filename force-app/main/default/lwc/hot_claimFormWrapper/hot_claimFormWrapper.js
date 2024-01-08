@@ -1,7 +1,9 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
+import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
+import { getParametersFromURL } from 'c/hot_URIDecoder';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -11,6 +13,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track spin = false;
     @track isLos = true;
     @track previousPage = 'home';
+    @track submitButtonLabel = 'Send inn';
     @track claimTypeResult = {};
     @track currentPage = '';
     @track submitSuccessMessage = '';
@@ -25,17 +28,57 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             href: 'nytt-krav'
         }
     ];
+
+    connectedCallback() {
+        let parsed_params = getParametersFromURL();
+        if (parsed_params != null) {
+            if (parsed_params.edit === 'true') {
+                this.breadcrumbs[this.breadcrumbs.length - 1].label = 'Rediger krav';
+                this.breadcrumbs[this.breadcrumbs.length - 1].href = 'nytt-krav';
+            }
+
+            if (parsed_params.fieldValues != null) {
+                this.setFieldValuesFromURL(parsed_params);
+            }
+        }
+    }
+
+    @track claim = {};
+    @track isEdit = false;
+    setFieldValuesFromURL(parsed_params) {
+        console.log('parsed ' + parsed_params.fieldValues);
+        console.log('type: ' + this.fieldValues.Type__c);
+        this.fieldValues = JSON.parse(parsed_params.fieldValues);
+        this.recordId = this.fieldValues.Id;
+        console.log('fields ' + this.fieldValues);
+
+        this.isEdit = true;
+        this.submitButtonLabel = 'Lagre';
+        this.claim.Id = this.fieldValues.Id;
+        this.claim.Type = this.fieldValues.Type__c;
+        this.claim.createdFromIdent = this.fieldValues.ClaimCreatedFromIdent__c;
+        this.claim.userPersonNumber = this.fieldValues.UserPersonNumber__c;
+        this.claim.userPhoneNumber = this.fieldValues.UserPhoneNumber__c;
+        this.claim.userName = this.fieldValues.Account__r.Name;
+        this.claim.onEmployer = this.fieldValues.OnEmployer__c;
+        this.claim.organizationNumber = this.fieldValues.OrganizationNumber__c;
+        this.claim.employerExpensesPerHour = this.fieldValues.EmployerExpensesPerHour__c;
+        this.claim.employerName = this.fieldValues.EmployerName__c;
+    }
+
     wiredResult;
     @wire(checkIsLos)
     wiredResult(result) {
         this.isLos = result.data;
     }
 
-    handleRequestType(event) {
+    handleClaimType(event) {
         this.claimTypeResult = event.detail;
         this.claimTypeChosen = true;
         this.fieldValues.ClaimType__c = this.claimTypeResult.type;
         this.currentPage = 'userInfo';
+        this.getComponentValues();
+        console.log('ny verdi ' + this.claimTypeResult.type);
     }
     handleBackButtonClicked() {
         this.getComponentValues();
@@ -59,6 +102,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         } else {
             this.currentPage = 'claimForm';
             this.claimTypeResult.claimForm = true;
+            console.log('kommer hit' + this.fieldValues.ClaimType__c);
         }
     }
     handleSendButtonClicked() {
@@ -106,6 +150,11 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     }
 
     getComponentValues() {
+        let reqFormType = this.template.querySelector('c-hot_claim-form-type');
+        if (reqFormType !== null) {
+            console.log('kjører');
+            this.setComponentValuesInWrapper(reqFormType.getComponentValues());
+        }
         let reqForm = this.template.querySelector('c-hot_claim-form');
         if (reqForm !== null) {
             this.setComponentValuesInWrapper(reqForm.getComponentValues());
@@ -213,28 +262,48 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             return { ...item };
         });
 
-        try {
-            createNewClaimFromCommunity({
-                userName: this.fieldValues.UserName__c,
-                userPersonNumber: this.fieldValues.UserPersonNumber__c,
-                userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
-                claimType: this.fieldValues.ClaimType__c,
-                onEmployer: selectedValueOnEmployer.value,
-                employerName: this.fieldValues.EmployerName__c,
-                organizationNumber: this.fieldValues.EmployerNumber__c,
-                employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
-                claimLineItems: claimLineItems
-            }).then((result) => {
-                if (result == 'ok') {
-                    this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
-                    this.hideFormAndShowSuccess();
-                } else {
-                    this.hideLoading();
-                    this.hideFormAndShowError(result);
-                }
-            });
-        } catch (error) {
-            this.hideFormAndShowError(error);
+        if (this.isEdit) {
+            try {
+                updateClaim({
+                    recordId: this.recordId,
+                    claimType: this.fieldValues.ClaimType__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ble lagret';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
+        } else {
+            try {
+                createNewClaimFromCommunity({
+                    userName: this.fieldValues.UserName__c,
+                    userPersonNumber: this.fieldValues.UserPersonNumber__c,
+                    userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
+                    claimType: this.fieldValues.ClaimType__c,
+                    onEmployer: selectedValueOnEmployer.value,
+                    employerName: this.fieldValues.EmployerName__c,
+                    organizationNumber: this.fieldValues.EmployerNumber__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    claimLineItems: claimLineItems
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
         }
     }
     signingClaim() {}

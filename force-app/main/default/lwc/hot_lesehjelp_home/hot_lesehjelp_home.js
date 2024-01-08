@@ -17,7 +17,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
 
     @track pageLinks = {};
     @track waitingClaims = false;
-    @track hasDecisions = true;
+    @track hasDecisions = false;
 
     connectedCallback() {
         sessionStorage.clear(); // Clear session storage when on home
