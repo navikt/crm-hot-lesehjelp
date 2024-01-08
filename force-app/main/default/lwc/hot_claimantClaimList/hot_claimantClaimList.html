@@ -63,7 +63,9 @@
                         <div if:false={noClaimLineItems}>
                             <p>{record.madeBy}</p>
                             <p><strong>Type lesehjelp: </strong>{record.Type__c}</p>
-                            <p if:true={record.OnEmployer__c}><strong>Arbeidsgiver: </strong>{record.Organization__r.Name}</p>
+                            <p if:true={record.OnEmployer__c}><strong>Organisasjon: </strong>{record.Organization__r.Name}</p>
+                             <p if:true={record.OnEmployer__c}><strong>Org nr: </strong>{record.OrganizationNumber__c}</p>
+                            <p if:true={record.OnEmployer__c}><strong>Utgifter per time: </strong>{record.EmployerExpensesPerHour__c}</p>
                             <p><strong>Innsendt dato:</strong> {record.created}</p>
                             <p><strong>Lesehjelp for:</strong> {record.Account__r.Name}</p>
                             <p><strong>Status:</strong> {record.Status__c}</p>

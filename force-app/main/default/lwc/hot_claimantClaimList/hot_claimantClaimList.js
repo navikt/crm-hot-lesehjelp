@@ -24,6 +24,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track claimLineItems;
     @track recordName;
 
+    @track orgName;
+
     @track record;
     @track isNotCancelable = true;
     connectedCallback() {
@@ -43,6 +45,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     this.claims.forEach((element) => {
                         if (element.Id == claimId) {
                             this.record = element;
+                            this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
                         }
                     });

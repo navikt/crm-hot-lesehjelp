@@ -39,6 +39,8 @@
                             parent-field-values={fieldValues}
                             claim-type={fieldValues.ClaimType__c}
                             parent-claim-component-values={componentValues}
+                            claim={claim}
+                            is-edit={isEdit}
                             is-los={isLos}
                         ></c-hot_claim-form>
                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>

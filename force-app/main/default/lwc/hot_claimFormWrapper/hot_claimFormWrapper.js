@@ -57,6 +57,10 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.claim.userPersonNumber = this.fieldValues.UserPersonNumber__c;
         this.claim.userPhoneNumber = this.fieldValues.UserPhoneNumber__c;
         this.claim.userName = this.fieldValues.Account__r.Name;
+        this.claim.onEmployer = this.fieldValues.OnEmployer__c;
+        this.claim.organizationNumber = this.fieldValues.OrganizationNumber__c;
+        this.claim.employerExpensesPerHour = this.fieldValues.EmployerExpensesPerHour__c;
+        this.claim.employerName = this.fieldValues.EmployerName__c;
     }
 
     wiredResult;

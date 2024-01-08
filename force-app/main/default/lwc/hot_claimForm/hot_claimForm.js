@@ -4,12 +4,13 @@ export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
     @api claimType;
     @api isLos;
+    @api claim;
+    @api isEdit;
     @track showNewLos = false;
     @api parentClaimComponentValues;
     @track isWorkClaimType = false;
 
     @track employerClaim;
-    @track requestIds = '';
 
     @track fieldValues = {
         OnEmployer__c: '',
@@ -25,39 +26,49 @@ export default class Hot_claimForm extends LightningElement {
         isOptionalFields: false
     };
     connectedCallback() {
-        if (this.isLos == false && this.employerClaim != true) {
-            this.showNewLos = true;
-        }
-        this.showDiv = true;
-        setTimeout(() => this.template.querySelector('h2').focus());
-
-        for (let field in this.parentFieldValues) {
-            if (this.fieldValues[field] != null) {
-                this.fieldValues[field] = this.parentFieldValues[field];
-            }
-        }
-        for (let field in this.parentClaimComponentValues) {
-            if (this.componentValues[field] != null) {
-                this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
-            }
-        }
-        const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
-        if (selectedValue.value === 'true') {
-            this.employerClaim = true;
-            if (this.isLos == false) {
-                this.showNewLos = false;
+        if (this.claim.Id != '' && this.isEdit == true) {
+            if (this.claim.onEmployer == true) {
+                this.isWorkClaimType = true;
+                this.employerClaim = true;
+                this.fieldValues.EmployerName__c = this.claim.employerName;
+                this.fieldValues.EmployerNumber__c = this.claim.organizationNumber;
+                this.fieldValues.EmployerExpensesPerHour__c = this.claim.employerExpensesPerHour;
             }
         } else {
-            this.employerClaim = false;
-            if (this.isLos == false) {
+            if (this.isLos == false && this.employerClaim != true) {
                 this.showNewLos = true;
             }
-        }
+            this.showDiv = true;
+            setTimeout(() => this.template.querySelector('h2').focus());
 
-        if (this.claimType == 'Arbeid') {
-            this.isWorkClaimType = true;
-        } else {
-            this.isWorkClaimType = false;
+            for (let field in this.parentFieldValues) {
+                if (this.fieldValues[field] != null) {
+                    this.fieldValues[field] = this.parentFieldValues[field];
+                }
+            }
+            for (let field in this.parentClaimComponentValues) {
+                if (this.componentValues[field] != null) {
+                    this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
+                }
+            }
+            const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
+            if (selectedValue.value === 'true') {
+                this.employerClaim = true;
+                if (this.isLos == false) {
+                    this.showNewLos = false;
+                }
+            } else {
+                this.employerClaim = false;
+                if (this.isLos == false) {
+                    this.showNewLos = true;
+                }
+            }
+
+            if (this.claimType == 'Arbeid') {
+                this.isWorkClaimType = true;
+            } else {
+                this.isWorkClaimType = false;
+            }
         }
     }
 

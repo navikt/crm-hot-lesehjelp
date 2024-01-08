@@ -214,7 +214,7 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c
+                Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c, EmployerExpensesPerHour__c, OrganizationNumber__c, EmployerName__c
             FROM HOT_Claim__c
         ];
         return claims;
@@ -289,5 +289,47 @@ public without sharing class HOT_ClaimController {
         }else{
             return '';
         }
+    }
+     @AuraEnabled(cacheable=true)
+    public static List<Map<String, String>> getTimes(String claimId) {
+        List<Map<String, String>> times = new List<Map<String, String>>();
+        List<HOT_ClaimLineItem__c> claimLineItems = [
+            SELECT Id, StartTime__c, TravelFromStartTime__c, TravelToStartTime__c,EndTime__c, TravelFromEndTime__c, TravelToEndTime__c, HasTravelFrom__c, HasTravelTo__c, TravelFrom__c, TravelTo__c, TypeOfTask__c, AdditionalInformation__c
+            FROM HOT_ClaimLineItem__c
+            WHERE Claim__r.Id =:claimId
+            ORDER BY StartTime__c ASC
+        ];
+        for (HOT_ClaimLineItem__c cli : claimLineItems) {
+            Map<String, String> timeMap = new Map<String, String>();
+            timeMap.put('id', (String) cli.Id);
+            Date tempDate = cli.StartTime__c.date();
+            timeMap.put('date', Datetime.newInstance(tempDate, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd'));
+            timeMap.put('startTime', String.valueOf(cli.StartTime__c.getTime()));
+            timeMap.put('endTime', String.valueOf(cli.EndTime__c.getTime()));
+
+            //Date tempDateTravelTo = cli.TravelTo__c.date();
+            Date tempDateTravelTo = Date.valueOf(cli.TravelTo__c);
+            if(cli.HasTravelTo__c){
+                timeMap.put('dateTravelTo', Datetime.newInstance(tempDateTravelTo, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd'));
+                timeMap.put('startTimeTravelTo', String.valueOf(cli.TravelToStartTime__c.getTime()));
+                timeMap.put('endTimeTravelTo', String.valueOf(cli.TravelToEndTime__c.getTime()));
+            }
+            if(cli.HasTravelFrom__c){
+                Date tempDateTravelFrom = Date.valueOf(cli.TravelFrom__c);
+                timeMap.put('dateTravelFrom', Datetime.newInstance(tempDateTravelFrom, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd'));
+                timeMap.put('startTimeTravelFrom', String.valueOf(cli.TravelFromStartTime__c.getTime()));
+                timeMap.put('endTimeTravelFrom', String.valueOf(cli.TravelFromEndTime__c.getTime()));
+            }
+            //Date tempDateTravelFrom = cli.TravelFrom__c.date();
+            timeMap.put('task', cli.TypeOfTask__c);
+            timeMap.put('hasTravelTo', String.valueOf(cli.HasTravelTo__c));
+            timeMap.put('hasTravelFrom', String.valueOf(cli.HasTravelFrom__c));
+            timeMap.put('additionalInformation', String.valueOf(cli.AdditionalInformation__c));
+            
+
+
+            times.add(timeMap);
+        }
+        return times;
     }
 }

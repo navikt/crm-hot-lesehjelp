@@ -47,7 +47,8 @@
         <h2 class="typo-undertittel" tabindex="-1">Legg inn alle tidspunkter og oppgavetyper som dette kravet skal inneholde</h2>
        <p>Har du hatt utgifter i forbindelse med oppdraget, legges dette inn i Unit4 Travel & Expensess</p>
     </br>
-        <c-hot_claim-line-time-input></c-hot_claim-line-time-input>
+        <c-hot_claim-line-time-input claim={claim}
+                            is-edit={isEdit}></c-hot_claim-line-time-input>
         <br />
         <c-hot_new-l-o-s-form
                             class="subform"
