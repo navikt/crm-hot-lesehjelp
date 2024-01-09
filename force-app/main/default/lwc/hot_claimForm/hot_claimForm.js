@@ -40,6 +40,12 @@ export default class Hot_claimForm extends LightningElement {
                 this.fieldValues.EmployerNumber__c = this.claim.organizationNumber;
                 this.fieldValues.EmployerExpensesPerHour__c = this.claim.employerExpensesPerHour;
             }
+            //Skal ikke kunne redigere annet enn utgifter når det er arbeid. Skal ikke legge til arbeisgiver under redigering. Må lage nytt krav
+            // if (this.claimType == 'Arbeid') {
+            //     this.isWorkClaimType = true;
+            // } else {
+            //     this.isWorkClaimType = false;
+            // }
         } else {
             if (this.isLos == false && this.employerClaim != true) {
                 this.showNewLos = true;

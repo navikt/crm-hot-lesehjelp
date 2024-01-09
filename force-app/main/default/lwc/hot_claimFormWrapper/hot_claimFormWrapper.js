@@ -263,6 +263,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         });
 
         if (this.isEdit) {
+            console.log('nye verdier' + claimLineItems);
             try {
                 updateClaim({
                     recordId: this.recordId,

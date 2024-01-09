@@ -288,6 +288,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         //timeInputs.times = this.timesListToObject(this.times);
         return this.times;
         //return timeInputs;
+        //DENNE FJERNES VEL. SJEKK OM DEN IKKE BRUKES
     }
     @api
     validateFields() {
