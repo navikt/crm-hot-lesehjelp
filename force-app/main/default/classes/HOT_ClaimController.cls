@@ -333,7 +333,7 @@ public without sharing class HOT_ClaimController {
         return times;
     }
     @AuraEnabled
-    public static String updateClaim(String recordId, String claimType, String employerExpensesPerHour){
+    public static String updateClaim(String recordId, String claimType, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems){
         String result='';
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
             List<HOT_Claim__c> claims = [
@@ -358,7 +358,7 @@ public without sharing class HOT_ClaimController {
         }
          try{
             update claims;
-           // String result=createClaimLineItems(newClaim, claimLineItems);
+            result=updateClaimLineItems(claims[0], claimLineItems);
             return 'ok'+result;
         }
         catch (Exception e) {
@@ -368,5 +368,86 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
 
+    }
+    private static String updateClaimLineItems(HOT_Claim__c claim, List<Map<String, Object>> claimLineItems){
+        List<HOT_ClaimLineItem__c> claimLineItemList = [SELECT Id, Claim__c, Date__c, TypeOfTask__c, StartTime__c,EndTime__c, HasTravelTo__c, HasTravelFrom__c, TravelTo__c, TravelFrom__c, TravelToStartTime__c,TravelToEndTime__c,TravelFromStartTime__c, TravelFromEndTime__c FROM HOT_ClaimLineItem__c WHERE Claim__c=:claim.Id];
+
+             for (Map<String, Object> claimLineItem : claimLineItems) {
+                for(HOT_ClaimLineItem__c cli:claimLineItemList ){
+                    if(cli.Id==claimLineItem.get('id')){
+                        String dateClaim = String.valueOf(claimLineItem.get('date'));
+                        Date convertedDate = Date.valueOf(dateClaim);
+                        cli.Date__c =convertedDate;
+                
+                        cli.TypeOfTask__c=String.valueOf(claimLineItem.get('task'));
+                        String startTimeClaim =String.valueOf(claimLineItem.get('startTime'));
+                        Long timestampMillisStart = Long.valueOf(startTimeClaim);
+                        Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
+                        cli.StartTime__c = convertedDatetimeStart;
+
+                        String endTimeClaim =String.valueOf(claimLineItem.get('endTime'));
+                        Long timestampMillisEnd = Long.valueOf(endTimeClaim);
+                        Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
+                        cli.EndTime__c = convertedDatetimeEnd;
+
+                        cli.AdditionalInformation__c=String.valueOf(claimLineItem.get('additionalInformation'));
+
+                        String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
+                        if(hasTravelToValue=='false' ||hasTravelToValue=='null' || hasTravelToValue==null){
+                            cli.HasTravelTo__c=false;
+                        }
+                        else{
+                            cli.HasTravelTo__c=true;
+
+                            String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
+                            Date convertedTravelToDate = Date.valueOf(dateTravelTo);
+                            cli.TravelTo__c =convertedTravelToDate;
+
+                            String travelToStartTime =String.valueOf(claimLineItem.get('startTimeTravelTo'));
+                            Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
+                            Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
+                            cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
+
+                            String travelToEndTime =String.valueOf(claimLineItem.get('endTimeTravelTo'));
+                            Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
+                            Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
+                            cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
+                        }
+                        String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
+                        if(hasTravelFromValue=='false' ||hasTravelFromValue=='null' || hasTravelFromValue==null){
+                            cli.HasTravelFrom__c=false;
+                        }
+                        else{
+                            cli.HasTravelFrom__c=true;
+
+                            String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
+                            Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
+                            cli.TravelFrom__c =convertedTravelFromDate;
+
+                            String travelFromStartTime =String.valueOf(claimLineItem.get('startTimeTravelFrom'));
+                            Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
+                            Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
+                            cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
+
+                            String travelFromEndTime =String.valueOf(claimLineItem.get('endTimeTravelFrom'));
+                            Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
+                            Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
+                            cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
+                        }
+                    }
+                }
+
+                
+         }
+         try{
+            update claimLineItemList;
+            return '';
+        }
+        catch (Exception e) {
+            LoggerUtility logger = new LoggerUtility();
+            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            logger.publishSynch();
+            return e.getMessage();
+        }
     }
 }

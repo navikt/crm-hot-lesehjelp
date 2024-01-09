@@ -268,7 +268,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 updateClaim({
                     recordId: this.recordId,
                     claimType: this.fieldValues.ClaimType__c,
-                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    claimLineItems: claimLineItems
                 }).then((result) => {
                     if (result == 'ok') {
                         this.submitSuccessMessage = 'Kravet ble lagret';
