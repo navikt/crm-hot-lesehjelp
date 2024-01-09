@@ -76,10 +76,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track commentValue = '';
 
     goToClaim(event) {
-        this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
         this.isDeclineClaim = false;
         this.notRedClaim = true;
-        //this.template.querySelector('c-input').setValue('');
+        this.template.querySelector('c-textarea').setTextValue('');
         this.template.querySelector('c-checkbox').clearCheckboxValue();
         const clickedButton = event.target;
         const claimElement = clickedButton.closest('[data-id]');
