@@ -13,7 +13,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
 
     connectedCallback() {
         if (this.claim.Id != '' && this.isEdit == true) {
-            console.log('innerst');
             getTimes({
                 claimId: this.claim.Id
             }).then((result) => {
@@ -22,9 +21,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times = [this.setTimesValue(null)];
                     this.times[0].randomNumber = 2;
                     this.updateIsOnlyOneTime();
-                    console.log('tom');
                 } else {
-                    console.log('ikke tom');
                     //this.times[0].randomNumber = 2;
                     this.times = []; // Empty times
                     for (let timeMap of result) {

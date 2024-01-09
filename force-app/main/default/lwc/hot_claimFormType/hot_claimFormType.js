@@ -63,7 +63,6 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
         this.dispatchEvent(selectedEvent);
     }
     connectedCallback() {
-        console.log('hae endringer ' + this.hasChanges + ' ' + this.currentClaimType);
         for (let field in this.parentClaimComponentValues) {
             if (this.componentValues[field] != null) {
                 this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));

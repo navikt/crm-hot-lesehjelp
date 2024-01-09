@@ -46,11 +46,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track claim = {};
     @track isEdit = false;
     setFieldValuesFromURL(parsed_params) {
-        console.log('parsed ' + parsed_params.fieldValues);
-        console.log('type: ' + this.fieldValues.Type__c);
         this.fieldValues = JSON.parse(parsed_params.fieldValues);
         this.recordId = this.fieldValues.Id;
-        console.log('fields ' + this.fieldValues);
 
         this.isEdit = true;
         this.submitButtonLabel = 'Lagre';
@@ -102,7 +99,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         } else {
             this.currentPage = 'claimForm';
             this.claimTypeResult.claimForm = true;
-            console.log('kommer hit' + this.fieldValues.ClaimType__c);
         }
     }
     handleSendButtonClicked() {
@@ -123,11 +119,9 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         let hasErrors = false;
         this.template.querySelectorAll('.subform').forEach((subForm) => {
             hasErrors += subForm.validateFields();
-            console.log('feil' + hasErrors);
         });
         this.template.querySelectorAll('.checkbox').forEach((checkbox) => {
             hasErrors += checkbox.validationHandler();
-            console.log('feil check' + hasErrors);
         });
         return hasErrors;
     }
@@ -152,7 +146,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     getComponentValues() {
         let reqFormType = this.template.querySelector('c-hot_claim-form-type');
         if (reqFormType !== null) {
-            console.log('kjører');
             this.setComponentValuesInWrapper(reqFormType.getComponentValues());
         }
         let reqForm = this.template.querySelector('c-hot_claim-form');
