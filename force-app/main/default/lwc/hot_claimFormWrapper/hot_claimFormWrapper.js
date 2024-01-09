@@ -229,7 +229,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         console.log('Organisasjon utgifter per time: ' + this.fieldValues.EmployerExpensesPerHour__c);
 
         for (let i = 0; i < timeInput.length; i++) {
-            console.log('Id/Nr: ' + timeInput[i].Id);
+            console.log('Id/Nr: ' + timeInput[i].id);
             console.log('Dato: ' + timeInput[i].date);
             console.log('Starttidspunkt: ' + timeInput[i].startTimeString);
             console.log('Starttidspunkt: ' + timeInput[i].startTime);
