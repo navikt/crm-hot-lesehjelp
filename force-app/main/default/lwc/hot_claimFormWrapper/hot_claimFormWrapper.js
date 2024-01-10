@@ -262,6 +262,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                     recordId: this.recordId,
                     claimType: this.fieldValues.ClaimType__c,
                     employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    onEmployer: this.fieldValues.OnEmployer__c,
                     claimLineItems: claimLineItems
                 }).then((result) => {
                     if (result == 'ok') {

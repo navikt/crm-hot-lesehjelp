@@ -29,6 +29,8 @@ export default class Hot_claimForm extends LightningElement {
     connectedCallback() {
         if (this.claim.Id != '' && this.isEdit == true) {
             if (this.claim.onEmployer == true) {
+                this.componentValues.onEmployerRadioButtons[0].checked = true;
+                this.componentValues.onEmployerRadioButtons[1].checked = false;
                 if (this.claimType == 'Arbeid') {
                     this.isWorkClaimType = true;
                 } else {

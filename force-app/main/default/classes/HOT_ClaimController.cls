@@ -333,7 +333,7 @@ public without sharing class HOT_ClaimController {
         return times;
     }
     @AuraEnabled
-    public static String updateClaim(String recordId, String claimType, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems){
+    public static String updateClaim(String recordId, String claimType, String employerExpensesPerHour, String onEmployer, List<Map<String, Object>> claimLineItems){
         String result='';
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
             List<HOT_Claim__c> claims = [
@@ -355,6 +355,13 @@ public without sharing class HOT_ClaimController {
                 claim.OnEmployer__c=false;
             }
             claim.Type__c=claimType;
+            if(onEmployer=='false'){
+                claim.EmployerExpensesPerHour__c=NULL;
+                claim.OrganizationNumber__c=NULL;
+                claim.Organization__c=NULL;
+                claim.EmployerName__c=NULL;
+                claim.OnEmployer__c=false;
+            }
         }
          try{
             update claims;
