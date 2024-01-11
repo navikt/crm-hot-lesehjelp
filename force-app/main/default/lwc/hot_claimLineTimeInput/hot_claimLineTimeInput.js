@@ -7,12 +7,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track isOnlyOneTime = true;
     uniqueIdCounter = 0;
     randomNumber = 3;
+    @track disableAddMoreTimes = false;
 
     @api claim;
     @api isEdit;
 
     connectedCallback() {
         if (this.claim.Id != '' && this.isEdit == true) {
+            this.disableAddMoreTimes = true;
             getTimes({
                 claimId: this.claim.Id
             }).then((result) => {
@@ -22,12 +24,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[0].randomNumber = 2;
                     this.updateIsOnlyOneTime();
                 } else {
-                    //this.times[0].randomNumber = 2;
                     this.times = []; // Empty times
                     for (let timeMap of result) {
                         let timeObject = new Object(this.setTimesValue(timeMap));
-                        console.log(timeMap.id);
-                        console.log(timeMap.task);
 
                         timeObject.task = timeMap.task;
                         //GENERAL TIMES
@@ -91,6 +90,18 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         //TASKTYPE AND ADDITIONAL INFORMATION
                         timeObject.additionalInformation = timeMap.additionalInformation;
                         timeObject.task = timeMap.task;
+                        timeObject.randomNumber = timeMap.id + 100;
+
+                        if (timeMap.hasTravelTo == 'true') {
+                            timeObject.hasTravelTo = true;
+                        } else {
+                            timeObject.hasTravelTo = false;
+                        }
+                        if (timeMap.hasTravelFrom == 'true') {
+                            timeObject.hasTravelFrom = true;
+                        } else {
+                            timeObject.hasTravelFrom = false;
+                        }
 
                         this.times.push(timeObject);
 
@@ -102,6 +113,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                             this.times[index].hasAdditionalInformation = false;
                         }
                     }
+                    this.updateIsOnlyOneTime();
                 }
             });
         } else {
