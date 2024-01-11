@@ -157,8 +157,8 @@ public without sharing class HOT_ClaimController {
         newClaim.onEmployer__c=true;
         newClaim.EmployerName__c=employerName;
         newClaim.OrganizationNumber__c=organizationNumber;
-        Decimal strToDec = decimal.valueOf(employerExpensesPerHour);
-        newClaim.EmployerExpensesPerHour__c=strToDec;
+        Integer strToInt = Integer.valueOf(employerExpensesPerHour);
+        newClaim.EmployerExpensesPerHour__c=strToInt;
         newClaim.Type__c=claimType;
         newClaim.ClaimCreatedFromIdent__c=claimCreatedFromIdent;
         newClaim.UserPhoneNumber__c=userPhoneNumber;
@@ -344,8 +344,8 @@ public without sharing class HOT_ClaimController {
         ];
         for(HOT_Claim__c claim: claims){
             if(claimType == 'Arbeid' && onEmployer=='true'){
-                Decimal strToDec = decimal.valueOf(employerExpensesPerHour);
-                claim.EmployerExpensesPerHour__c=strToDec;
+                Integer strToInt = Integer.valueOf(employerExpensesPerHour);
+                claim.EmployerExpensesPerHour__c=strToInt;
             }
             else{
                 claim.EmployerExpensesPerHour__c=NULL;
@@ -379,6 +379,7 @@ public without sharing class HOT_ClaimController {
     private static String updateClaimLineItems(HOT_Claim__c claim, List<Map<String, Object>> claimLineItems){
         List<HOT_ClaimLineItem__c> claimLineItemList = [SELECT Id, Claim__c, Date__c, TypeOfTask__c, StartTime__c,EndTime__c, HasTravelTo__c, HasTravelFrom__c, TravelTo__c, TravelFrom__c, TravelToStartTime__c,TravelToEndTime__c,TravelFromStartTime__c, TravelFromEndTime__c FROM HOT_ClaimLineItem__c WHERE Claim__c=:claim.Id];
 
+            //find and update records
              for (Map<String, Object> claimLineItem : claimLineItems) {
                 for(HOT_ClaimLineItem__c cli:claimLineItemList ){
                     if(cli.Id==claimLineItem.get('id')){
@@ -442,15 +443,28 @@ public without sharing class HOT_ClaimController {
                             cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                         }
                     }
-                    else{
-                        //NÅR DET IKKE ER ET KLAIM LIME ITEM SOM FINNES FRA FØR BETYR DET AT DET ER LAGT TIL 
-                    }
                 }
 
                 
-         }
+          }
+          //find and delete records
+        List<HOT_ClaimLineItem__c> recordToDelete = new List<HOT_ClaimLineItem__c>();
+
+          for (HOT_ClaimLineItem__c cli : claimLineItemList) {
+                Boolean found = false;
+                for (Map<String, Object> claimLineItem : claimLineItems) {
+                    if (cli.Id == claimLineItem.get('id')) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                recordToDelete.add(cli);
+            }
+        }
          try{
             update claimLineItemList;
+            delete recordToDelete;
             return '';
         }
         catch (Exception e) {

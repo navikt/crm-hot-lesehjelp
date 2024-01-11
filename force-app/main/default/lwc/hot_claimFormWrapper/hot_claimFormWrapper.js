@@ -248,7 +248,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         ) {
             this.fieldValues.OnEmployer__c = 'false';
         } else {
-            this.fieldValues.OnEmployer__c = selectedValueOnEmployer;
+            this.fieldValues.OnEmployer__c = selectedValueOnEmployer.value;
         }
 
         const claimLineItems = timeInput.map((item) => {
@@ -256,7 +256,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         });
 
         if (this.isEdit) {
-            console.log('nye verdier' + claimLineItems);
             try {
                 updateClaim({
                     recordId: this.recordId,
