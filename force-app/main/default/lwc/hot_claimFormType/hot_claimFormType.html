@@ -3,10 +3,11 @@
         <div class="skjema-form">
             <c-radiobuttons
                 helptext-content="Du kan sende inn flere krav, men hvert krav kan kun bestå av én type lesehjelp."
-                radiobuttons={radiobuttons}
+                radiobuttons={componentValues.radiobuttons}
                 onradiobuttonsclick={handleClaimTypeChange}
                 header="Hvilken type lesehjelp gjelder kravet for?"
                 group-name="testRadioGroup"
+                name="Type__c"
             ></c-radiobuttons>
 
             <div class="button-container">

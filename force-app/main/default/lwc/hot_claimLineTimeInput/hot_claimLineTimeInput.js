@@ -1,5 +1,5 @@
 import { LightningElement, track, wire, api } from 'lwc';
-//import getTimes from '@salesforce/apex/HOT_RequestListController.getTimesNew';
+import getTimes from '@salesforce/apex/HOT_ClaimController.getTimes';
 import { requireInput, dateInPast, startBeforeEnd } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
@@ -7,12 +7,121 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track isOnlyOneTime = true;
     uniqueIdCounter = 0;
     randomNumber = 3;
+    @track disableAddMoreTimes = false;
+
+    @api claim;
+    @api isEdit;
 
     connectedCallback() {
-        // Initialize the times array with one time object
-        this.times = [this.setTimesValue(null)]; // Assuming you want at least one time initially
-        this.times[0].randomNumber = 2;
-        this.updateIsOnlyOneTime();
+        if (this.claim.Id != '' && this.isEdit == true) {
+            this.disableAddMoreTimes = true;
+            getTimes({
+                claimId: this.claim.Id
+            }).then((result) => {
+                console.log(result);
+                if (result.length === 0) {
+                    this.times = [this.setTimesValue(null)];
+                    this.times[0].randomNumber = 2;
+                    this.updateIsOnlyOneTime();
+                } else {
+                    this.times = []; // Empty times
+                    for (let timeMap of result) {
+                        let timeObject = new Object(this.setTimesValue(timeMap));
+
+                        timeObject.task = timeMap.task;
+                        //GENERAL TIMES
+                        timeObject.dateMilliseconds = new Date(timeMap.date).getTime();
+                        timeObject.startTimeString = this.dateTimeToTimeString(
+                            new Date(Number(timeMap.startTime)),
+                            true
+                        );
+                        timeObject.startTime = this.timeStringToDateTime(
+                            timeObject.dateMilliseconds,
+                            timeObject.startTimeString
+                        ).getTime();
+                        timeObject.endTimeString = this.dateTimeToTimeString(new Date(Number(timeMap.endTime)), true);
+                        timeObject.endTime = this.timeStringToDateTime(
+                            timeObject.dateMilliseconds +
+                                (timeObject.endTimeString < timeObject.startTimeString ? 86400000 : 0),
+                            timeObject.endTimeString
+                        ).getTime();
+                        //TRAVEL TO TIMES
+                        timeObject.dateTravelToMilliseconds = new Date(timeMap.dateTravelTo).getTime();
+                        timeObject.startTimeTravelToString = this.dateTimeToTimeString(
+                            new Date(Number(timeMap.startTimeTravelTo)),
+                            true
+                        );
+
+                        timeObject.startTimeTravelTo = this.timeStringToDateTime(
+                            timeObject.dateTravelToMilliseconds,
+                            timeObject.startTimeTravelToString
+                        ).getTime();
+                        timeObject.endTimeTravelToString = this.dateTimeToTimeString(
+                            new Date(Number(timeMap.endTimeTravelTo)),
+                            true
+                        );
+                        timeObject.endTimeTravelTo = this.timeStringToDateTime(
+                            timeObject.dateTravelToMilliseconds +
+                                (timeObject.endTimeTravelToString < timeObject.startTimeTravelToString ? 86400000 : 0),
+                            timeObject.endTimeTravelToString
+                        ).getTime();
+                        //TRAVEL FROM TIMES
+                        timeObject.dateTravelFromMilliseconds = new Date(timeMap.dateTravelFrom).getTime();
+                        timeObject.startTimeTravelFromString = this.dateTimeToTimeString(
+                            new Date(Number(timeMap.startTimeTravelFrom)),
+                            true
+                        );
+
+                        timeObject.startTimeTravelFrom = this.timeStringToDateTime(
+                            timeObject.dateTravelFromMilliseconds,
+                            timeObject.startTimeTravelFromString
+                        ).getTime();
+                        timeObject.endTimeTravelFromString = this.dateTimeToTimeString(
+                            new Date(Number(timeMap.endTimeTravelFrom)),
+                            true
+                        );
+                        timeObject.endTimeTravelFrom = this.timeStringToDateTime(
+                            timeObject.dateTravelFromMilliseconds +
+                                (timeObject.endTimeTravelFromString < timeObject.startTimeTravelFromString
+                                    ? 86400000
+                                    : 0),
+                            timeObject.endTimeTravelFromString
+                        ).getTime();
+                        //TASKTYPE AND ADDITIONAL INFORMATION
+                        timeObject.additionalInformation = timeMap.additionalInformation;
+                        timeObject.task = timeMap.task;
+                        timeObject.randomNumber = timeMap.id + 100;
+
+                        if (timeMap.hasTravelTo == 'true') {
+                            timeObject.hasTravelTo = true;
+                        } else {
+                            timeObject.hasTravelTo = false;
+                        }
+                        if (timeMap.hasTravelFrom == 'true') {
+                            timeObject.hasTravelFrom = true;
+                        } else {
+                            timeObject.hasTravelFrom = false;
+                        }
+
+                        this.times.push(timeObject);
+
+                        const index = this.getTimesIndex(timeObject.id);
+                        this.times[index].task = timeObject.task;
+                        if (timeObject.task == 'Annet (spesifiser i tilleggsinformasjon)') {
+                            this.times[index].hasAdditionalInformation = true;
+                        } else {
+                            this.times[index].hasAdditionalInformation = false;
+                        }
+                    }
+                    this.updateIsOnlyOneTime();
+                }
+            });
+        } else {
+            // Initialize the times array with one time object
+            this.times = [this.setTimesValue(null)]; // Assuming you want at least one time initially
+            this.times[0].randomNumber = 2;
+            this.updateIsOnlyOneTime();
+        }
     }
     taskOptions = [
         { label: 'Velg oppgave', name: 'Placeholder', selected: true, disabled: true },
@@ -188,6 +297,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         //timeInputs.times = this.timesListToObject(this.times);
         return this.times;
         //return timeInputs;
+        //DENNE FJERNES VEL. SJEKK OM DEN IKKE BRUKES
     }
     @api
     validateFields() {

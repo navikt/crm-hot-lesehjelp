@@ -45,6 +45,7 @@
                     data-id="taskType"
                     error-text="Du må velge en oppgave."
                     desktop-style="padding-top: 1vw"
+                    set-default-value={it.value.task}
                     style={dateTimeDesktopStyle}
                 >
                 </c-picklist>
@@ -70,6 +71,8 @@
             group-name={it.value.id}
             flex-direction="row"
             name={it.value.id}
+            set-default-value={it.value.hasTravelTo}
+            is-edit={isEdit}
         ></c-radiobuttons>
         <div class="travelTimesToInputContainer">
                     <c-input
@@ -119,6 +122,8 @@
             group-name={it.value.randomNumber}
             flex-direction="row"
             name={it.value.id}
+            set-default-value={it.value.hasTravelFrom}
+            is-edit={isEdit}
         ></c-radiobuttons>
          <div class="travelTimesFromInputContainer">
                 <c-input
@@ -181,7 +186,7 @@
             </div>
         </template>
         <c-button
-            if:false={isAdvancedTimes}
+            if:false={disableAddMoreTimes}
             type="button"
             button-styling="secondary"
             onbuttonclick={addTime}

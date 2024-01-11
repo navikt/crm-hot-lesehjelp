@@ -24,8 +24,13 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track claimLineItems;
     @track recordName;
 
+    @track orgName;
+
     @track record;
     @track isNotCancelable = true;
+    renderedCallback() {
+        refreshApex(this.wiredAllClaim);
+    }
     connectedCallback() {
         refreshApex(this.wiredAllClaim);
     }
@@ -43,6 +48,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     this.claims.forEach((element) => {
                         if (element.Id == claimId) {
                             this.record = element;
+                            this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
                         }
                     });
@@ -191,6 +197,18 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.modalContent = 'Er du sikker på at du vil trekke kravet ' + this.recordName + '?';
         this.noCancelButton = false;
         this.showModal();
+    }
+    editClaim() {
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: 'nytt-krav'
+            },
+            state: {
+                fieldValues: JSON.stringify(this.record),
+                edit: true
+            }
+        });
     }
     showModal() {
         this.template.querySelector('c-alertdialog').showModal();
