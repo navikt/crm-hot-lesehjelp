@@ -63,7 +63,7 @@ claim2.Type__c = 'Utdanning, opplæring eller arbeidstrening';
 claim2.TotalHoursOrgPolSoc__c = 12.00;
 insert claim2;
 
-List<Account> allAccounts = [SELECT Name, INT_PersonIdent__c FROM Account WHERE INT_PersonIdent__c != '' LIMIT 10];
+List<Account> allAccounts = [SELECT Name, LastName, FirstName, INT_PersonIdent__c FROM Account WHERE INT_PersonIdent__c != '' LIMIT 10];
 
 Person__c person1 = new Person__c();
 person1.Name = allAccounts[0].INT_PersonIdent__c;
@@ -111,7 +111,7 @@ person3.INT_FirstName__c = allAccounts[2].FirstName;
 person3.HOT_isLOS__c = true;
 insert person3;
 
-Person__c person3 = new Person__c();
+Person__c person4 = new Person__c();
 person4.Name = allAccounts[3].INT_PersonIdent__c;
 person4.INT_Confidential__c = 'UGRADERT';
 person4.INT_KrrEmail__c = 'fakeemail@navtest11.no';
@@ -127,12 +127,15 @@ person4.INT_FirstName__c = allAccounts[3].FirstName;
 person4.HOT_isLOS__c = true;
 insert person4;
 
+List<Person__c> allPersons = [SELECT Name, Id FROM Person__c];
+
 HOT_Entitlement__c entitlement1 = new HOT_Entitlement__c();
 entitlement1.Name = 'Lesehjelp på Arbeidsplass';
 entitlement1.Type__c = 'Arbeidsliv';
 entitlement1.EntitledHours__c = 120.00;
 entitlement1.FromDate__c = Date.today();
 entitlement1.ToDate__c = Date.today().addYears(1);
+entitlement1.Person__c = allPersons[0].Id;
 insert entitlement1;
 
 HOT_Entitlement__c entitlement2 = new HOT_Entitlement__c();
@@ -141,53 +144,52 @@ entitlement2.Type__c = 'Arbeidsliv';
 entitlement2.EntitledHours__c = 120.00;
 entitlement2.FromDate__c = Date.today();
 entitlement2.ToDate__c = Date.today().addYears(1);
+entitlement2.Person__c = allPersons[1].Id;
 insert entitlement2;
 
 HOT_Entitlement__c entitlement3 = new HOT_Entitlement__c();
-entitlement3.Name = 'Arkivering på jobb';
+entitlement3.Name = 'Transkribering på jobb';
 entitlement3.Type__c = 'Arbeidsliv';
 entitlement3.EntitledHours__c = 150.00;
 entitlement3.FromDate__c = Date.today();
 entitlement3.ToDate__c = Date.today().addYears(1);
-entitlement3.Person__c = allAccounts[0].INT_PersonIdent__c;
+entitlement3.Person__c = allPersons[2].Id;
 insert entitlement3;
 
-List<Person__c> allPersons = [SELECT Name, Id FROM Person__c];
-
 HOT_Entitlement__c entitlement4 = new HOT_Entitlement__c();
-entitlement4.Name = 'Hverdagsmål';
+entitlement4.Name = 'Lese regninger';
 entitlement4.Type__c = 'Dagligliv';
 entitlement4.EntitledHours__c = 150.00;
 entitlement4.FromDate__c = Date.today();
 entitlement4.ToDate__c = Date.today().addYears(1);
-entitlement4.Person__c = allPersons[0].Id;
+entitlement4.Person__c = allPersons[2].Id;
 insert entitlement4;
 
-Map<String,List<Account>> accMap = new Map<String,List<Account>>();
-for(Account acc : [SELECT Id, INT_PersonIdent__c, CRM_Person__r.CRM_Account__c FROM Account]) {
-    if(String.isBlank(acc.INT_PersonIdent__c)) {
-        continue;
-    }
+// Map<String,List<Account>> accMap = new Map<String,List<Account>>();
+// for(Account acc : [SELECT Id, INT_PersonIdent__c, CRM_Person__r.CRM_Account__c FROM Account]) {
+//     if(String.isBlank(acc.INT_PersonIdent__c)) {
+//         continue;
+//     }
 
-    if(accMap.containsKey(acc.INT_PersonIdent__c) == false) {
-        accMap.put(acc.INT_PersonIdent__c, new List<Account>());
-    }
+//     if(accMap.containsKey(acc.INT_PersonIdent__c) == false) {
+//         accMap.put(acc.INT_PersonIdent__c, new List<Account>());
+//     }
 
-    accMap.get(acc.INT_PersonIdent__c).add(acc);
-}
+//     accMap.get(acc.INT_PersonIdent__c).add(acc);
+// }
 
-for(String ident : accMap.keySet()) {
-    if(accMap.get(ident).size() > 1) {
-        Account master;
-        List<Account> duplicates = new List<Account>();
-        for(Account acc : accMap.get(ident)) {
-            if(acc.CRM_Person__r.CRM_Account__c == null) {
-                duplicates.add(new Account(Id = acc.Id));
-            } else {
-                master = new Account(Id = acc.Id);
-            }
-        }
+// for(String ident : accMap.keySet()) {
+//     if(accMap.get(ident).size() > 1) {
+//         Account master;
+//         List<Account> duplicates = new List<Account>();
+//         for(Account acc : accMap.get(ident)) {
+//             if(acc.CRM_Person__r.CRM_Account__c == null) {
+//                 duplicates.add(new Account(Id = acc.Id));
+//             } else {
+//                 master = new Account(Id = acc.Id);
+//             }
+//         }
 
-        Database.merge(master, duplicates);
-    }
-}
+//         Database.merge(master, duplicates);
+//     }
+// }
