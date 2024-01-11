@@ -215,7 +215,7 @@ public without sharing class HOT_ClaimController {
             SELECT
                 Id,
                 Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c, EmployerExpensesPerHour__c, OrganizationNumber__c, EmployerName__c
-            FROM HOT_Claim__c
+            FROM HOT_Claim__c WHERE Claimant__c=:currentUser.AccountId
         ];
         return claims;
     }
@@ -226,7 +226,7 @@ public without sharing class HOT_ClaimController {
             SELECT
                 Id,
                 Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
-            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE)];
+            FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (Status__c='Sent') AND (NumberOfClaimLineItems__c>0) AND (ApprovedByUser__c=FALSE) AND (Account__c=:currentUser.AccountId)];
         return claims;
     }
     @AuraEnabled
@@ -340,7 +340,7 @@ public without sharing class HOT_ClaimController {
             SELECT
                 Id,
                 Name, Claimant__c,OnEmployer__c, Type__c, EmployerExpensesPerHour__c, OrganizationNumber__c,Organization__c, EmployerName__c
-            FROM HOT_Claim__c WHERE Id=:recordId
+            FROM HOT_Claim__c WHERE Id=:recordId AND Claimant__c=:currentUser.AccountId
         ];
         for(HOT_Claim__c claim: claims){
             if(claimType == 'Arbeid' && onEmployer=='true'){
