@@ -343,7 +343,7 @@ public without sharing class HOT_ClaimController {
             FROM HOT_Claim__c WHERE Id=:recordId
         ];
         for(HOT_Claim__c claim: claims){
-            if(claimType == 'Arbeid'){
+            if(claimType == 'Arbeid' && onEmployer=='true'){
                 Decimal strToDec = decimal.valueOf(employerExpensesPerHour);
                 claim.EmployerExpensesPerHour__c=strToDec;
             }
@@ -441,6 +441,9 @@ public without sharing class HOT_ClaimController {
                             Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
                             cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                         }
+                    }
+                    else{
+                        //NÅR DET IKKE ER ET KLAIM LIME ITEM SOM FINNES FRA FØR BETYR DET AT DET ER LAGT TIL 
                     }
                 }
 

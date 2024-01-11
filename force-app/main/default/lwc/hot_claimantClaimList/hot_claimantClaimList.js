@@ -28,6 +28,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
 
     @track record;
     @track isNotCancelable = true;
+    renderedCallback() {
+        refreshApex(this.wiredAllClaim);
+    }
     connectedCallback() {
         refreshApex(this.wiredAllClaim);
     }
