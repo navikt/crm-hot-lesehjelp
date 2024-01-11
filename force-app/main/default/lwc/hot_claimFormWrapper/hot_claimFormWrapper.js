@@ -3,7 +3,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
 import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
-import { getParametersFromURL } from 'c/hot_URIDecoder';
+import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
