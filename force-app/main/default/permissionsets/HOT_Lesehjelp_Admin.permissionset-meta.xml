@@ -60,11 +60,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.Task__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelFromEndTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -151,11 +146,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.EmployerName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Claim__c.EmployersWageCosts__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
