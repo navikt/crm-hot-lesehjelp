@@ -157,7 +157,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>HOT_Claim__c.IsNotificationSent__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -273,11 +273,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Person__c.INT_KrrIntegrationStatus__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Person__c.INT_KrrMobilePhone__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -313,7 +308,6 @@
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>HOT Lesehjelp Bruker</label>
-    <license>Customer Community Login</license>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
