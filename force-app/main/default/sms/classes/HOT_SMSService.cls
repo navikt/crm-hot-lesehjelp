@@ -16,7 +16,6 @@ public without sharing class HOT_SMSService {
             sms.Message__c = message;
             if (SMS.Recipient__c != null) {
                 smsList.add(sms);
-                claim.IsNotificationSent__c = true;
             }
         }
         insert smsList;
