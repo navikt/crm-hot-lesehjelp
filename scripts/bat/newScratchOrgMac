@@ -18,10 +18,6 @@ sf package install --package 04t7U000000LPPAQA4 --no-prompt --installation-key $
 # Installer crm-platform-integration ver. 0.107
 sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installerer crm-platform-integratione ver. 0.107
-sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
-
-
 # Dytt kildekoden til scratch org'en
 sf project deploy start
 
