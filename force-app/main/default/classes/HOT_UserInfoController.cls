@@ -8,7 +8,7 @@ public without sharing class HOT_UserInfoController {
     public static Person__c getPersonDetails(){
             User currentUser = [SELECT Id, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
             Person__c person = [
-            SELECT Id, INT_KrrEmail__c, INT_BankAccountNumber__c, INT_ResidentialAddress__c,INT_ResidentialZipCode__c, INT_ResidentialPlace__c, INT_KrrMobilePhone__c,INT_LastUpdatedFromKRR__c, INT_KrrIntegrationStatus__c
+            SELECT Id, INT_KrrEmail__c, INT_BankAccountNumber__c, INT_ResidentialAddress__c, INT_ResidentialZipCode__c, INT_ResidentialPlace__c, INT_KrrMobilePhone__c,INT_LastUpdatedFromKRR__c, INT_KrrIntegrationStatus__c
             FROM Person__c
             WHERE Id = :currentUser.Account.CRM_Person__c
         ];

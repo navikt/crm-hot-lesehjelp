@@ -10,18 +10,40 @@ export default class Hot_newLOSForm extends LightningElement {
         EmailAdress__c: '',
         Address__c: ''
     };
-    @track person;
+    personResult;
 
-    // @wire(getPersonDetails)
-    // wiredResult(result) {
-    //     this.person = result.data;
-    //     console.log('id' + this.person.Id);
-    // }
+    @wire(getPersonDetails)
+    wiredResult(result) {
+        if (result.data) {
+            this.personResult = result.data;
+            this.fieldValues.Address__c =
+                this.personResult.INT_ResidentialAddress__c === undefined
+                    ? ''
+                    : this.personResult.INT_ResidentialAddress__c;
+            this.fieldValues.Address__c +=
+                this.personResult.INT_ResidentialZipCode__c == undefined
+                    ? ''
+                    : ', ' + this.personResult.INT_ResidentialZipCode__c;
+            this.fieldValues.Address__c +=
+                this.personResult.INT_ResidentialPlace__c == undefined
+                    ? ''
+                    : ' ' + this.personResult.INT_ResidentialPlace__c;
 
-    connectedCallback() {
-        this.fieldValues.Address__c = 'test';
-        this.fieldValues.BankAccount__c = 'test';
-        this.fieldValues.PhoneNumber__c = 'test';
-        this.fieldValues.EmailAdress__c = 'test';
+            this.fieldValues.BankAccount__c =
+                this.personResult.INT_BankAccountNumber__c === undefined
+                    ? ''
+                    : this.personResult.INT_BankAccountNumber__c;
+            this.fieldValues.PhoneNumber__c =
+                this.personResult.INT_KrrMobilePhone__c === undefined ? '' : this.personResult.INT_KrrMobilePhone__c;
+            this.fieldValues.EmailAdress__c =
+                this.personResult.INT_KrrEmail__c === undefined ? '' : this.personResult.INT_KrrEmail__c;
+        } else {
+            this.fieldValues.Address__c = '';
+            this.fieldValues.BankAccount__c = '';
+            this.fieldValues.PhoneNumber__c = '';
+            this.fieldValues.EmailAdress__c = '';
+        }
     }
+
+    connectedCallback() {}
 }
