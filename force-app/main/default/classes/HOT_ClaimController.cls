@@ -362,6 +362,7 @@ public without sharing class HOT_ClaimController {
                 claim.EmployerName__c=NULL;
                 claim.OnEmployer__c=false;
             }
+            claim.Status__c='Sent';
         }
          try{
             update claims;
