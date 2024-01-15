@@ -104,27 +104,6 @@ lightning-record-edit-form section {
     margin: 2rem 0;
     border-radius: 0.5rem;
 }
-.tolk-skjema-input {
-    font-size: 1rem;
-}
-
-@media (max-width: 576px) {
-    .postnummer label {
-        left: -1000px;
-        visibility: hidden;
-        position: absolute;
-    }
-    .postnummer label:after {
-        visibility: visible;
-        position: absolute;
-        top: -23px;
-        left: 1000px;
-        content: 'Postnr';
-    }
-    .postnummer {
-        top: 29px;
-    }
-}
 
 .dynamic-time-inputs-with-line_button {
     display: grid;
@@ -233,4 +212,7 @@ lightning-record-edit-form section {
     margin: 0;
     font-family: Source Sans Pro, Arial, sans-serif;
     color: #262626;
+}
+p {
+    font-size: 1.1rem;
 }

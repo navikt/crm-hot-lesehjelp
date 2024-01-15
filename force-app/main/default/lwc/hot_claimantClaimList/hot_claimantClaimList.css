@@ -1,5 +1,37 @@
-.mainContent {
+.loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #00459c;
+    /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.skjema-max-width {
+    width: 100%;
+    max-width: 800px;
+}
+.loading-content {
+    padding-top: 3rem;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.main-content {
     text-align: center;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    align-items: center;
 }
 .content {
     width: 60%;

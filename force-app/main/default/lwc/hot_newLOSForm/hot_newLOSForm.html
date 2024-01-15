@@ -1,0 +1,55 @@
+<template>
+    <section class="bruker-info-skjema sub-form">
+        <div style="flex-direction: row; display: flex">
+            <h2 class="header" tabindex="-1">Ny lesehjelp</h2>
+            <c-helptext
+                text="For å kunne registrere deg som ny lesehjelp trenger vi litt informasjon om deg. Vennligst se at all informasjon vi har om deg er korrekt"
+                hover-text="Hjelpeknapp for informasjon til ny lesehjelp."
+            ></c-helptext>
+        </div>
+        <c-alert-banner
+            type="Warning"
+            message="Det ser ikke ut som du er registrert som lesehjelp. Når du nå sender inn ditt første krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen kommer fra Kontakt- og reservasjonsregisteret og opplysninger hentet fra Mine sider på NAV.no. Du kan trykke på lenken under for å redigere opplysningene. Det kan ta opptil 24 timer før endringene er synlig, men du kan sende inn kravet nå."
+        ></c-alert-banner>
+        <br />
+        <a href="https://www.nav.no/person/personopplysninger/nb/" target="_blank">
+            <p><img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på NAV.no mine sider</p>
+        </a>
+        <c-input
+            label="Adresse"
+            name="Address__c"
+            disabled="true"
+            value={fieldValues.Address__c}
+            form="krav-skjema-input"
+            error-text="Adresse må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Kontonummer"
+            name="BankAccount__c"
+            disabled="true"
+            value={fieldValues.BankAccount__c}
+            form="krav-skjema-input"
+            error-text="Kontonummer må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Mobilnr"
+            name="PhoneNumber__c"
+            disabled="true"
+            value={fieldValues.PhoneNumber__c}
+            form="krav-skjema-input"
+            error-text="Mobilnr må fylles ut."
+        ></c-input>
+        <br />
+        <c-input
+            label="Epost"
+            name="EmailAdress__c"
+            disabled="true"
+            value={fieldValues.EmailAdress__c}
+            form="krav-skjema-input"
+            error-text="Epost må fylles ut."
+        ></c-input>
+        <br />
+    </section>
+</template>

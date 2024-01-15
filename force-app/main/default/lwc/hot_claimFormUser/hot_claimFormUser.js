@@ -1,6 +1,7 @@
 import { LightningElement, track, wire, api } from 'lwc';
 export default class Hot_claimFormUser extends LightningElement {
     @track isPersonNumber = true;
+    @track isEdit = false;
     @track fieldValues = {
         UserName__c: '',
         UserPersonNumber__c: '',
@@ -17,6 +18,8 @@ export default class Hot_claimFormUser extends LightningElement {
 
     @api parentClaimComponentValues;
     @api parentFieldValues;
+    @api claim;
+    @api isEdit;
 
     handlePhoneNumberogPersonNumberRadioButtons(event) {
         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons = event.detail;
@@ -82,6 +85,19 @@ export default class Hot_claimFormUser extends LightningElement {
             this.isPersonNumber = true;
         } else {
             this.isPersonNumber = false;
+        }
+        if (this.claim.Id != '' && this.isEdit == true) {
+            this.isEdit = true;
+            if (this.claim.createdFromIdent == true) {
+                this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = true;
+                this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = false;
+            } else {
+                this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = false;
+                this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = true;
+            }
+            this.fieldValues.UserPersonNumber__c = this.claim.userPersonNumber;
+            this.fieldValues.UserPhoneNumber__c = this.claim.userPhoneNumber;
+            this.fieldValues.UserName__c = this.claim.userName;
         }
     }
 }

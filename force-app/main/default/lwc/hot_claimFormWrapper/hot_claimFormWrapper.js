@@ -1,7 +1,9 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
-import checkIsLos from '@salesforce/apex/HOT_ClaimController.checkIsLos';
+import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
+import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
+import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     @track claimTypeChosen = false;
@@ -11,6 +13,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track spin = false;
     @track isLos = true;
     @track previousPage = 'home';
+    @track submitButtonLabel = 'Send inn';
     @track claimTypeResult = {};
     @track currentPage = '';
     @track submitSuccessMessage = '';
@@ -25,17 +28,54 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             href: 'nytt-krav'
         }
     ];
+
+    connectedCallback() {
+        let parsed_params = getParametersFromURL();
+        if (parsed_params != null) {
+            if (parsed_params.edit === 'true') {
+                this.breadcrumbs[this.breadcrumbs.length - 1].label = 'Rediger krav';
+                this.breadcrumbs[this.breadcrumbs.length - 1].href = 'nytt-krav';
+            }
+
+            if (parsed_params.fieldValues != null) {
+                this.setFieldValuesFromURL(parsed_params);
+            }
+        }
+    }
+
+    @track claim = {};
+    @track isEdit = false;
+    setFieldValuesFromURL(parsed_params) {
+        this.fieldValues = JSON.parse(parsed_params.fieldValues);
+        this.recordId = this.fieldValues.Id;
+
+        this.isEdit = true;
+        this.submitButtonLabel = 'Lagre';
+        this.claim.Id = this.fieldValues.Id;
+        this.claim.Type = this.fieldValues.Type__c;
+        this.claim.createdFromIdent = this.fieldValues.ClaimCreatedFromIdent__c;
+        this.claim.userPersonNumber = this.fieldValues.UserPersonNumber__c;
+        this.claim.userPhoneNumber = this.fieldValues.UserPhoneNumber__c;
+        this.claim.userName = this.fieldValues.Account__r.Name;
+        this.claim.onEmployer = this.fieldValues.OnEmployer__c;
+        this.claim.organizationNumber = this.fieldValues.OrganizationNumber__c;
+        this.claim.employerExpensesPerHour = this.fieldValues.EmployerExpensesPerHour__c;
+        this.claim.employerName = this.fieldValues.EmployerName__c;
+    }
+
     wiredResult;
     @wire(checkIsLos)
     wiredResult(result) {
         this.isLos = result.data;
     }
 
-    handleRequestType(event) {
+    handleClaimType(event) {
         this.claimTypeResult = event.detail;
         this.claimTypeChosen = true;
         this.fieldValues.ClaimType__c = this.claimTypeResult.type;
         this.currentPage = 'userInfo';
+        this.getComponentValues();
+        console.log('ny verdi ' + this.claimTypeResult.type);
     }
     handleBackButtonClicked() {
         this.getComponentValues();
@@ -64,19 +104,24 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleSendButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        console.log('submitter');
-        this.spin = true;
-        this.template.querySelector('[data-id="saveButton"]').disabled = true;
 
-        this.hideFormAndShowLoading();
-        this.submitForm();
+        if (this.handleValidation()) {
+            return;
+        } else {
+            this.spin = true;
+            this.template.querySelector('[data-id="saveButton"]').disabled = true;
+            this.hideFormAndShowLoading();
+            this.submitForm();
+        }
     }
 
     handleValidation() {
         let hasErrors = false;
         this.template.querySelectorAll('.subform').forEach((subForm) => {
             hasErrors += subForm.validateFields();
-            console.log('feil' + hasErrors);
+        });
+        this.template.querySelectorAll('.checkbox').forEach((checkbox) => {
+            hasErrors += checkbox.validationHandler();
         });
         return hasErrors;
     }
@@ -99,6 +144,10 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     }
 
     getComponentValues() {
+        let reqFormType = this.template.querySelector('c-hot_claim-form-type');
+        if (reqFormType !== null) {
+            this.setComponentValuesInWrapper(reqFormType.getComponentValues());
+        }
         let reqForm = this.template.querySelector('c-hot_claim-form');
         if (reqForm !== null) {
             this.setComponentValuesInWrapper(reqForm.getComponentValues());
@@ -173,7 +222,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         console.log('Organisasjon utgifter per time: ' + this.fieldValues.EmployerExpensesPerHour__c);
 
         for (let i = 0; i < timeInput.length; i++) {
-            console.log('Id/Nr: ' + timeInput[i].Id);
+            console.log('Id/Nr: ' + timeInput[i].id);
             console.log('Dato: ' + timeInput[i].date);
             console.log('Starttidspunkt: ' + timeInput[i].startTimeString);
             console.log('Starttidspunkt: ' + timeInput[i].startTime);
@@ -199,35 +248,57 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         ) {
             this.fieldValues.OnEmployer__c = 'false';
         } else {
-            this.fieldValues.OnEmployer__c = selectedValueOnEmployer;
+            this.fieldValues.OnEmployer__c = selectedValueOnEmployer.value;
         }
 
         const claimLineItems = timeInput.map((item) => {
             return { ...item };
         });
 
-        try {
-            createNewClaimFromCommunity({
-                userName: this.fieldValues.UserName__c,
-                userPersonNumber: this.fieldValues.UserPersonNumber__c,
-                userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
-                claimType: this.fieldValues.ClaimType__c,
-                onEmployer: selectedValueOnEmployer.value,
-                employerName: this.fieldValues.EmployerName__c,
-                organizationNumber: this.fieldValues.EmployerNumber__c,
-                employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
-                claimLineItems: claimLineItems
-            }).then((result) => {
-                if (result == 'ok') {
-                    this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
-                    this.hideFormAndShowSuccess();
-                } else {
-                    this.hideLoading();
-                    this.hideFormAndShowError(result);
-                }
-            });
-        } catch (error) {
-            this.hideFormAndShowError(error);
+        if (this.isEdit) {
+            try {
+                updateClaim({
+                    recordId: this.recordId,
+                    claimType: this.fieldValues.ClaimType__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    onEmployer: this.fieldValues.OnEmployer__c,
+                    claimLineItems: claimLineItems
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ble lagret';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
+        } else {
+            try {
+                createNewClaimFromCommunity({
+                    userName: this.fieldValues.UserName__c,
+                    userPersonNumber: this.fieldValues.UserPersonNumber__c,
+                    userPhoneNumber: this.fieldValues.UserPhoneNumber__c,
+                    claimType: this.fieldValues.ClaimType__c,
+                    onEmployer: selectedValueOnEmployer.value,
+                    employerName: this.fieldValues.EmployerName__c,
+                    organizationNumber: this.fieldValues.EmployerNumber__c,
+                    employerExpensesPerHour: this.fieldValues.EmployerExpensesPerHour__c,
+                    claimLineItems: claimLineItems
+                }).then((result) => {
+                    if (result == 'ok') {
+                        this.submitSuccessMessage = 'Kravet ditt ble sendt inn';
+                        this.hideFormAndShowSuccess();
+                    } else {
+                        this.hideLoading();
+                        this.hideFormAndShowError(result);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
         }
     }
     signingClaim() {}

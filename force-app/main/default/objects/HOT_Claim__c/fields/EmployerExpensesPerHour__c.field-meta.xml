@@ -3,9 +3,9 @@
     <fullName>EmployerExpensesPerHour__c</fullName>
     <externalId>false</externalId>
     <label>Employer Expenses Per Hour</label>
-    <precision>18</precision>
+    <precision>16</precision>
     <required>false</required>
-    <scale>2</scale>
+    <scale>0</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

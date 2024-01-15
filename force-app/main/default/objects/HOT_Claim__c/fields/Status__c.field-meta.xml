@@ -18,14 +18,14 @@
                 <label>Sent</label>
             </value>
             <value>
-                <fullName>Declined</fullName>
+                <fullName>Declined by NAV</fullName>
                 <default>false</default>
-                <label>Declined</label>
+                <label>Declined by NAV</label>
             </value>
             <value>
-                <fullName>Approved</fullName>
+                <fullName>Approved by NAV</fullName>
                 <default>false</default>
-                <label>Approved</label>
+                <label>Approved by NAV</label>
             </value>
             <value>
                 <fullName>Withdrawn</fullName>
@@ -36,6 +36,16 @@
                 <fullName>Paid out</fullName>
                 <default>false</default>
                 <label>Paid out</label>
+            </value>
+            <value>
+                <fullName>Declined by user</fullName>
+                <default>false</default>
+                <label>Declined by user</label>
+            </value>
+            <value>
+                <fullName>Approved by user</fullName>
+                <default>false</default>
+                <label>Approved by user</label>
             </value>
         </valueSetDefinition>
     </valueSet>

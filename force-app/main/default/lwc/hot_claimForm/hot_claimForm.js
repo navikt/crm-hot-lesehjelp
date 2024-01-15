@@ -3,11 +3,15 @@ import { LightningElement, api, track } from 'lwc';
 export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
     @api claimType;
+    @api isLos;
+    @api claim;
+    @api isEdit;
+    @track showNewLos = false;
     @api parentClaimComponentValues;
     @track isWorkClaimType = false;
+    @track disabledEmployer = false;
 
     @track employerClaim;
-    @track requestIds = '';
 
     @track fieldValues = {
         OnEmployer__c: '',
@@ -23,30 +27,62 @@ export default class Hot_claimForm extends LightningElement {
         isOptionalFields: false
     };
     connectedCallback() {
-        this.showDiv = true;
-        setTimeout(() => this.template.querySelector('h2').focus());
-
-        for (let field in this.parentFieldValues) {
-            if (this.fieldValues[field] != null) {
-                this.fieldValues[field] = this.parentFieldValues[field];
+        if (this.claim.Id != '' && this.isEdit == true) {
+            if (this.claim.onEmployer == true) {
+                this.componentValues.onEmployerRadioButtons[0].checked = true;
+                this.componentValues.onEmployerRadioButtons[1].checked = false;
+                if (this.claimType == 'Arbeid') {
+                    this.isWorkClaimType = true;
+                } else {
+                    this.isWorkClaimType = false;
+                }
+                this.employerClaim = true;
+                this.disabledEmployer = true;
+                this.fieldValues.EmployerName__c = this.claim.employerName;
+                this.fieldValues.EmployerNumber__c = this.claim.organizationNumber;
+                this.fieldValues.EmployerExpensesPerHour__c = this.claim.employerExpensesPerHour;
             }
-        }
-        for (let field in this.parentClaimComponentValues) {
-            if (this.componentValues[field] != null) {
-                this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
+            //Skal ikke kunne redigere annet enn utgifter når det er arbeid. Skal ikke legge til arbeisgiver under redigering. Må lage nytt krav
+            // if (this.claimType == 'Arbeid') {
+            //     this.isWorkClaimType = true;
+            // } else {
+            //     this.isWorkClaimType = false;
+            // }
+        } else {
+            if (this.isLos == false && this.employerClaim != true) {
+                this.showNewLos = true;
             }
-        }
-        const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
-        if (selectedValue.value === 'true') {
-            this.employerClaim = true;
-        } else {
-            this.employerClaim = false;
-        }
+            this.showDiv = true;
+            setTimeout(() => this.template.querySelector('h2').focus());
 
-        if (this.claimType == 'Arbeid') {
-            this.isWorkClaimType = true;
-        } else {
-            this.isWorkClaimType = false;
+            for (let field in this.parentFieldValues) {
+                if (this.fieldValues[field] != null) {
+                    this.fieldValues[field] = this.parentFieldValues[field];
+                }
+            }
+            for (let field in this.parentClaimComponentValues) {
+                if (this.componentValues[field] != null) {
+                    this.componentValues[field] = JSON.parse(JSON.stringify(this.parentClaimComponentValues[field]));
+                }
+            }
+            const selectedValue = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
+            if (selectedValue.value === 'true') {
+                this.employerClaim = true;
+                if (this.isLos == false) {
+                    this.showNewLos = false;
+                }
+            } else {
+                this.employerClaim = false;
+                if (this.isLos == false) {
+                    this.showNewLos = true;
+                }
+            }
+
+            if (this.claimType == 'Arbeid') {
+                this.isWorkClaimType = true;
+            } else {
+                this.isWorkClaimType = false;
+            }
         }
     }
 
@@ -54,8 +90,14 @@ export default class Hot_claimForm extends LightningElement {
         this.componentValues.onEmployerRadioButtons = event.detail;
         if (event.detail[0].checked) {
             this.employerClaim = true;
+            if (this.isLos == false) {
+                this.showNewLos = false;
+            }
         } else {
             this.employerClaim = false;
+            if (this.isLos == false) {
+                this.showNewLos = true;
+            }
         }
     }
     @api getComponentValues() {
@@ -74,5 +116,14 @@ export default class Hot_claimForm extends LightningElement {
     @api
     getTimeInput() {
         return this.template.querySelector('c-hot_claim-line-time-input').getTimeInput();
+    }
+    @api
+    getNewLOSInput() {
+        return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
+    }
+    @api
+    validateFields() {
+        //LEGG PÅ VALIDERING PÅ TIME INPUTS
+        return this.template.querySelector('c-hot_claim-line-time-input').validateFields();
     }
 }
