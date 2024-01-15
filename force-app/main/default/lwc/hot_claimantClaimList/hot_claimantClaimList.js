@@ -27,7 +27,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track orgName;
 
     @track record;
-    @track isNotCancelable = true;
+    @track isCancelButtonDisabled = false;
     renderedCallback() {
         refreshApex(this.wiredAllClaim);
     }
@@ -46,10 +46,22 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             })
                 .then((result) => {
                     this.claims.forEach((element) => {
+                        this.isCancelButtonDisabled = false;
                         if (element.Id == claimId) {
                             this.record = element;
                             this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
+                            if (element.Status__c) {
+                            }
+                            if (
+                                element.Status__c != 'Approved' ||
+                                element.Status__c != 'Paid out' ||
+                                element.Status__c != 'Withdrawn'
+                            ) {
+                                this.isCancelButtonDisabled = true;
+                            } else {
+                                this.isCancelButtonDisabled = false;
+                            }
                         }
                     });
 
@@ -108,8 +120,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims.map((x) => ({
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
-                madeBy: this.setMadeBy(x.OnEmployer__c),
-                isCancelButtonDisabled: this.checkIfCancelButtonIsDisabled(x.Status__c)
+                madeBy: this.setMadeBy(x.OnEmployer__c)
             }));
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
@@ -125,13 +136,6 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             return 'Innsendt på vegne av arbeidsgiver';
         } else {
             return 'Innsendt av deg';
-        }
-    }
-    checkIfCancelButtonIsDisabled(status) {
-        if (status == 'Sent') {
-            return false;
-        } else {
-            return true;
         }
     }
 
