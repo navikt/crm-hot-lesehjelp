@@ -12,6 +12,14 @@
                     "versionNumber": "0.203.0.LATEST"
                 },
                 {
+                    "package": "crm-henvendelse-base",
+                    "versionNumber": "0.18.0.LATEST"
+                },
+                {
+                    "package": "crm-platform-integration",
+                    "versionNumber": "0.107.0.LATEST"
+                },
+                {
                     "package": "crm-platform-access-control",
                     "versionNumber": "0.116.0.LATEST"
                 },{
@@ -29,6 +37,8 @@
     "crm-hot-lesehjelp": "0Ho7U0000004CApSAM",
     "crm-platform-base": "0Ho2o0000008ORmCAM",
     "crm-community-base": "0Ho2o0000008OSzCAM",
-    "crm-platform-access-control": "0Ho2o0000008OR3CAM"
+    "crm-platform-access-control": "0Ho2o0000008OR3CAM",
+    "crm-platform-integration": "0Ho2o0000008ORrCAM",
+    "crm-henvendelse-base": "0Ho7U000000000kSAA"
   }
 }
