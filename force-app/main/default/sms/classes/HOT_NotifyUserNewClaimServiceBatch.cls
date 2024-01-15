@@ -1,10 +1,5 @@
-public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Database.Batchable<sObject>, Schedulable {
-    public void execute(SchedulableContext sc) {
-        HOT_NotifyUserNewClaimServiceBatch instance = new HOT_NotifyUserNewClaimServiceBatch();
-        database.executebatch(instance, 10);
-    }
-
-     public Database.QueryLocator start(Database.BatchableContext bc) {
+public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Database.Batchable<sObject>{
+    public Database.QueryLocator start(Database.BatchableContext bc) {
         Datetime now = Datetime.now();
         String query = 'SELECT ';
         query += 'Id, Account__c, Account__r.CRM_Person__r.INT_KrrMobilePhone__c, IsNotificationSent__c';
