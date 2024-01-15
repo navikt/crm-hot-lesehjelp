@@ -19,6 +19,5 @@ public without sharing class HOT_SMSService {
             }
         }
         insert smsList;
-        update claims.values();
     }
 }
