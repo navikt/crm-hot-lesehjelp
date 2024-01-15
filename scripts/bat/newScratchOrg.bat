@@ -4,9 +4,6 @@ call sf org create scratch --definition-file config\project-scratch-def.json --a
 echo "Installerer crm-platform-base ver. 0.203"
 call sf package install --package 04t7U000000Y2gcQAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installerer crm-platform-integration ver. 0.107"
-call sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
-
 echo "Installerer crm-platform-access-control ver. 0.116"
 call sf package install --package 04t7U000000Y2ZlQAK --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
@@ -15,6 +12,9 @@ call sf package install --package 04t7U000000Y2mpQAC --no-prompt --installation-
 
 echo "Installerer crm-henvendelse-base ver. 0.18"
 call sf package install --package 04t7U000000LPPAQA4 --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+
+echo "Installerer crm-platform-integration ver. 0.107"
+call sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Installerer crm-platform-integratione ver. 0.107"
 call sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
