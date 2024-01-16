@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.createNewClaimFromCommunity';
+import checkAccountExist from '@salesforce/apex/HOT_UserInfoController.checkAccountExist';
 import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
@@ -97,8 +98,24 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         if (this.handleValidation()) {
             return;
         } else {
-            this.currentPage = 'claimForm';
-            this.claimTypeResult.claimForm = true;
+            try {
+                checkAccountExist({
+                    userPersonNumber: this.fieldValues.UserPersonNumber__c,
+                    userPhoneNumber: this.fieldValues.UserPhoneNumber__c
+                }).then((result) => {
+                    console.log('resultat: ' + result);
+                    if (result == true) {
+                        this.currentPage = 'claimForm';
+                        this.claimTypeResult.claimForm = true;
+                    } else {
+                        let error =
+                            'Kunne ikke finne person basert på det du skrev inn. Om du valgte telefonnummer kan det være fordi flere personer har samme telefonnummer. Prøv fødselsnummer i stedet.';
+                        this.hideFormAndShowError(error);
+                    }
+                });
+            } catch (error) {
+                this.hideFormAndShowError(error);
+            }
         }
     }
     handleSendButtonClicked() {
@@ -180,7 +197,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.template.querySelector('.h2-successMessage').focus();
     }
     hideFormAndShowError(errorMessage) {
-        this.template.querySelector('[data-id="saveButton"]').disabled = false;
         this.modalHeader = 'Noe gikk galt!';
         this.noCancelButton = true;
         if (errorMessage == 'no account') {
@@ -190,17 +206,19 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         } else {
             this.modalContent = errorMessage;
         }
-
         this.template.querySelector('c-alertdialog').showModal();
         this.spin = false;
     }
     handleAlertDialogClick() {
-        this[NavigationMixin.Navigate]({
-            type: 'comm__namedPage',
-            attributes: {
-                pageName: 'home'
-            }
-        });
+        if (this.currentPage != 'claimForm') {
+        } else {
+            this[NavigationMixin.Navigate]({
+                type: 'comm__namedPage',
+                attributes: {
+                    pageName: 'home'
+                }
+            });
+        }
     }
 
     submitForm() {
