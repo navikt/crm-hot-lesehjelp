@@ -211,6 +211,18 @@ public without sharing class HOT_ClaimController {
         ];
         return accounts;
     }
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getOrganizationInfo(String organizationNumber){
+        List<Account> account = [
+            SELECT
+                Id,
+                Name,
+                INT_OrganizationNumber__c
+            FROM Account
+            WHERE INT_OrganizationNumber__c= :organizationNumber
+        ];
+        return account;
+    }
        @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getMyClaims(){
             User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
