@@ -6,7 +6,7 @@ public without sharing class HOT_SMSService {
         for (HOT_Claim__c claim : claims.values()) {
             SMS__c sms = new SMS__c();
             sms.Domain__c = 'HOT';
-            sms.Type__c = 'New claim sms';
+            sms.Type__c = 'Message';
             sms.Account__c = claim.Account__c;
             sms.Recipient__c = claim.Account__r.CRM_Person__r.INT_KrrMobilePhone__c;
             String message='En lesehjelp har opprettet et krav som du kan godkjenne.';
