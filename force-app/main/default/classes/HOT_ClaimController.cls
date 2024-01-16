@@ -31,7 +31,7 @@ public without sharing class HOT_ClaimController {
                         return result;
                     } else {
                         if (!organization.isEmpty()) {
-                            result = createClaimOrganization(claimCreatedFromIdent, userPersonNumber, userPhoneNumber, account[0], organization[0], claimType, onEmployer, employerName, organizationNumber, employerExpensesPerHour, claimLineItems);
+                            result = createClaimOrganization(claimCreatedFromIdent, userName, userPersonNumber, userPhoneNumber, account[0], organization[0], claimType, onEmployer, employerName, organizationNumber, employerExpensesPerHour, claimLineItems);
                         } else {
                             result = 'no organization'; 
                         }
@@ -39,7 +39,7 @@ public without sharing class HOT_ClaimController {
                 }
                 else{
                     //create self claim
-                    result=createClaimSelf(claimCreatedFromIdent,userPersonNumber, userPhoneNumber, account[0], claimType, claimLineItems);
+                    result=createClaimSelf(claimCreatedFromIdent, userName, userPersonNumber, userPhoneNumber, account[0], claimType, claimLineItems);
                 }
             }
         return result;
@@ -122,7 +122,7 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    private static String createClaimSelf(Boolean claimCreatedFromIdent, String userPersonNumber, String userPhoneNumber, Account account, String claimType, List<Map<String, Object>> claimLineItems ){
+    private static String createClaimSelf(Boolean claimCreatedFromIdent, String userName, String userPersonNumber, String userPhoneNumber, Account account, String claimType, List<Map<String, Object>> claimLineItems ){
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         
         HOT_Claim__c newClaim = new HOT_Claim__c();
@@ -131,6 +131,7 @@ public without sharing class HOT_ClaimController {
         newClaim.onEmployer__c=false;
         newClaim.Type__c=claimType;
         newClaim.ClaimCreatedFromIdent__c=claimCreatedFromIdent;
+        newClaim.UserName__c=userName;
         newClaim.UserPersonNumber__c=userPersonNumber;
         newClaim.UserPhoneNumber__c=userPhoneNumber;
 
@@ -146,11 +147,13 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    private static String createClaimOrganization(Boolean claimCreatedFromIdent,String userPersonNumber, String userPhoneNumber, Account account, Account organization, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
+    private static String createClaimOrganization(Boolean claimCreatedFromIdent,String userName, String userPersonNumber, String userPhoneNumber, Account account, Account organization, String claimType, String onEmployer, String employerName, String organizationNumber, String employerExpensesPerHour, List<Map<String, Object>> claimLineItems ){
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
 
         HOT_Claim__c newClaim = new HOT_Claim__c();
+        newClaim.UserName__c=userName;
         newClaim.UserPersonNumber__c=userPersonNumber;
+        newClaim.UserPhoneNumber__c=userPhoneNumber;
         newClaim.Claimant__c=currentUser.AccountId;
         newclaim.Account__c=account.Id;
         newClaim.Organization__c=organization.Id;
@@ -161,7 +164,7 @@ public without sharing class HOT_ClaimController {
         newClaim.EmployerExpensesPerHour__c=strToInt;
         newClaim.Type__c=claimType;
         newClaim.ClaimCreatedFromIdent__c=claimCreatedFromIdent;
-        newClaim.UserPhoneNumber__c=userPhoneNumber;
+        
 
 
         try{
@@ -208,13 +211,25 @@ public without sharing class HOT_ClaimController {
         ];
         return accounts;
     }
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getOrganizationInfo(String organizationNumber){
+        List<Account> account = [
+            SELECT
+                Id,
+                Name,
+                INT_OrganizationNumber__c
+            FROM Account
+            WHERE INT_OrganizationNumber__c= :organizationNumber
+        ];
+        return account;
+    }
        @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getMyClaims(){
             User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c, EmployerExpensesPerHour__c, OrganizationNumber__c, EmployerName__c
+                Name, Claimant__c, ClaimCreatedFromIdent__c, UserPersonNumber__c, UserPhoneNumber__c, CreatedDate, UserName__c, Status__c, OnEmployer__c, Organization__r.Name, Type__c, CommentFromNAV__c, CommentFromUser__c, EmployerExpensesPerHour__c, OrganizationNumber__c, EmployerName__c
             FROM HOT_Claim__c WHERE Claimant__c=:currentUser.AccountId
         ];
         return claims;

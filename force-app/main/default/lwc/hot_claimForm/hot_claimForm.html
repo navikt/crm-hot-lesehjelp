@@ -16,13 +16,15 @@
         <br />
         <div if:true={employerClaim}>
             <c-input
+                data-id="orgName"
                 if:true={employerClaim}
-                disabled={disabledEmployer}
+                disabled=true
                 label="Arbeidsgiver navn"
                 name="EmployerName__c"
                 value={fieldValues.EmployerName__c}
                 form="krav-skjema-input"
-                error-text="Tolkebrukers navn må fylles ut."
+                error-text="Arbeidsgiver må være utfylt"
+                placeholder="Feltet fylles automatisk."
             ></c-input>
             <br />
             <c-input
@@ -32,16 +34,19 @@
                 name="EmployerNumber__c"
                 value={fieldValues.EmployerNumber__c}
                 form="krav-skjema-input"
-                error-text="Tolkebrukers navn må fylles ut."
+                error-text="Arbeidsgiver må være utfylt"
+                ongetvalueonchange={handleOrgInput}
+                data-id="orgNumber"
             ></c-input>
             <br />
             <c-input
+                data-id="orgExpenses"
                 if:true={employerClaim}
                 label="Arbeidsgiver brutto lønnsutgifter per time"
                 name="EmployerExpensesPerHour__c"
                 value={fieldValues.EmployerExpensesPerHour__c}
                 form="krav-skjema-input"
-                error-text="Tolkebrukers navn må fylles ut."
+                error-text="Lønnsutgifter må være utfylt"
             ></c-input>
             <br />
             </div>
