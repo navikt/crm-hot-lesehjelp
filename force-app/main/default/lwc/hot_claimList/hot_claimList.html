@@ -25,12 +25,32 @@
                         <p class="typo-normal">Listen er tom. Når lesehjelp har sendt inn krav vil den vises her.</p>
                     </div>
                     <div if:false={noRecievedClaims}>
-                        <p class="typo-normal">
-                            Her finner du alle krav som lesehjelpen har sendt inn. Trykk på et krav for å se detaljene
+                        <p class="typo-normal">Trykk på et krav for å se detaljene
                             og for å godkjenne eller avslå kravet.
                         </p>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
+                                <div class="container">
+                                    <p><strong>{claim.Name}</strong></p>
+                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                </div>
+
+                                <p>Lesehjelp {claim.Claimant__r.Name}</p>
+                                <p>Type: {claim.Type__c}</p>
+                                <br />
+                            </button>
+                        </template>
+                    </div>
+
+                    <div if:false={noOlderClaims}>
+                    </br>
+                     </br>
+                     <h2 class="typo-overskrift">Tidligere godkjente og avslåtte krav</h2>
+                        <p class="typo-normal">
+                            Her finner du eldre krav som du allerede har godkjent eller avslått.
+                        </p>
+                        <template for:each={olderClaims} for:item="claim">
+                            <button key={claim.Id} class="claim-single older" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
                                     <p><strong>{claim.Name}</strong></p>
                                     <p class="typo-normal cursive">Sendt inn {claim.created}</p>
@@ -85,14 +105,8 @@
                                 </div>
                             </template>
                         </br>
-                              <!-- <c-input
-                                    name="CommentFromUser__c"
-                                    label="Kommentar"
-                                    value={fieldValues.CommentFromUser__c}
-                                    helptext-hovertext="Dette må feltet fylles ut ved avslag."
-                                    error-text="Kommentar må fylles ut ved avslag."
-                                ></c-input> -->
                                 <c-textarea
+                                    if:false={isUserInputNotAllowed}
                                     name="CommentFromUser__c"
                                     label="Kommentar"
                                     value={fieldValues.CommentFromUser__c}
@@ -100,7 +114,7 @@
                                     error-text="Kommentar må fylles ut ved avslag."
                                     maxlength=255
                                 ></c-textarea>
-                           <div class="confirmationCheckbox">
+                           <div class="confirmationCheckbox" if:false={isUserInputNotAllowed}>
                              <c-checkbox
                                 label="Jeg bekrefter at jeg har lest all informasjon i kravet."
                                 oncheckboxclick={approveClaimCheckboxHandle}
@@ -110,6 +124,7 @@
                         </div>
                         <div class="buttons">
                             <c-button
+                            if:false={isUserInputNotAllowed}
                                 button-label="Godkjenn"
                                 button-styling="primary"
                                 disabled={notRedClaim}
@@ -119,6 +134,7 @@
                             ></c-button> 
                         </br>
                              <c-button
+                             if:false={isUserInputNotAllowed}
                                 button-label="Avslå"
                                 button-styling="danger"
                                 disabled={notRedClaim}

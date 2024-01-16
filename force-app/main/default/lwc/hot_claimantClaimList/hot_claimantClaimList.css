@@ -43,8 +43,8 @@
     /* border-bottom: 1px solid black; */
     padding: 1.1rem;
     margin-top: 1rem;
-    border-radius: 0.5rem;
-    width: 80%;
+    border-radius: 0.2rem;
+    width: 90%;
 }
 .container {
     display: flex;
@@ -53,7 +53,7 @@
 }
 .cli-container {
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.2rem;
     /* border: 1px solid black; */
     margin-top: 0.5rem;
     background-color: #cce1ff;
