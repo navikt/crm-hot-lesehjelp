@@ -23,6 +23,10 @@ export default class Hot_claimFormUser extends LightningElement {
 
     handlePhoneNumberogPersonNumberRadioButtons(event) {
         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons = event.detail;
+        if (this.isEdit == false) {
+            this.fieldValues.UserPhoneNumber__c = '';
+            this.fieldValues.UserPersonNumber__c = '';
+        }
         if (event.detail[0].checked) {
             this.isPersonNumber = true;
             this.UserPhoneNumber__c = '';

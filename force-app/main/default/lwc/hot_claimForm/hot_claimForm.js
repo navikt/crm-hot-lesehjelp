@@ -1,4 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
+import getOrganizationInfo from '@salesforce/apex/HOT_ClaimController.getOrganizationInfo';
 
 export default class Hot_claimForm extends LightningElement {
     @api parentFieldValues;
@@ -85,6 +86,28 @@ export default class Hot_claimForm extends LightningElement {
             }
         }
     }
+    @track organizationNumberSearch;
+    handleOrgInput(event) {
+        this.organizationNumberSearch = event.detail;
+        if (this.organizationNumberSearch.length == 9) {
+            this.fieldValues.EmployerName__c = 'Henter organisasjon...';
+            try {
+                getOrganizationInfo({
+                    organizationNumber: this.organizationNumberSearch
+                }).then((result) => {
+                    if (result.length == 1) {
+                        this.fieldValues.EmployerName__c = result[0].Name;
+                    } else {
+                        this.fieldValues.EmployerName__c = 'Kunne ikke finne organisasjon';
+                    }
+                });
+            } catch (error) {
+                this.fieldValues.EmployerName__c = error;
+            }
+        } else {
+            this.fieldValues.EmployerName__c = '';
+        }
+    }
 
     handleOnEmployerRadioButtons(event) {
         this.componentValues.onEmployerRadioButtons = event.detail;
@@ -123,7 +146,37 @@ export default class Hot_claimForm extends LightningElement {
     }
     @api
     validateFields() {
-        //LEGG PÅ VALIDERING PÅ TIME INPUTS
-        return this.template.querySelector('c-hot_claim-line-time-input').validateFields();
+        let hasErrors = false;
+        hasErrors += this.validateOrgName();
+        hasErrors += this.validateOrgExpenses();
+        hasErrors += this.template.querySelector('c-hot_claim-line-time-input').validateFields();
+        return hasErrors;
+    }
+    validateOrgName() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="orgName"]').forEach((element) => {
+            if (element.value === '') {
+                hasErrors = true;
+                this.showErrorOrgNumber();
+            }
+        });
+        return hasErrors;
+    }
+    validateOrgExpenses() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="orgExpenses"]').forEach((element) => {
+            if (element.value === '') {
+                element.sendErrorMessage('Utgifter må fylles ut');
+                hasErrors = true;
+            }
+        });
+        return hasErrors;
+    }
+    showErrorOrgNumber() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="orgNumber"]').forEach((element) => {
+            element.sendErrorMessage('Må ha en organisasjons om finnes');
+        });
+        return hasErrors;
     }
 }
