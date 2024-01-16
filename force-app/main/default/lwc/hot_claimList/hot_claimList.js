@@ -9,6 +9,7 @@ import declineClaim from '@salesforce/apex/HOT_ClaimController.declineClaim';
 export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track showRecievedClaimslist = true;
     @track noRecievedClaims = true;
+    @track noOlderClaims = true;
     @track actionText = '';
 
     @track fieldValues = {
@@ -26,7 +27,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         }
     ];
     @track unmappedClaims;
+    @track unmappedOlderClaims;
     @track claims;
+    @track olderClaims;
 
     connectedCallback() {
         refreshApex(this.wiredAllClaims);
@@ -40,23 +43,42 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         this.wiredAllClaims = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
-            if (this.wiredClaimsResult.length != 0) {
-                this.noRecievedClaims = false;
-            }
             this.unmappedClaims = [];
+            this.unmappedOlderClaims = [];
+            console.log('res: ' + result.data);
+
             this.claims = [];
+            this.olderClaims = [];
             result.data.forEach((element) => {
-                this.unmappedClaims.push(element);
+                if (element.Status__c == 'Sent') {
+                    this.unmappedClaims.push(element);
+                } else {
+                    this.unmappedOlderClaims.push(element);
+                }
             });
             if (this.unmappedClaims.length != 0) {
                 this.noRecievedClaims = false;
+            }
+            if (this.unmappedOlderClaims.length != 0) {
+                this.noOlderClaims = false;
             }
 
             this.claims = this.unmappedClaims.map((x) => ({
                 ...x,
                 created: this.formatDateTime(x.CreatedDate)
             }));
+            this.olderClaims = this.unmappedOlderClaims.map((x) => ({
+                ...x,
+                created: this.formatDateTime(x.CreatedDate)
+            }));
             this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+            this.olderClaims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
                 } else {
@@ -71,11 +93,13 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track recordType;
     @track recordClaimantName;
     @track isDeclineClaim = false;
+    @track isUserInputNotAllowed = false;
 
     @track record = {};
     @track commentValue = '';
 
     goToClaim(event) {
+        this.isUserInputNotAllowed = false;
         this.isDeclineClaim = false;
         this.notRedClaim = true;
         this.template.querySelector('c-textarea').setTextValue('');
@@ -85,18 +109,47 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
         if (claimElement) {
             const claimId = claimElement.getAttribute('data-id');
+            console.log(claimId);
             getClaimLineItems({
                 recordId: claimId
             })
                 .then((result) => {
-                    this.claims.forEach((element) => {
-                        if (element.Id == claimId) {
-                            this.record = element;
-                            this.recordName = element.Name;
-                            this.recordType = element.Type__c;
-                            this.recordClaimantName = element.Claimant__r.Name;
-                        }
-                    });
+                    if (this.claims.length != 0) {
+                        this.claims.forEach((element) => {
+                            console.log('2');
+                            if (element.Id == claimId) {
+                                this.record = element;
+                                this.recordName = element.Name;
+                                this.recordType = element.Type__c;
+                                this.recordClaimantName = element.Claimant__r.Name;
+                                this.isUserInputNotAllowed = false;
+                                console.log('her');
+                            } else {
+                                this.olderClaims.forEach((element) => {
+                                    if (element.Id == claimId) {
+                                        this.record = element;
+                                        this.recordName = element.Name;
+                                        this.recordType = element.Type__c;
+                                        this.recordClaimantName = element.Claimant__r.Name;
+                                        this.isUserInputNotAllowed = true;
+                                        console.log('eller her');
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        this.olderClaims.forEach((element) => {
+                            if (element.Id == claimId) {
+                                this.record = element;
+                                this.recordName = element.Name;
+                                this.recordType = element.Type__c;
+                                this.recordClaimantName = element.Claimant__r.Name;
+                                this.isUserInputNotAllowed = true;
+                                console.log('eller her');
+                            }
+                        });
+                    }
+
                     this.unmappedClaimLineItems = [];
                     this.claimLineItems = [];
                     result.forEach((cli) => {
