@@ -34,7 +34,7 @@
 }
 .claim-single {
     text-align: left;
-    background-color: #cce1ff;
+    background-color: #bfe0ca;
     border: none;
     /* border-bottom: 1px solid black; */
     padding: 1.1rem;
@@ -55,7 +55,7 @@
     border-radius: 0.2rem;
     /* border: 1px solid black; */
     margin-top: 0.5rem;
-    background-color: #cce1ff;
+    background-color: #bed9eb;
     padding: 1rem;
 }
 

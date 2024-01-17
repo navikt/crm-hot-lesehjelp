@@ -21,10 +21,10 @@ public without sharing class HOT_SMSService {
         insert smsList;
     }
      public static void notifyUserOnDeclinedClaim(List<HOT_Claim__c> claimList) {
-        Map<Id, HOT_Claim__c> claims = new Map<Id, HOT_Claim__c>(claimList);
+        List<HOT_Claim__c> claims =[SELECT Id, Claimant__c, Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c FROM HOT_Claim__c WHERE Id IN :claimList];
         List<SMS__c> smsList = new List<SMS__c>();
 
-        for (HOT_Claim__c claim : claims.values()) {
+        for (HOT_Claim__c claim : claims) {
             SMS__c sms = new SMS__c();
             sms.Domain__c = 'HOT';
             sms.Type__c = 'Message';
