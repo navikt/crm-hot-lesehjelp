@@ -20,4 +20,25 @@ public without sharing class HOT_SMSService {
         }
         insert smsList;
     }
+     public static void notifyUserOnDeclinedClaim(List<HOT_Claim__c> claimList) {
+        Map<Id, HOT_Claim__c> claims = new Map<Id, HOT_Claim__c>(claimList);
+        List<SMS__c> smsList = new List<SMS__c>();
+
+        for (HOT_Claim__c claim : claims.values()) {
+            SMS__c sms = new SMS__c();
+            sms.Domain__c = 'HOT';
+            sms.Type__c = 'Message';
+            sms.Account__c = claim.Claimant__c;
+            sms.Recipient__c = claim.Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c;
+            String message='Et krav du har sendt inn etter å ha vært lesehjelp er blitt avslått.';
+            message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
+            message+='Du kan ikke svare på denne meldingen. ';
+            message += '\nMvh NAV';
+            sms.Message__c = message;
+            if (SMS.Recipient__c != null) {
+                smsList.add(sms);
+            }
+        }
+        insert smsList;
+    }
 }
