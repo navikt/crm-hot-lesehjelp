@@ -248,11 +248,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>HOT_Entitlement__c.Person__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>HOT_Entitlement__c.ToDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
