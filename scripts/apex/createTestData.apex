@@ -127,42 +127,36 @@ person4.INT_FirstName__c = allAccounts[3].FirstName;
 person4.HOT_isLOS__c = true;
 insert person4;
 
-List<Person__c> allPersons = [SELECT Name, Id FROM Person__c];
-
 HOT_Entitlement__c entitlement1 = new HOT_Entitlement__c();
-entitlement1.Name = 'Lesehjelp på Arbeidsplass';
 entitlement1.Type__c = 'Arbeidsliv';
 entitlement1.EntitledHours__c = 120.00;
 entitlement1.FromDate__c = Date.today();
 entitlement1.ToDate__c = Date.today().addYears(1);
-entitlement1.Person__c = allPersons[0].Id;
+entitlement1.Account__c = allAccounts[0].Id;
 insert entitlement1;
 
 HOT_Entitlement__c entitlement2 = new HOT_Entitlement__c();
-entitlement2.Name = 'Arkivering på jobb';
 entitlement2.Type__c = 'Arbeidsliv';
 entitlement2.EntitledHours__c = 120.00;
 entitlement2.FromDate__c = Date.today();
 entitlement2.ToDate__c = Date.today().addYears(1);
-entitlement2.Person__c = allPersons[1].Id;
+entitlement2.Account__c = allAccounts[1].Id;
 insert entitlement2;
 
 HOT_Entitlement__c entitlement3 = new HOT_Entitlement__c();
-entitlement3.Name = 'Transkribering på jobb';
 entitlement3.Type__c = 'Arbeidsliv';
 entitlement3.EntitledHours__c = 150.00;
 entitlement3.FromDate__c = Date.today();
 entitlement3.ToDate__c = Date.today().addYears(1);
-entitlement3.Person__c = allPersons[2].Id;
+entitlement3.Account__c = allAccounts[2].Id;
 insert entitlement3;
 
 HOT_Entitlement__c entitlement4 = new HOT_Entitlement__c();
-entitlement4.Name = 'Lese regninger';
 entitlement4.Type__c = 'Dagligliv';
 entitlement4.EntitledHours__c = 150.00;
 entitlement4.FromDate__c = Date.today();
 entitlement4.ToDate__c = Date.today().addYears(1);
-entitlement4.Person__c = allPersons[2].Id;
+entitlement4.Account__c = allAccounts[2].Id;
 insert entitlement4;
 
 //Merge Person__c and Account. Same fix as found in crm-nks-base/dummy-data

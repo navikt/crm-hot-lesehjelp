@@ -161,9 +161,10 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Entitlement</label>
     <nameField>
+        <displayFormat>V-{000000}</displayFormat>
         <label>Entitlement Name</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Entitlements</pluralLabel>
     <searchLayouts></searchLayouts>
