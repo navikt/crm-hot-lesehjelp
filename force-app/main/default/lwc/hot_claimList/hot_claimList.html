@@ -89,6 +89,7 @@
                             <p if:true={record.OnEmployer__c}><strong>Arbeidsgiver: </strong>{record.Organization__r.Name}</p>
                             <p><strong>Innsendt dato:</strong> {record.created}</p>
                             <p><strong>Lesehjelp:</strong> {recordClaimantName}</p>
+                            <p if:true={record.isOldClaim}><strong>Din kommentar:</strong> {record.CommentFromUser__c}</p>
                              
                             </br>
                             
@@ -106,7 +107,7 @@
                             </template>
                         </br>
                                 <c-textarea
-                                    if:false={isUserInputNotAllowed}
+                                    if:false={record.isOldClaim}
                                     name="CommentFromUser__c"
                                     label="Kommentar"
                                     value={fieldValues.CommentFromUser__c}
@@ -114,7 +115,7 @@
                                     error-text="Kommentar må fylles ut ved avslag."
                                     maxlength=255
                                 ></c-textarea>
-                           <div class="confirmationCheckbox" if:false={isUserInputNotAllowed}>
+                           <div class="confirmationCheckbox" if:false={record.isOldClaim}>
                              <c-checkbox
                                 label="Jeg bekrefter at jeg har lest all informasjon i kravet."
                                 oncheckboxclick={approveClaimCheckboxHandle}
@@ -124,7 +125,7 @@
                         </div>
                         <div class="buttons">
                             <c-button
-                            if:false={isUserInputNotAllowed}
+                            if:false={record.isOldClaim}
                                 button-label="Godkjenn"
                                 button-styling="primary"
                                 disabled={notRedClaim}
@@ -134,7 +135,7 @@
                             ></c-button> 
                         </br>
                              <c-button
-                             if:false={isUserInputNotAllowed}
+                             if:false={record.isOldClaim}
                                 button-label="Avslå"
                                 button-styling="danger"
                                 disabled={notRedClaim}
