@@ -18,13 +18,13 @@
         ></c-input>
         <br />
         <c-radiobuttons
+            if:false={isEdit}
             radiobuttons={componentValues.userPhoneNumberOrUserPersonNumberRadioButtons}
             onradiobuttonsclick={handlePhoneNumberogPersonNumberRadioButtons}
             header="Fyll inn brukerens fødselsnummer eller telefonnummer"
             group-name="radioGroup2"
             flex-direction="row"
             name="UserPhoneNumberOrUserPersonNumber__c"
-            disabled={isEdit}
         ></c-radiobuttons>
         <br />
         <c-input
