@@ -16,6 +16,7 @@
 .personDetailBox {
     width: 30%;
     padding: 1rem;
+    text-align: center;
 }
 @media (max-width: 576px) {
     .content {
