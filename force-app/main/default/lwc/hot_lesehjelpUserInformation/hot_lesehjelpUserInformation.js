@@ -3,7 +3,7 @@ import { refreshApex } from '@salesforce/apex';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 
-export default class Hot_userInformation extends LightningElement {
+export default class Hot_lesehjelpUserInformation extends LightningElement {
     LinkImg = LINK;
 
     breadcrumbs = [
