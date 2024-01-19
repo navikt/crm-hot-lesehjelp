@@ -17,10 +17,6 @@ export default class Hot_userInformation extends LightningElement {
         }
     ];
 
-    connectedCallback() {
-        refreshApex(this.wiredAllClaim);
-    }
-
     @track mobilenumber;
     @track email;
     @track banknumber;
