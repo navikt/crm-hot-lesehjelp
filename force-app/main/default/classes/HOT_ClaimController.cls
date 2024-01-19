@@ -240,7 +240,7 @@ public without sharing class HOT_ClaimController {
             List<HOT_Claim__c> claims = [
             SELECT
                 Id,
-                Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c
+                Name, Claimant__c, Account__c, CreatedDate, Account__r.Name, Status__c, OnEmployer__c, Organization__r.Name, Type__c, Claimant__r.Name, ApprovedByUser__c, CommentFromUser__c
             FROM HOT_Claim__c WHERE (Claimant__c!= NULL) AND (NumberOfClaimLineItems__c>0) AND (Account__c=:currentUser.AccountId)];
         return claims;
     }
