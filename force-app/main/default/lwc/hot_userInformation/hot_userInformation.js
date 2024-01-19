@@ -37,10 +37,11 @@ export default class Hot_userInformation extends LightningElement {
                 this.personResult.INT_ResidentialZipCode__c +
                 ' ' +
                 this.personResult.INT_ResidentialPlace__c;
-
-            console.log(this.personResult.INT_KrrMobilePhone__c);
         } else {
-            console.log('Fant ingenting');
+            this.mobilenumber = '';
+            this.email = '';
+            this.banknumber = '';
+            this.address = '';
         }
     }
 }
