@@ -1,0 +1,28 @@
+.main-content {
+    text-align: center;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    align-items: center;
+}
+.content {
+    max-width: 50%;
+}
+.personDetails {
+    font-size: large;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.personDetailBox {
+    width: 30%;
+    padding: 1rem;
+}
+@media (max-width: 576px) {
+    .content {
+        max-width: 100%;
+    }
+    .personDetailBox {
+        width: 100%;
+        padding: 1rem;
+    }
+}
