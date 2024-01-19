@@ -65,11 +65,13 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
             this.claims = this.unmappedClaims.map((x) => ({
                 ...x,
-                created: this.formatDateTime(x.CreatedDate)
+                created: this.formatDateTime(x.CreatedDate),
+                isOldClaim: this.isOldClaim(x.Status__c)
             }));
             this.olderClaims = this.unmappedOlderClaims.map((x) => ({
                 ...x,
-                created: this.formatDateTime(x.CreatedDate)
+                created: this.formatDateTime(x.CreatedDate),
+                isOldClaim: this.isOldClaim(x.Status__c)
             }));
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
@@ -93,86 +95,79 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track recordType;
     @track recordClaimantName;
     @track isDeclineClaim = false;
-    @track isUserInputNotAllowed = false;
 
     @track record = {};
     @track commentValue = '';
-
     goToClaim(event) {
-        this.isUserInputNotAllowed = false;
         this.isDeclineClaim = false;
         this.notRedClaim = true;
-        this.template.querySelector('c-textarea').setTextValue('');
-        this.template.querySelector('c-checkbox').clearCheckboxValue();
         const clickedButton = event.target;
         const claimElement = clickedButton.closest('[data-id]');
 
         if (claimElement) {
             const claimId = claimElement.getAttribute('data-id');
-            console.log(claimId);
-            getClaimLineItems({
-                recordId: claimId
-            })
-                .then((result) => {
-                    if (this.claims.length != 0) {
-                        this.claims.forEach((element) => {
-                            console.log('2');
-                            if (element.Id == claimId) {
-                                this.record = element;
-                                this.recordName = element.Name;
-                                this.recordType = element.Type__c;
-                                this.recordClaimantName = element.Claimant__r.Name;
-                                this.isUserInputNotAllowed = false;
-                                console.log('her');
-                            } else {
-                                this.olderClaims.forEach((element) => {
-                                    if (element.Id == claimId) {
-                                        this.record = element;
-                                        this.recordName = element.Name;
-                                        this.recordType = element.Type__c;
-                                        this.recordClaimantName = element.Claimant__r.Name;
-                                        this.isUserInputNotAllowed = true;
-                                        console.log('eller her');
-                                    }
-                                });
-                            }
-                        });
-                    } else {
-                        this.olderClaims.forEach((element) => {
-                            if (element.Id == claimId) {
-                                this.record = element;
-                                this.recordName = element.Name;
-                                this.recordType = element.Type__c;
-                                this.recordClaimantName = element.Claimant__r.Name;
-                                this.isUserInputNotAllowed = true;
-                                console.log('eller her');
-                            }
-                        });
-                    }
 
-                    this.unmappedClaimLineItems = [];
-                    this.claimLineItems = [];
-                    result.forEach((cli) => {
-                        this.unmappedClaimLineItems.push(cli);
-                    });
-                    if (this.unmappedClaimLineItems.length != 0) {
-                        this.noClaimLineItems = false;
-                    }
-                    this.claimLineItems = this.unmappedClaimLineItems.map((x) => ({
-                        ...x,
-                        created: this.formatDateTime(x.CreatedDate),
-                        period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
-                        hasTravelTo: this.yesOrNoCalculator(x.HasTravelTo__c),
-                        hasTravelFrom: this.yesOrNoCalculator(x.HasTravelFrom__c),
-                        travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
-                        travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c)
-                    }));
-                    this.template.querySelector('.details').classList.remove('hidden');
-                    this.template.querySelector('.details').focus();
+            const foundClaim = this.claims.find((element) => element.Id === claimId);
+            const foundOlderClaim = this.olderClaims.find((element) => element.Id === claimId);
+
+            if (foundClaim) {
+                this.record = foundClaim;
+                this.template.querySelector('c-textarea').setTextValue('');
+                this.template.querySelector('c-checkbox').clearCheckboxValue();
+            }
+            if (foundOlderClaim) {
+                this.record = foundOlderClaim;
+            }
+
+            if (this.record) {
+                this.recordName = this.record.Name;
+                this.recordType = this.record.Type__c;
+                this.recordClaimantName = this.record.Claimant__r.Name;
+
+                getClaimLineItems({
+                    recordId: claimId
                 })
-                .catch((error) => {});
+                    .then((result) => {
+                        this.unmappedClaimLineItems = [];
+                        this.claimLineItems = [];
+
+                        result.forEach((cli) => {
+                            this.unmappedClaimLineItems.push(cli);
+                        });
+
+                        if (this.unmappedClaimLineItems.length != 0) {
+                            this.noClaimLineItems = false;
+                        }
+
+                        this.claimLineItems = this.unmappedClaimLineItems.map((x) => ({
+                            ...x,
+                            created: this.formatDateTime(x.CreatedDate),
+                            period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
+                            hasTravelTo: this.yesOrNoCalculator(x.HasTravelTo__c),
+                            hasTravelFrom: this.yesOrNoCalculator(x.HasTravelFrom__c),
+                            travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
+                            travelFromPeriode: this.formatDateTimePeriod(
+                                x.TravelFromStartTime__c,
+                                x.TravelFromEndTime__c
+                            )
+                        }));
+                        this.template.querySelector('.details').classList.remove('hidden');
+                        this.template.querySelector('.details').focus();
+                    })
+                    .catch((error) => {
+                        // Handle error
+                    });
+            }
         }
     }
+    isOldClaim(status) {
+        if (status == 'Sent') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     closeModal() {
         this.template.querySelector('.details').classList.add('hidden');
         //this.recordId = undefined;
