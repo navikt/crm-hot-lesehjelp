@@ -21,7 +21,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
 
     breadcrumbs = [
         {
-            label: 'Lesehjelp',
+            label: 'Hjem',
             href: ''
         },
         {

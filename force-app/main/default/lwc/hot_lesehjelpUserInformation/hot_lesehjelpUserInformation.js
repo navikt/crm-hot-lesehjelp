@@ -8,7 +8,7 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
 
     breadcrumbs = [
         {
-            label: 'Lesehjelp',
+            label: 'Hjem',
             href: ''
         },
         {

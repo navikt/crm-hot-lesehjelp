@@ -11,7 +11,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track noClaimLineItems = true;
     breadcrumbs = [
         {
-            label: 'Lesehjelp',
+            label: 'Hjem',
             href: ''
         },
         {

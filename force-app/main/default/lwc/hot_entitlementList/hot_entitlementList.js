@@ -8,7 +8,7 @@ export default class Hot_entitlementList extends LightningElement {
     @track noClaimLineItems = true;
     breadcrumbs = [
         {
-            label: 'Lesehjelp',
+            label: 'Hjem',
             href: ''
         },
         {
