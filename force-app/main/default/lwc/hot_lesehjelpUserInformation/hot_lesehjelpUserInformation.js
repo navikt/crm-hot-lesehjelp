@@ -36,7 +36,7 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
                 ', ' +
                 this.personResult.INT_ResidentialZipCode__c +
                 ' ' +
-                this.personResult.INT_ResidentialPlace__c;
+                this.personResult.INT_ResidentialZip__c;
         } else {
             this.mobilenumber = '';
             this.email = '';
