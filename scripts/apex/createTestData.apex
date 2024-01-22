@@ -143,22 +143,6 @@ entitlement2.ToDate__c = Date.today().addYears(1);
 entitlement2.Account__c = allAccounts[1].Id;
 insert entitlement2;
 
-HOT_Entitlement__c entitlement3 = new HOT_Entitlement__c();
-entitlement3.Type__c = 'Arbeidsliv';
-entitlement3.EntitledHours__c = 150.00;
-entitlement3.FromDate__c = Date.today();
-entitlement3.ToDate__c = Date.today().addYears(1);
-entitlement3.Account__c = allAccounts[2].Id;
-insert entitlement3;
-
-HOT_Entitlement__c entitlement4 = new HOT_Entitlement__c();
-entitlement4.Type__c = 'Dagligliv';
-entitlement4.EntitledHours__c = 150.00;
-entitlement4.FromDate__c = Date.today();
-entitlement4.ToDate__c = Date.today().addYears(1);
-entitlement4.Account__c = allAccounts[2].Id;
-insert entitlement4;
-
 //Merge Person__c and Account. Same fix as found in crm-nks-base/dummy-data
 Map<String,List<Account>> accMap = new Map<String,List<Account>>();
 for(Account acc : [SELECT Id, INT_PersonIdent__c, CRM_Person__r.CRM_Account__c FROM Account]) {
