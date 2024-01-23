@@ -16,9 +16,10 @@
                         <template for:each={entitlements} for:item="entitlement">
                             <div key={entitlement.Id} class="entitlement-single" data-id={entitlement.Id}>
                                 <div class="container">
-                                    <p><strong>{entitlement.Type__c} - {entitlement.Name}</strong></p>
+                                    <p><strong>{entitlement.Type__c}</strong></p>
                                     <p>Periode: {entitlement.period}</p>
                                 </div>
+                                <p>Vedtaket har {entitlement.EntitledHours__c} timer.</p>
                                 <p>Antall timer med godkjente krav:</p>
                                 <p>Gjenstående timer på vedtaket:</p>
                                 <br />

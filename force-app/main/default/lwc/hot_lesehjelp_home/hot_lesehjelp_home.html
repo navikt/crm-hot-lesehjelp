@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="container" if:false={hasDecisions}>
-            <a class="box" href={pageLinks.newClaim}>
+            <a class="box" href={pageLinks.newClaim} aria-label="Til nytt krav skjema">
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
                 </div>
@@ -20,7 +20,7 @@
                     <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
                 </div>
             </a>
-            <a class="box" href={pageLinks.myClaimantClaims}>
+            <a class="box" href={pageLinks.myClaimantClaims} aria-label="Til mine innsendte krav">
                 <div class="box-elements">
                     <img src={mineKravImg} alt="Knapp" />
                 </div>
@@ -31,16 +31,11 @@
             </a>
         </div>
         <div class="container" if:true={hasDecisions}>
-            <a class="box" href={pageLinks.myEntitlements}>
-                <div class="box-elements">
-                    <img src={mineVedtakImg} alt="Knapp" />
-                </div>
-                <div class="box-elements">
-                    <h2>Vedtak</h2>
-                    <p>Her får du en oversikt over dine vedtak.</p>
-                </div>
-            </a>
-            <a class="box" href={pageLinks.myClaimsToReview}>
+            <a
+                class="box"
+                href={pageLinks.myClaimsToReview}
+                aria-label="Til liste over krav som er klar til å godkjennes, og liste over krav som allerede er godkjent og avslått"
+            >
                 <div class="box-elements">
                     <img src={mineKravTilGodkjenningImg} alt="Knapp" />
                 </div>
@@ -49,22 +44,31 @@
                     <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
                 </div>
             </a>
+            <a class="box" href={pageLinks.myEntitlements} aria-label="Til mine vedtak">
+                <div class="box-elements">
+                    <img src={mineVedtakImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Vedtak</h2>
+                    <p>Her får du en oversikt over dine vedtak.</p>
+                </div>
+            </a>
         </div>
         <div class="container-bottom">
-            <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp">
+            <a class="box-small" href={pageLinks.myPage} aria-label="Til min side">
+                <div class="box-elements">
+                    <img src={mineSiderImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <h2>Min side</h2>
+                </div>
+            </a>
+            <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp" aria-label="Til veiledning">
                 <div class="box-elements">
                     <img src={veiledningImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
                     <h2>Veiledning</h2>
-                </div>
-            </a>
-            <a class="box-small" href={pageLinks.myPage}>
-                <div class="box-elements">
-                    <img src={mineSiderImg} alt="Knapp" />
-                </div>
-                <div class="box-elements">
-                    <h2>Mine sider</h2>
                 </div>
             </a>
         </div>

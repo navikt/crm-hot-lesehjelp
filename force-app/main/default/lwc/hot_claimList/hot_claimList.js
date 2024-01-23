@@ -18,7 +18,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
     breadcrumbs = [
         {
-            label: 'Lesehjelp',
+            label: 'Hjem',
             href: ''
         },
         {
