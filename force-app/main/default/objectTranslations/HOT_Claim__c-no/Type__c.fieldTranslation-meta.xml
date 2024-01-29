@@ -3,15 +3,15 @@
     <label>Lesehjelpen gjelder</label>
     <name>Type__c</name>
     <picklistValues>
-        <masterLabel>Arbeid</masterLabel>
+        <masterLabel>Arbeidsliv</masterLabel>
         <translation></translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Dagliglivet</masterLabel>
+        <masterLabel>Dagligliv</masterLabel>
         <translation></translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Organisasjon</masterLabel>
+        <masterLabel>Organisasjonsvirksomhet, politisk eller sosialt arbeid</masterLabel>
         <translation></translation>
     </picklistValues>
     <picklistValues>

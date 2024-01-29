@@ -11,19 +11,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Arbeid</fullName>
+                <fullName>Arbeidsliv</fullName>
                 <default>false</default>
-                <label>Arbeid</label>
+                <label>Arbeidsliv</label>
             </value>
             <value>
-                <fullName>Dagliglivet</fullName>
+                <fullName>Dagligliv</fullName>
                 <default>false</default>
-                <label>Dagliglivet</label>
+                <label>Dagligliv</label>
             </value>
             <value>
-                <fullName>Organisasjon</fullName>
+                <fullName>Organisasjonsvirksomhet, politisk eller sosialt arbeid</fullName>
                 <default>false</default>
-                <label>Organisasjon</label>
+                <label>Organisasjonsvirksomhet, politisk eller sosialt arbeid</label>
             </value>
             <value>
                 <fullName>Utdanning, opplæring eller arbeidstrening</fullName>

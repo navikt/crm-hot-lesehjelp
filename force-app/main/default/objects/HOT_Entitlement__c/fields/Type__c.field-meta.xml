@@ -22,14 +22,14 @@
                 <label>Dagligliv</label>
             </value>
             <value>
-                <fullName>Organisasjon/Politikk/Sosial</fullName>
+                <fullName>Organisasjonsvirksomhet, politisk eller sosialt arbeid</fullName>
                 <default>false</default>
-                <label>Organisasjon/Politikk/Sosial</label>
+                <label>Organisasjonsvirksomhet, politisk eller sosialt arbeid</label>
             </value>
             <value>
-                <fullName>Utdanning</fullName>
+                <fullName>Utdanning, opplæring eller arbeidstrening</fullName>
                 <default>false</default>
-                <label>Utdanning</label>
+                <label>Utdanning, opplæring eller arbeidstrening</label>
             </value>
         </valueSetDefinition>
     </valueSet>
