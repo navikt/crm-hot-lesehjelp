@@ -110,9 +110,18 @@ public without sharing class HOT_ClaimController {
                     cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                 }
                 claimLineItemList.add(cli);
-         }
+               
+        }
          try{
-            insert claimLineItemList;
+            insert claimLineItemList; 
+            try{
+                setEntitlementOnClaim(claim.Id);
+                }
+                catch (Exception e) {
+                    LoggerUtility logger = new LoggerUtility();
+                    logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                    logger.publishSynch();
+            }
             return '';
         }
         catch (Exception e) {
@@ -358,7 +367,7 @@ public without sharing class HOT_ClaimController {
             FROM HOT_Claim__c WHERE Id=:recordId AND Claimant__c=:currentUser.AccountId
         ];
         for(HOT_Claim__c claim: claims){
-            if(claimType == 'Arbeid' && onEmployer=='true'){
+            if(claimType == 'Arbeidsliv' && onEmployer=='true'){
                 Integer strToInt = Integer.valueOf(employerExpensesPerHour);
                 claim.EmployerExpensesPerHour__c=strToInt;
             }
@@ -489,5 +498,58 @@ public without sharing class HOT_ClaimController {
             logger.publishSynch();
             return e.getMessage();
         }
+    }
+     public static void setEntitlementOnClaim(String claimId){
+        List<HOT_Claim__c> claim=[SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id=:claimId];
+        if(claim.size()!=0){
+            List<HOT_Entitlement__c> entitlements = [SELECT Id, FromDate__c, ToDate__c, Account__c, Type__c FROM HOT_Entitlement__c WHERE Account__c= :claim[0].Account__c];
+            if(entitlements.size()!=0){
+                List<HOT_ClaimLineItem__c> claimLineItems=[SELECT Id, Claim__c, StartTime__c, EndTime__c FROM HOT_ClaimLineItem__c WHERE Claim__c =: claim[0].Id];
+                DateTime earliestStartTime = null;
+                DateTime latestEndTime = null;
+                if(claimLineItems.size()!=0){
+                    for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
+                        if(claimLineItem.Claim__c==claim[0].Id){
+                            if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
+                                    earliestStartTime = claimLineItem.StartTime__c;
+                            }
+                            if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
+                                    latestEndTime = claimLineItem.EndTime__c;
+                            }
+                        }
+                    }
+                    
+                    for(HOT_Entitlement__c entitlement :entitlements){
+                        system.debug(entitlement.Type__c);
+                        if(claim[0].Type__c== entitlement.Type__c && claim[0].Account__c==entitlement.Account__c){
+                            if (entitlement.FromDate__c <= earliestStartTime && entitlement.ToDate__c >= latestEndTime) {
+                                claim[0].Entitlement__c=entitlement.Id;
+                            } 
+                                else{
+                            }
+                        }
+                    }
+                }
+                update claim;
+            }
+        }
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<HOT_Claim__c> getClaim(String recordId){
+            List<HOT_Claim__c> claim = [
+            SELECT
+                Id, Status__c, Entitlement__c
+            FROM HOT_Claim__c WHERE Id=:recordId];
+        return claim;
+    }
+
+    public static void recalculateUsedEntitlements(List<HOT_Claim__c> claims){
+        Set<Id> entitlementIds = new Set<Id>();
+        for(HOT_Claim__c claim : claims){
+            entitlementIds.add(claim.Entitlement__c);
+        }
+        //Finn alle klaim som tilhører samme vedtak. Summer opp alle
+        List<HOT_Claim__c> claimList = [SELECT Id, Entitlement__c FROM HOT_Claim__c WHERE Entitlement__c IN :entitlementIds];
+        List<HOT_Entitlement__c> EntitlementList = [SELECT Id,EntitledHours__c, EntitledHoursUsed__c FROM HOT_Entitlement__c WHERE Id IN :entitlementIds];
     }
 }
