@@ -548,8 +548,19 @@ public without sharing class HOT_ClaimController {
         for(HOT_Claim__c claim : claims){
             entitlementIds.add(claim.Entitlement__c);
         }
-        //Finn alle klaim som tilhører samme vedtak. Summer opp alle
-        List<HOT_Claim__c> claimList = [SELECT Id, Entitlement__c FROM HOT_Claim__c WHERE Entitlement__c IN :entitlementIds];
-        List<HOT_Entitlement__c> EntitlementList = [SELECT Id,EntitledHours__c, EntitledHoursUsed__c FROM HOT_Entitlement__c WHERE Id IN :entitlementIds];
+        Map<Id, HOT_Claim__c> claimMap = new Map<Id, HOT_Claim__c>();
+
+        List<HOT_Claim__c> claimList = [SELECT Id, Entitlement__c, ApprovedByNAV__c, TotalHours__c FROM HOT_Claim__c WHERE Entitlement__c IN :entitlementIds AND ApprovedByNAV__c=true];
+    
+        List<HOT_Entitlement__c> entitlementList = [SELECT Id,EntitledHours__c, EntitledHoursUsed__c FROM HOT_Entitlement__c WHERE Id IN :entitlementIds];
+        for(HOT_Entitlement__c entitlement :entitlementList){
+            entitlement.EntitledHoursUsed__c=0;
+            for(HOT_Claim__c claim : claimList){
+                if(claim.Entitlement__c == entitlement.Id){
+                     entitlement.EntitledHoursUsed__c+=claim.TotalHours__c;
+                }
+            } 
+        }
+        update entitlementList;
     }
 }

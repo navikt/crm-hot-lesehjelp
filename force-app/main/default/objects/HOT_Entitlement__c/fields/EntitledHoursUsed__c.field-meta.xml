@@ -4,10 +4,11 @@
     <description>The number of hours with approved claims with this entitlement</description>
     <externalId>false</externalId>
     <label>Entitled Hours Used</label>
-    <length>255</length>
+    <precision>18</precision>
     <required>false</required>
+    <scale>2</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
+    <type>Number</type>
     <unique>false</unique>
 </CustomField>
