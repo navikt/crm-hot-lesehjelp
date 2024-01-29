@@ -147,6 +147,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.Entitlement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Claim__c.IsNotificationSent__c</field>
         <readable>true</readable>
     </fieldPermissions>
