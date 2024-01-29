@@ -1,0 +1,17 @@
+<template>
+    <template if:true={noEntitlement}>
+        <div
+            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+            role="alert"
+            style="display: block"
+        >
+            <span class="slds-assistive-text">Advarsel</span>
+            <div style="display: inline-flex">
+                <div style="display: block">
+                    Dette kravet ble ikke koblet til et vedtak fordi kravet inneholder kravlinjer som har tider som går
+                    utenfor brukerens vedtak.
+                </div>
+            </div>
+        </div>
+    </template>
+</template>
