@@ -243,6 +243,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>HOT_Entitlement__c.EntitledHoursUsed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>HOT_Entitlement__c.EntitledHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
