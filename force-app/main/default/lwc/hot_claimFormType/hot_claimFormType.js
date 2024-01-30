@@ -3,15 +3,18 @@ import { NavigationMixin } from 'lightning/navigation';
 
 export default class Hot_claimFormType extends NavigationMixin(LightningElement) {
     @api previousPage = 'home';
-    @track currentClaimType = 'Dagliglivet';
+    @track currentClaimType = 'Dagligliv';
     @track hasChanges = false;
 
     @track componentValues = {
         radiobuttons: [
-            { label: 'Dagliglivet', value: 'Dagliglivet', checked: true },
-            { label: 'Arbeid', value: 'Arbeid' },
-            { label: 'Organisasjon', value: 'Organisasjon' },
-            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning, opplæring eller arbeidstrening' }
+            { label: 'Dagligliv', value: 'Dagligliv', checked: true },
+            { label: 'Arbeidsliv', value: 'Arbeidsliv' },
+            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning, opplæring eller arbeidstrening' },
+            {
+                label: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid',
+                value: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid'
+            }
         ],
         isOptionalFields: false
     };

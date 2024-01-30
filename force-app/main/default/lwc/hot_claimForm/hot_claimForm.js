@@ -32,7 +32,7 @@ export default class Hot_claimForm extends LightningElement {
             if (this.claim.onEmployer == true) {
                 this.componentValues.onEmployerRadioButtons[0].checked = true;
                 this.componentValues.onEmployerRadioButtons[1].checked = false;
-                if (this.claimType == 'Arbeid') {
+                if (this.claimType == 'Arbeidsliv') {
                     this.isWorkClaimType = true;
                 } else {
                     this.isWorkClaimType = false;
@@ -44,7 +44,7 @@ export default class Hot_claimForm extends LightningElement {
                 this.fieldValues.EmployerExpensesPerHour__c = this.claim.employerExpensesPerHour;
             }
             //Skal ikke kunne redigere annet enn utgifter når det er arbeid. Skal ikke legge til arbeisgiver under redigering. Må lage nytt krav
-            // if (this.claimType == 'Arbeid') {
+            // if (this.claimType == 'Arbeidsliv') {
             //     this.isWorkClaimType = true;
             // } else {
             //     this.isWorkClaimType = false;
@@ -79,7 +79,7 @@ export default class Hot_claimForm extends LightningElement {
                 }
             }
 
-            if (this.claimType == 'Arbeid') {
+            if (this.claimType == 'Arbeidsliv') {
                 this.isWorkClaimType = true;
             } else {
                 this.isWorkClaimType = false;
