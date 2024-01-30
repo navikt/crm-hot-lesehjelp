@@ -13,7 +13,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             }
             if (
                 (triggerOldMap.get(claim.Id).get('ApprovedByNAV__c') != claim.ApprovedByNAV__c) ||
-                (triggerOldMap.get(claim.Id).get('Type__c') != claim.Type__c)
+                (triggerOldMap.get(claim.Id).get('Type__c') != claim.Type__c) || (triggerOldMap.get(claim.Id).get('Status__c') != claim.Status__c)
             ) {
                 updatedClaims.add(claim);
             }
