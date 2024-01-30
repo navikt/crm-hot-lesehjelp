@@ -364,7 +364,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 element.sendErrorMessage(errorMessage);
             });
         }
-        return errorMessage;
+        return hasErrors;
     }
     validateStartTime() {
         let hasErrors = false;
