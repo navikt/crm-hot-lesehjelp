@@ -6,7 +6,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track times = [];
     @track isOnlyOneTime = true;
     uniqueIdCounter = 0;
-    randomNumber = 3;
+    randomNumber = 300;
     @track disableAddMoreTimes = false;
 
     @api claim;
@@ -21,7 +21,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 console.log(result);
                 if (result.length === 0) {
                     this.times = [this.setTimesValue(null)];
-                    this.times[0].randomNumber = 2;
+                    this.times[0].randomNumber = 300;
                     this.updateIsOnlyOneTime();
                 } else {
                     this.times = []; // Empty times
@@ -119,7 +119,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         } else {
             // Initialize the times array with one time object
             this.times = [this.setTimesValue(null)]; // Assuming you want at least one time initially
-            this.times[0].randomNumber = 2;
+            this.times[0].randomNumber = 300;
             this.updateIsOnlyOneTime();
         }
     }
@@ -318,6 +318,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateTravelFromDate();
         hasErrors += this.validateTravelFromStartTime();
         hasErrors += this.validateTravelFromEndTime();
+        hasErrors += this.validateSameYear();
         return hasErrors;
     }
     validateType() {
@@ -345,6 +346,25 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             hasErrors += errorMessage !== '';
         });
         return hasErrors;
+    }
+    validateSameYear() {
+        let hasErrors = false;
+        let errorMessage = 'Tidene må være innenfor samme år';
+        const years = [];
+        this.template.querySelectorAll('[data-id="date"]').forEach((element, index) => {
+            const date = new Date(element.value);
+            const year = date.getFullYear();
+            years.push(year);
+        });
+
+        const uniqueYears = Array.from(new Set(years));
+        if (uniqueYears.length > 1) {
+            hasErrors = true;
+            this.template.querySelectorAll('[data-id="date"]').forEach((element, index) => {
+                element.sendErrorMessage(errorMessage);
+            });
+        }
+        return errorMessage;
     }
     validateStartTime() {
         let hasErrors = false;
