@@ -9,7 +9,7 @@
     <relationshipLabel>Claims (Claimant)</relationshipLabel>
     <relationshipName>Claims</relationshipName>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

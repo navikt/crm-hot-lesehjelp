@@ -5,7 +5,7 @@
     <description>This field is true if the claim has an employer that is going to get refund</description>
     <externalId>false</externalId>
     <label>OnEmployer</label>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

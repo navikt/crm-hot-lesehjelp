@@ -160,7 +160,7 @@
     <nameField>
         <displayFormat>{00000000}</displayFormat>
         <label>Claim Line Item</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Claim Line Items</pluralLabel>
