@@ -41,6 +41,12 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>hot_warningBannerOnClaim</componentName>
+                <identifier>c_hot_warningBannerOnClaim</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>header</name>
         <type>Region</type>
@@ -92,46 +98,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TotalHoursArbeid__c</fieldItem>
-                <identifier>RecordTotalHoursArbeid_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TotalHoursDagligliv__c</fieldItem>
-                <identifier>RecordTotalHoursDagligliv_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TotalHoursOrgPolSoc__c</fieldItem>
-                <identifier>RecordTotalHoursOrgPolSoc_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TotalHoursUtdanning__c</fieldItem>
-                <identifier>RecordTotalHoursUtdanning_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Account__c</fieldItem>
                 <identifier>RecordAccount_cField</identifier>
             </fieldInstance>
@@ -160,6 +126,46 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CommentFromNAV__c</fieldItem>
+                <identifier>RecordCommentFromNAV_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CommentFromUser__c</fieldItem>
+                <identifier>RecordCommentFromUser_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ApprovedByUser__c</fieldItem>
+                <identifier>RecordApprovedByUser_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ApprovedByNAV__c</fieldItem>
+                <identifier>RecordApprovedByNAV_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -222,6 +228,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.EmployerExpensesPerHour__c</fieldItem>
                 <identifier>RecordEmployerExpensesPerHour_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.OnEmployer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -232,6 +245,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IsNotificationSent__c</fieldItem>
                 <identifier>RecordIsNotificationSent_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Entitlement__c</fieldItem>
+                <identifier>RecordEntitlement_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b9ed18d5-948e-4786-a959-b5cb0ae8a21d</name>
