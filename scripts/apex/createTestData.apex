@@ -53,14 +53,12 @@ HOT_Claim__c claim1 = new HOT_Claim__c();
 claim1.Claimant__c = accountClaimer[0].Id;
 claim1.Account__c = accountUser[0].Id;
 claim1.Type__c = 'Utdanning, opplæring eller arbeidstrening';
-claim1.TotalHoursOrgPolSoc__c = 12.00;
 insert claim1;
 
 HOT_Claim__c claim2 = new HOT_Claim__c();
 claim2.Claimant__c = accountClaimer[0].Id;
 claim2.Account__c = accountUser[0].Id;
 claim2.Type__c = 'Utdanning, opplæring eller arbeidstrening';
-claim2.TotalHoursOrgPolSoc__c = 12.00;
 insert claim2;
 
 List<Account> allAccounts = [SELECT Name, LastName, FirstName, INT_PersonIdent__c FROM Account WHERE INT_PersonIdent__c != '' LIMIT 10];
