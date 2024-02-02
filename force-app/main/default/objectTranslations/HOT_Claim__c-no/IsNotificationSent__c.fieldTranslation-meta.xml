@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Er varsel sendt?</label>
+    <label>Bruker har fått sms om dette vedtaket?</label>
     <name>IsNotificationSent__c</name>
 </CustomFieldTranslation>
