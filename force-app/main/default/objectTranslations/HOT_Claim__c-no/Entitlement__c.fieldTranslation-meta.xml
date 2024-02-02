@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Bruker har fått sms om dette vedtaket?</label>
-    <name>IsNotificationSent__c</name>
+    <label>Vedtak</label>
+    <name>Entitlement__c</name>
+    <relationshipLabel></relationshipLabel>
 </CustomFieldTranslation>

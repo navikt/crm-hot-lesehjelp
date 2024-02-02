@@ -5,7 +5,7 @@
     <description>If there has been a travel to the appointment</description>
     <externalId>false</externalId>
     <label>HasTravelTo</label>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>
