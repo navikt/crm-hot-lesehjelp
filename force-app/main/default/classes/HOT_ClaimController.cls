@@ -675,7 +675,7 @@ public without sharing class HOT_ClaimController {
     public static void recalculateUsedEntitlements(List<HOT_Claim__c> claims) {
         Set<Id> entitlementIds = new Set<Id>();
         for (HOT_Claim__c claim : claims) {
-            setEntitlementOnClaim(claim.Id);
+            //setEntitlementOnClaim(claim.Id);
             entitlementIds.add(claim.Entitlement__c);
         }
         List<HOT_Claim__c> claimList = [
