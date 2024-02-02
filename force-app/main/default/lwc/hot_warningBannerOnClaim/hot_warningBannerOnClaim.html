@@ -6,10 +6,37 @@
             style="display: block"
         >
             <span class="slds-assistive-text">Advarsel</span>
+            <lightning-icon
+                icon-name="utility:warning"
+                size="x-small"
+                class="slds-m-right--x-small"
+                variant="inverse"
+            ></lightning-icon>
             <div style="display: inline-flex">
                 <div style="display: block">
                     Dette kravet ble ikke koblet til et vedtak fordi kravet inneholder kravlinjer som har tider som går
-                    utenfor brukerens vedtak.
+                    utenfor brukerens vedtak periode.
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={exceedsEntitlementHours}>
+        <div
+            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+            role="alert"
+            style="display: block"
+        >
+            <span class="slds-assistive-text">Advarsel</span>
+            <lightning-icon
+                icon-name="utility:warning"
+                size="x-small"
+                class="slds-m-right--x-small"
+                variant="inverse"
+            ></lightning-icon>
+            <div style="display: inline-flex">
+                <div style="display: block">
+                    Dette kravet har for mange timer og kommer til å gå utover vedtaket om det blir godkjent.
+                    Gjenstående timer på vedtaket er {remainingTimeSum} timer.
                 </div>
             </div>
         </div>
