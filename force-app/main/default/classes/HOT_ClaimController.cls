@@ -659,7 +659,13 @@ public without sharing class HOT_ClaimController {
     @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getClaim(String recordId) {
         List<HOT_Claim__c> claim = [
-            SELECT Id, Status__c, Entitlement__c
+            SELECT
+                Id,
+                Status__c,
+                Entitlement__c,
+                TotalHours__c,
+                Entitlement__r.EntitledHours__c,
+                Entitlement__r.EntitledHoursUsed__c
             FROM HOT_Claim__c
             WHERE Id = :recordId
         ];
