@@ -677,31 +677,4 @@ public without sharing class HOT_ClaimController {
         ];
         return claim;
     }
-
-    public static void recalculateUsedEntitlements(List<HOT_Claim__c> claims) {
-        Set<Id> entitlementIds = new Set<Id>();
-        for (HOT_Claim__c claim : claims) {
-            entitlementIds.add(claim.Entitlement__c);
-        }
-        List<HOT_Claim__c> claimList = [
-            SELECT Id, Entitlement__c, ApprovedByNAV__c, TotalHours__c
-            FROM HOT_Claim__c
-            WHERE Entitlement__c IN :entitlementIds AND ApprovedByNAV__c = TRUE
-        ];
-
-        List<HOT_Entitlement__c> entitlementList = [
-            SELECT Id, EntitledHours__c, EntitledHoursUsed__c
-            FROM HOT_Entitlement__c
-            WHERE Id IN :entitlementIds
-        ];
-        for (HOT_Entitlement__c entitlement : entitlementList) {
-            entitlement.EntitledHoursUsed__c = 0;
-            for (HOT_Claim__c claim : claimList) {
-                if (claim.Entitlement__c == entitlement.Id) {
-                    entitlement.EntitledHoursUsed__c += claim.TotalHours__c;
-                }
-            }
-        }
-        update entitlementList;
-    }
 }
