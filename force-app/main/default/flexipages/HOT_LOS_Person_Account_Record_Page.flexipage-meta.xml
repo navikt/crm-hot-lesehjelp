@@ -65,7 +65,8 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Status__c|NOT_EQUAL|[&quot;Declined by NAV&quot;,&quot;Approved by NAV&quot;,&quot;Withdrawn&quot;,&quot;Paid out&quot;]</value>
+                            <value>Status__c|NOT_EQUAL|[&quot;Declined&quot;,&quot;Approved&quot;,&quot;Withdrawn&quot;,&quot;Paid
+                                out&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -133,7 +134,8 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Status__c|EQUALS|[&quot;Paid out&quot;,&quot;Declined by NAV&quot;,&quot;Approved by NAV&quot;]</value>
+                            <value>Status__c|EQUALS|[&quot;Paid out&quot;,&quot;Declined by
+                                NAV&quot;,&quot;Approved by NAV&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -555,7 +557,8 @@
         </properties>
         <properties>
             <name>saveOptions</name>
-            <value>[{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
+            <value>
+                [{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
         </properties>
     </template>
     <type>RecordPage</type>
