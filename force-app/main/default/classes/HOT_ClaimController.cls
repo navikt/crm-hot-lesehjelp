@@ -658,7 +658,6 @@ public without sharing class HOT_ClaimController {
                     LoggerUtility logger = new LoggerUtility();
                     logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
                     logger.publishSynch();
-                    return e.getMessage();
                 }
             }
         }

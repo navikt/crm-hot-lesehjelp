@@ -17,5 +17,4 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
             HOT_ClaimController.setEntitlementOnClaimList(claimIds);
         }
     }
-    
 }
