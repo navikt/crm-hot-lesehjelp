@@ -600,7 +600,7 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    public static void setEntitlementOnClaimList(Set<Id> claimIds) {
+    public static void setEntitlementOnClaim(Set<Id> claimIds) {
         List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
         
         Set<Id> accountIds=new set<Id>();
