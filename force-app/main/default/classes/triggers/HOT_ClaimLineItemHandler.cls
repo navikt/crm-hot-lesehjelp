@@ -5,7 +5,7 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
             claimIds.add(claimLineItems.Claim__c);
         }
         if(claimIds.size()>0){
-            HOT_ClaimController.setEntitlementOnClaimList(claimIds);
+            HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
     }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
@@ -14,7 +14,7 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
             claimIds.add(claimLineItems.Claim__c);
         }
         if(claimIds.size()>0){
-            HOT_ClaimController.setEntitlementOnClaimList(claimIds);
+            HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
     }
 }
