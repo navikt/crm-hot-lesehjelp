@@ -7,23 +7,24 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
         List<HOT_Claim__c> updatedClaims = new List<HOT_Claim__c>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
             if (
-                triggerOldMap.get(claim.Id).get('Status__c') == 'Sent' ||
-                triggerOldMap.get(claim.Id).get('Status__c') == 'Approved by user' &&
+                (triggerOldMap.get(claim.Id).get('Status__c') == 'Sent' ||
+                triggerOldMap.get(claim.Id).get('Status__c') == 'Approved by user') &&
                 (claim.Status__c == 'Declined' ||
                 claim.Status__c == 'Declined by user')
             ) {
                 claimsToNotifyUserOnDeclinedStatus.add(claim);
             }
-            Id oldEntitlementId = (Id)triggerOldMap.get(claim.Id).get('Entitlement__c');
-            if(claim.Entitlement__c != oldEntitlementId){
+
+            Id oldEntitlementId = (Id) triggerOldMap.get(claim.Id).get('Entitlement__c');
+            if (claim.Entitlement__c != oldEntitlementId) {
                 entitlements.add(oldEntitlementId);
             }
             entitlements.add(claim.Entitlement__c);
-            if(claim.Entitlement__c == NULL){
+            if (claim.Entitlement__c == null) {
                 claimIds.add(claim.Id);
             }
         }
-         if(claimIds.size()>0){
+        if (claimIds.size() > 0) {
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
