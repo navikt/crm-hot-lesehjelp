@@ -9,7 +9,7 @@ public without sharing class HOT_EntitlementController {
         ];
         return entitlements;
     }
-       public static void recalculateUsedEntitlements(Set<Id> entitlementIds) {
+    public static void recalculateUsedEntitlements(Set<Id> entitlementIds) {
         List<HOT_Claim__c> claimList = [
             SELECT Id, Entitlement__c, ApprovedByNAV__c, TotalHours__c
             FROM HOT_Claim__c
@@ -29,6 +29,12 @@ public without sharing class HOT_EntitlementController {
                 }
             }
         }
-        update entitlementList;
+        try {
+            update entitlementList;
+        } catch (Exception e) {
+            LoggerUtility logger = new LoggerUtility();
+            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            logger.publishSynch();
+        }
     }
 }
