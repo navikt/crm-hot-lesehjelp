@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Entitlement_Type_Not_Matching_Claim_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(EntitlementType__c)),
+    EntitlementType__c &lt;&gt; TEXT(Type__c)
+)</errorConditionFormula>
+    <errorDisplayField>Type__c</errorDisplayField>
+    <errorMessage>Kravet må være av samme type som vedtaket. Ønsket du å bytte type, fjern vedtaket først.</errorMessage>
+</ValidationRule>

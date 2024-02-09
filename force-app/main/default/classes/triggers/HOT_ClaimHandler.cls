@@ -2,6 +2,8 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
         List<HOT_Claim__c> claimsToNotifyUserOnDeclinedStatus = new List<HOT_Claim__c>();
         Set<Id> entitlements = new Set<Id>();
+        Set<Id> claimIds = new Set<Id>();
+
         List<HOT_Claim__c> updatedClaims = new List<HOT_Claim__c>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
             if (
@@ -17,6 +19,12 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
                 entitlements.add(oldEntitlementId);
             }
             entitlements.add(claim.Entitlement__c);
+            if(claim.Entitlement__c == NULL){
+                claimIds.add(claim.Id);
+            }
+        }
+         if(claimIds.size()>0){
+            HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
