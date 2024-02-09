@@ -12,16 +12,17 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             ) {
                 claimsToNotifyUserOnDeclinedStatus.add(claim);
             }
-            if(claim.Entitlement__c != triggerOldMap.get(claim.Id).get('Entitlement__c')){
-                entitlements.add(triggerOldMap.get(claim.Id).get('Entitlement__c'));
+            Id oldEntitlementId = (Id)triggerOldMap.get(claim.Id).get('Entitlement__c');
+            if(claim.Entitlement__c != oldEntitlementId){
+                entitlements.add(oldEntitlementId);
             }
-            //updatedClaims.add(claim);
+            entitlements.add(claim.Entitlement__c);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
         }
-        // if (updatedClaims.size() > 0) {
-        //     HOT_ClaimController.recalculateUsedEntitlements(updatedClaims);
-        // }
+        if (entitlements.size() > 0) {
+            HOT_EntitlementController.recalculateUsedEntitlements(entitlements);
+        }
     }
 }
