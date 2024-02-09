@@ -143,13 +143,6 @@ public without sharing class HOT_ClaimController {
         }
         try {
             insert claimLineItemList;
-            try {
-                setEntitlementOnClaim(claim.Id);
-            } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-            }
             return '';
         } catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
@@ -486,7 +479,6 @@ public without sharing class HOT_ClaimController {
         try {
             update claims;
             result = updateClaimLineItems(claims[0], claimLineItems);
-
             return 'ok' + result;
         } catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
@@ -608,51 +600,65 @@ public without sharing class HOT_ClaimController {
             return e.getMessage();
         }
     }
-    public static void setEntitlementOnClaim(String claimId) {
-        List<HOT_Claim__c> claim = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id = :claimId];
-        if (claim.size() != 0) {
+    public static void setEntitlementOnClaimList(Set<Id> claimIds) {
+        List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
+        
+        Set<Id> accountIds=new set<Id>();
+        for(HOT_Claim__c claim : claims){
+            accountIds.add(claim.Account__c);
+        }
+        if (claims.size() != 0) {
             List<HOT_Entitlement__c> entitlements = [
                 SELECT Id, FromDate__c, ToDate__c, Account__c, Type__c
                 FROM HOT_Entitlement__c
-                WHERE Account__c = :claim[0].Account__c
+                WHERE Account__c IN :accountIds
             ];
             if (entitlements.size() != 0) {
                 List<HOT_ClaimLineItem__c> claimLineItems = [
                     SELECT Id, Claim__c, StartTime__c, EndTime__c
                     FROM HOT_ClaimLineItem__c
-                    WHERE Claim__c = :claim[0].Id
+                    WHERE Claim__c IN :claimIds
                 ];
-                DateTime earliestStartTime = null;
-                DateTime latestEndTime = null;
-                if (claimLineItems.size() != 0) {
-                    for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
-                        if (claimLineItem.Claim__c == claim[0].Id) {
-                            if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
-                                earliestStartTime = claimLineItem.StartTime__c;
-                            }
-                            if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
-                                latestEndTime = claimLineItem.EndTime__c;
+
+
+                for(HOT_Claim__c claim : claims){
+                    DateTime earliestStartTime = null;
+                    DateTime latestEndTime = null;
+                    if (claimLineItems.size() != 0) {
+                        for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
+                            if (claimLineItem.Claim__c == claim.Id) {
+                                if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
+                                    earliestStartTime = claimLineItem.StartTime__c;
+                                }
+                                if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
+                                    latestEndTime = claimLineItem.EndTime__c;
+                                }
                             }
                         }
-                    }
-
-                    for (HOT_Entitlement__c entitlement : entitlements) {
-                        system.debug(entitlement.Type__c);
-                        if (claim[0].Type__c == entitlement.Type__c && claim[0].Account__c == entitlement.Account__c) {
-                            if (
-                                entitlement.FromDate__c <= earliestStartTime &&
-                                entitlement.ToDate__c >= latestEndTime
-                            ) {
-                                claim[0].Entitlement__c = entitlement.Id;
+    
+                        for (HOT_Entitlement__c entitlement : entitlements) {
+                            if (claim.Type__c == entitlement.Type__c && claim.Account__c == entitlement.Account__c) {
+                                if (
+                                    entitlement.FromDate__c <= earliestStartTime &&
+                                    entitlement.ToDate__c >= latestEndTime
+                                ) {
+                                    claim.Entitlement__c = entitlement.Id;
+                                } else {
+                                    claim.Entitlement__c = null;
+                                }
                             } else {
-                                claim[0].Entitlement__c = null;
+                                claim.Entitlement__c = null;
                             }
-                        } else {
-                            claim[0].Entitlement__c = null;
                         }
                     }
                 }
-                update claim;
+                try {
+                    update claims;
+                } catch (Exception e) {
+                    LoggerUtility logger = new LoggerUtility();
+                    logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                    logger.publishSynch();
+                }
             }
         }
     }
@@ -670,33 +676,5 @@ public without sharing class HOT_ClaimController {
             WHERE Id = :recordId
         ];
         return claim;
-    }
-
-    public static void recalculateUsedEntitlements(List<HOT_Claim__c> claims) {
-        Set<Id> entitlementIds = new Set<Id>();
-        for (HOT_Claim__c claim : claims) {
-            //setEntitlementOnClaim(claim.Id);
-            entitlementIds.add(claim.Entitlement__c);
-        }
-        List<HOT_Claim__c> claimList = [
-            SELECT Id, Entitlement__c, ApprovedByNAV__c, TotalHours__c
-            FROM HOT_Claim__c
-            WHERE Entitlement__c IN :entitlementIds AND ApprovedByNAV__c = TRUE
-        ];
-
-        List<HOT_Entitlement__c> entitlementList = [
-            SELECT Id, EntitledHours__c, EntitledHoursUsed__c
-            FROM HOT_Entitlement__c
-            WHERE Id IN :entitlementIds
-        ];
-        for (HOT_Entitlement__c entitlement : entitlementList) {
-            entitlement.EntitledHoursUsed__c = 0;
-            for (HOT_Claim__c claim : claimList) {
-                if (claim.Entitlement__c == entitlement.Id) {
-                    entitlement.EntitledHoursUsed__c += claim.TotalHours__c;
-                }
-            }
-        }
-        update entitlementList;
     }
 }
