@@ -475,6 +475,7 @@ public without sharing class HOT_ClaimController {
                 claim.OnEmployer__c = false;
             }
             claim.Status__c = 'Sent';
+            claim.Entitlement__c = null;
         }
         try {
             update claims;
@@ -601,63 +602,66 @@ public without sharing class HOT_ClaimController {
         }
     }
     public static void setEntitlementOnClaim(Set<Id> claimIds) {
-    List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
-    
-    Set<Id> accountIds = new Set<Id>();
-    for(HOT_Claim__c claim : claims) {
-        accountIds.add(claim.Account__c);
-    }
+        List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
 
-    if (!accountIds.isEmpty()) {
-        List<HOT_Entitlement__c> entitlements = [
-            SELECT Id, FromDate__c, ToDate__c, Account__c, Type__c
-            FROM HOT_Entitlement__c
-            WHERE Account__c IN :accountIds
-        ];
+        Set<Id> accountIds = new Set<Id>();
+        for (HOT_Claim__c claim : claims) {
+            accountIds.add(claim.Account__c);
+        }
 
-        if (!entitlements.isEmpty()) {
-            List<HOT_ClaimLineItem__c> claimLineItems = [
-                SELECT Id, Claim__c, StartTime__c, EndTime__c
-                FROM HOT_ClaimLineItem__c
-                WHERE Claim__c IN :claimIds
+        if (!accountIds.isEmpty()) {
+            List<HOT_Entitlement__c> entitlements = [
+                SELECT Id, FromDate__c, ToDate__c, Account__c, Type__c
+                FROM HOT_Entitlement__c
+                WHERE Account__c IN :accountIds
             ];
 
-            for(HOT_Claim__c claim : claims) {
-                DateTime earliestStartTime = null;
-                DateTime latestEndTime = null;
-                
-                // Find earliest start time and latest end time for claim
-                for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
-                    if (claimLineItem.Claim__c == claim.Id) {
-                        if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
-                            earliestStartTime = claimLineItem.StartTime__c;
-                        }
-                        if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
-                            latestEndTime = claimLineItem.EndTime__c;
-                        }
-                    }
-                }
-                claim.Entitlement__c = null;
+            if (!entitlements.isEmpty()) {
+                List<HOT_ClaimLineItem__c> claimLineItems = [
+                    SELECT Id, Claim__c, StartTime__c, EndTime__c
+                    FROM HOT_ClaimLineItem__c
+                    WHERE Claim__c IN :claimIds
+                ];
 
-                for (HOT_Entitlement__c entitlement : entitlements) {
-                    if (claim.Type__c == entitlement.Type__c && claim.Account__c == entitlement.Account__c) {
-                        if (entitlement.FromDate__c <= earliestStartTime && entitlement.ToDate__c >= latestEndTime) {
-                            claim.Entitlement__c = entitlement.Id;
-                            break;
+                for (HOT_Claim__c claim : claims) {
+                    DateTime earliestStartTime = null;
+                    DateTime latestEndTime = null;
+
+                    // Find earliest start time and latest end time for claim
+                    for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
+                        if (claimLineItem.Claim__c == claim.Id) {
+                            if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
+                                earliestStartTime = claimLineItem.StartTime__c;
+                            }
+                            if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
+                                latestEndTime = claimLineItem.EndTime__c;
+                            }
+                        }
+                    }
+                    claim.Entitlement__c = null;
+
+                    for (HOT_Entitlement__c entitlement : entitlements) {
+                        if (claim.Type__c == entitlement.Type__c && claim.Account__c == entitlement.Account__c) {
+                            if (
+                                entitlement.FromDate__c <= earliestStartTime &&
+                                entitlement.ToDate__c >= latestEndTime
+                            ) {
+                                claim.Entitlement__c = entitlement.Id;
+                                break;
+                            }
                         }
                     }
                 }
-            }
-            try {
-                update claims;
-            } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                try {
+                    update claims;
+                } catch (Exception e) {
+                    LoggerUtility logger = new LoggerUtility();
+                    logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                    logger.publishSynch();
+                }
             }
         }
     }
-}
 
     @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getClaim(String recordId) {
