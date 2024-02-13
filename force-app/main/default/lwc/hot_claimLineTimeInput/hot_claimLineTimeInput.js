@@ -212,15 +212,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         ).getTime();
     }
     setStartTime(index) {
-        let dateTime = new Date();
+        let dateTime = new Date(this.times[index].startTime);
         let timeString = this.dateTimeToTimeString(dateTime, false);
         let combinedDateTime = this.combineDateTimes(this.times[index].dateMilliseconds, dateTime);
         this.times[index].startTime = combinedDateTime.getTime();
-
+        this.times[index].startTimeString = timeString;
+        let startTimeElements = this.template.querySelectorAll('[data-id="startTime"]');
+        startTimeElements[index].setValue(this.times[index].startTimeString);
         if (this.times[index].startTimeString === null) {
-            this.times[index].startTimeString = timeString;
-            let startTimeElements = this.template.querySelectorAll('[data-id="startTime"]');
-            startTimeElements[index].setValue(this.times[index].startTimeString);
             this.setEndTimeBasedOnStartTime(index);
         } else {
             this.updateEndTimeBasedOnDate(index);
@@ -482,6 +481,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelTo = true;
+                    this.times[index].dateTravelTo = this.times[index].date;
+                    this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
                 } else {
                     this.times[index].hasTravelTo = false;
                 }
