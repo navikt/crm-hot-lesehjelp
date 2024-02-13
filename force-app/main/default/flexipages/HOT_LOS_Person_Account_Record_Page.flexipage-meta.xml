@@ -55,11 +55,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>adminFilters</name>
@@ -91,6 +86,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>TotalHours__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Account__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -158,6 +156,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>EntitledHours__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>EntitledHoursUsed__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>FromDate__c</value>
@@ -414,8 +415,7 @@
         </properties>
         <properties>
             <name>saveOptions</name>
-            <value>
-                [{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
+            <value>[{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
         </properties>
     </template>
     <type>RecordPage</type>

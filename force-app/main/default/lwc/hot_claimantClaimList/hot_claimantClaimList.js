@@ -28,6 +28,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
 
     @track record;
     @track isCancelButtonDisabled = false;
+    @track isEditButtonDisabled = false;
     renderedCallback() {
         refreshApex(this.wiredAllClaim);
     }
@@ -46,7 +47,6 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             })
                 .then((result) => {
                     this.claims.forEach((element) => {
-                        this.isCancelButtonDisabled = false;
                         if (element.Id == claimId) {
                             this.record = element;
                             this.record.onEmployer = element.OnEmployer__c;
@@ -54,13 +54,15 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             if (element.Status__c) {
                             }
                             if (
-                                element.Status__c != 'Approved' ||
-                                element.Status__c != 'Paid out' ||
-                                element.Status__c != 'Withdrawn'
+                                element.Status__c == 'Approved' ||
+                                element.Status__c == 'Paid out' ||
+                                element.Status__c == 'Withdrawn'
                             ) {
                                 this.isCancelButtonDisabled = true;
+                                this.isEditButtonDisabled = true;
                             } else {
                                 this.isCancelButtonDisabled = false;
+                                this.isEditButtonDisabled = false;
                             }
                         }
                     });

@@ -1,4 +1,4 @@
-trigger HOT_ClaimLineItemTrigger on HOT_ClaimLineItem__c (
+trigger HOT_ClaimLineItemTrigger on HOT_ClaimLineItem__c(
     before insert,
     before update,
     before delete,
