@@ -25,7 +25,7 @@
     padding-top: 1rem;
 }
 
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 768px) {
     .listClass {
         align-items: start;
         padding-bottom: 1vw;
@@ -46,14 +46,21 @@
 }
 .addTravelMinutesButtonContainer {
     display: flex;
+    flex-wrap: wrap;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
 .addMinutesButton {
-    margin-right: 0.3vw; /* Adjust this value as needed */
+    margin-right: 0.3vw;
 }
 
 .addMinutesButton:last-child {
-    margin-right: 0; /* Remove margin for the last button */
+    margin-right: 0;
+}
+@media only screen and (max-device-width: 768px) {
+    .addMinutesButton {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
 }
