@@ -668,10 +668,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let dateTime = new Date(this.times[index].endTime);
         dateTime.setHours(dateTime.getHours());
         let timeString = this.dateTimeToTimeString(dateTime, false);
-        this.times[index].startTimeTravelToString = timeString;
-        this.times[index].startTimeTravelTo = dateTime.getTime();
+        this.times[index].startTimeTravelFromString = timeString;
+        this.times[index].startTimeTravelFrom = dateTime.getTime();
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelFrom"]');
-        startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
+        startTimeElements[index].setValue(this.times[index].startTimeTravelFromString);
         //start
 
         let dateTimeStart = new Date(this.times[index].endTime);
