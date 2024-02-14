@@ -245,9 +245,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].endTime = combinedDateTime.getTime();
     }
 
-    dateTimeToTimeString(dateTime, isLoadingDatetimes) {
+    dateTimeToTimeString(dateTime) {
         let hours = dateTime.getHours();
-        let minutes = isLoadingDatetimes ? dateTime.getMinutes() : 0;
+        let minutes = dateTime.getMinutes();
         return (
             (hours < 10 ? '0' + hours.toString() : hours.toString()) +
             ':' +
@@ -630,5 +630,34 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             new Date(this.times[index].endTimeTravelFrom)
         );
         this.times[index].endTimeTravelFrom = combinedDateTime.getTime();
+    }
+    addTravelTime(event) {
+        const index = this.getTimesIndex(event.target.name);
+
+        let dateTimeStart = new Date(this.times[index].startTime);
+
+        dateTimeStart.setMinutes(dateTimeStart.getMinutes() - event.detail); // Subtracting 15 minutes
+
+        let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
+        this.times[index].startTimeTravelToString = timeStringStart;
+        this.times[index].startTimeTravelTo = dateTimeStart.getTime();
+        console.log('1 ' + dateTimeStart.getTime());
+        console.log('2 ' + timeStringStart);
+        let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
+        startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
+
+        console.log(event.detail);
+        if (event.detail == '15') {
+        }
+        let dateTime = new Date(this.times[index].startTime);
+        dateTime.setHours(dateTime.getHours());
+        let timeString = this.dateTimeToTimeString(dateTime, false);
+        this.times[index].endTimeTravelToString = timeString;
+        this.times[index].endTimeTravelTo = dateTime.getTime();
+        let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
+        endTimeElements[index].setValue(this.times[index].endTimeTravelToString);
+
+        //
+        console.log('jaaaa');
     }
 }

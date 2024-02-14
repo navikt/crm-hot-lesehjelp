@@ -44,3 +44,14 @@
 .header:focus {
     outline: none;
 }
+.addTravelMinutesButtonContainer {
+    display: flex;
+}
+
+.addMinutesButton {
+    margin-right: 0.3vw; /* Adjust this value as needed */
+}
+
+.addMinutesButton:last-child {
+    margin-right: 0; /* Remove margin for the last button */
+}

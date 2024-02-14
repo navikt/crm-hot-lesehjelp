@@ -74,6 +74,82 @@
             set-default-value={it.value.hasTravelTo}
             is-edit={isEdit}
         ></c-radiobuttons>
+        <p if:true={it.value.hasTravelTo} class="typo-normal">Hurtigknapper for å legge til reiseminutter. Minuttene vil gå fra oppdragets start og bakover. </p>
+        <div class="addTravelMinutesButtonContainer">
+             <div class="addMinutesButton">
+            <c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="15 min"
+                        value="15"
+                    >
+                    </c-button>
+                </div>
+                <div class="addMinutesButton">
+                     <c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="30 min"
+                        value="30"
+                    >
+                    </c-button></div>
+                     <div class="addMinutesButton"><c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="45 min"
+                        value="45"
+                    >
+                    </c-button></div>
+                    <div class="addMinutesButton">
+            <c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="1 t"
+                        value="60"
+                    >
+                    </c-button></div>
+                     <div class="addMinutesButton">
+            <c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="1t 15 min"
+                        value="75"
+                    >
+                    </c-button></div>
+                    <div class="addMinutesButton">
+            <c-button
+                        if:true={it.value.hasTravelTo}
+                        type="button"
+                        button-styling="danger"
+                        onbuttonclick={addTravelTime}
+                        aria-label="Fjern tid"
+                        name={it.value.id}
+                        button-label="1t 30 min"
+                        value="90"
+                    >
+                    </c-button></div>
+                    
+        </div>
         <div class="travelTimesToInputContainer">
                     <c-input
                     if:true={it.value.hasTravelTo}
