@@ -633,15 +633,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     addTravelTime(event) {
         const index = this.getTimesIndex(event.target.name);
-        //
+        //date
         this.times[index].dateTravelTo = this.times[index].date;
         this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
 
-        //
+        //start
 
         let dateTimeStart = new Date(this.times[index].startTime);
-
-        dateTimeStart.setMinutes(dateTimeStart.getMinutes() - event.detail); // Subtracting 15 minutes
+        dateTimeStart.setMinutes(dateTimeStart.getMinutes() - event.detail);
 
         let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
         this.times[index].startTimeTravelToString = timeStringStart;
@@ -651,9 +650,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
         startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
 
-        console.log(event.detail);
-        if (event.detail == '15') {
-        }
+        //end
         let dateTime = new Date(this.times[index].startTime);
         dateTime.setHours(dateTime.getHours());
         let timeString = this.dateTimeToTimeString(dateTime, false);
@@ -661,8 +658,5 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].endTimeTravelTo = dateTime.getTime();
         let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
         endTimeElements[index].setValue(this.times[index].endTimeTravelToString);
-
-        //
-        console.log('jaaaa');
     }
 }
