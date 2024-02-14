@@ -74,7 +74,7 @@
             set-default-value={it.value.hasTravelTo}
             is-edit={isEdit}
         ></c-radiobuttons>
-        <p if:true={it.value.hasTravelTo} class="typo-normal">Hurtigknapper for å legge til reiseminutter. Minuttene vil gå fra oppdragets start og bakover. </p>
+        <p class="typo-normal" if:true={it.value.hasTravelTo}>Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato som oppdraget og gå bakover fra oppdragets start.</p>
         <div class="addTravelMinutesButtonContainer">
              <div class="addMinutesButton">
             <c-button

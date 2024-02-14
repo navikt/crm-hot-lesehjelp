@@ -633,6 +633,11 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     addTravelTime(event) {
         const index = this.getTimesIndex(event.target.name);
+        //
+        this.times[index].dateTravelTo = this.times[index].date;
+        this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
+
+        //
 
         let dateTimeStart = new Date(this.times[index].startTime);
 
