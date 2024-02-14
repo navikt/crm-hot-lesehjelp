@@ -1,5 +1,5 @@
 public without sharing class HOT_ClaimLineItemController {
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<HOT_ClaimLineItem__c> getClaimLineItems(String recordId) {
         List<HOT_ClaimLineItem__c> claimLineItems = [
             SELECT
@@ -22,6 +22,7 @@ public without sharing class HOT_ClaimLineItemController {
                 AdditionalInformation__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
+            ORDER BY Date__c ASC
         ];
         return claimLineItems;
     }

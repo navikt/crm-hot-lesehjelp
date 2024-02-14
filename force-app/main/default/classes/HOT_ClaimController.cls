@@ -372,12 +372,13 @@ public without sharing class HOT_ClaimController {
             return '';
         }
     }
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<Map<String, String>> getTimes(String claimId) {
         List<Map<String, String>> times = new List<Map<String, String>>();
         List<HOT_ClaimLineItem__c> claimLineItems = [
             SELECT
                 Id,
+                Date__c,
                 StartTime__c,
                 TravelFromStartTime__c,
                 TravelToStartTime__c,
@@ -392,7 +393,7 @@ public without sharing class HOT_ClaimController {
                 AdditionalInformation__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__r.Id = :claimId
-            ORDER BY StartTime__c ASC
+            ORDER BY Date__c ASC
         ];
         for (HOT_ClaimLineItem__c cli : claimLineItems) {
             Map<String, String> timeMap = new Map<String, String>();
