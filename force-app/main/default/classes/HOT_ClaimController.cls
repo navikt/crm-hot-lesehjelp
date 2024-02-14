@@ -372,7 +372,7 @@ public without sharing class HOT_ClaimController {
             return '';
         }
     }
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<Map<String, String>> getTimes(String claimId) {
         List<Map<String, String>> times = new List<Map<String, String>>();
         List<HOT_ClaimLineItem__c> claimLineItems = [
