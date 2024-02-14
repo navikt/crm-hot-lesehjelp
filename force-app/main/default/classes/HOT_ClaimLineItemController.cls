@@ -22,6 +22,7 @@ public without sharing class HOT_ClaimLineItemController {
                 AdditionalInformation__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
+            ORDER BY Date__c ASC
         ];
         return claimLineItems;
     }
