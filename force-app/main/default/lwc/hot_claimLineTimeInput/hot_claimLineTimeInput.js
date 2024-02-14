@@ -496,6 +496,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 const index = this.getTimesIndex(event.target.name);
                 if (element.value == 'true') {
                     this.times[index].hasTravelFrom = true;
+                    this.times[index].dateTravelFrom = this.times[index].date;
+                    this.times[index].dateTravelFromMilliseconds = new Date(this.times[index].date).getTime();
                 } else {
                     this.times[index].hasTravelFrom = false;
                 }
@@ -645,8 +647,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
         this.times[index].startTimeTravelToString = timeStringStart;
         this.times[index].startTimeTravelTo = dateTimeStart.getTime();
-        console.log('1 ' + dateTimeStart.getTime());
-        console.log('2 ' + timeStringStart);
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
         startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
 
@@ -658,5 +658,30 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].endTimeTravelTo = dateTime.getTime();
         let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
         endTimeElements[index].setValue(this.times[index].endTimeTravelToString);
+    }
+    addTravelTimeFrom(event) {
+        const index = this.getTimesIndex(event.target.name);
+        //date
+        this.times[index].dateTravelFrom = this.times[index].date;
+        this.times[index].dateTravelFromMilliseconds = new Date(this.times[index].date).getTime();
+        //end
+        let dateTime = new Date(this.times[index].endTime);
+        dateTime.setHours(dateTime.getHours());
+        let timeString = this.dateTimeToTimeString(dateTime, false);
+        this.times[index].startTimeTravelToString = timeString;
+        this.times[index].startTimeTravelTo = dateTime.getTime();
+        let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelFrom"]');
+        startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
+        //start
+
+        let dateTimeStart = new Date(this.times[index].endTime);
+        dateTimeStart.setMinutes(dateTimeStart.getMinutes() + event.detail);
+
+        let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
+        this.times[index].endTimeTravelFromString = timeStringStart;
+        this.times[index].endTimeTravelFrom = dateTimeStart.getTime();
+
+        let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelFrom"]');
+        endTimeElements[index].setValue(this.times[index].endTimeTravelFromString);
     }
 }
