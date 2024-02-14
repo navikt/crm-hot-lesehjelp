@@ -532,10 +532,13 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         ).getTime();
     }
     setStartTimeTravelTo(index) {
-        let dateTime = new Date();
+        let dateTime = new Date(this.times[index].startTime);
         let timeString = this.dateTimeToTimeString(dateTime, false);
         let combinedDateTime = this.combineDateTimes(this.times[index].dateTravelToMilliseconds, dateTime);
         this.times[index].startTimeTravelTo = combinedDateTime.getTime();
+        this.times[index].startTimeTravelToString = timeString;
+        let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
+        startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
 
         if (this.times[index].startTimeTravelToString === null) {
             this.times[index].startTimeTravelToString = timeString;
@@ -598,10 +601,13 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         ).getTime();
     }
     setStartTimeTravelFrom(index) {
-        let dateTime = new Date();
+        let dateTime = new Date(this.times[index].endTime);
         let timeString = this.dateTimeToTimeString(dateTime, false);
         let combinedDateTime = this.combineDateTimes(this.times[index].dateTravelFromMilliseconds, dateTime);
         this.times[index].startTimeTravelFrom = combinedDateTime.getTime();
+        this.times[index].startTimeTravelFromString = timeString;
+        let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelFrom"]');
+        startTimeElements[index].setValue(this.times[index].startTimeTravelFromString);
 
         if (this.times[index].startTimeTravelFromString === null) {
             this.times[index].startTimeTravelFromString = timeString;
