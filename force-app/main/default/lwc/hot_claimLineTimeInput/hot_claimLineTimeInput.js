@@ -11,6 +11,39 @@ export default class Hot_claimLineTimeInput extends LightningElement {
 
     @api claim;
     @api isEdit;
+    renderedCallback() {
+        console.log('render');
+        let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+        let travelTimesFromInputContainers = this.template.querySelectorAll('.travelTimesFromInputContainer');
+
+        if (this.isEdit == true) {
+            for (let t of this.times) {
+                if (t.hasTravelTo == true && t.editId < travelTimesToInputContainers.length) {
+                    travelTimesToInputContainers[t.editId].classList.remove('hidden');
+                } else if (t.editId < travelTimesToInputContainers.length) {
+                    travelTimesToInputContainers[t.editId].classList.add('hidden');
+                }
+                if (t.hasTravelFrom == true && t.editId < travelTimesFromInputContainers.length) {
+                    travelTimesFromInputContainers[t.editId].classList.remove('hidden');
+                } else if (t.editId < travelTimesFromInputContainers.length) {
+                    travelTimesFromInputContainers[t.editId].classList.add('hidden');
+                }
+            }
+        } else {
+            for (let t of this.times) {
+                if (t.hasTravelTo == true && t.id < travelTimesToInputContainers.length) {
+                    travelTimesToInputContainers[t.id].classList.remove('hidden');
+                } else if (t.id < travelTimesToInputContainers.length) {
+                    travelTimesToInputContainers[t.id].classList.add('hidden');
+                }
+                if (t.hasTravelFrom == true && t.id < travelTimesFromInputContainers.length) {
+                    travelTimesFromInputContainers[t.id].classList.remove('hidden');
+                } else if (t.id < travelTimesFromInputContainers.length) {
+                    travelTimesFromInputContainers[t.id].classList.add('hidden');
+                }
+            }
+        }
+    }
 
     connectedCallback() {
         if (this.claim.Id != '' && this.isEdit == true) {
@@ -27,7 +60,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times = []; // Empty times
                     for (let timeMap of result) {
                         let timeObject = new Object(this.setTimesValue(timeMap));
-
+                        timeObject.editId = this.uniqueIdCounter;
+                        this.uniqueIdCounter += 1;
                         timeObject.task = timeMap.task;
                         //GENERAL TIMES
                         timeObject.dateMilliseconds = new Date(timeMap.date).getTime();
@@ -525,8 +559,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[index].hasTravelFrom = true;
                     this.times[index].dateTravelFrom = this.times[index].date;
                     this.times[index].dateTravelFromMilliseconds = new Date(this.times[index].date).getTime();
-                    let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesFromInputContainer');
-                    travelTimesToInputContainers[index].classList.remove('hidden');
+                    let travelTimesFromInputContainers = this.template.querySelectorAll(
+                        '.travelTimesFromInputContainer'
+                    );
+                    travelTimesFromInputContainers[index].classList.remove('hidden');
                 } else {
                     this.times[index].hasTravelFrom = false;
                     let travelTimesFromInputContainers = this.template.querySelectorAll(

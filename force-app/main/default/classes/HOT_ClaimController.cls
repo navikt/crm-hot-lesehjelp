@@ -96,9 +96,10 @@ public without sharing class HOT_ClaimController {
             Long timestampMillisEnd = Long.valueOf(endTimeClaim);
             Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
             cli.EndTime__c = convertedDatetimeEnd;
-
-            cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
-
+            String hasAdditionalInformation = String.valueOf(claimLineItem.get('hasAdditionalInformation'));
+            if (hasAdditionalInformation == 'true') {
+                cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
+            }
             String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
             if (hasTravelToValue == 'false' || hasTravelToValue == 'null' || hasTravelToValue == null) {
                 cli.HasTravelTo__c = false;
