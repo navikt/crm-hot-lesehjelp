@@ -36,7 +36,7 @@
                     desktop-style="padding-left: 1vw"
                     style={dateTimeDesktopStyle}
                 ></c-input>
-                </br>
+                <br />
                 <c-picklist
                     name={it.value.id}
                     choices={taskOptions}
@@ -49,275 +49,302 @@
                     style={dateTimeDesktopStyle}
                 >
                 </c-picklist>
-        <div class="travelTimesRadioButtonContainer">
-                    <c-input
+                <br />
+                <c-input
                     if:true={it.value.hasAdditionalInformation}
-                                label="Tilleggsinformasjon"
-                                data-id="additionalInformation"
-                                type="text"
-                                name={it.value.id}
-                                onchange={handleAdditionalInformation}
-                                value={it.value.additionalInformation}
-                                error-text="Feltet må fylles ut."
-                                desktop-style="padding-top: 1vw;padding-bottom: 1vw "
-                                mobile-style="padding-bottom: 1vw"
-                                helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
-                            ></c-input>
+                    label="Tilleggsinformasjon"
+                    data-id="additionalInformation"
+                    type="text"
+                    name={it.value.id}
+                    onchange={handleAdditionalInformation}
+                    value={it.value.additionalInformation}
+                    error-text="Feltet må fylles ut."
+                    desktop-style="padding-top: 1vw;padding-left: 1vw "
+                    mobile-style="padding-bottom: 1vw"
+                    helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
+                ></c-input>
+                <div class="travelTimesRadioButtonContainer">
                     <c-radiobuttons
-            helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
-            radiobuttons={componentValues.travelToRadioButtons}
-            onradiobuttonsclick={handleOnTravelToRadioButtonsTo}
-            header="Har du hatt reisetid for å komme til oppdraget?"
-            group-name={it.value.id}
-            flex-direction="row"
-            name={it.value.id}
-            set-default-value={it.value.hasTravelTo}
-            is-edit={isEdit}
-        ></c-radiobuttons>
-        <p class="typo-normal" if:true={it.value.hasTravelTo}>Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato som oppdraget og gå bakover fra oppdragets start.</p>
-        <div class="addTravelMinutesButtonContainer">
-             <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 15 minutter reisetid"
+                        helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
+                        radiobuttons={componentValues.travelToRadioButtons}
+                        onradiobuttonsclick={handleOnTravelToRadioButtonsTo}
+                        header="Har du hatt reisetid for å komme til oppdraget?"
+                        group-name={it.value.id}
+                        flex-direction="row"
                         name={it.value.id}
-                        button-label="15 min"
-                        value="15"
+                        set-default-value={it.value.hasTravelTo}
+                        is-edit={isEdit}
+                    ></c-radiobuttons>
+                    <p class="typo-normal" if:true={it.value.hasTravelTo}>
+                        Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
+                        som oppdraget og gå bakover fra oppdragets start.
+                    </p>
+                    <div class="addTravelMinutesButtonContainer" if:true={it.value.hasTravelTo}>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 15 minutter reisetid"
+                                name={it.value.id}
+                                button-label="15 min"
+                                value="15"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 30 minutter reisetid"
+                                name={it.value.id}
+                                button-label="30 min"
+                                value="30"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 45 minutter reisetid"
+                                name={it.value.id}
+                                button-label="45 min"
+                                value="45"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 60 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1 t"
+                                value="60"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 1 time 15 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1t 15 min"
+                                value="75"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelTo}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTime}
+                                aria-label="Hurtigknapp 1 timer og 30 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1t 30 min"
+                                value="90"
+                            >
+                            </c-button>
+                        </div>
+                    </div>
+                    <div class="travelTimesToInputContainer hidden">
+                        <c-input
+                            label="Dato"
+                            data-id="dateTravelTo"
+                            type="date"
+                            ongetvalueonchange={handleDateTravelToChange}
+                            name={it.value.id}
+                            value={it.value.dateTravelTo}
+                            error-text="Feltet må fylles ut."
+                            style={dateTimeDesktopStyle}
+                            desktop-style="padding-top: 1vw"
+                            mobile-style="padding-bottom: 1vw"
+                        ></c-input>
+                        <c-input
+                            label="Reise starttid"
+                            data-id="startTimeTravelTo"
+                            type="time"
+                            value={it.value.startTimeTravelToString}
+                            error-text="Feltet må fylles ut."
+                            name={it.value.id}
+                            ongetvalueonchange={handleStartTimeTravelToChange}
+                            desktop-style="padding-top: 1vw; padding-left: 1vw"
+                            mobile-style="padding-bottom: 1vw"
+                            style={dateTimeDesktopStyle}
+                        ></c-input>
+                        <c-input
+                            label="Reise sluttid"
+                            data-id="endTimeTravelTo"
+                            type="time"
+                            value={it.value.endTimeTravelToString}
+                            error-text="Feltet må fylles ut."
+                            name={it.value.id}
+                            ongetvalueonchange={handleEndTimeTravelToChange}
+                            desktop-style="padding-left: 1vw; padding-top: 1vw"
+                            style={dateTimeDesktopStyle}
+                        ></c-input>
+                    </div>
+                    <c-radiobuttons
+                        helptext-content="Velg ja om du har hatt reisetid for å komme deg fra oppdraget."
+                        radiobuttons={componentValues.travelFromRadioButtons}
+                        onradiobuttonsclick={handleOnTravelRadioButtonsFrom}
+                        header="Har du hatt reisetid for å reise fra oppdraget?"
+                        group-name={it.value.randomNumber}
+                        flex-direction="row"
+                        name={it.value.id}
+                        set-default-value={it.value.hasTravelFrom}
+                        is-edit={isEdit}
+                    ></c-radiobuttons>
+                    <p class="typo-normal" if:true={it.value.hasTravelFrom}>
+                        Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
+                        som oppdraget og gå etter oppdragets slutt.
+                    </p>
+                    <div class="addTravelMinutesButtonContainer" if:true={it.value.hasTravelFrom}>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 15 minutter reisetid"
+                                name={it.value.id}
+                                button-label="15 min"
+                                value="15"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 30 minutter reisetid"
+                                name={it.value.id}
+                                button-label="30 min"
+                                value="30"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 45 minutter reisetid"
+                                name={it.value.id}
+                                button-label="45 min"
+                                value="45"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 60 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1 t"
+                                value="60"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 1 time 15 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1t 15 min"
+                                value="75"
+                            >
+                            </c-button>
+                        </div>
+                        <div class="addMinutesButton">
+                            <c-button
+                                if:true={it.value.hasTravelFrom}
+                                type="button"
+                                button-styling="secondary"
+                                onbuttonclick={addTravelTimeFrom}
+                                aria-label="Hurtigknapp 1 timer og 30 minutter reisetid"
+                                name={it.value.id}
+                                button-label="1t 30 min"
+                                value="90"
+                            >
+                            </c-button>
+                        </div>
+                    </div>
+                    <div class="travelTimesFromInputContainer hidden">
+                        <c-input
+                            label="Dato"
+                            data-id="dateTravelFrom"
+                            type="date"
+                            ongetvalueonchange={handleDateTravelFromChange}
+                            name={it.value.id}
+                            value={it.value.dateTravelFrom}
+                            error-text="Feltet må fylles ut."
+                            style={dateTimeDesktopStyle}
+                            mobile-style="padding-bottom: 1vw"
+                            desktop-style="padding-top: 1vw"
+                        ></c-input>
+                        <c-input
+                            label="Reise starttid"
+                            data-id="startTimeTravelFrom"
+                            type="time"
+                            value={it.value.startTimeTravelFromString}
+                            error-text="Feltet må fylles ut."
+                            name={it.value.id}
+                            ongetvalueonchange={handleStartTimeTravelFromChange}
+                            desktop-style="padding-top: 1vw; padding-left: 1vw"
+                            mobile-style="padding-bottom: 1vw"
+                            style={dateTimeDesktopStyle}
+                        ></c-input>
+                        <c-input
+                            label="Reise sluttid"
+                            data-id="endTimeTravelFrom"
+                            type="time"
+                            value={it.value.endTimeTravelFromString}
+                            error-text="Feltet må fylles ut."
+                            name={it.value.id}
+                            ongetvalueonchange={handleEndTimeTravelFromChange}
+                            desktop-style="padding-left: 1vw; padding-top: 1vw"
+                            style={dateTimeDesktopStyle}
+                        ></c-input>
+                    </div>
+                </div>
+                <div style="padding-top: 1rem; padding-right: 1rem">
+                    <c-button
+                        if:false={disableAddMoreTimes}
+                        type="button"
+                        name={it.value.id}
+                        button-styling="secondary"
+                        onbuttonclick={cloneClaimLineItem}
+                        aria-label="Klon kravlinje"
+                        button-label="+ Klon kravlinje"
                     >
                     </c-button>
                 </div>
-                <div class="addMinutesButton">
-                     <c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 30 minutter reisetid"
-                        name={it.value.id}
-                        button-label="30 min"
-                        value="30"
-                    >
-                    </c-button></div>
-                     <div class="addMinutesButton"><c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 45 minutter reisetid"
-                        name={it.value.id}
-                        button-label="45 min"
-                        value="45"
-                    >
-                    </c-button></div>
-                    <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 60 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1 t"
-                        value="60"
-                    >
-                    </c-button></div>
-                     <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 1 time 15 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1t 15 min"
-                        value="75"
-                    >
-                    </c-button></div>
-                    <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelTo}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTime}
-                        aria-label="Hurtigknapp 1 timer og 30 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1t 30 min"
-                        value="90"
-                    >
-                    </c-button></div>
-                    
-        </div>
-        <div class="travelTimesToInputContainer hidden"
->
-                    <c-input
-                    label="Dato"
-                    data-id="dateTravelTo"
-                    type="date"
-                    ongetvalueonchange={handleDateTravelToChange}
-                    name={it.value.id}
-                    value={it.value.dateTravelTo}
-                    error-text="Feltet må fylles ut."
-                    style={dateTimeDesktopStyle}
-                    desktop-style="padding-top: 1vw"
-                    mobile-style="padding-bottom: 1vw"
-                ></c-input>
-                    <c-input
-                    label="Reise starttid"
-                    data-id="startTimeTravelTo"
-                    type="time"
-                    value={it.value.startTimeTravelToString}
-                    error-text="Feltet må fylles ut."
-                    name={it.value.id}
-                    ongetvalueonchange={handleStartTimeTravelToChange}
-                    desktop-style="padding-top: 1vw; padding-left: 1vw"
-                    mobile-style="padding-bottom: 1vw"
-                    style={dateTimeDesktopStyle}
-                ></c-input>
-                <c-input
-                    label="Reise sluttid"
-                    data-id="endTimeTravelTo"
-                    type="time"
-                    value={it.value.endTimeTravelToString}
-                    error-text="Feltet må fylles ut."
-                    name={it.value.id}
-                    ongetvalueonchange={handleEndTimeTravelToChange}
-                    desktop-style="padding-left: 1vw; padding-top: 1vw"
-                    style={dateTimeDesktopStyle}
-                ></c-input>
-                </div>
-        <c-radiobuttons
-            helptext-content="Velg ja om du har hatt reisetid for å komme deg fra oppdraget."
-            radiobuttons={componentValues.travelFromRadioButtons}
-            onradiobuttonsclick={handleOnTravelRadioButtonsFrom}
-            header="Har du hatt reisetid for å reise fra oppdraget?"
-            group-name={it.value.randomNumber}
-            flex-direction="row"
-            name={it.value.id}
-            set-default-value={it.value.hasTravelFrom}
-            is-edit={isEdit}
-        ></c-radiobuttons>
-         <p class="typo-normal" if:true={it.value.hasTravelFrom}>Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato som oppdraget og gå etter oppdragets slutt.</p>
-        <div class="addTravelMinutesButtonContainer">
-             <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 15 minutter reisetid"
-                        name={it.value.id}
-                        button-label="15 min"
-                        value="15"
-                    >
-                    </c-button>
-                </div>
-                <div class="addMinutesButton">
-                     <c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 30 minutter reisetid"
-                        name={it.value.id}
-                        button-label="30 min"
-                        value="30"
-                    >
-                    </c-button></div>
-                     <div class="addMinutesButton"><c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 45 minutter reisetid"
-                        name={it.value.id}
-                        button-label="45 min"
-                        value="45"
-                    >
-                    </c-button></div>
-                    <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 60 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1 t"
-                        value="60"
-                    >
-                    </c-button></div>
-                     <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 1 time 15 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1t 15 min"
-                        value="75"
-                    >
-                    </c-button></div>
-                    <div class="addMinutesButton">
-            <c-button
-                        if:true={it.value.hasTravelFrom}
-                        type="button"
-                        button-styling="secondary"
-                        onbuttonclick={addTravelTimeFrom}
-                        aria-label="Hurtigknapp 1 timer og 30 minutter reisetid"
-                        name={it.value.id}
-                        button-label="1t 30 min"
-                        value="90"
-                    >
-                    </c-button></div>
-                    
-        </div>
-         <div class="travelTimesFromInputContainer hidden">
-                <c-input
-                    label="Dato"
-                    data-id="dateTravelFrom"
-                    type="date"
-                    ongetvalueonchange={handleDateTravelFromChange}
-                    name={it.value.id}
-                    value={it.value.dateTravelFrom}
-                    error-text="Feltet må fylles ut."
-                    style={dateTimeDesktopStyle}
-                    mobile-style="padding-bottom: 1vw"
-                    desktop-style="padding-top: 1vw"
-                ></c-input>
-                <c-input
-                    label="Reise starttid"
-                    data-id="startTimeTravelFrom"
-                    type="time"
-                    value={it.value.startTimeTravelFromString}
-                    error-text="Feltet må fylles ut."
-                    name={it.value.id}
-                    ongetvalueonchange={handleStartTimeTravelFromChange}
-                    desktop-style="padding-top: 1vw; padding-left: 1vw"
-                    mobile-style="padding-bottom: 1vw"
-                    style={dateTimeDesktopStyle}
-                ></c-input>
-                <c-input
-                    label="Reise sluttid"
-                    data-id="endTimeTravelFrom"
-                    type="time"
-                    value={it.value.endTimeTravelFromString}
-                    error-text="Feltet må fylles ut."
-                    name={it.value.id}
-                    ongetvalueonchange={handleEndTimeTravelFromChange}
-                    desktop-style="padding-left: 1vw; padding-top: 1vw"
-                    style={dateTimeDesktopStyle}
-                ></c-input>
-                
-                </div>
-                </div>
-               
-                </br>
+
+                <br />
                 <br if:false={isOnlyOneTime} />
-                <div style="padding-top: 6.7%">
+                <div style="padding-top: 1rem">
                     <c-button
                         if:false={isOnlyOneTime}
                         type="button"
