@@ -150,9 +150,9 @@
                     </c-button></div>
                     
         </div>
-        <div class="travelTimesToInputContainer">
+        <div class="travelTimesToInputContainer hidden"
+>
                     <c-input
-                    if:true={it.value.hasTravelTo}
                     label="Dato"
                     data-id="dateTravelTo"
                     type="date"
@@ -165,7 +165,6 @@
                     mobile-style="padding-bottom: 1vw"
                 ></c-input>
                     <c-input
-                    if:true={it.value.hasTravelTo}
                     label="Reise starttid"
                     data-id="startTimeTravelTo"
                     type="time"
@@ -178,7 +177,6 @@
                     style={dateTimeDesktopStyle}
                 ></c-input>
                 <c-input
-                if:true={it.value.hasTravelTo}
                     label="Reise sluttid"
                     data-id="endTimeTravelTo"
                     type="time"
@@ -277,9 +275,8 @@
                     </c-button></div>
                     
         </div>
-         <div class="travelTimesFromInputContainer">
+         <div class="travelTimesFromInputContainer hidden">
                 <c-input
-                if:true={it.value.hasTravelFrom}
                     label="Dato"
                     data-id="dateTravelFrom"
                     type="date"
@@ -292,7 +289,6 @@
                     desktop-style="padding-top: 1vw"
                 ></c-input>
                 <c-input
-                if:true={it.value.hasTravelFrom}
                     label="Reise starttid"
                     data-id="startTimeTravelFrom"
                     type="time"
@@ -305,7 +301,6 @@
                     style={dateTimeDesktopStyle}
                 ></c-input>
                 <c-input
-                if:true={it.value.hasTravelFrom}
                     label="Reise sluttid"
                     data-id="endTimeTravelFrom"
                     type="time"
