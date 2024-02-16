@@ -144,6 +144,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             startTime: timeObject === null ? null : timeObject.startTime,
             endTime: timeObject === null ? null : timeObject.endTime,
             task: timeObject === null ? null : timeObject.task,
+            isClone: timeObject === null ? false : timeObject.isClone,
             hasTravelTo: timeObject === null ? null : timeObject.hasTravelTo,
             hasTravelFrom: timeObject === null ? null : timeObject.hasTravelFrom,
             startTimeTravelTo: timeObject === null ? null : timeObject.startTimeTravelTo,
@@ -156,6 +157,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             dateTravelFrom: timeObject === null ? null : timeObject.dateTravelFrom,
             startTimeTravelFrom: timeObject === null ? null : timeObject.startTimeTravelFrom,
             startTimeTravelFromString: timeObject === null ? null : timeObject.startTimeTravelFromString,
+            endTimeTravelFromString: timeObject === null ? null : timeObject.endTimeTravelFromString,
             endTimeTravelFrom: timeObject === null ? null : timeObject.endTimeTravelFrom,
             randomNumber: timeObject === null ? null : timeObject.randomNumber,
             hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
@@ -380,7 +382,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.template.querySelectorAll('[data-id="endTime"]').forEach((element, index) => {
             errorMessage = requireInput(element.getValue(), 'Sluttid');
             if (errorMessage === '') {
-                errorMessage = startBeforeEnd(this.times[0].endTime, this.times[0].startTime);
+                errorMessage = startBeforeEnd(this.times[index].endTime, this.times[index].startTime);
             }
             element.sendErrorMessage(errorMessage);
             hasErrors += errorMessage !== '';
@@ -390,68 +392,89 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     validateTravelToDate() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="dateTravelTo"]').forEach((element, index) => {
-            let errorMessage = requireInput(element.value, 'Dato');
-            if (errorMessage === '') {
-                errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
+            if (this.times[index].hasTravelTo) {
+                let errorMessage = requireInput(element.value, 'Dato');
+                if (errorMessage === '') {
+                    errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
+                }
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
             }
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
         });
         return hasErrors;
     }
+
     validateTravelToStartTime() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="startTimeTravelTo"]').forEach((element) => {
-            let errorMessage = requireInput(element.getValue(), 'Starttid');
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
+        this.template.querySelectorAll('[data-id="startTimeTravelTo"]').forEach((element, index) => {
+            if (this.times[index].hasTravelTo) {
+                let errorMessage = requireInput(element.getValue(), 'Starttid');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
         });
         return hasErrors;
     }
+
     validateTravelToEndTime() {
-        let errorMessage = '';
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="endTimeTravelTo"]').forEach((element, index) => {
-            errorMessage = requireInput(element.getValue(), 'Sluttid');
-            if (errorMessage === '') {
-                errorMessage = startBeforeEnd(this.times[0].endTimeTravelTo, this.times[0].startTimeTravelTo);
+            if (this.times[index].hasTravelTo) {
+                let errorMessage = requireInput(element.getValue(), 'Sluttid');
+                if (errorMessage === '') {
+                    errorMessage = startBeforeEnd(
+                        this.times[index].endTimeTravelTo,
+                        this.times[index].startTimeTravelTo
+                    );
+                }
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
             }
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
         });
         return hasErrors;
     }
+
     validateTravelFromDate() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="dateTravelFrom"]').forEach((element, index) => {
-            let errorMessage = requireInput(element.value, 'Dato');
-            if (errorMessage === '') {
-                errorMessage = dateInPast(this.times[index].dateTravelFromMilliseconds);
+            if (this.times[index].hasTravelFrom) {
+                let errorMessage = requireInput(element.value, 'Dato');
+                if (errorMessage === '') {
+                    errorMessage = dateInPast(this.times[index].dateTravelFromMilliseconds);
+                }
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
             }
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
         });
         return hasErrors;
     }
+
     validateTravelFromStartTime() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="startTimeTravelFrom"]').forEach((element) => {
-            let errorMessage = requireInput(element.getValue(), 'Starttid');
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
+        this.template.querySelectorAll('[data-id="startTimeTravelFrom"]').forEach((element, index) => {
+            if (this.times[index].hasTravelFrom) {
+                let errorMessage = requireInput(element.getValue(), 'Starttid');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
         });
         return hasErrors;
     }
+
     validateTravelFromEndTime() {
-        let errorMessage = '';
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="endTimeTravelFrom"]').forEach((element, index) => {
-            errorMessage = requireInput(element.getValue(), 'Sluttid');
-            if (errorMessage === '') {
-                errorMessage = startBeforeEnd(this.times[0].endTimeTravelFrom, this.times[0].startTimeTravelFrom);
+            if (this.times[index].hasTravelFrom) {
+                let errorMessage = requireInput(element.getValue(), 'Sluttid');
+                if (errorMessage === '') {
+                    errorMessage = startBeforeEnd(
+                        this.times[index].endTimeTravelFrom,
+                        this.times[index].startTimeTravelFrom
+                    );
+                }
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
             }
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
         });
         return hasErrors;
     }
@@ -483,8 +506,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[index].hasTravelTo = true;
                     this.times[index].dateTravelTo = this.times[index].date;
                     this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
+                    let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+                    travelTimesToInputContainers[index].classList.remove('hidden');
                 } else {
                     this.times[index].hasTravelTo = false;
+                    let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+                    travelTimesToInputContainers[index].classList.add('hidden');
                 }
             }
         });
@@ -498,8 +525,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[index].hasTravelFrom = true;
                     this.times[index].dateTravelFrom = this.times[index].date;
                     this.times[index].dateTravelFromMilliseconds = new Date(this.times[index].date).getTime();
+                    let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesFromInputContainer');
+                    travelTimesToInputContainers[index].classList.remove('hidden');
                 } else {
                     this.times[index].hasTravelFrom = false;
+                    let travelTimesFromInputContainers = this.template.querySelectorAll(
+                        '.travelTimesFromInputContainer'
+                    );
+                    travelTimesFromInputContainers[index].classList.add('hidden');
                 }
             }
         });
@@ -646,7 +679,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
 
         //start
-
         let dateTimeStart = new Date(this.times[index].startTime);
         dateTimeStart.setMinutes(dateTimeStart.getMinutes() - event.detail);
 
