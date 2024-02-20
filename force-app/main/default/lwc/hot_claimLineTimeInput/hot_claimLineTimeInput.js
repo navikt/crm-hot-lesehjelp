@@ -16,7 +16,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             console.log('ider: ' + this.times[i].id);
         }
         let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
-        console.log('Length of travelTimesToInputContainers:', travelTimesToInputContainers.length);
 
         let travelTimesFromInputContainers = this.template.querySelectorAll('.travelTimesFromInputContainer');
         let addTravelMinutesToButtonContainer = this.template.querySelectorAll('.addTravelMinutesToButtonContainer');
@@ -43,20 +42,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             }
         } else {
             for (let t of this.times) {
-                console.log('id :' + t.id);
-                console.log('lengde :' + this.times.length);
                 if (t.hasTravelTo == true && t.id < travelTimesToInputContainers.length) {
-                    console.log('aaa');
                     travelTimesToInputContainers[t.id].classList.remove('hidden');
-                    console.log('bbb');
                     addTravelMinutesToButtonContainer[t.id].classList.remove('hidden');
-                    console.log('ccc');
                 } else if (t.id && t.id < travelTimesToInputContainers.length) {
-                    console.log('ddd');
                     travelTimesToInputContainers[t.id].classList.add('hidden');
-                    console.log('eee');
                     addTravelMinutesToButtonContainer[t.id].classList.remove('hidden');
-                    console.log('fff');
                 }
                 if (t.hasTravelFrom == true) {
                     travelTimesFromInputContainers[t.id].classList.remove('hidden');
@@ -65,7 +56,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     travelTimesFromInputContainers[t.id].classList.add('hidden');
                     addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
                 }
-                console.log('--------');
             }
         }
     }
@@ -163,7 +153,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         }
 
                         this.times.push(timeObject);
-                        console.log('redigerid : ' + timeObject.id);
                         const index = this.getTimesIndex(timeObject.id);
                         this.times[index].task = timeObject.task;
                         if (timeObject.task == 'Annet (spesifiser i tilleggsinformasjon)') {
@@ -571,10 +560,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[index].hasTravelTo = true;
                     this.times[index].dateTravelTo = this.times[index].date;
                     this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
-                    console.log('her');
                     let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
                     travelTimesToInputContainers[index].classList.remove('hidden');
-                    console.log('der');
                 } else {
                     this.times[index].hasTravelTo = false;
                     let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
