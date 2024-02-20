@@ -478,6 +478,8 @@ public without sharing class HOT_ClaimController {
             }
             claim.Status__c = 'Sent';
             claim.Entitlement__c = null;
+            claim.CommentFromNAV__c = null;
+            claim.CommentFromUser__c = null;
         }
         try {
             update claims;
