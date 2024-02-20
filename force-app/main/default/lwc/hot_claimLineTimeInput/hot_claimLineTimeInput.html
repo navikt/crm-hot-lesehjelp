@@ -64,7 +64,7 @@
                     helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
                 ></c-input>
                 <div class="travelTimesRadioButtonContainer">
-                    <c-radiobuttons2
+                    <c-radiobuttons
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
                         radiobuttons={componentValues.travelToRadioButtons}
                         onradiobuttonsclick={handleOnTravelToRadioButtonsTo}
@@ -73,7 +73,7 @@
                         flex-direction="row"
                         name={it.value.id}
                         set-default-value={it.value.hasTravelTo}
-                    ></c-radiobuttons2>
+                    ></c-radiobuttons>
                     <p class="typo-normal" if:true={it.value.hasTravelTo}>
                         Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
                         som oppdraget og gå bakover fra oppdragets start.
@@ -195,7 +195,7 @@
                             style={dateTimeDesktopStyle}
                         ></c-input>
                     </div>
-                    <c-radiobuttons2
+                    <c-radiobuttons
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg fra oppdraget."
                         radiobuttons={componentValues.travelFromRadioButtons}
                         onradiobuttonsclick={handleOnTravelRadioButtonsFrom}
@@ -204,7 +204,7 @@
                         flex-direction="row"
                         name={it.value.id}
                         set-default-value={it.value.hasTravelFrom}
-                    ></c-radiobuttons2>
+                    ></c-radiobuttons>
                     <p class="typo-normal" if:true={it.value.hasTravelFrom}>
                         Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
                         som oppdraget og gå etter oppdragets slutt.
