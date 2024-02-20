@@ -55,7 +55,7 @@
     border-radius: 0.2rem;
     /* border: 1px solid black; */
     margin-top: 0.5rem;
-    background-color: #cce2f0;
+    background-color: #e6f0ff;
     padding: 1rem;
 }
 
@@ -112,7 +112,7 @@ p {
     }
 }
 .confirmationCheckbox {
-    background-color: #cce1ff;
+    background-color: #e6f0ff;
     margin: auto;
     margin-top: 1rem;
     width: 100%;
