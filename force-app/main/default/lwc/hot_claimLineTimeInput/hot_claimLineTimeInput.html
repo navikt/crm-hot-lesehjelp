@@ -64,7 +64,7 @@
                     helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
                 ></c-input>
                 <div class="travelTimesRadioButtonContainer">
-                    <c-radiobuttons
+                    <c-radiobuttons2
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
                         radiobuttons={componentValues.travelToRadioButtons}
                         onradiobuttonsclick={handleOnTravelToRadioButtonsTo}
@@ -73,13 +73,12 @@
                         flex-direction="row"
                         name={it.value.id}
                         set-default-value={it.value.hasTravelTo}
-                        is-edit={isEdit}
-                    ></c-radiobuttons>
+                    ></c-radiobuttons2>
                     <p class="typo-normal" if:true={it.value.hasTravelTo}>
                         Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
                         som oppdraget og gå bakover fra oppdragets start.
                     </p>
-                    <div class="addTravelMinutesButtonContainer" if:true={it.value.hasTravelTo}>
+                    <div class="addTravelMinutesToButtonContainer hidden">
                         <div class="addMinutesButton">
                             <c-button
                                 if:true={it.value.hasTravelTo}
@@ -196,7 +195,7 @@
                             style={dateTimeDesktopStyle}
                         ></c-input>
                     </div>
-                    <c-radiobuttons
+                    <c-radiobuttons2
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg fra oppdraget."
                         radiobuttons={componentValues.travelFromRadioButtons}
                         onradiobuttonsclick={handleOnTravelRadioButtonsFrom}
@@ -205,13 +204,12 @@
                         flex-direction="row"
                         name={it.value.id}
                         set-default-value={it.value.hasTravelFrom}
-                        is-edit={isEdit}
-                    ></c-radiobuttons>
+                    ></c-radiobuttons2>
                     <p class="typo-normal" if:true={it.value.hasTravelFrom}>
                         Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
                         som oppdraget og gå etter oppdragets slutt.
                     </p>
-                    <div class="addTravelMinutesButtonContainer" if:true={it.value.hasTravelFrom}>
+                    <div class="addTravelMinutesFromButtonContainer hidden">
                         <div class="addMinutesButton">
                             <c-button
                                 if:true={it.value.hasTravelFrom}
