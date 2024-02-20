@@ -5,25 +5,25 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content submitted-false">
-                <h2 class="typo-overskrift">Mine innsendte krav</h2>
+                <h2 tabindex="0" class="typo-overskrift">Mine innsendte krav</h2>
                 <div if:true={showClaimlist}>
                     <div if:true={noClaims} style="text-align: center">
                         <br />
-                        <p class="typo-normal">Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
+                        <p tabindex="0" class="typo-normal">Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
                     </div>
                     <div if:false={noClaims}>
-                        <p class="typo-normal">
+                        <p tabindex="0" class="typo-normal">
                             Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
                         </p>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
-                                    <p><strong>{claim.Name} - {claim.madeBy}</strong></p>
-                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                    <p tabindex="0" ><strong>{claim.Name} - {claim.madeBy}</strong></p>
+                                    <p tabindex="0" class="typo-normal cursive">Sendt inn {claim.created}</p>
                                 </div>
 
-                                <p>Lesehjelp for {claim.UserName__c}</p>
-                                <p>Status: {claim.Status__c}</p>
+                                <p tabindex="0">Lesehjelp for {claim.UserName__c}</p>
+                                <p tabindex="0">Status: {claim.Status__c}</p>
                                 <br />
                             </button>
                         </template>
@@ -58,33 +58,33 @@
                         </div>
                         <div if:true={noClaimLineItems} style="text-align: center">
                             <br />
-                            <p class="typo-normal">Dette kravet hadde ingen linjer.</p>
+                            <p tabindex="0" class="typo-normal">Dette kravet hadde ingen linjer.</p>
                         </div>
                         <div if:false={noClaimLineItems}>
-                            <p>{record.madeBy}</p>
-                            <p><strong>Type lesehjelp: </strong>{record.Type__c}</p>
-                            <p if:true={record.OnEmployer__c}><strong>Organisasjon: </strong>{record.Organization__r.Name}</p>
-                             <p if:true={record.OnEmployer__c}><strong>Org nr: </strong>{record.OrganizationNumber__c}</p>
-                            <p if:true={record.OnEmployer__c}><strong>Utgifter per time: </strong>{record.EmployerExpensesPerHour__c}</p>
-                            <p><strong>Innsendt dato:</strong> {record.created}</p>
-                            <p><strong>Lesehjelp for:</strong> {record.UserName__c}</p>
-                            <p><strong>Status:</strong> {record.Status__c}</p>
-                            <p if:true={record.CommentFromNAV__c}><strong>Kommentar fra saksebehandler:</strong></p>
-                            <p if:true={record.CommentFromNAV__c}>{record.CommentFromNAV__c}</p>
-                             <p if:true={record.CommentFromUser__c}><strong>Kommentar fra bruker:</strong></p>
-                            <p if:true={record.CommentFromUser__c}>{record.CommentFromUser__c}</p>
+                            <p tabindex="0">{record.madeBy}</p>
+                            <p tabindex="0"><strong>Type lesehjelp: </strong>{record.Type__c}</p>
+                            <p tabindex="0" if:true={record.OnEmployer__c}><strong>Organisasjon: </strong>{record.Organization__r.Name}</p>
+                            <p tabindex="0" if:true={record.OnEmployer__c}><strong>Org nr: </strong>{record.OrganizationNumber__c}</p>
+                            <p tabindex="0" if:true={record.OnEmployer__c}><strong>Utgifter per time: </strong>{record.EmployerExpensesPerHour__c}</p>
+                            <p tabindex="0"><strong>Innsendt dato:</strong> {record.created}</p>
+                            <p tabindex="0"><strong>Lesehjelp for:</strong> {record.UserName__c}</p>
+                            <p tabindex="0"><strong>Status:</strong> {record.Status__c}</p>
+                            <p tabindex="0" if:true={record.CommentFromNAV__c}><strong>Kommentar fra saksebehandler:</strong></p>
+                            <p tabindex="0" if:true={record.CommentFromNAV__c}>{record.CommentFromNAV__c}</p>
+                            <p tabindex="0" if:true={record.CommentFromUser__c}><strong>Kommentar fra bruker:</strong></p>
+                            <p tabindex="0" if:true={record.CommentFromUser__c}>{record.CommentFromUser__c}</p>
                             </br>
 
                             <template for:each={claimLineItems} for:item="cli">
-                                <div class="cli-container" key={cli.Id}>
-                                    <p><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
-                                    <p><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
-                                    <p if:true={cli.AdditionalInformation__c}><Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}</p>
-                                    <p><Strong>Periode: </Strong>{cli.period}</p>
-                                    <p><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
-                                    <p if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
-                                    <p><Strong>Hatt reise fra: </Strong>{cli.hasTravelFrom}</p>
-                                    <p if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
+                                <div aria-label="Ny kravlinje" class="cli-container" key={cli.Id}>
+                                    <p tabindex="0"><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
+                                    <p tabindex="0"><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
+                                    <p tabindex="0" if:true={cli.AdditionalInformation__c}><Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}</p>
+                                    <p tabindex="0"><Strong>Periode: </Strong>{cli.period}</p>
+                                    <p tabindex="0"><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
+                                    <p tabindex="0" if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
+                                    <p tabindex="0"><Strong>Hatt reise fra: </Strong>{cli.hasTravelFrom}</p>
+                                    <p tabindex="0" if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
                                 </div>
                             </template>
                             <div class="buttons">
