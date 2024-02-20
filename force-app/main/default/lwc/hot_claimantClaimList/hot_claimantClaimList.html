@@ -54,7 +54,7 @@
                     </c-alertdialog>
                     <section>
                         <div>
-                            <h2 class="typo-undertittel">Innholdet i {recordName}</h2>
+                            <h2 id="comment-header-id" class="typo-undertittel">Innholdet i {recordName}</h2>
                         </div>
                         <div if:true={noClaimLineItems} style="text-align: center">
                             <br />
@@ -110,7 +110,7 @@
                         </div>
                     </section>
                     <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
-                        <span class="text-hide">Lukk</span>
+                        <span class="text-hide" aria-label="Lukk">Lukk</span>
                     </button>
                 </div>
             </div>
@@ -131,6 +131,7 @@
                         tabindex="-1"
                         role="alert"
                         aria-live="polite"
+                        aria-label={submitSuccessMessage}
                     >
                         {submitSuccessMessage}
                     </h2>
@@ -152,6 +153,7 @@
                         tabindex="-1"
                         role="alert"
                         aria-live="polite"
+                        aria-label={actionText}
                     >
                         {actionText}
                     </h2>
