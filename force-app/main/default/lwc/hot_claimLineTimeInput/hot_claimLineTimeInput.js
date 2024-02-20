@@ -12,34 +12,49 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @api claim;
     @api isEdit;
     renderedCallback() {
-        console.log('render');
+        for (let i = 0; i < this.times.length; i++) {
+            console.log('ider: ' + this.times[i].id);
+        }
         let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+
         let travelTimesFromInputContainers = this.template.querySelectorAll('.travelTimesFromInputContainer');
+        let addTravelMinutesToButtonContainer = this.template.querySelectorAll('.addTravelMinutesToButtonContainer');
+        let addTravelMinutesFromButtonContainer = this.template.querySelectorAll(
+            '.addTravelMinutesFromButtonContainer'
+        );
 
         if (this.isEdit == true) {
             for (let t of this.times) {
                 if (t.hasTravelTo == true && t.editId < travelTimesToInputContainers.length) {
                     travelTimesToInputContainers[t.editId].classList.remove('hidden');
+                    addTravelMinutesToButtonContainer[t.editId].classList.remove('hidden');
                 } else if (t.editId < travelTimesToInputContainers.length) {
                     travelTimesToInputContainers[t.editId].classList.add('hidden');
+                    addTravelMinutesToButtonContainer[t.editId].classList.remove('hidden');
                 }
                 if (t.hasTravelFrom == true && t.editId < travelTimesFromInputContainers.length) {
                     travelTimesFromInputContainers[t.editId].classList.remove('hidden');
+                    addTravelMinutesFromButtonContainer[t.editId].classList.remove('hidden');
                 } else if (t.editId < travelTimesFromInputContainers.length) {
                     travelTimesFromInputContainers[t.editId].classList.add('hidden');
+                    addTravelMinutesFromButtonContainer[t.editId].classList.remove('hidden');
                 }
             }
         } else {
             for (let t of this.times) {
                 if (t.hasTravelTo == true && t.id < travelTimesToInputContainers.length) {
                     travelTimesToInputContainers[t.id].classList.remove('hidden');
-                } else if (t.id < travelTimesToInputContainers.length) {
+                    addTravelMinutesToButtonContainer[t.id].classList.remove('hidden');
+                } else if (t.id && t.id < travelTimesToInputContainers.length) {
                     travelTimesToInputContainers[t.id].classList.add('hidden');
+                    addTravelMinutesToButtonContainer[t.id].classList.remove('hidden');
                 }
-                if (t.hasTravelFrom == true && t.id < travelTimesFromInputContainers.length) {
+                if (t.hasTravelFrom == true) {
                     travelTimesFromInputContainers[t.id].classList.remove('hidden');
-                } else if (t.id < travelTimesFromInputContainers.length) {
+                    addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
+                } else if (t.id) {
                     travelTimesFromInputContainers[t.id].classList.add('hidden');
+                    addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
                 }
             }
         }
@@ -138,7 +153,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         }
 
                         this.times.push(timeObject);
-
                         const index = this.getTimesIndex(timeObject.id);
                         this.times[index].task = timeObject.task;
                         if (timeObject.task == 'Annet (spesifiser i tilleggsinformasjon)') {
@@ -306,10 +320,16 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
 
     removeTime(event) {
+        this.uniqueIdCounter -= 1;
         if (this.times.length > 1) {
             const index = this.getTimesIndex(event.target.name);
             if (index !== -1) {
                 this.times.splice(index, 1);
+                if (this.isEdit != true) {
+                    for (let i = index; i < this.times.length; i++) {
+                        this.times[i].id = i; // Update ID
+                    }
+                }
             }
         }
         this.updateIsOnlyOneTime();
@@ -608,7 +628,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].startTimeTravelToString = timeString;
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
         startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
-
         if (this.times[index].startTimeTravelToString === null) {
             // this.times[index].startTimeTravelToString = timeString;
             // let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
@@ -757,5 +776,52 @@ export default class Hot_claimLineTimeInput extends LightningElement {
 
         let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelFrom"]');
         endTimeElements[index].setValue(this.times[index].endTimeTravelFromString);
+    }
+    cloneClaimLineItem(event) {
+        let hasErrors = 0;
+        hasErrors += this.validateSimpleTimes();
+        if (hasErrors == 0) {
+            this.uniqueIdCounter += 1;
+            this.randomNumber += 300;
+            const index = this.getTimesIndex(event.target.name);
+            for (let time of this.times) {
+                if (time.id == index) {
+                    const testTimeObject = {
+                        id: this.uniqueIdCounter,
+                        date: time.date,
+                        startTimeString: time.startTimeString,
+                        endTimeString: time.endTimeString,
+                        randomNumber: this.randomNumber,
+                        dateMilliseconds: time.dateMilliseconds,
+                        startTime: time.startTime,
+                        endTime: time.endTime,
+                        task: time.task,
+                        isClone: true,
+                        hasTravelTo: time.hasTravelTo,
+                        hasTravelFrom: time.hasTravelFrom,
+                        startTimeTravelTo: time.startTimeTravelTo,
+                        startTimeTravelToString: time.startTimeTravelToString,
+                        dateTravelTo: time.dateTravelTo,
+                        dateTravelToMilliseconds: time.dateTravelToMilliseconds,
+                        endTimeTravelTo: time.endTimeTravelTo,
+                        endTimeTravelToString: time.endTimeTravelToString,
+                        dateTravelFromMilliseconds: time.dateTravelFromMilliseconds,
+                        dateTravelFrom: time.dateTravelFrom,
+                        startTimeTravelFrom: time.startTimeTravelFrom,
+                        startTimeTravelFromString: time.startTimeTravelFromString,
+                        endTimeTravelFromString: time.endTimeTravelFromString,
+                        endTimeTravelFrom: time.endTimeTravelFrom,
+                        hasAdditionalInformation: time.hasAdditionalInformation,
+                        additionalInformation: time.additionalInformation,
+                        isNew: 0
+                    };
+                    let clonedTime = this.setTimesValue(testTimeObject);
+                    this.times.push(clonedTime);
+                    this.updateIsOnlyOneTime();
+
+                    break;
+                }
+            }
+        }
     }
 }

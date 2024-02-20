@@ -5,34 +5,36 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content submitted-false">
-                <h2 class="typo-overskrift">Min side</h2>
+                <h2 tabindex="0" class="typo-overskrift">Min side</h2>
                 <div style="text-align: center; font-size: large">
                     <br />
                     <p><strong></strong></p>
                 </div>
                 <div class="personDetails">
-                    <div class="personDetailBox">
+                    <div tabindex="0" class="personDetailBox">
                         <p><Strong>Telefonnummer</Strong></p>
                         <p>{mobilenumber}</p>
                     </div>
-                    <div class="personDetailBox">
+                    <div tabindex="0" class="personDetailBox">
                         <p><Strong>Adresse</Strong></p>
                         <p>{address}</p>
                     </div>
-                    <div class="personDetailBox">
+                    <div tabindex="0" class="personDetailBox">
                         <p><Strong>Kontonummer</Strong></p>
                         <p>{banknumber}</p>
                     </div>
-                    <div class="personDetailBox">
+                    <div tabindex="0" class="personDetailBox">
                         <p><Strong>Epost</Strong></p>
                         <p>{email}</p>
                     </div>
                 </div>
-                <p>KILDE: Kontakt- og reservasjonsregisteret og opplysninger hentet fra Mine sider på NAV.no</p>
+                <p tabindex="0">
+                    KILDE: Kontakt- og reservasjonsregisteret og opplysninger hentet fra Mine sider på NAV.no
+                </p>
                 <a href="https://www.nav.no/person/personopplysninger/nb/" target="_blank">
                     <p>
-                        <img style="width: 1rem" src={LinkImg} alt="" />Endre alle dine opplysninger på NAV.no Mine
-                        Sider
+                        <img style="width: 1rem" src={LinkImg} alt="" />Endre alle dine opplysninger på NAV.no mine
+                        sider
                     </p>
                 </a>
             </main>

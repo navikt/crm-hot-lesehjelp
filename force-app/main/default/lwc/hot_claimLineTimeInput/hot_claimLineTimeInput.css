@@ -44,7 +44,13 @@
 .header:focus {
     outline: none;
 }
-.addTravelMinutesButtonContainer {
+.addTravelMinutesFromButtonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.addTravelMinutesToButtonContainer {
     display: flex;
     flex-wrap: wrap;
     padding-top: 1rem;
