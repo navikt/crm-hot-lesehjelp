@@ -5,16 +5,16 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content">
-                <h2 class="typo-overskrift">Mine vedtak</h2>
+                <h2 tabindex="0" class="typo-overskrift">Mine vedtak</h2>
                 <div if:true={showEntitlementlist}>
                     <div if:true={noEntitlements} style="text-align: center">
                         <br />
-                        <p class="typo-normal">Du har ingen vedtak.</p>
+                        <p tabindex="0" class="typo-normal">Du har ingen vedtak.</p>
                     </div>
                     <div if:false={noEntitlements}>
-                        <p class="typo-normal">Her finner du alle vedtakene du har og har hatt.</p>
+                        <p tabindex="0" class="typo-normal">Her finner du alle vedtakene du har og har hatt.</p>
                         <template for:each={entitlements} for:item="entitlement">
-                            <div key={entitlement.Id} class="entitlement-single" data-id={entitlement.Id}>
+                            <div tabindex="0" key={entitlement.Id} class="entitlement-single" data-id={entitlement.Id}>
                                 <div class="container">
                                     <p><strong>{entitlement.Type__c}</strong></p>
                                     <p>Periode: {entitlement.period}</p>
