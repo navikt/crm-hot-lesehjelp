@@ -7,6 +7,12 @@
                 hover-text="Hjelpeknapp for informasjon om bruker."
             ></c-helptext>
         </div>
+        <div if:false={isEdit}>
+            <br />
+            <div class="previousUsersBtn" onclick={previousUsersBtn}>
+                <p class="typo-normal">Vis liste for å velge en person du tidligere har vært lesehjelp for</p>
+            </div>
+        </div>
         <br />
         <c-input
             label="Brukerens navn"
@@ -52,5 +58,31 @@
             disabled={isEdit}
         ></c-input>
         <br />
+        <div
+            class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay details hidden"
+            style="z-index: 9999; background-color: rgba(50, 65, 79, 0.8)"
+            tabindex="-1"
+            aria-label="Tidligere personer du har vært lesehjelp for"
+        >
+            <div
+                class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container"
+                role="dialog"
+                aria-labelledby="comment-header-id"
+            >
+                <section>
+                    <div>
+                        <h2 id="comment-header-id" class="typo-undertittel">Tidligere</h2>
+                    </div>
+                    <!-- <template for:each={claimLineItems} for:item="cli">
+                                <div aria-label="Ny kravlinje" class="cli-container" key={cli.Id}>
+                                    
+                                </div>
+                            </template> -->
+                </section>
+                <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
+                    <span class="text-hide" aria-label="Lukk">Lukk</span>
+                </button>
+            </div>
+        </div>
     </section>
 </template>

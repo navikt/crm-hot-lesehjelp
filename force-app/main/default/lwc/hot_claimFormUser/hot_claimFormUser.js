@@ -20,6 +20,13 @@ export default class Hot_claimFormUser extends LightningElement {
     @api parentFieldValues;
     @api claim;
     @api isEdit;
+    previousUsersBtn() {
+        this.template.querySelector('.details').classList.remove('hidden');
+        this.template.querySelector('.details').focus();
+    }
+    closeModal() {
+        this.template.querySelector('.details').classList.add('hidden');
+    }
 
     handlePhoneNumberogPersonNumberRadioButtons(event) {
         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons = event.detail;
