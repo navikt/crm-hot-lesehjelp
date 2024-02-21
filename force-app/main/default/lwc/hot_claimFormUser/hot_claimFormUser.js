@@ -71,8 +71,6 @@ export default class Hot_claimFormUser extends LightningElement {
             const claimId = claimElement.getAttribute('data-id');
             this.mappedPreviousUsers.forEach((element) => {
                 if (element.Id == claimId) {
-                    console.log('fant');
-                    console.log('er personnumer? ' + element.isPersonNumberIdentification);
                     if (element.isPersonNumberIdentification == true) {
                         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = true;
                         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = false;
