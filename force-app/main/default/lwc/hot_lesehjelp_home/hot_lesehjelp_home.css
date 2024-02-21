@@ -43,7 +43,7 @@
     margin: auto;
     padding-top: 2rem;
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .container {
         display: flex;
         flex-wrap: wrap;

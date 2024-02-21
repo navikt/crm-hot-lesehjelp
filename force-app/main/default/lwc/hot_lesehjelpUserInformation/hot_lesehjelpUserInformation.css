@@ -18,9 +18,9 @@
     padding: 1rem;
     text-align: center;
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .content {
-        max-width: 100%;
+        max-width: 95vw;
     }
     .personDetailBox {
         width: 100%;

@@ -1,6 +1,9 @@
 import { LightningElement, track, wire, api } from 'lwc';
+import getMyPreviousClaims from '@salesforce/apex/HOT_ClaimController.getMyPreviousClaims';
+
 export default class Hot_claimFormUser extends LightningElement {
     @track isPersonNumber = true;
+    @track noPreviousUsers = false;
     @track isEdit = false;
     @track fieldValues = {
         UserName__c: '',
@@ -20,6 +23,83 @@ export default class Hot_claimFormUser extends LightningElement {
     @api parentFieldValues;
     @api claim;
     @api isEdit;
+
+    @track unmappedPreviousUsers;
+    @track mappedPreviousUsers;
+
+    wiredAllPreviousClaimsResult;
+    noPreviousUsers = false;
+
+    @wire(getMyPreviousClaims)
+    wiredClaims(result) {
+        if (result.data) {
+            this.wiredAllPreviousClaimsResult = result.data;
+            this.noPreviousUsers = this.wiredAllPreviousClaimsResult.length === 0;
+            this.mappedPreviousUsers = this.wiredAllPreviousClaimsResult.map((x) => ({
+                ...x,
+                identification: this.personNumberOrPhoneNumber(x.UserPersonNumber__c, x.UserPhoneNumber__c),
+                isPersonNumberIdentification: this.isPersonNumberIdentification(
+                    x.UserPersonNumber__c,
+                    x.UserPhoneNumber__c
+                )
+            }));
+        }
+    }
+    isPersonNumberIdentification(personNumber, phoneNumber) {
+        let result;
+        if (personNumber) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+    personNumberOrPhoneNumber(personNumber, phoneNumber) {
+        let result;
+        if (personNumber) {
+            result = 'Personnummer: ' + personNumber;
+        } else {
+            result = 'Telefonnummer: ' + phoneNumber;
+        }
+        return result;
+    }
+    insertPreviousUser(event) {
+        const clickedButton = event.target;
+        const claimElement = clickedButton.closest('[data-id]');
+
+        if (claimElement) {
+            const claimId = claimElement.getAttribute('data-id');
+            this.mappedPreviousUsers.forEach((element) => {
+                if (element.Id == claimId) {
+                    if (element.isPersonNumberIdentification == true) {
+                        this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = true;
+                        this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = false;
+                        this.fieldValues.UserPersonNumber__c = element.UserPersonNumber__c;
+                        this.fieldValues.UserPhoneNumber__c = '';
+                        this.fieldValues.UserName__c = element.UserName__c;
+                        this.isPersonNumber = true;
+                        this.template.querySelector('.details').classList.add('hidden');
+                    } else {
+                        this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = false;
+                        this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = true;
+                        this.fieldValues.UserPersonNumber__c = '';
+                        this.fieldValues.UserPhoneNumber__c = element.UserPhoneNumber__c;
+                        this.fieldValues.UserName__c = element.UserName__c;
+                        this.isPersonNumber = false;
+                        this.template.querySelector('.details').classList.add('hidden');
+                    }
+                }
+            });
+        }
+    }
+
+    handlePreviousUsersBtn() {
+        this.template.querySelector('.details').classList.remove('hidden');
+        this.template.querySelector('.details').focus();
+    }
+    closeModal() {
+        this.template.querySelector('.details').classList.add('hidden');
+    }
 
     handlePhoneNumberogPersonNumberRadioButtons(event) {
         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons = event.detail;
