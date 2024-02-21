@@ -3,7 +3,6 @@ import getMyPreviousClaims from '@salesforce/apex/HOT_ClaimController.getMyPrevi
 
 export default class Hot_claimFormUser extends LightningElement {
     @track isPersonNumber = true;
-    @track previousUsers = [];
     @track noPreviousUsers = false;
     @track isEdit = false;
     @track fieldValues = {
