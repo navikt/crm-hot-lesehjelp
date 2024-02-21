@@ -20,7 +20,7 @@ export default class Hot_claimFormUser extends LightningElement {
     @api parentFieldValues;
     @api claim;
     @api isEdit;
-    previousUsersBtn() {
+    handlePreviousUsersBtn() {
         this.template.querySelector('.details').classList.remove('hidden');
         this.template.querySelector('.details').focus();
     }
