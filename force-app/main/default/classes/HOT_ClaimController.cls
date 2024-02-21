@@ -682,4 +682,26 @@ public without sharing class HOT_ClaimController {
         ];
         return claim;
     }
+    @AuraEnabled(cacheable=true)
+    public static List<HOT_Claim__c> getMyPreviousClaims() {
+        User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+        List<HOT_Claim__c> claims = [
+            SELECT Id, UserName__c, Claimant__c, CreatedDate, Account__c, UserPersonNumber__c, UserPhoneNumber__c
+            FROM HOT_Claim__c
+            WHERE Claimant__c = :currentUser.Account.Id AND (UserPersonNumber__c != null OR UserPhoneNumber__c != null) ORDER BY CreatedDate DESC
+        ];
+        List<HOT_Claim__c> latestClaims = new List<HOT_Claim__c>();
+        Set<String> uniqueKeys = new Set<String>();
+
+        for (HOT_Claim__c claim : claims) {
+            String key = claim.UserPersonNumber__c != null ? claim.UserPersonNumber__c : claim.UserPhoneNumber__c;
+
+            if (!uniqueKeys.contains(key)) {
+                latestClaims.add(claim);
+                uniqueKeys.add(key);
+            }
+        }
+
+        return latestClaims;
+    }
 }
