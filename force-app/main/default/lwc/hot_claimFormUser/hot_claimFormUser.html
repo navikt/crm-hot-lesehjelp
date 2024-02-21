@@ -67,17 +67,27 @@
             <div
                 class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container"
                 role="dialog"
-                aria-labelledby="comment-header-id"
             >
                 <section>
-                    <div>
-                        <h2 id="comment-header-id" class="typo-undertittel">Tidligere</h2>
+                    <div if:true={noPreviousUsers}>
+                        <h2 class="typo-undertittel">Du har ikke vært lesehjelp for noen enda.</h2>
                     </div>
-                    <!-- <template for:each={claimLineItems} for:item="cli">
-                                <div aria-label="Ny kravlinje" class="cli-container" key={cli.Id}>
-                                    
-                                </div>
-                            </template> -->
+                    <div if:false={noPreviousUsers}>
+                        <h2 class="typo-undertittel">Velg en tidligere person du har vært lesehjelp for.</h2>
+
+                        <template for:each={mappedPreviousUsers} for:item="cli">
+                            <div
+                                aria-label="Ny person"
+                                class="previousUserContainer"
+                                data-id={cli.Id}
+                                key={cli.Id}
+                                onclick={insertPreviousUser}
+                            >
+                                <p class="typo-undertittel"><strong>{cli.UserName__c}</strong></p>
+                                <p class="typo-normal">{cli.identification}</p>
+                            </div>
+                        </template>
+                    </div>
                 </section>
                 <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
                     <span class="text-hide" aria-label="Lukk">Lukk</span>

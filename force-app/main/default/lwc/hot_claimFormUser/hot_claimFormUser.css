@@ -31,13 +31,13 @@
 }
 .previousUsersBtn {
     padding: 1rem;
-    background-color: #dceaf3;
+    background-color: #ffeccc;
     border-radius: 5px;
     margin: auto;
     text-align: center;
 }
 .previousUsersBtn:hover {
-    background-color: #cce2f0;
+    background-color: #ffd799;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -60,4 +60,14 @@
     max-width: 432px;
     max-height: 75%;
     width: 100%;
+}
+.previousUserContainer {
+    background-color: #ffeccc;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.previousUserContainer:hover {
+    background-color: #ffd799;
 }
