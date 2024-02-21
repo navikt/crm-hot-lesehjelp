@@ -75,16 +75,16 @@
                     <div if:false={noPreviousUsers}>
                         <h2 class="typo-undertittel">Velg en tidligere person du har vært lesehjelp for.</h2>
 
-                        <template for:each={mappedPreviousUsers} for:item="cli">
+                        <template for:each={mappedPreviousUsers} for:item="claim">
                             <div
                                 aria-label="Ny person"
                                 class="previousUserContainer"
-                                data-id={cli.Id}
-                                key={cli.Id}
+                                data-id={claim.Id}
+                                key={claim.Id}
                                 onclick={insertPreviousUser}
                             >
-                                <p class="typo-undertittel"><strong>{cli.UserName__c}</strong></p>
-                                <p class="typo-normal">{cli.identification}</p>
+                                <p class="typo-undertittel"><strong>{claim.UserName__c}</strong></p>
+                                <p class="typo-normal">{claim.identification}</p>
                             </div>
                         </template>
                     </div>
