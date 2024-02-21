@@ -20,7 +20,7 @@
 }
 @media (max-width: 768px) {
     .content {
-        max-width: 100%;
+        max-width: 95vw;
     }
     .personDetailBox {
         width: 100%;
