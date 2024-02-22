@@ -37,7 +37,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         refreshApex(this.wiredAllClaim);
     }
     handleFilterBtn(event) {
-        this.template.querySelectorAll('c-button2').forEach((button) => {
+        this.template.querySelectorAll('c-hot_filterbutton').forEach((button) => {
             if (button.value == event.detail) {
                 button.setActive();
             } else {
