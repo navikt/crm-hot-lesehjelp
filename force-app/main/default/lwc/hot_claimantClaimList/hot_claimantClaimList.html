@@ -6,22 +6,6 @@
             </div>
             <main class="main-content submitted-false">
                 <h2 tabindex="0" class="typo-overskrift">Mine innsendte krav</h2>
-                <!-- <div class="filterContainer">
-                    <div class="filterBtn active" value="all" onclick={handleFilterBtn}>Alle</div>
-                    <div class="filterBtn" value="approved" onclick={handleFilterBtn}>Godkjente</div>
-                    <div class="filterBtn" value="waiting" onclick={handleFilterBtn}>Under behandling</div>
-                    <div class="filterBtn" value="cancelled" onclick={handleFilterBtn}>Avslått</div>
-                    <div class="filterBtn" value="withdrawn" onclick={handleFilterBtn}>Tilbaketrukket</div>
-                </div> -->
-                <c-button
-                    button-label="Rediger"
-                    button-styling="primary"
-                    disabled={isEditButtonDisabled}
-                    onbuttonclick={editClaim}
-                    desktop-style="background-color: #e1eaed; border-radius: 25px; border: 1px solid #c0c9cc; padding: 0.3rem; padding-right: 1rem; padding-left: 1rem; display: inline-block; margin: 0.3rem; width: 8rem; justify-content: center;"
-                    mobile-style="background-color: #e1eaed; border-radius: 25px; border: 1px solid #c0c9cc; padding: 0.3rem; padding-right: 1rem; padding-left: 1rem; display: inline-block; margin: 0.3rem; width: 8rem; justify-content: center;"
-                ></c-button>
-
                 <div if:true={showClaimlist}>
                     <div if:true={noClaims} style="text-align: center">
                         <br />
@@ -33,6 +17,51 @@
                         <p tabindex="0" class="typo-normal">
                             Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
                         </p>
+                        <div class="filterContainer">
+                            <c-button2
+                                button-label="Alle"
+                                button-styling="primary"
+                                value="all"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-button2>
+                            <c-button2
+                                button-label="Under behandling"
+                                button-styling="primary"
+                                value="inProgress"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-button2>
+                            <c-button2
+                                button-label="Utbetalte"
+                                button-styling="primary"
+                                value="paidOut"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-button2>
+                            <c-button2
+                                button-label="Tilbaketrukkede"
+                                button-styling="primary"
+                                value="withdrawn"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-button2>
+                            <c-button2
+                                button-label="Avslått"
+                                button-styling="primary"
+                                value="declined"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-button2>
+                        </div>
+                        <div if:true={noFilterResults}>
+                            <p>Det er ingen krav her. Prøv et annet filter.</p>
+                        </div>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">

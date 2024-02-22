@@ -9,6 +9,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track showClaimlist = true;
     @track noClaims = true;
     @track noClaimLineItems = true;
+    @track noFilterResults = false;
     breadcrumbs = [
         {
             label: 'Hjem',
@@ -36,17 +37,101 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         refreshApex(this.wiredAllClaim);
     }
     handleFilterBtn(event) {
-        const claimId = event.target.getAttribute('value');
-        const buttons = document.querySelectorAll('.filterBtn');
-        console.log(buttons.length);
-
-        // Remove 'active' class from all buttons
-        buttons.forEach((button) => {
-            button.classList.remove('active');
+        this.template.querySelectorAll('c-button2').forEach((button) => {
+            if (button.value == event.detail) {
+                button.setActive();
+            } else {
+                button.setInactive();
+            }
         });
-
-        // Add 'active' class to the clicked button
-        event.target.classList.add('active');
+        if (event.detail == 'all') {
+            this.claims = this.unmappedClaims.map((x) => ({
+                ...x,
+                created: this.formatDateTime(x.CreatedDate),
+                madeBy: this.setMadeBy(x.OnEmployer__c)
+            }));
+            this.noFilterResults = this.claims.length == 0 ? true : false;
+            this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+        }
+        if (event.detail == 'inProgress') {
+            this.claims = this.unmappedClaims
+                .filter(
+                    (claim) =>
+                        claim.Status__c === 'Sent' ||
+                        claim.Status__c === 'Approved by user' ||
+                        claim.Status__c === 'Approved by NAV'
+                )
+                .map((claim) => ({
+                    ...claim,
+                    created: this.formatDateTime(claim.CreatedDate),
+                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                }));
+            this.noFilterResults = this.claims.length == 0 ? true : false;
+            this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+        }
+        if (event.detail == 'paidOut') {
+            this.claims = this.unmappedClaims
+                .filter((claim) => claim.Status__c === 'Paid out')
+                .map((claim) => ({
+                    ...claim,
+                    created: this.formatDateTime(claim.CreatedDate),
+                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                }));
+            this.noFilterResults = this.claims.length == 0 ? true : false;
+            this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+        }
+        if (event.detail == 'withdrawn') {
+            this.claims = this.unmappedClaims
+                .filter((claim) => claim.Status__c === 'Withdrawn')
+                .map((claim) => ({
+                    ...claim,
+                    created: this.formatDateTime(claim.CreatedDate),
+                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                }));
+            this.noFilterResults = this.claims.length == 0 ? true : false;
+            this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+        }
+        if (event.detail == 'declined') {
+            this.claims = this.unmappedClaims
+                .filter((claim) => claim.Status__c === 'Declined by user' || claim.Status__c === 'Declined by NAV')
+                .map((claim) => ({
+                    ...claim,
+                    created: this.formatDateTime(claim.CreatedDate),
+                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                }));
+            this.noFilterResults = this.claims.length == 0 ? true : false;
+            this.claims.sort((a, b) => {
+                if (b.CreatedDate === a.CreatedDate) {
+                    return 0;
+                } else {
+                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
+                }
+            });
+        }
     }
     goToClaim(event) {
         const clickedButton = event.target;
