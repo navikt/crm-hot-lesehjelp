@@ -6,6 +6,22 @@
             </div>
             <main class="main-content submitted-false">
                 <h2 tabindex="0" class="typo-overskrift">Mine innsendte krav</h2>
+                <!-- <div class="filterContainer">
+                    <div class="filterBtn active" value="all" onclick={handleFilterBtn}>Alle</div>
+                    <div class="filterBtn" value="approved" onclick={handleFilterBtn}>Godkjente</div>
+                    <div class="filterBtn" value="waiting" onclick={handleFilterBtn}>Under behandling</div>
+                    <div class="filterBtn" value="cancelled" onclick={handleFilterBtn}>Avslått</div>
+                    <div class="filterBtn" value="withdrawn" onclick={handleFilterBtn}>Tilbaketrukket</div>
+                </div> -->
+                <c-button
+                    button-label="Rediger"
+                    button-styling="primary"
+                    disabled={isEditButtonDisabled}
+                    onbuttonclick={editClaim}
+                    desktop-style="background-color: #e1eaed; border-radius: 25px; border: 1px solid #c0c9cc; padding: 0.3rem; padding-right: 1rem; padding-left: 1rem; display: inline-block; margin: 0.3rem; width: 8rem; justify-content: center;"
+                    mobile-style="background-color: #e1eaed; border-radius: 25px; border: 1px solid #c0c9cc; padding: 0.3rem; padding-right: 1rem; padding-left: 1rem; display: inline-block; margin: 0.3rem; width: 8rem; justify-content: center;"
+                ></c-button>
+
                 <div if:true={showClaimlist}>
                     <div if:true={noClaims} style="text-align: center">
                         <br />

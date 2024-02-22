@@ -113,3 +113,19 @@ p {
         width: 100%;
     }
 }
+.filterContainer {
+    /* margin: 1rem; */
+}
+.filterBtn {
+    background-color: #e1eaed;
+    border-radius: 25px;
+    border: 1px solid #c0c9cc;
+    padding: 0.3rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    display: inline-block;
+    margin: 0.3rem;
+}
+.active {
+    background-color: blue; /* Specify your active color here */
+}

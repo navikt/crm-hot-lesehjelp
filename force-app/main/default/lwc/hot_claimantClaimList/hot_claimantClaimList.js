@@ -35,7 +35,19 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     connectedCallback() {
         refreshApex(this.wiredAllClaim);
     }
+    handleFilterBtn(event) {
+        const claimId = event.target.getAttribute('value');
+        const buttons = document.querySelectorAll('.filterBtn');
+        console.log(buttons.length);
 
+        // Remove 'active' class from all buttons
+        buttons.forEach((button) => {
+            button.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked button
+        event.target.classList.add('active');
+    }
     goToClaim(event) {
         const clickedButton = event.target;
         const claimElement = clickedButton.closest('[data-id]');
