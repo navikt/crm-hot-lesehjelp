@@ -17,6 +17,51 @@
                         <p tabindex="0" class="typo-normal">
                             Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
                         </p>
+                        <div class="filterContainer">
+                            <c-hot_filterbutton
+                                button-label="Alle"
+                                button-styling="primary"
+                                value="all"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-hot_filterbutton>
+                            <c-hot_filterbutton
+                                button-label="Under behandling"
+                                button-styling="primary"
+                                value="inProgress"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-hot_filterbutton>
+                            <c-hot_filterbutton
+                                button-label="Utbetalte"
+                                button-styling="primary"
+                                value="paidOut"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-hot_filterbutton>
+                            <c-hot_filterbutton
+                                button-label="Tilbaketrukkede"
+                                button-styling="primary"
+                                value="withdrawn"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-hot_filterbutton>
+                            <c-hot_filterbutton
+                                button-label="Avslått"
+                                button-styling="primary"
+                                value="declined"
+                                onbuttonclick={handleFilterBtn}
+                                desktop-style=""
+                                mobile-style=""
+                            ></c-hot_filterbutton>
+                        </div>
+                        <div if:true={noFilterResults}>
+                            <p>Det er ingen krav her. Prøv et annet filter.</p>
+                        </div>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">

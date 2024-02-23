@@ -1,0 +1,25 @@
+.navds-button {
+    cursor: pointer;
+    background-color: #e6f0ff;
+    border-radius: 25px;
+    border: 1px solid #c0c9cc;
+    padding: 0.2rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    display: inline-flex;
+    margin: 0.2rem;
+}
+
+.navds-button:hover {
+    background-color: #99c3ff;
+    border-color: #99c3ff;
+}
+.active {
+    background-color: #99c3ff;
+    border-color: #99c3ff;
+}
+
+button,
+[type='button'] {
+    -webkit-appearance: button;
+}
