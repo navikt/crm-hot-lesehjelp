@@ -37,15 +37,17 @@
     width: 60%;
 }
 .claim-single {
+    cursor: pointer;
     text-align: left;
-
     background-color: #efecf4;
     border: none;
-    /* border-bottom: 1px solid black; */
     padding: 1.1rem;
     margin-top: 1rem;
     border-radius: 0.2rem;
     width: 90%;
+}
+.claim-single:hover {
+    background-color: #e0d8e9;
 }
 .container {
     display: flex;
