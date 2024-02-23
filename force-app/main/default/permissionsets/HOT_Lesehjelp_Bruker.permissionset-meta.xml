@@ -17,6 +17,11 @@
         <enabled>true</enabled>
     </classAccesses>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.HOT_IsLOS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.AdditionalInformation__c</field>
         <readable>true</readable>

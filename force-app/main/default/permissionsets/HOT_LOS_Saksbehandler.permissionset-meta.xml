@@ -6,6 +6,11 @@
     </applicationVisibilities>
     <description>Permissionset for Saksbehandler i lesehjelpsløsningen.</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.HOT_IsLOS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.AdditionalInformation__c</field>
         <readable>true</readable>
@@ -141,7 +146,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
+        <field>HOT_Claim__c.EntitlementType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>HOT_Claim__c.Entitlement__c</field>
         <readable>true</readable>
     </fieldPermissions>
