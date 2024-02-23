@@ -63,7 +63,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims
                 .filter(
                     (claim) =>
-                        claim.Status__c === 'Sendt' ||
+                        claim.Status__c === 'Innsendt' ||
                         claim.Status__c === 'Godkjent av bruker' ||
                         claim.Status__c === 'Godkjent av NAV'
                 )
