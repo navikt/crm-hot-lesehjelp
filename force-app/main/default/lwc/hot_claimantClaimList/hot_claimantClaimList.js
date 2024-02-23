@@ -63,9 +63,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims
                 .filter(
                     (claim) =>
-                        claim.Status__c === 'Sent' ||
-                        claim.Status__c === 'Approved by user' ||
-                        claim.Status__c === 'Approved by NAV'
+                        claim.Status__c === 'Sendt' ||
+                        claim.Status__c === 'Godkjent av bruker' ||
+                        claim.Status__c === 'Godkjent av NAV'
                 )
                 .map((claim) => ({
                     ...claim,
@@ -83,7 +83,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'paidOut') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Paid out')
+                .filter((claim) => claim.Status__c === 'Utbetalt')
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -100,7 +100,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'withdrawn') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Withdrawn')
+                .filter((claim) => claim.Status__c === 'Tilbaketrukket')
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -117,7 +117,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'declined') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Declined by user' || claim.Status__c === 'Declined by NAV')
+                .filter((claim) => claim.Status__c === 'Avslått av bruker' || claim.Status__c === 'Avslått av NAV')
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -151,9 +151,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             if (element.Status__c) {
                             }
                             if (
-                                element.Status__c == 'Approved' ||
-                                element.Status__c == 'Paid out' ||
-                                element.Status__c == 'Withdrawn'
+                                element.Status__c == 'Godkjent av NAV' ||
+                                element.Status__c == 'Utbetalt' ||
+                                element.Status__c == 'Tilbaketrukket'
                             ) {
                                 this.isCancelButtonDisabled = true;
                                 this.isEditButtonDisabled = true;

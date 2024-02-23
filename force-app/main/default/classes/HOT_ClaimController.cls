@@ -270,7 +270,7 @@ public without sharing class HOT_ClaimController {
                 UserPhoneNumber__c,
                 CreatedDate,
                 UserName__c,
-                Status__c,
+                toLabel(Status__c),
                 OnEmployer__c,
                 Organization__r.Name,
                 Type__c,
@@ -688,7 +688,8 @@ public without sharing class HOT_ClaimController {
         List<HOT_Claim__c> claims = [
             SELECT Id, UserName__c, Claimant__c, CreatedDate, Account__c, UserPersonNumber__c, UserPhoneNumber__c
             FROM HOT_Claim__c
-            WHERE Claimant__c = :currentUser.Account.Id AND (UserPersonNumber__c != null OR UserPhoneNumber__c != null) ORDER BY CreatedDate DESC
+            WHERE Claimant__c = :currentUser.Account.Id AND (UserPersonNumber__c != NULL OR UserPhoneNumber__c != NULL)
+            ORDER BY CreatedDate DESC
         ];
         List<HOT_Claim__c> latestClaims = new List<HOT_Claim__c>();
         Set<String> uniqueKeys = new Set<String>();
