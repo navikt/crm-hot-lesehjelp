@@ -52,7 +52,7 @@
                         <template for:each={olderClaims} for:item="claim">
                             <button key={claim.Id} class="claim-single older" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
-                                    <p><strong>{claim.Name}</strong></p>
+                                    <p><strong>{claim.Name} - {claim.status}</strong></p>
                                     <p class="typo-normal cursive">Sendt inn {claim.created}</p>
                                 </div>
 
