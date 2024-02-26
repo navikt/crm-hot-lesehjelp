@@ -1,6 +1,11 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import getTimes from '@salesforce/apex/HOT_ClaimController.getTimes';
-import { requireInput, dateInPast, startBeforeEnd } from './hot_claimLineTimeInput_validationRules';
+import {
+    requireInput,
+    requireInputNumbers,
+    dateInPast,
+    startBeforeEnd
+} from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
     @track times = [];
@@ -8,6 +13,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     uniqueIdCounter = 0;
     randomNumber = 300;
     @track disableAddMoreTimes = false;
+    hasTravel = false;
 
     @api claim;
     @api isEdit;
@@ -22,6 +28,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let addTravelMinutesFromButtonContainer = this.template.querySelectorAll(
             '.addTravelMinutesFromButtonContainer'
         );
+        let totalDistanceContainer = this.template.querySelectorAll('.totalDistanceContainer');
 
         if (this.isEdit == true) {
             for (let t of this.times) {
@@ -39,6 +46,17 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     travelTimesFromInputContainers[t.editId].classList.add('hidden');
                     addTravelMinutesFromButtonContainer[t.editId].classList.remove('hidden');
                 }
+                if (t.travelDistance == undefined) {
+                    t.travelDistance = 0;
+                }
+                if (t.additionalInformation == undefined) {
+                    t.additionalInformation = 0;
+                }
+                if (t.hasTravelTo || t.hasTravelFrom) {
+                    totalDistanceContainer[t.editId].classList.remove('hidden');
+                } else {
+                    totalDistanceContainer[t.editId].classList.add('hidden');
+                }
             }
         } else {
             for (let t of this.times) {
@@ -55,6 +73,11 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 } else if (t.id) {
                     travelTimesFromInputContainers[t.id].classList.add('hidden');
                     addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
+                }
+                if (t.hasTravelTo || t.hasTravelFrom) {
+                    totalDistanceContainer[t.editId].classList.remove('hidden');
+                } else {
+                    totalDistanceContainer[t.editId].classList.add('hidden');
                 }
             }
         }
@@ -209,12 +232,17 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             endTimeTravelFrom: timeObject === null ? null : timeObject.endTimeTravelFrom,
             randomNumber: timeObject === null ? null : timeObject.randomNumber,
             hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
-            additionalInformation: timeObject === null ? null : timeObject.additionalInformation
+            additionalInformation: timeObject === null ? null : timeObject.additionalInformation,
+            travelDistance: timeObject === null ? null : timeObject.travelDistance
         };
     }
     handleAdditionalInformation(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].additionalInformation = event.detail;
+    }
+    handleTravelDistance(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].travelDistance = event.detail;
     }
 
     getTimesIndex(name) {
@@ -374,6 +402,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateTravelFromStartTime();
         hasErrors += this.validateTravelFromEndTime();
         hasErrors += this.validateSameYear();
+        hasErrors += this.validateTravelDistance();
         return hasErrors;
     }
     validateType() {
@@ -387,6 +416,15 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="additionalInformation"]').forEach((input) => {
             hasErrors += input.validationHandler();
+        });
+        return hasErrors;
+    }
+    validateTravelDistance() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, input) => {
+            let errorMessage = requireInputNumbers(element.value, 'Reisevei');
+            element.sendErrorMessage(errorMessage);
+            hasErrors += errorMessage !== '';
         });
         return hasErrors;
     }
@@ -813,6 +851,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         endTimeTravelFrom: time.endTimeTravelFrom,
                         hasAdditionalInformation: time.hasAdditionalInformation,
                         additionalInformation: time.additionalInformation,
+                        travelDistance: time.travelDistance,
                         isNew: 0
                     };
                     let clonedTime = this.setTimesValue(testTimeObject);
