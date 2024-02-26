@@ -150,11 +150,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             this.recordName = element.Name;
                             if (element.Status__c) {
                             }
-                            if (
-                                element.Status__c == 'Godkjent av NAV' ||
-                                element.Status__c == 'Utbetalt' ||
-                                element.Status__c == 'Tilbaketrukket'
-                            ) {
+                            if (element.ApprovedByNAV__c == true) {
                                 this.isCancelButtonDisabled = true;
                                 this.isEditButtonDisabled = true;
                             } else {
