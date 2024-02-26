@@ -49,18 +49,6 @@ insert personAccount4;
 List<Account> accountClaimer = [SELECT Id FROM Account WHERE Name = 'Darth Vader'];
 List<Account> accountUser = [SELECT Id FROM Account WHERE Name = 'Luke Skywalker'];
 
-HOT_Claim__c claim1 = new HOT_Claim__c();
-claim1.Claimant__c = accountClaimer[0].Id;
-claim1.Account__c = accountUser[0].Id;
-claim1.Type__c = 'Utdanning, opplæring eller arbeidstrening';
-insert claim1;
-
-HOT_Claim__c claim2 = new HOT_Claim__c();
-claim2.Claimant__c = accountClaimer[0].Id;
-claim2.Account__c = accountUser[0].Id;
-claim2.Type__c = 'Utdanning, opplæring eller arbeidstrening';
-insert claim2;
-
 List<Account> allAccounts = [SELECT Name, LastName, FirstName, INT_PersonIdent__c FROM Account WHERE INT_PersonIdent__c != '' LIMIT 10];
 
 Person__c person1 = new Person__c();
@@ -124,22 +112,6 @@ person4.INT_LastName__c = allAccounts[3].LastName;
 person4.INT_FirstName__c = allAccounts[3].FirstName;
 person4.HOT_isLOS__c = true;
 insert person4;
-
-HOT_Entitlement__c entitlement1 = new HOT_Entitlement__c();
-entitlement1.Type__c = 'Arbeidsliv';
-entitlement1.EntitledHours__c = 120.00;
-entitlement1.FromDate__c = Date.today();
-entitlement1.ToDate__c = Date.today().addYears(1);
-entitlement1.Account__c = allAccounts[0].Id;
-insert entitlement1;
-
-HOT_Entitlement__c entitlement2 = new HOT_Entitlement__c();
-entitlement2.Type__c = 'Arbeidsliv';
-entitlement2.EntitledHours__c = 120.00;
-entitlement2.FromDate__c = Date.today();
-entitlement2.ToDate__c = Date.today().addYears(1);
-entitlement2.Account__c = allAccounts[1].Id;
-insert entitlement2;
 
 //Merge Person__c and Account. Same fix as found in crm-nks-base/dummy-data
 Map<String,List<Account>> accMap = new Map<String,List<Account>>();
