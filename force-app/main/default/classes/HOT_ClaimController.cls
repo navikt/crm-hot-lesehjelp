@@ -453,7 +453,9 @@ public without sharing class HOT_ClaimController {
                 EmployerExpensesPerHour__c,
                 OrganizationNumber__c,
                 Organization__c,
-                EmployerName__c
+                EmployerName__c,
+                ApprovedByUser__c,
+                ApprovedByNAV__c
             FROM HOT_Claim__c
             WHERE Id = :recordId AND Claimant__c = :currentUser.AccountId
         ];
@@ -477,6 +479,8 @@ public without sharing class HOT_ClaimController {
                 claim.OnEmployer__c = false;
             }
             claim.Status__c = 'Sent';
+            claim.ApprovedByNAV__c = false;
+            claim.ApprovedByUser__c = false;
             claim.Entitlement__c = null;
             claim.CommentFromNAV__c = null;
             claim.CommentFromUser__c = null;
