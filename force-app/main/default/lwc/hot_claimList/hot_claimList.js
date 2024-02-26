@@ -71,7 +71,8 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             this.olderClaims = this.unmappedOlderClaims.map((x) => ({
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
-                isOldClaim: this.isOldClaim(x.Status__c)
+                isOldClaim: this.isOldClaim(x.Status__c),
+                status: this.userStatus(x.ApprovedByUser__c, x.Status__c)
             }));
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
@@ -166,6 +167,17 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             return false;
         } else {
             return true;
+        }
+    }
+    userStatus(approvedByUser, status) {
+        if (status == 'Withdrawn') {
+            return 'Kravet ble trukket tilbake.';
+        } else if (approvedByUser == false) {
+            return 'Avslått av deg.';
+        } else if (approvedByUser == true) {
+            return 'Godkjent av deg.';
+        } else {
+            return '';
         }
     }
 
