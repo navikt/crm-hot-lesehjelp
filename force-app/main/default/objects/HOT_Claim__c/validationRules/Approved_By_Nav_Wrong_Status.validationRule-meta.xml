@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_By_Nav_Wrong_Status</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ApprovedByNAV__c ==true, TEXT(Status__c)== &apos;Withdrawn&apos;)</errorConditionFormula>
+    <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
+    <errorMessage>Kravet kan ikke godkjennes av NAV. Det er tilbaketrukket</errorMessage>
+</ValidationRule>

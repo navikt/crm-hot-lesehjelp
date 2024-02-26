@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_By_User_Before_Approved_By_Nav</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ApprovedByUser__c==false,
+ApprovedByNAV__c ==true
+)</errorConditionFormula>
+    <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
+    <errorMessage>Kravet må være godkjent av bruker før NAV kan godkjenne kravet</errorMessage>
+</ValidationRule>
