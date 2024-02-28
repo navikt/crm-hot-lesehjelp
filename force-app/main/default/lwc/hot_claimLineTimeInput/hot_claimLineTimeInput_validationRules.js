@@ -3,6 +3,15 @@ let nowDate = new Date();
 export function requireInput(input, label) {
     return input === '' || input === undefined || input === null ? label + ' må fylles ut.' : '';
 }
+export function requireInputNumbers(input, label) {
+    if (input === '' || input === undefined || input === null) {
+        return label + ' må fylles ut.';
+    } else if (!/^\d+$/.test(input)) {
+        return label + ' må kun inneholde tall uten desimaler';
+    } else {
+        return '';
+    }
+}
 
 export function dateInPast(date) {
     date = new Date(date);

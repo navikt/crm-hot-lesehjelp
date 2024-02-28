@@ -326,6 +326,19 @@
                             style={dateTimeDesktopStyle}
                         ></c-input>
                     </div>
+                    <div class="totalDistanceContainer hidden">
+                        <c-input
+                            label="Totalt antall km reisevei"
+                            data-id="travelDistance"
+                            type="text"
+                            value={it.value.travelDistance}
+                            error-text="Feltet kan kun inne"
+                            name={it.value.id}
+                            onchange={handleTravelDistance}
+                            desktop-style="max-width: 20vw"
+                            helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. "
+                        ></c-input>
+                    </div>
                 </div>
                 <div style="padding-top: 1rem; padding-right: 1rem">
                     <c-button

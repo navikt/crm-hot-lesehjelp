@@ -101,6 +101,9 @@
                                     <p tabindex="0" if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
                                     <p tabindex="0"><Strong>Hatt reise fra: </Strong>{cli.hasTravelFrom}</p>
                                     <p tabindex="0" if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
+                                    <p if:true={cli.hasTravel} tabindex="0">
+                                        <strong>Totalt distanse reisevei: </strong> {cli.TravelDistance__c} km
+                                    </p>
                                 </div>
                             </template>
                         </br>
