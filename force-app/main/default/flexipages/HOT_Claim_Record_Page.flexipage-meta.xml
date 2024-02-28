@@ -182,6 +182,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.ExternalStatus__c</fieldItem>
+                <identifier>RecordExternalStatus_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.OnEmployer__c</fieldItem>
                 <identifier>RecordOnEmployer_cField</identifier>
             </fieldInstance>
