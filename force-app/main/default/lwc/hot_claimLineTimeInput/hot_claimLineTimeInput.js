@@ -419,10 +419,12 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     validateTravelDistance() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, input) => {
-            let errorMessage = requireInputNumbers(element.value, 'Reisevei');
-            element.sendErrorMessage(errorMessage);
-            hasErrors += errorMessage !== '';
+        this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
+            if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
+                let errorMessage = requireInputNumbers(element.value, 'Reisevei');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
         });
         return hasErrors;
     }
