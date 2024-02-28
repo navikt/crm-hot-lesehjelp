@@ -13,8 +13,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     uniqueIdCounter = 0;
     randomNumber = 300;
     @track disableAddMoreTimes = false;
-    hasTravel = false;
-
     @api claim;
     @api isEdit;
     renderedCallback() {
@@ -75,9 +73,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
                 }
                 if (t.hasTravelTo || t.hasTravelFrom) {
-                    totalDistanceContainer[t.editId].classList.remove('hidden');
+                    totalDistanceContainer[t.id].classList.remove('hidden');
                 } else {
-                    totalDistanceContainer[t.editId].classList.add('hidden');
+                    totalDistanceContainer[t.id].classList.add('hidden');
                 }
             }
         }
