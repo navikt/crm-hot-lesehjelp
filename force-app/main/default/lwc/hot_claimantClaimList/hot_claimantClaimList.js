@@ -153,7 +153,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             this.recordName = element.Name;
                             if (element.ExternalStatus__c) {
                             }
-                            if (element.ApprovedByNAV__c == true) {
+                            if (element.ApprovedByNAV__c == true || element.ExternalStatus__c == 'Tilbaketrukket') {
                                 this.isCancelButtonDisabled = true;
                                 this.isEditButtonDisabled = true;
                             } else {
