@@ -63,7 +63,7 @@
                     mobile-style="padding-bottom: 1vw"
                     helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
                 ></c-input>
-                <div class="travelTimesRadioButtonContainer">
+                <div class="travelTimesContainer">
                     <c-radiobuttons
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
                         radiobuttons={componentValues.travelToRadioButtons}
@@ -74,10 +74,6 @@
                         name={it.value.id}
                         set-default-value={it.value.hasTravelTo}
                     ></c-radiobuttons>
-                    <p class="typo-normal" if:true={it.value.hasTravelTo}>
-                        Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
-                        som oppdraget og gå bakover fra oppdragets start.
-                    </p>
                     <div class="addTravelMinutesToButtonContainer hidden">
                         <div class="addMinutesButton">
                             <c-button
@@ -195,6 +191,8 @@
                             style={dateTimeDesktopStyle}
                         ></c-input>
                     </div>
+                </div>
+                <div class="travelTimesContainer">
                     <c-radiobuttons
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg fra oppdraget."
                         radiobuttons={componentValues.travelFromRadioButtons}
@@ -205,10 +203,6 @@
                         name={it.value.id}
                         set-default-value={it.value.hasTravelFrom}
                     ></c-radiobuttons>
-                    <p class="typo-normal" if:true={it.value.hasTravelFrom}>
-                        Hurtigknapper til reisetider. Når du trykker på et alternativ vil reisen bli satt til samme dato
-                        som oppdraget og gå etter oppdragets slutt.
-                    </p>
                     <div class="addTravelMinutesFromButtonContainer hidden">
                         <div class="addMinutesButton">
                             <c-button
@@ -326,19 +320,19 @@
                             style={dateTimeDesktopStyle}
                         ></c-input>
                     </div>
-                    <div class="totalDistanceContainer hidden">
-                        <c-input
-                            label="Totalt antall km reisevei"
-                            data-id="travelDistance"
-                            type="text"
-                            value={it.value.travelDistance}
-                            error-text="Feltet kan kun inne"
-                            name={it.value.id}
-                            onchange={handleTravelDistance}
-                            desktop-style="max-width: 20vw"
-                            helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. "
-                        ></c-input>
-                    </div>
+                </div>
+                <div class="totalDistanceContainer hidden">
+                    <c-input
+                        label="Totalt antall km reisevei"
+                        data-id="travelDistance"
+                        type="text"
+                        value={it.value.travelDistance}
+                        error-text="Feltet kan kun inne"
+                        name={it.value.id}
+                        onchange={handleTravelDistance}
+                        desktop-style="max-width: 20vw"
+                        helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. "
+                    ></c-input>
                 </div>
                 <div style="padding-top: 1rem; padding-right: 1rem">
                     <c-button
