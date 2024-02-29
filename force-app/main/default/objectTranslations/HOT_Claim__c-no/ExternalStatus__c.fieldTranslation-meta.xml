@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Timer med normalsats</label>
-    <name>NormalRate__c</name>
+    <label>Ekstern status til brukere</label>
+    <name>ExternalStatus__c</name>
 </CustomFieldTranslation>

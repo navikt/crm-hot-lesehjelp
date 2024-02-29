@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExternalStatus__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    ISPICKVAL(Status__c, &apos;Sent&apos;),
+    &apos;Innsendt&apos;,
+    IF(
+        ISPICKVAL(Status__c, &apos;Withdrawn&apos;),
+        &apos;Tilbaketrukket&apos;,
+        IF(
+            ISPICKVAL(Status__c, &apos;Approved by NAV&apos;),
+            &apos;Godkjent av NAV&apos;,
+            IF(
+                ISPICKVAL(Status__c, &apos;Approved by user&apos;),
+                &apos;Godkjent av bruker&apos;,
+                IF(
+                    ISPICKVAL(Status__c, &apos;Declined by NAV&apos;),
+                    &apos;Avslått av NAV&apos;,
+                    IF(
+                        ISPICKVAL(Status__c, &apos;Declined by user&apos;),
+                        &apos;Avslått av bruker&apos;,
+                        IF(
+                            ISPICKVAL(Status__c, &apos;Paid out&apos;),
+                            &apos;Utbetalt&apos;,
+                            NULL
+                        )
+                    )
+                )
+            )
+        )
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ExternalStatus</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

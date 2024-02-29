@@ -36,16 +36,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.IncreasedRate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.NormalRate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>HOT_ClaimLineItem__c.NumberOfHours__c</field>
         <readable>true</readable>
@@ -73,11 +63,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelFrom__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_ClaimLineItem__c.TravelRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -158,6 +143,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.Entitlement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.ExternalStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
