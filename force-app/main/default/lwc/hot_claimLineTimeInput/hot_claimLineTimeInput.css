@@ -20,10 +20,6 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-.travelTimesRadioButtonContainer {
-    width: 100%;
-    padding-top: 1rem;
-}
 
 @media only screen and (max-device-width: 768px) {
     .listClass {
@@ -72,4 +68,16 @@
 }
 .hidden {
     display: none;
+}
+.travelTimesContainer {
+    width: 100%;
+    margin-top: 1vw;
+    padding: 1vw;
+    background-color: #e6f0ff;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.totalDistanceContainer {
+    margin-top: 1vw;
+    width: 100%;
 }
