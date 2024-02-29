@@ -140,6 +140,13 @@ public without sharing class HOT_ClaimController {
                 Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
                 cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
             }
+            if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+                Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                cli.TravelDistance__c = travelDistance;
+            }
+            else{
+                cli.TravelDistance__c=0;
+            }
             claimLineItemList.add(cli);
         }
         try {
@@ -393,7 +400,8 @@ public without sharing class HOT_ClaimController {
                 TravelFrom__c,
                 TravelTo__c,
                 TypeOfTask__c,
-                AdditionalInformation__c
+                AdditionalInformation__c,
+                TravelDistance__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__r.Id = :claimId
             ORDER BY Date__c ASC
@@ -425,12 +433,14 @@ public without sharing class HOT_ClaimController {
                 timeMap.put('startTimeTravelFrom', String.valueOf(cli.TravelFromStartTime__c.getTime()));
                 timeMap.put('endTimeTravelFrom', String.valueOf(cli.TravelFromEndTime__c.getTime()));
             }
+            if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+                timeMap.put('travelDistance', String.valueOf(cli.TravelDistance__c));
+            }
             //Date tempDateTravelFrom = cli.TravelFrom__c.date();
             timeMap.put('task', cli.TypeOfTask__c);
             timeMap.put('hasTravelTo', String.valueOf(cli.HasTravelTo__c));
             timeMap.put('hasTravelFrom', String.valueOf(cli.HasTravelFrom__c));
             timeMap.put('additionalInformation', String.valueOf(cli.AdditionalInformation__c));
-
             times.add(timeMap);
         }
         return times;
@@ -514,7 +524,8 @@ public without sharing class HOT_ClaimController {
                 TravelToStartTime__c,
                 TravelToEndTime__c,
                 TravelFromStartTime__c,
-                TravelFromEndTime__c
+                TravelFromEndTime__c,
+                TravelDistance__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :claim.Id
         ];
@@ -581,6 +592,12 @@ public without sharing class HOT_ClaimController {
                         Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
                         Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
                         cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
+                    }
+                    if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+                        Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                        cli.TravelDistance__c = travelDistance;
+                    } else {
+                        cli.TravelDistance__c = 0;
                     }
                 }
             }

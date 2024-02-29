@@ -17,7 +17,8 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToStartTime__c,
                 TypeOfTask__c,
                 Weekday__c,
-                AdditionalInformation__c
+                AdditionalInformation__c,
+                TravelDistance__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
             ORDER BY Date__c ASC

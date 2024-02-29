@@ -150,7 +150,8 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                             travelFromPeriode: this.formatDateTimePeriod(
                                 x.TravelFromStartTime__c,
                                 x.TravelFromEndTime__c
-                            )
+                            ),
+                            hasTravel: this.hasTravel(x.HasTravelTo__c, x.HasTravelFrom__c)
                         }));
                         this.template.querySelector('.details').classList.remove('hidden');
                         this.template.querySelector('.details').focus();
@@ -206,6 +207,13 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             return 'Ja';
         } else {
             return 'Nei';
+        }
+    }
+    hasTravel(hasTravelTo, hasTravelFrom) {
+        if (hasTravelTo || hasTravelFrom) {
+            return true;
+        } else {
+            return false;
         }
     }
     formatDateTimePeriod(dateFrom, dateTo) {
