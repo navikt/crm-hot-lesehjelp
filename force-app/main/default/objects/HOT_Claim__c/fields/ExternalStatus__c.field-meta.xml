@@ -8,7 +8,27 @@
     IF(
         ISPICKVAL(Status__c, &apos;Withdrawn&apos;),
         &apos;Tilbaketrukket&apos;,
-        NULL
+        IF(
+            ISPICKVAL(Status__c, &apos;Approved by NAV&apos;),
+            &apos;Godkjent av NAV&apos;,
+            IF(
+                ISPICKVAL(Status__c, &apos;Approved by user&apos;),
+                &apos;Godkjent av bruker&apos;,
+                IF(
+                    ISPICKVAL(Status__c, &apos;Declined by NAV&apos;),
+                    &apos;Avslått av NAV&apos;,
+                    IF(
+                        ISPICKVAL(Status__c, &apos;Declined by user&apos;),
+                        &apos;Avslått av bruker&apos;,
+                        IF(
+                            ISPICKVAL(Status__c, &apos;Paid out&apos;),
+                            &apos;Utbetalt&apos;,
+                            NULL
+                        )
+                    )
+                )
+            )
+        )
     )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

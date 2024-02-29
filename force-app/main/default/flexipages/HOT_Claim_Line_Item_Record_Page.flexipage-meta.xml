@@ -112,16 +112,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.IncreasedRate__c</fieldItem>
-                <identifier>RecordIncreasedRate_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.TravelRate__c</fieldItem>
                 <identifier>RecordTravelRate_cField</identifier>
             </fieldInstance>

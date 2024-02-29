@@ -63,9 +63,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims
                 .filter(
                     (claim) =>
-                        claim.Status__c === 'Innsendt' ||
-                        claim.Status__c === 'Godkjent av bruker' ||
-                        claim.Status__c === 'Godkjent av NAV'
+                        claim.ExternalStatus__c === 'Innsendt' ||
+                        claim.ExternalStatus__c === 'Godkjent av bruker' ||
+                        claim.ExternalStatus__c === 'Godkjent av NAV'
                 )
                 .map((claim) => ({
                     ...claim,
@@ -83,7 +83,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'paidOut') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Utbetalt')
+                .filter((claim) => claim.ExternalStatus__c === 'Utbetalt')
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -100,7 +100,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'withdrawn') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Tilbaketrukket')
+                .filter((claim) => claim.ExternalStatus__c === 'Tilbaketrukket')
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -117,7 +117,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail == 'declined') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.Status__c === 'Avslått av bruker' || claim.Status__c === 'Avslått av NAV')
+                .filter(
+                    (claim) =>
+                        claim.ExternalStatus__c === 'Avslått av bruker' || claim.ExternalStatus__c === 'Avslått av NAV'
+                )
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -148,7 +151,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             this.record = element;
                             this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
-                            if (element.Status__c) {
+                            if (element.ExternalStatus__c) {
                             }
                             if (element.ApprovedByNAV__c == true) {
                                 this.isCancelButtonDisabled = true;
