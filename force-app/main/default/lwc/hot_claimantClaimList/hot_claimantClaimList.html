@@ -70,7 +70,7 @@
                                 </div>
 
                                 <p tabindex="0">Lesehjelp for {claim.UserName__c}</p>
-                                <p tabindex="0">Status: {claim.Status__c}</p>
+                                <p tabindex="0">Status: {claim.ExternalStatus__c}</p>
                                 <br />
                             </button>
                         </template>
@@ -121,7 +121,7 @@
                             </p>
                             <p tabindex="0"><strong>Innsendt dato:</strong> {record.created}</p>
                             <p tabindex="0"><strong>Lesehjelp for:</strong> {record.UserName__c}</p>
-                            <p tabindex="0"><strong>Status:</strong> {record.Status__c}</p>
+                            <p tabindex="0"><strong>Status:</strong> {record.ExternalStatus__c}</p>
                             <p tabindex="0" if:true={record.CommentFromNAV__c}>
                                 <strong>Kommentar fra saksebehandler:</strong>
                             </p>
