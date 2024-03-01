@@ -599,11 +599,19 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     this.times[index].dateTravelTo = this.times[index].date;
                     this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
                     let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+                    let addTravelMinutesToButtonContainer = this.template.querySelectorAll(
+                        '.addTravelMinutesToButtonContainer'
+                    );
                     travelTimesToInputContainers[index].classList.remove('hidden');
+                    addTravelMinutesToButtonContainer[index].classList.remove('hidden');
                 } else {
                     this.times[index].hasTravelTo = false;
                     let travelTimesToInputContainers = this.template.querySelectorAll('.travelTimesToInputContainer');
+                    let addTravelMinutesToButtonContainer = this.template.querySelectorAll(
+                        '.addTravelMinutesToButtonContainer'
+                    );
                     travelTimesToInputContainers[index].classList.add('hidden');
+                    addTravelMinutesToButtonContainer[index].classList.add('hidden');
                 }
             }
         });
@@ -620,13 +628,21 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     let travelTimesFromInputContainers = this.template.querySelectorAll(
                         '.travelTimesFromInputContainer'
                     );
+                    let addTravelMinutesFromButtonContainer = this.template.querySelectorAll(
+                        '.addTravelMinutesFromButtonContainer'
+                    );
                     travelTimesFromInputContainers[index].classList.remove('hidden');
+                    addTravelMinutesFromButtonContainer[index].classList.remove('hidden');
                 } else {
                     this.times[index].hasTravelFrom = false;
                     let travelTimesFromInputContainers = this.template.querySelectorAll(
                         '.travelTimesFromInputContainer'
                     );
+                    let addTravelMinutesFromButtonContainer = this.template.querySelectorAll(
+                        '.addTravelMinutesFromButtonContainer'
+                    );
                     travelTimesFromInputContainers[index].classList.add('hidden');
+                    addTravelMinutesFromButtonContainer[index].classList.add('hidden');
                 }
             }
         });

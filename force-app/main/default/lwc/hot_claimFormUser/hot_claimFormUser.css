@@ -71,3 +71,13 @@
 .previousUserContainer:hover {
     background-color: #ffd799;
 }
+@media (max-width: 768px) {
+    .details-container {
+        display: block;
+        overflow: hidden;
+        max-height: 100%;
+        z-index: 1010;
+        width: 100vw;
+        padding: 2rem;
+    }
+}
