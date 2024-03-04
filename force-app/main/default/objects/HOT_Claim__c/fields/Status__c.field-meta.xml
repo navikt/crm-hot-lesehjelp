@@ -47,6 +47,11 @@
                 <default>false</default>
                 <label>Approved by user</label>
             </value>
+            <value>
+                <fullName>Sent for payment</fullName>
+                <default>false</default>
+                <label>Sent for payment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
