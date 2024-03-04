@@ -27,6 +27,10 @@
         <translation>Innsendt</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Sent for payment</masterLabel>
+        <translation>Sendt til utbetaling</translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Withdrawn</masterLabel>
         <translation>Tilbaketrukket</translation>
     </picklistValues>
