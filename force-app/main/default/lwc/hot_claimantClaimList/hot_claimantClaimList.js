@@ -65,7 +65,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     (claim) =>
                         claim.ExternalStatus__c === 'Innsendt' ||
                         claim.ExternalStatus__c === 'Godkjent av bruker' ||
-                        claim.ExternalStatus__c === 'Godkjent av NAV'
+                        claim.ExternalStatus__c === 'Godkjent av NAV' ||
+                        claim.ExternalStatus__c === 'Sendt til utbetaling'
                 )
                 .map((claim) => ({
                     ...claim,
