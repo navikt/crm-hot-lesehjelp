@@ -143,9 +143,8 @@ public without sharing class HOT_ClaimController {
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                 Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
                 cli.TravelDistance__c = travelDistance;
-            }
-            else{
-                cli.TravelDistance__c=0;
+            } else {
+                cli.TravelDistance__c = 0;
             }
             claimLineItemList.add(cli);
         }
@@ -310,7 +309,8 @@ public without sharing class HOT_ClaimController {
                 Type__c,
                 Claimant__r.Name,
                 ApprovedByUser__c,
-                CommentFromUser__c
+                CommentFromUser__c,
+                TotalHours__c
             FROM HOT_Claim__c
             WHERE Claimant__c != NULL AND NumberOfClaimLineItems__c > 0 AND Account__c = :currentUser.AccountId
         ];
