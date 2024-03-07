@@ -135,10 +135,10 @@
                             <template for:each={claimLineItems} for:item="cli">
                                 <div aria-label="Ny kravlinje" class="cli-container" key={cli.Id}>
                                     <p tabindex="0"><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
-                                    <p tabindex="0"><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
+                                    <!-- <p tabindex="0"><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
                                     <p tabindex="0" if:true={cli.AdditionalInformation__c}>
                                         <Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}
-                                    </p>
+                                    </p> -->
                                     <p tabindex="0"><Strong>Periode: </Strong>{cli.period}</p>
                                     <p tabindex="0"><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
                                     <p tabindex="0" if:true={cli.HasTravelTo__c}>
