@@ -36,7 +36,7 @@
                     desktop-style="padding-left: 1vw"
                     style={dateTimeDesktopStyle}
                 ></c-input>
-                <br />
+                <!-- <br />
                 <c-picklist
                     name={it.value.id}
                     choices={taskOptions}
@@ -62,7 +62,7 @@
                     desktop-style="padding-top: 1vw;padding-left: 1vw "
                     mobile-style="padding-bottom: 1vw"
                     helptext-content="Du må fylle ut tilleggsinformasjon fordi du valgte oppgave 'Annet'."
-                ></c-input>
+                ></c-input> -->
                 <div class="travelTimesContainer">
                     <c-radiobuttons
                         helptext-content="Velg ja om du har hatt reisetid for å komme deg til oppdraget."
@@ -341,8 +341,8 @@
                         name={it.value.id}
                         button-styling="secondary"
                         onbuttonclick={cloneClaimLineItem}
-                        aria-label="Klon kravlinje"
-                        button-label="+ Klon kravlinje"
+                        aria-label="Kopier"
+                        button-label="+ Kopier"
                     >
                     </c-button>
                 </div>
