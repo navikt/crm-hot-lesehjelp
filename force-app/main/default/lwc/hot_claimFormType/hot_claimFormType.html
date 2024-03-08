@@ -1,11 +1,16 @@
 <template>
     <section class="sub-form">
         <div class="skjema-form">
+            <div style="flex-direction: row; display: flex">
+                <h2 class="header" tabindex="-1">Hvilken type lesehjelp gjelder kravet for?</h2>
+                <c-helptext
+                    text="Du kan sende inn flere krav, men hvert krav kan kun bestå av én type lesehjelp, og kun inneholde tider innenfor samme år og ikke eldre enn 6 måneder fra dagens dato. Typen lesekrav må gjenspeile det personen du leste for har vedtak på."
+                    hover-text="Hjelpeknapp for type krav."
+                ></c-helptext>
+            </div>
             <c-radiobuttons
-                helptext-content="Du kan sende inn flere krav, men hvert krav kan kun bestå av én type lesehjelp, og kun inneholde tider innenfor samme år."
                 radiobuttons={componentValues.radiobuttons}
                 onradiobuttonsclick={handleClaimTypeChange}
-                header="Hvilken type lesehjelp gjelder kravet for?"
                 group-name="testRadioGroup"
                 name="Type__c"
             ></c-radiobuttons>

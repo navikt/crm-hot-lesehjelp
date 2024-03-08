@@ -77,35 +77,21 @@
                 >
                     <section>
                         <div>
-                            <h2 id="comment-header-id" class="typo-undertittel">Innholdet i {recordName}</h2>
+                            <h2 id="comment-header-id" class="typo-undertittel">Tider du har hatt lesehjelp</h2>
                         </div>
                         <div if:true={noClaimLineItems} style="text-align: center">
                             <br />
                             <p tabindex="0" class="typo-normal">Dette kravet hadde ingen linjer.</p>
                         </div>
                         <div  if:false={noClaimLineItems}>
-                            <p tabindex="0"><strong>Type lesehjelp: </strong>{record.Type__c}</p>
-                            <p tabindex="0" if:true={record.OnEmployer__c}><strong>Arbeidsgiver: </strong>{record.Organization__r.Name}</p>
-                            <p tabindex="0"><strong>Innsendt dato:</strong> {record.created}</p>
-                            <p tabindex="0"><strong>Lesehjelp:</strong> {recordClaimantName}</p>
-                            <p tabindex="0" if:true={record.isOldClaim}><strong>Din kommentar:</strong> {record.CommentFromUser__c}</p>
-                            </br>
-                            
                             <template for:each={claimLineItems} for:item="cli">
-                                <div aria-label="Ny kravlinje" class="cli-container" key={cli.Id}>
-                                    <p tabindex="0"><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
-                                    <p tabindex="0"><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
-                                    <p tabindex="0" if:true={cli.AdditionalInformation__c}><Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}</p>
-                                    <p tabindex="0"><Strong>Periode: </Strong>{cli.period}</p>
-                                    <p tabindex="0"><Strong>Hatt reise til: </Strong>{cli.hasTravelTo}</p>
-                                    <p tabindex="0" if:true={cli.HasTravelTo__c}><Strong>Reisen til oppdraget: </Strong>{cli.travelToPeriode}</p>
-                                    <p tabindex="0"><Strong>Hatt reise fra: </Strong>{cli.hasTravelFrom}</p>
-                                    <p tabindex="0" if:true={cli.HasTravelFrom__c}><Strong>Reisen fra oppdraget: </Strong>{cli.travelFromPeriode}</p>
-                                    <p if:true={cli.hasTravel} tabindex="0">
-                                        <strong>Totalt distanse reisevei: </strong> {cli.TravelDistance__c} km
-                                    </p>
+                                <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
+                                    <p tabindex="0"><Strong>Periode: </Strong>{cli.Weekday__c} {cli.period}</p>
                                 </div>
                             </template>
+                            <div aria-label="Oppsumering av timer" class="cli-container" key={cli.Id}>
+                                    <p tabindex="0"><Strong>Totalt antall timer: </Strong>{record.TotalHours__c}</p>
+                                </div>
                         </br>
                                 <c-textarea
                                     if:false={record.isOldClaim}
