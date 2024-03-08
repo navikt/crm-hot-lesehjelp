@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>declineClaim</name>
+        <label>declineClaim</label>
+        <locationX>1106</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>getClaim.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Declined by NAV</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>declineUpdateClaim</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>updateClaim</name>
+        <label>updateClaim</label>
+        <locationX>842</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>getClaim.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Approved by NAV</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getClaim.ApprovedByNAV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>approveUpdateClaim</targetReference>
+        </connector>
+    </assignments>
     <choices>
         <name>approve</name>
         <choiceText>Godkjenn kravet</choiceText>
@@ -20,7 +59,7 @@
     <decisions>
         <name>claimStatus</name>
         <label>claimStatus</label>
-        <locationX>490</locationX>
+        <locationX>512</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>ApproveOrDeclineScreen</targetReference>
@@ -28,12 +67,26 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Not_approved_by_user</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>getClaim.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Declined by user</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>getClaim.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sent</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>getClaim.ApprovedByUser__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -48,7 +101,7 @@
                 <leftValueReference>getClaim.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Withdrawn</elementReference>
+                    <stringValue>Withdrawn</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -59,13 +112,6 @@
         <rules>
             <name>Already_processed</name>
             <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>getClaim.Status__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Approved by NAV</stringValue>
-                </rightValue>
-            </conditions>
             <conditions>
                 <leftValueReference>getClaim.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -89,8 +135,11 @@
     <decisions>
         <name>NAVApprovedOrDeclined</name>
         <label>NAVApprovedOrDeclined</label>
-        <locationX>930</locationX>
+        <locationX>974</locationX>
         <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>declineClaim</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Declined</defaultConnectorLabel>
         <rules>
             <name>Approved</name>
@@ -102,6 +151,9 @@
                     <elementReference>approve</elementReference>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>updateClaim</targetReference>
+            </connector>
             <label>Approved</label>
         </rules>
     </decisions>
@@ -130,7 +182,7 @@
     <recordLookups>
         <name>getClaim</name>
         <label>getClaim</label>
-        <locationX>490</locationX>
+        <locationX>512</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -148,6 +200,20 @@
         <object>HOT_Claim__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>approveUpdateClaim</name>
+        <label>approveUpdateClaim</label>
+        <locationX>842</locationX>
+        <locationY>674</locationY>
+        <inputReference>getClaim</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>declineUpdateClaim</name>
+        <label>declineUpdateClaim</label>
+        <locationX>1106</locationX>
+        <locationY>674</locationY>
+        <inputReference>getClaim</inputReference>
+    </recordUpdates>
     <screens>
         <name>alreadyProcessedScreen</name>
         <label>alreadyProcessedScreen</label>
@@ -167,7 +233,7 @@
     <screens>
         <name>ApproveOrDeclineScreen</name>
         <label>ApproveOrDeclineScreen</label>
-        <locationX>930</locationX>
+        <locationX>974</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -257,7 +323,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>364</locationX>
+        <locationX>386</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getClaim</targetReference>
