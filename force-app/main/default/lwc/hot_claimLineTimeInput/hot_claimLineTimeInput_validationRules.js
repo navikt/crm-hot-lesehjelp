@@ -18,6 +18,12 @@ export function dateInPast(date) {
     let today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     return date.getTime() > today.getTime() ? 'Du kan ikke sende inn krav for fremtiden.' : '';
 }
+export function dateWithinSixMonths(date) {
+    date = new Date(date);
+    let sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    return date.getTime() < sixMonthsAgo.getTime() ? 'Datoen kan ikke være eldre enn 6 måneder.' : '';
+}
 
 export function startBeforeEnd(endDate, startDate) {
     startDate = new Date(startDate);
