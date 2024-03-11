@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="container" if:false={hasDecisions} role="navigation">
-            <a class="box" href={pageLinks.newClaim} aria-label="Til nytt krav skjema">
+            <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
                 </div>
@@ -20,7 +20,7 @@
                     <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
                 </div>
             </a>
-            <a class="box" href={pageLinks.myClaimantClaims} aria-label="Til mine innsendte krav">
+            <a class="box" href={pageLinks.myClaimantClaims}>
                 <div class="box-elements">
                     <img src={mineKravImg} alt="Knapp" />
                 </div>
@@ -31,11 +31,7 @@
             </a>
         </div>
         <div class="container" if:true={hasDecisions} role="navigation">
-            <a
-                class="box"
-                href={pageLinks.myClaimsToReview}
-                aria-label="Til liste over krav som er klar til å godkjennes, og liste over krav som allerede er godkjent og avslått"
-            >
+            <a class="box" href={pageLinks.myClaimsToReview}>
                 <div class="box-elements">
                     <img src={mineKravTilGodkjenningImg} alt="Knapp" />
                 </div>
@@ -44,7 +40,7 @@
                     <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
                 </div>
             </a>
-            <a class="box" href={pageLinks.myEntitlements} aria-label="Til mine vedtak">
+            <a class="box" href={pageLinks.myEntitlements}>
                 <div class="box-elements">
                     <img src={mineVedtakImg} alt="Knapp" />
                 </div>
