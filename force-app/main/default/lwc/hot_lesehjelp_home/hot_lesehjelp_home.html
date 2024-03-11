@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="container" if:false={hasDecisions}>
+        <div class="container" if:false={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.newClaim} aria-label="Til nytt krav skjema">
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
@@ -30,7 +30,7 @@
                 </div>
             </a>
         </div>
-        <div class="container" if:true={hasDecisions}>
+        <div class="container" if:true={hasDecisions} role="navigation">
             <a
                 class="box"
                 href={pageLinks.myClaimsToReview}
@@ -54,7 +54,7 @@
                 </div>
             </a>
         </div>
-        <div class="container-bottom">
+        <div class="container-bottom" role="navigation">
             <a class="box-small" href={pageLinks.myPage} aria-label="Til min side">
                 <div class="box-elements">
                     <img src={mineSiderImg} alt="Knapp" />
