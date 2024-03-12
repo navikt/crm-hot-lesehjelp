@@ -17,12 +17,16 @@ public without sharing class HOT_EntitlementController {
         ];
 
         List<HOT_Entitlement__c> entitlementList = [
-            SELECT Id, EntitledHours__c, EntitledHoursUsed__c
+            SELECT Id, EntitledHours__c, EntitledHoursUsed__c, EntitledHoursAlreadyUsed__c
             FROM HOT_Entitlement__c
             WHERE Id IN :entitlementIds
         ];
         for (HOT_Entitlement__c entitlement : entitlementList) {
-            entitlement.EntitledHoursUsed__c = 0;
+            if (entitlement.EntitledHoursAlreadyUsed__c == null) {
+                entitlement.EntitledHoursUsed__c = 0;
+            } else {
+                entitlement.EntitledHoursUsed__c = 0 + entitlement.EntitledHoursAlreadyUsed__c;
+            }
             for (HOT_Claim__c claim : claimList) {
                 if (claim.Entitlement__c == entitlement.Id) {
                     entitlement.EntitledHoursUsed__c += claim.TotalHours__c;
