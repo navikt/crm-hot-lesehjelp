@@ -214,6 +214,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Entitlement__c.EntitledHoursAlreadyUsed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Entitlement__c.EntitledHoursUsed__c</field>
         <readable>true</readable>
