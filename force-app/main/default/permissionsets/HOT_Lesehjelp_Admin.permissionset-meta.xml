@@ -235,6 +235,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Entitlement__c.Is_recurring__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Entitlement__c.ToDate__c</field>
         <readable>true</readable>
     </fieldPermissions>

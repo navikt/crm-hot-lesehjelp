@@ -85,6 +85,16 @@
                 <identifier>RecordToDate_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_recurring__c</fieldItem>
+                <identifier>RecordIs_recurring_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-39bc4fe2-8815-4fc5-abd5-adf6323da14e</name>
         <type>Facet</type>
     </flexiPageRegions>
