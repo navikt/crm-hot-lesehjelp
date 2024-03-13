@@ -4,7 +4,8 @@ import {
     requireInput,
     requireInputNumbers,
     dateInPast,
-    startBeforeEnd
+    startBeforeEnd,
+    dateWithinSixMonths
 } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
@@ -434,6 +435,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             let errorMessage = requireInput(element.value, 'Dato');
             if (errorMessage === '') {
                 errorMessage = dateInPast(this.times[index].dateMilliseconds);
+                errorMessage += dateWithinSixMonths(this.times[index].dateMilliseconds);
             }
             element.sendErrorMessage(errorMessage);
             hasErrors += errorMessage !== '';
@@ -488,6 +490,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 let errorMessage = requireInput(element.value, 'Dato');
                 if (errorMessage === '') {
                     errorMessage = dateInPast(this.times[index].dateTravelToMilliseconds);
+                    errorMessage += dateWithinSixMonths(this.times[index].dateTravelToMilliseconds);
                 }
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
@@ -533,6 +536,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 let errorMessage = requireInput(element.value, 'Dato');
                 if (errorMessage === '') {
                     errorMessage = dateInPast(this.times[index].dateTravelFromMilliseconds);
+                    errorMessage += dateWithinSixMonths(this.times[index].dateTravelFromMilliseconds);
                 }
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';

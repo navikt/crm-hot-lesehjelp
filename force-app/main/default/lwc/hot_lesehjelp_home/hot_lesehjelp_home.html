@@ -10,57 +10,53 @@
                 </div>
             </div>
         </div>
-        <div class="container" if:false={hasDecisions}>
-            <a class="box" href={pageLinks.newClaim} aria-label="Til nytt krav skjema">
+        <div class="container" if:false={hasDecisions} role="navigation">
+            <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
                     <img src={nyttKravImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Nytt krav</h2>
+                    <p class="typo-undertittel">Nytt krav</p>
                     <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
                 </div>
             </a>
-            <a class="box" href={pageLinks.myClaimantClaims} aria-label="Til mine innsendte krav">
+            <a class="box" href={pageLinks.myClaimantClaims}>
                 <div class="box-elements">
                     <img src={mineKravImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Mine innsendte krav</h2>
+                    <p class="typo-undertittel">Mine innsendte krav</p>
                     <p>Her får du en oversikt over alle dine innsendte krav.</p>
                 </div>
             </a>
         </div>
-        <div class="container" if:true={hasDecisions}>
-            <a
-                class="box"
-                href={pageLinks.myClaimsToReview}
-                aria-label="Til liste over krav som er klar til å godkjennes, og liste over krav som allerede er godkjent og avslått"
-            >
+        <div class="container" if:true={hasDecisions} role="navigation">
+            <a class="box" href={pageLinks.myClaimsToReview}>
                 <div class="box-elements">
                     <img src={mineKravTilGodkjenningImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Krav til godkjenning</h2>
+                    <p class="typo-undertittel">Krav til godkjenning</p>
                     <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
                 </div>
             </a>
-            <a class="box" href={pageLinks.myEntitlements} aria-label="Til mine vedtak">
+            <a class="box" href={pageLinks.myEntitlements}>
                 <div class="box-elements">
                     <img src={mineVedtakImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Vedtak</h2>
+                    <p class="typo-undertittel">Vedtak</p>
                     <p>Her får du en oversikt over dine vedtak.</p>
                 </div>
             </a>
         </div>
-        <div class="container-bottom">
+        <div class="container-bottom" role="navigation">
             <a class="box-small" href={pageLinks.myPage} aria-label="Til min side">
                 <div class="box-elements">
                     <img src={mineSiderImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Min side</h2>
+                    <p class="typo-undertittel">Min side</p>
                 </div>
             </a>
             <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp" aria-label="Til veiledning">
@@ -68,7 +64,7 @@
                     <img src={veiledningImg} alt="Knapp" />
                 </div>
                 <div class="box-elements">
-                    <h2>Veiledning</h2>
+                    <p class="typo-undertittel">Veiledning</p>
                 </div>
             </a>
         </div>
