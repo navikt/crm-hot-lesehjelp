@@ -118,3 +118,20 @@ p {
     padding: 1rem;
     width: 100%;
 }
+.status {
+    padding: 0.2rem;
+    display: inline;
+    border-radius: 5px;
+}
+.yellow {
+    background-color: #ffd799;
+    border: 1px solid #ffaa33;
+}
+.red {
+    background-color: #f68282;
+    border: 1px solid #de2e2e;
+}
+.green {
+    background-color: #99dead;
+    border: 1px solid #33aa5f;
+}

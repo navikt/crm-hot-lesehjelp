@@ -48,7 +48,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims.map((x) => ({
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
-                madeBy: this.setMadeBy(x.OnEmployer__c)
+                madeBy: this.setMadeBy(x.OnEmployer__c),
+                isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
+                isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
+                isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
             }));
             this.noFilterResults = this.claims.length == 0 ? true : false;
             this.claims.sort((a, b) => {
@@ -71,7 +74,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
-                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                    madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
+                    isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
+                    isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
                 }));
             this.noFilterResults = this.claims.length == 0 ? true : false;
             this.claims.sort((a, b) => {
@@ -88,7 +94,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
-                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                    madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
+                    isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
+                    isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
                 }));
             this.noFilterResults = this.claims.length == 0 ? true : false;
             this.claims.sort((a, b) => {
@@ -105,7 +114,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
-                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                    madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
+                    isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
+                    isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
                 }));
             this.noFilterResults = this.claims.length == 0 ? true : false;
             this.claims.sort((a, b) => {
@@ -125,7 +137,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
-                    madeBy: this.setMadeBy(claim.OnEmployer__c)
+                    madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
+                    isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
+                    isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
                 }));
             this.noFilterResults = this.claims.length == 0 ? true : false;
             this.claims.sort((a, b) => {
@@ -135,6 +150,32 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
             });
+        }
+    }
+    checkYellowStatus(status) {
+        if (
+            status == 'Innsendt' ||
+            status == 'Godkjent av bruker' ||
+            status == 'Godkjent av NAV' ||
+            status == 'Sendt til utbetaling'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    checkGreenStatus(status) {
+        if (status == 'Utbetalt') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    checkRedStatus(status) {
+        if (status == 'Avslått av NAV' || status == 'Avslått av bruker' || status == 'Tilbaketrukket') {
+            return true;
+        } else {
+            return false;
         }
     }
     goToClaim(event) {
@@ -220,7 +261,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims.map((x) => ({
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
-                madeBy: this.setMadeBy(x.OnEmployer__c)
+                madeBy: this.setMadeBy(x.OnEmployer__c),
+                isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
+                isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
+                isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
             }));
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
