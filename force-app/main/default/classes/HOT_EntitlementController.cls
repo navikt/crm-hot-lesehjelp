@@ -3,7 +3,16 @@ public without sharing class HOT_EntitlementController {
     public static List<HOT_Entitlement__c> getEntitlements() {
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         List<HOT_Entitlement__c> entitlements = [
-            SELECT Id, CreatedDate, FromDate__c, ToDate__c, Type__c, Name, EntitledHours__c, EntitledHoursUsed__c
+            SELECT
+                Id,
+                CreatedDate,
+                FromDate__c,
+                ToDate__c,
+                Type__c,
+                Name,
+                EntitledHours__c,
+                EntitledHoursUsed__c,
+                Is_recurring__c
             FROM HOT_Entitlement__c
             WHERE Account__c = :currentUser.Account.Id
         ];
@@ -17,12 +26,16 @@ public without sharing class HOT_EntitlementController {
         ];
 
         List<HOT_Entitlement__c> entitlementList = [
-            SELECT Id, EntitledHours__c, EntitledHoursUsed__c
+            SELECT Id, EntitledHours__c, EntitledHoursUsed__c, EntitledHoursAlreadyUsed__c
             FROM HOT_Entitlement__c
             WHERE Id IN :entitlementIds
         ];
         for (HOT_Entitlement__c entitlement : entitlementList) {
-            entitlement.EntitledHoursUsed__c = 0;
+            if (entitlement.EntitledHoursAlreadyUsed__c == null) {
+                entitlement.EntitledHoursUsed__c = 0;
+            } else {
+                entitlement.EntitledHoursUsed__c = 0 + entitlement.EntitledHoursAlreadyUsed__c;
+            }
             for (HOT_Claim__c claim : claimList) {
                 if (claim.Entitlement__c == entitlement.Id) {
                     entitlement.EntitledHoursUsed__c += claim.TotalHours__c;
