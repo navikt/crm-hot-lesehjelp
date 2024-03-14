@@ -3,7 +3,6 @@
     <fullName>Alle_kravlinjer</fullName>
     <columns>NAME</columns>
     <columns>Weekday__c</columns>
-    <columns>TypeOfTask__c</columns>
     <columns>NumberOfHours__c</columns>
     <columns>Claim__c</columns>
     <columns>Date__c</columns>

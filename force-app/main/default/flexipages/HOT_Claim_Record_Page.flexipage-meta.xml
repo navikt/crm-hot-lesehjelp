@@ -363,12 +363,6 @@
                         <valueListItems>
                             <value>EndTime__c</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>TypeOfTask__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>AdditionalInformation__c</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -381,11 +375,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldAlias</name>
-                    <value>__DEFAULT__</value>
+                    <value>Date__c</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldOrder</name>
-                    <value>Default</value>
+                    <value>Ascending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
