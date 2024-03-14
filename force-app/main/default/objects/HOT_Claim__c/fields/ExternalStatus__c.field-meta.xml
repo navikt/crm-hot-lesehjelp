@@ -22,7 +22,7 @@
                         &apos;Avslått av bruker&apos;,
                         IF(
                             ISPICKVAL(Status__c, &apos;Paid out&apos;),
-                            &apos;Sendt til utbetaling&apos;,
+                            &apos;Utbetalt&apos;,
                             IF(
                                 ISPICKVAL(Status__c, &apos;Sent for payment&apos;),
                                 &apos;Sendt til utbetaling&apos;,

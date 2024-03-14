@@ -69,8 +69,17 @@
                                     <p tabindex="0" class="typo-normal cursive">Sendt inn {claim.created}</p>
                                 </div>
 
-                                <p tabindex="0">Lesehjelp for {claim.UserName__c}</p>
-                                <p tabindex="0">Status: {claim.ExternalStatus__c}</p>
+                                <p tabindex="0" style="padding-bottom: 0.4rem">Lesehjelp for {claim.UserName__c}</p>
+
+                                <p if:true={claim.isYellowStatus} tabindex="0" class="status yellow">
+                                    {claim.ExternalStatus__c}
+                                </p>
+                                <p if:true={claim.isGreenStatus} tabindex="0" class="status green">
+                                    {claim.ExternalStatus__c}
+                                </p>
+                                <p if:true={claim.isRedStatus} tabindex="0" class="status red">
+                                    {claim.ExternalStatus__c}
+                                </p>
                                 <br />
                             </button>
                         </template>
