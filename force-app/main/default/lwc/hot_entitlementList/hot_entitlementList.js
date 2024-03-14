@@ -49,7 +49,7 @@ export default class Hot_entitlementList extends LightningElement {
                 ...x,
                 period: this.formatDateTimePeriod(x.FromDate__c, x.ToDate__c)
             }));
-            // this.claims.sort((a, b) => {
+            // this.entitlements.sort((a, b) => {
             //     if (b.CreatedDate === a.CreatedDate) {
             //         return 0;
             //     } else {
