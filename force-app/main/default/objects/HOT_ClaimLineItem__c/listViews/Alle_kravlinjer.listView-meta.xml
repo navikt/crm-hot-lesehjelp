@@ -5,9 +5,9 @@
     <columns>Weekday__c</columns>
     <columns>NumberOfHours__c</columns>
     <columns>Claim__c</columns>
-    <columns>Date__c</columns>
     <columns>StartTime__c</columns>
     <columns>EndTime__c</columns>
+    <columns>TravelDistance__c</columns>
     <columns>TravelToStartTime__c</columns>
     <columns>TravelToEndTime__c</columns>
     <columns>TravelFromStartTime__c</columns>

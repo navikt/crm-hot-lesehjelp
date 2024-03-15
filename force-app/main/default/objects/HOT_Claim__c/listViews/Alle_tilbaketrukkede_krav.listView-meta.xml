@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>HOT_All_Claims</fullName>
+    <fullName>Alle_tilbaketrukkede_krav</fullName>
     <columns>NAME</columns>
     <columns>Claimant__c</columns>
     <columns>Account__c</columns>
@@ -12,5 +12,10 @@
     <columns>ApprovedByNAV__c</columns>
     <columns>ApprovedByUser__c</columns>
     <filterScope>Everything</filterScope>
-    <label>Alle krav</label>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Withdrawn</value>
+    </filters>
+    <label>Krav tilbaketrukket av lesehjelpen</label>
 </ListView>
