@@ -8,7 +8,7 @@ https://www.nav.no/lese-og-sekretaerhjelp
 ## Salesforce Features
 
 Løsningen benytter seg av 
-- Service Cloud
+- Salesforce Platform
 - Experience Cloud
 
 ## Lenker
