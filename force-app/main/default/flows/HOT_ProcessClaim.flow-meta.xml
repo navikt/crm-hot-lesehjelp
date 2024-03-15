@@ -4,7 +4,7 @@
     <assignments>
         <name>declineClaim</name>
         <label>declineClaim</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>getClaim.Status__c</assignToReference>
@@ -20,7 +20,7 @@
     <assignments>
         <name>updateClaim</name>
         <label>updateClaim</label>
-        <locationX>842</locationX>
+        <locationX>1106</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>getClaim.Status__c</assignToReference>
@@ -59,7 +59,7 @@
     <decisions>
         <name>claimStatus</name>
         <label>claimStatus</label>
-        <locationX>512</locationX>
+        <locationX>644</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>ApproveOrDeclineScreen</targetReference>
@@ -131,11 +131,26 @@
             </connector>
             <label>Already processed</label>
         </rules>
+        <rules>
+            <name>No_Entitlement</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>getClaim.Entitlement__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>noEntitlementScreen</targetReference>
+            </connector>
+            <label>No Entitlement</label>
+        </rules>
     </decisions>
     <decisions>
         <name>NAVApprovedOrDeclined</name>
         <label>NAVApprovedOrDeclined</label>
-        <locationX>974</locationX>
+        <locationX>1238</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>declineClaim</targetReference>
@@ -182,7 +197,7 @@
     <recordLookups>
         <name>getClaim</name>
         <label>getClaim</label>
-        <locationX>512</locationX>
+        <locationX>644</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -203,14 +218,14 @@
     <recordUpdates>
         <name>approveUpdateClaim</name>
         <label>approveUpdateClaim</label>
-        <locationX>842</locationX>
+        <locationX>1106</locationX>
         <locationY>674</locationY>
         <inputReference>getClaim</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>declineUpdateClaim</name>
         <label>declineUpdateClaim</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>674</locationY>
         <inputReference>getClaim</inputReference>
     </recordUpdates>
@@ -219,9 +234,9 @@
         <label>alreadyProcessedScreen</label>
         <locationX>578</locationX>
         <locationY>350</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <fields>
             <name>alreadyProcessedText</name>
             <fieldText>&lt;p&gt;Kravet er allerede godkjent av NAV, sendt til utbetaling, eller utbetalt.&lt;/p&gt;</fieldText>
@@ -233,7 +248,7 @@
     <screens>
         <name>ApproveOrDeclineScreen</name>
         <label>ApproveOrDeclineScreen</label>
-        <locationX>974</locationX>
+        <locationX>1238</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -291,13 +306,29 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>noEntitlementScreen</name>
+        <label>noEntitlementScreen</label>
+        <locationX>842</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>noEntitlementText</name>
+            <fieldText>&lt;p&gt;Kravet må være tilkoblet et vedtak&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>notApprovedByUser</name>
         <label>notApprovedByUser</label>
         <locationX>50</locationX>
         <locationY>350</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <fields>
             <name>notApprovedByUserText</name>
             <fieldText>&lt;p&gt;Kravet er ikke godkjent av bruker.&lt;/p&gt;</fieldText>
@@ -311,9 +342,9 @@
         <label>withdrawnScreen</label>
         <locationX>314</locationX>
         <locationY>350</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <fields>
             <name>withdrawnText</name>
             <fieldText>&lt;p&gt;Kravet er tilbaketrukket av lesehjelpen.&lt;/p&gt;</fieldText>
@@ -323,7 +354,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>386</locationX>
+        <locationX>518</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getClaim</targetReference>
