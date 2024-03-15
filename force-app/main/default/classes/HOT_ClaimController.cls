@@ -705,7 +705,7 @@ public without sharing class HOT_ClaimController {
         ];
         return claim;
     }
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<HOT_Claim__c> getMyPreviousClaims() {
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         List<HOT_Claim__c> claims = [
