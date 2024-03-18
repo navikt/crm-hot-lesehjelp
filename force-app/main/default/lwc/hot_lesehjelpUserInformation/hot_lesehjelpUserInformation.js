@@ -36,7 +36,12 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
                 ', ' +
                 this.personResult.INT_ResidentialZipCode__c +
                 ' ' +
+<<<<<<< Updated upstream
                 this.personResult.INT_ResidentialZip__c;
+=======
+                this.personResult.INT_ResidentialPlace__c;
+            this.isKrrQueued = this.personResult.INT_KrrIntegrationStatus__c == 'Queued' ? true : false;
+>>>>>>> Stashed changes
         } else {
             this.mobilenumber = '';
             this.email = '';
