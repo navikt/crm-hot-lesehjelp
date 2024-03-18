@@ -44,7 +44,7 @@ public without sharing class HOT_UserInfoController {
                 INT_BankAccountNumber__c,
                 INT_ResidentialAddress__c,
                 INT_ResidentialZipCode__c,
-                INT_ResidentialZip__c,
+                INT_ResidentialPlace__c,
                 INT_KrrMobilePhone__c,
                 INT_LastUpdatedFromKRR__c,
                 INT_KrrIntegrationStatus__c
