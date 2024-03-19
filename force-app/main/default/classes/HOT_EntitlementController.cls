@@ -44,4 +44,14 @@ public without sharing class HOT_EntitlementController {
         }
         update entitlementList;
     }
+    public static void findClaimsOnNewEntitlement() {
+        List<HOT_Claim__c> claims = [SELECT Id FROM HOT_Claim__c WHERE Entitlement__c = NULL];
+        Set<Id> claimIds = new Set<Id>();
+        if (!claims.isEmpty()) {
+            for (HOT_Claim__c claim : claims) {
+                claimIds.add(claim.Id);
+            }
+            HOT_ClaimController.setEntitlementOnClaim(claimIds);
+        }
+    }
 }

@@ -28,9 +28,9 @@ export default class Hot_newLOSForm extends LightningElement {
                     ? ''
                     : ', ' + this.personResult.INT_ResidentialZipCode__c;
             this.fieldValues.Address__c +=
-                this.personResult.INT_ResidentialZip__c == undefined
+                this.personResult.INT_ResidentialPlace__c == undefined
                     ? ''
-                    : ' ' + this.personResult.INT_ResidentialZip__c;
+                    : ' ' + this.personResult.INT_ResidentialPlace__c;
 
             this.fieldValues.BankAccount__c =
                 this.personResult.INT_BankAccountNumber__c === undefined
