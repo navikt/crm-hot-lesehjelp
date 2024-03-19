@@ -15,6 +15,7 @@ public without sharing class HOT_EntitlementController {
                 Is_recurring__c
             FROM HOT_Entitlement__c
             WHERE Account__c = :currentUser.Account.Id
+            ORDER BY ToDate__c DESC
         ];
         return entitlements;
     }
