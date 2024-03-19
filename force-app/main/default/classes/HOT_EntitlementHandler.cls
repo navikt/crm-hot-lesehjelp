@@ -13,4 +13,7 @@ public with sharing class HOT_EntitlementHandler extends MyTriggers {
             HOT_EntitlementController.recalculateUsedEntitlements(entitlementIds);
         }
     }
+    public override void onAfterInsert() {
+        HOT_EntitlementController.findClaimsOnNewEntitlement();
+    }
 }
