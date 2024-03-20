@@ -1,13 +1,13 @@
 public without sharing class HOT_KrrCalloutQueuable implements Queueable, Database.AllowsCallouts {
-    private List<HOT_Claim__c> claims;
+    private List<Account> accounts;
     private class KRRException extends Exception {
     }
 
-    public HOT_KrrCalloutQueuable(List<HOT_Claim__c> claims) {
-        this.claims = [
-            SELECT Id, Account__r.CRM_Person__c, Account__r.CRM_Person__r.Name
-            FROM HOT_Claim__c
-            WHERE Id IN :claims
+    public HOT_KrrCalloutQueuable(List<Account> accounts) {
+        this.accounts = [
+            SELECT Id, CRM_Person__c, CRM_Person__r.Name
+            FROM Account
+            WHERE Id IN :accounts
         ];
     }
 
@@ -16,12 +16,9 @@ public without sharing class HOT_KrrCalloutQueuable implements Queueable, Databa
         Map<Id, Person__c> personByPersonId = new Map<Id, Person__c>();
         CRM_DatabaseOperations cdo = new CRM_DatabaseOperations();
         cdo.setDomain(CRM_ApplicationDomain.Domain.HOT);
-        for (HOT_Claim__c claim : claims) {
-            personIdByPersonalNumber.put(
-                String.valueOf(claim.Account__r.CRM_Person__r.Name),
-                claim.Account__r.CRM_Person__c
-            );
-            personByPersonId.put(claim.Account__r.CRM_Person__c, claim.Account__r.CRM_Person__r);
+        for (Account account : accounts) {
+            personIdByPersonalNumber.put(String.valueOf(account.CRM_Person__r.Name), account.CRM_Person__c);
+            personByPersonId.put(account.CRM_Person__c, account.CRM_Person__r);
         }
 
         try {
