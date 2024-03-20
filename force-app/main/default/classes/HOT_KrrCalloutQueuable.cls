@@ -3,7 +3,7 @@ public without sharing class HOT_KrrCalloutQueuable implements Queueable, Databa
     private class KRRException extends Exception {
     }
 
-    public HOT_KrrCalloutQueuable(List<Account> accounts) {
+    public HOT_KrrCalloutQueuable(Set<Id> accounts) {
         this.accounts = [
             SELECT Id, CRM_Person__c, CRM_Person__r.Name
             FROM Account
