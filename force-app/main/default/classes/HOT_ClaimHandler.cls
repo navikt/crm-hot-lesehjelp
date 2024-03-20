@@ -24,13 +24,19 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
                 claimIds.add(claim.Id);
             }
         }
+        if (records.size() > 0) {
+            HOT_KRRCalloutQueuable krr = new HOT_KRRCalloutQueuable(records);
+        }
         if (claimIds.size() > 0) {
+            System.debug('Går inn her 101');
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
+            System.debug('Går inn her 102');
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
         }
         if (entitlements.size() > 0) {
+            System.debug('Går inn her 103');
             HOT_EntitlementController.recalculateUsedEntitlements(entitlements);
         }
     }
