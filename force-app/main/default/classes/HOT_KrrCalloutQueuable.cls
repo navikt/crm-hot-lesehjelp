@@ -63,7 +63,7 @@ public without sharing class HOT_KrrCalloutQueuable implements Queueable, Databa
             cdo.updateRecords(personsToUpdate);
         } catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, claims[0], CRM_ApplicationDomain.Domain.HOT);
+            logger.exception(e, accounts[0], CRM_ApplicationDomain.Domain.HOT);
             logger.publish();
 
             List<Person__c> personsToUpdate = new List<Person__c>();
