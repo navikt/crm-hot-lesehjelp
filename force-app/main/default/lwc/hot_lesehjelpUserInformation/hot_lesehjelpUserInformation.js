@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
+import updateKrrStatus from '@salesforce/apex/HOT_UserInfoController.updateKrrStatus';
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 
 export default class Hot_lesehjelpUserInformation extends LightningElement {
@@ -21,6 +22,7 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
     @track email;
     @track banknumber;
     @track address;
+    @track isKrrQueued;
 
     personResult;
 
@@ -43,6 +45,16 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
             this.email = '';
             this.banknumber = '';
             this.address = '';
+        }
+    }
+    setKrrIntegrationStatusToQueued() {
+        var personCloned = JSON.parse(JSON.stringify(this.personResult));
+        try {
+            personCloned.INT_KrrIntegrationStatus__c = 'Queued';
+            updateKrrStatus({ person: personCloned });
+            this.isKrrQueued = true;
+        } catch (error) {
+            console.log(error);
         }
     }
 }

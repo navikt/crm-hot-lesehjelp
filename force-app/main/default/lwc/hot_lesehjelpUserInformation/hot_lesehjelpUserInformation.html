@@ -31,12 +31,18 @@
                 <p tabindex="0">
                     KILDE: Kontakt- og reservasjonsregisteret og opplysninger hentet fra Mine sider på NAV.no
                 </p>
-                <a href="https://www.nav.no/person/personopplysninger/nb/" target="_blank">
+                <a
+                    href="https://www.nav.no/person/personopplysninger/nb/"
+                    target="_blank"
+                    onclick={setKrrIntegrationStatusToQueued}
+                >
                     <p>
                         <img style="width: 1rem" src={LinkImg} alt="" />Endre alle dine opplysninger på NAV.no mine
                         sider
                     </p>
                 </a>
+                <br />
+                <p class="status yellow" if:true={isKrrQueued}>Oppdatert informasjon vil bli synlig innen en time.</p>
             </main>
         </div>
     </div>
