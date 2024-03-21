@@ -1,6 +1,6 @@
 public without sharing class HOT_KrrBatch implements Database.Batchable<sObject>, Schedulable {
     public void execute(SchedulableContext sc) {
-        HOT_KrrErrorBatch instance = new HOT_KrrErrorBatch();
+        HOT_KrrBatch instance = new HOT_KrrBatch();
         database.executebatch(instance, 10);
     }
 
@@ -17,7 +17,7 @@ public without sharing class HOT_KrrBatch implements Database.Batchable<sObject>
     public void finish(Database.BatchableContext bc) {
         if (!Test.isRunningTest()) {
             try {
-                System.scheduleBatch(new HOT_KrrErrorBatch(), 'HOT_KrrErrorBatch', 60, 10);
+                System.scheduleBatch(new HOT_KrrBatch(), 'HOT_KrrBatch', 60, 10);
             } catch (Exception e) {
                 LoggerUtility logger = new LoggerUtility();
                 logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
