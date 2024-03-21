@@ -6,7 +6,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
         }
         if (accountIds.size() > 0) {
             // Call out to KRR through Queuable Apex
-            HOT_KRRCalloutQueuable2 krr = new HOT_KRRCalloutQueuable2(accountIds);
+            HOT_KRRAccountCalloutQueuable krr = new HOT_KRRAccountCalloutQueuable(accountIds);
             System.enqueueJob(krr);
         }
     }
