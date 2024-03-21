@@ -1,9 +1,12 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
+import updateKrrStatus from '@salesforce/apex/HOT_UserInfoController.updateKrrStatus';
 
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 export default class Hot_newLOSForm extends LightningElement {
     LinkImg = LINK;
+
+    @track isKrrQueued;
     @track fieldValues = {
         BankAccount__c: '',
         PhoneNumber__c: '',
@@ -25,9 +28,9 @@ export default class Hot_newLOSForm extends LightningElement {
                     ? ''
                     : ', ' + this.personResult.INT_ResidentialZipCode__c;
             this.fieldValues.Address__c +=
-                this.personResult.INT_ResidentialZip__c == undefined
+                this.personResult.INT_ResidentialPlace__c == undefined
                     ? ''
-                    : ' ' + this.personResult.INT_ResidentialZip__c;
+                    : ' ' + this.personResult.INT_ResidentialPlace__c;
 
             this.fieldValues.BankAccount__c =
                 this.personResult.INT_BankAccountNumber__c === undefined
@@ -37,6 +40,7 @@ export default class Hot_newLOSForm extends LightningElement {
                 this.personResult.INT_KrrMobilePhone__c === undefined ? '' : this.personResult.INT_KrrMobilePhone__c;
             this.fieldValues.EmailAdress__c =
                 this.personResult.INT_KrrEmail__c === undefined ? '' : this.personResult.INT_KrrEmail__c;
+            this.isKrrQueued = this.personResult.INT_KrrIntegrationStatus__c == 'Queued' ? true : false;
         } else {
             this.fieldValues.Address__c = '';
             this.fieldValues.BankAccount__c = '';
@@ -44,6 +48,14 @@ export default class Hot_newLOSForm extends LightningElement {
             this.fieldValues.EmailAdress__c = '';
         }
     }
-
-    connectedCallback() {}
+    setKrrIntegrationStatusToQueued() {
+        var personCloned = JSON.parse(JSON.stringify(this.personResult));
+        try {
+            personCloned.INT_KrrIntegrationStatus__c = 'Queued';
+            updateKrrStatus({ person: personCloned });
+            this.isKrrQueued = true;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

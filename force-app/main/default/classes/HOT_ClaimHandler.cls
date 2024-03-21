@@ -1,4 +1,15 @@
 public without sharing class HOT_ClaimHandler extends MyTriggers {
+    public override void onAfterInsert() {
+        Set<Id> accountIds = new Set<Id>();
+        for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
+            accountIds.add(claim.Claimant__c);
+        }
+        if (accountIds.size() > 0) {
+            // Call out to KRR through Queuable Apex
+            HOT_KRRAccountCalloutQueuable krr = new HOT_KRRAccountCalloutQueuable(accountIds);
+            System.enqueueJob(krr);
+        }
+    }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
         List<HOT_Claim__c> claimsToNotifyUserOnDeclinedStatus = new List<HOT_Claim__c>();
         Set<Id> entitlements = new Set<Id>();
@@ -25,12 +36,15 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             }
         }
         if (claimIds.size() > 0) {
+            System.debug('Går inn her 101');
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
+            System.debug('Går inn her 102');
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
         }
         if (entitlements.size() > 0) {
+            System.debug('Går inn her 103');
             HOT_EntitlementController.recalculateUsedEntitlements(entitlements);
         }
     }

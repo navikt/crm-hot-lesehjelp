@@ -34,7 +34,7 @@ public without sharing class HOT_UserInfoController {
         ];
         return accounts;
     }
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static Person__c getPersonDetails() {
         User currentUser = [SELECT Id, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         Person__c person = [
@@ -44,7 +44,7 @@ public without sharing class HOT_UserInfoController {
                 INT_BankAccountNumber__c,
                 INT_ResidentialAddress__c,
                 INT_ResidentialZipCode__c,
-                INT_ResidentialZip__c,
+                INT_ResidentialPlace__c,
                 INT_KrrMobilePhone__c,
                 INT_LastUpdatedFromKRR__c,
                 INT_KrrIntegrationStatus__c
@@ -52,5 +52,13 @@ public without sharing class HOT_UserInfoController {
             WHERE Id = :currentUser.Account.CRM_Person__c
         ];
         return person;
+    }
+    @AuraEnabled
+    public static void updateKrrStatus(Person__c person) {
+        List<Person__c> krrPerson = [SELECT Id, INT_KrrIntegrationStatus__c FROM Person__c WHERE Id = :person.Id];
+        if (krrPerson.size() != 0) {
+            krrPerson[0].INT_KrrIntegrationStatus__c = person.INT_KrrIntegrationStatus__c;
+            update krrPerson;
+        }
     }
 }

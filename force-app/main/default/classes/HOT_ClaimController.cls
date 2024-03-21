@@ -630,6 +630,7 @@ public without sharing class HOT_ClaimController {
     }
     public static void setEntitlementOnClaim(Set<Id> claimIds) {
         List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
+        List<HOT_Claim__c> claimsToBeUpdated = new List<HOT_Claim__c>();
 
         Set<Id> accountIds = new Set<Id>();
         for (HOT_Claim__c claim : claims) {
@@ -674,13 +675,14 @@ public without sharing class HOT_ClaimController {
                                 entitlement.ToDate__c >= latestEndTime
                             ) {
                                 claim.Entitlement__c = entitlement.Id;
+                                claimsToBeUpdated.add(claim);
                                 break;
                             }
                         }
                     }
                 }
                 try {
-                    update claims;
+                    update claimsToBeUpdated;
                 } catch (Exception e) {
                     LoggerUtility logger = new LoggerUtility();
                     logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
@@ -705,7 +707,7 @@ public without sharing class HOT_ClaimController {
         ];
         return claim;
     }
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<HOT_Claim__c> getMyPreviousClaims() {
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         List<HOT_Claim__c> claims = [
