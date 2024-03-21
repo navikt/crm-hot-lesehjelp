@@ -10,7 +10,11 @@ public without sharing class HOT_KrrBatch implements Database.Batchable<sObject>
     }
 
     public void execute(Database.BatchableContext bc, List<Account> records) {
-        HOT_KRRCalloutQueuable krr = new HOT_KRRCalloutQueuable(records);
+        Set<Id> accountIds = new Set<Id>();
+        for (Account account : records) {
+            accountIds.add(account.Id);
+        }
+        HOT_KRRCalloutQueuable krr = new HOT_KRRCalloutQueuable(accountIds);
         System.enqueueJob(krr);
     }
 
