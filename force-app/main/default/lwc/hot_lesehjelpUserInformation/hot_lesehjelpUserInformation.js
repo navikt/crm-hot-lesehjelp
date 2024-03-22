@@ -22,9 +22,12 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
     @track email;
     @track banknumber;
     @track address;
-    @track isKrrQueued;
+    @track isKrrQueued = false;
 
     personResult;
+    connectedCallback() {
+        refreshApex(this.personResult);
+    }
 
     @wire(getPersonDetails)
     wiredResult(result) {
