@@ -422,7 +422,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Reisevei');
+                let errorMessage = requireInputNumbers(element.value, 'Antall km reisevei');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
