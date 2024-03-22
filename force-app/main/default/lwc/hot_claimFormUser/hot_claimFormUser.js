@@ -28,11 +28,13 @@ export default class Hot_claimFormUser extends LightningElement {
     @track unmappedPreviousUsers;
     @track mappedPreviousUsers;
 
+    wiredResult;
     wiredAllPreviousClaimsResult;
     noPreviousUsers = false;
 
     @wire(getMyPreviousClaims)
     wiredClaims(result) {
+        this.wiredResult = result;
         if (result.data) {
             this.wiredAllPreviousClaimsResult = result.data;
             this.noPreviousUsers = this.wiredAllPreviousClaimsResult.length === 0;
@@ -150,7 +152,7 @@ export default class Hot_claimFormUser extends LightningElement {
     }
 
     connectedCallback() {
-        refreshApex(this.wiredAllPreviousClaimsResult);
+        refreshApex(this.wiredResult);
 
         this.showDiv = true;
         setTimeout(() => this.template.querySelector('h2').focus());
