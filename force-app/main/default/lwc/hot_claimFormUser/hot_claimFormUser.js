@@ -1,4 +1,5 @@
 import { LightningElement, track, wire, api } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
 import getMyPreviousClaims from '@salesforce/apex/HOT_ClaimController.getMyPreviousClaims';
 
 export default class Hot_claimFormUser extends LightningElement {
@@ -149,6 +150,8 @@ export default class Hot_claimFormUser extends LightningElement {
     }
 
     connectedCallback() {
+        refreshApex(this.wiredAllPreviousClaimsResult);
+
         this.showDiv = true;
         setTimeout(() => this.template.querySelector('h2').focus());
 
