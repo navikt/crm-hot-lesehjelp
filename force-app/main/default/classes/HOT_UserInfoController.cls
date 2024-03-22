@@ -34,7 +34,7 @@ public without sharing class HOT_UserInfoController {
         ];
         return accounts;
     }
-    @AuraEnabled(cacheable=false)
+    @AuraEnabled(cacheable=true)
     public static Person__c getPersonDetails() {
         User currentUser = [SELECT Id, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
         Person__c person = [
