@@ -1,4 +1,5 @@
 import { LightningElement, track, wire, api } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
 import getMyPreviousClaims from '@salesforce/apex/HOT_ClaimController.getMyPreviousClaims';
 
 export default class Hot_claimFormUser extends LightningElement {
@@ -27,11 +28,13 @@ export default class Hot_claimFormUser extends LightningElement {
     @track unmappedPreviousUsers;
     @track mappedPreviousUsers;
 
+    wiredResult;
     wiredAllPreviousClaimsResult;
     noPreviousUsers = false;
 
     @wire(getMyPreviousClaims)
     wiredClaims(result) {
+        this.wiredResult = result;
         if (result.data) {
             this.wiredAllPreviousClaimsResult = result.data;
             this.noPreviousUsers = this.wiredAllPreviousClaimsResult.length === 0;
@@ -149,6 +152,8 @@ export default class Hot_claimFormUser extends LightningElement {
     }
 
     connectedCallback() {
+        refreshApex(this.wiredResult);
+
         this.showDiv = true;
         setTimeout(() => this.template.querySelector('h2').focus());
 
