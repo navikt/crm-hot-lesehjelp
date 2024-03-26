@@ -1,4 +1,27 @@
 public without sharing class HOT_EntitlementController {
+     public static void checkIfNewEntitlementsWillOverlap(List<HOT_Entitlement__c> entitlements) {
+        Set<Id> accountIds = new Set<Id>();
+        for (HOT_Entitlement__c entitlement : entitlements) {
+            accountIds.add(entitlement.Account__c);
+        }
+        List<HOT_Entitlement__c> existingEntitlements = [
+            SELECT Id, Name, Account__c, FromDate__c, ToDate__c, Type__c
+            FROM HOT_Entitlement__c
+            WHERE Account__c IN :accountIds
+        ];
+        if (!existingEntitlements.isEmpty()) {
+            for (HOT_Entitlement__c existingEntitlement : existingEntitlements) {
+                for (HOT_Entitlement__c insertedEntitlement : entitlements) {
+                    if (
+                        insertedEntitlement.FromDate__c <= existingEntitlement.ToDate__c &&
+                        insertedEntitlement.ToDate__c >= existingEntitlement.FromDate__c && insertedEntitlement.Type__c == existingEntitlement.Type__c
+                    ) {
+                        insertedEntitlement.addError('Vedtaket er overlappende med ' + existingEntitlement.Name);
+                    }
+                }
+            }
+        }
+    }
     @AuraEnabled(cacheable=true)
     public static List<HOT_Entitlement__c> getEntitlements() {
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];

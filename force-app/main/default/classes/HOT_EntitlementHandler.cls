@@ -1,4 +1,15 @@
 public with sharing class HOT_EntitlementHandler extends MyTriggers {
+    public override void onBeforeInsert() {
+        List<HOT_Entitlement__c> checkNewEntitlements= new List<HOT_Entitlement__c>();
+        for (HOT_Entitlement__c entitlement : (List<HOT_Entitlement__c>) records) {
+            if (entitlement.Account__c!=null) {
+                checkNewEntitlements.add(entitlement);
+            } 
+        }
+        if (checkNewEntitlements.size() > 0) {
+            HOT_EntitlementController.checkIfNewEntitlementsWillOverlap(checkNewEntitlements);
+        }
+    }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
         Set<Id> entitlementIds = new Set<Id>();
         for (HOT_Entitlement__c entitlement : (List<HOT_Entitlement__c>) records) {
