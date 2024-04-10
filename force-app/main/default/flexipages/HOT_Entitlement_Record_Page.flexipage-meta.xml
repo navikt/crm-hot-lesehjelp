@@ -129,26 +129,6 @@
                 <identifier>RecordEntitledHoursUsed_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CreatedById</fieldItem>
-                <identifier>RecordCreatedByIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.LastModifiedById</fieldItem>
-                <identifier>RecordLastModifiedByIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-3bcc8913-d713-4ba7-b56a-9244afa66307</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -189,7 +169,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Section</value>
+                    <value>Informasjon</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection</identifier>
@@ -345,6 +325,58 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CreatedById</fieldItem>
+                <identifier>RecordCreatedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-ed22daf6-dac8-4e98-87b4-8e215ae2cf4a</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LastModifiedById</fieldItem>
+                <identifier>RecordLastModifiedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-27a2618d-feb1-4aac-8500-c96fbbbea796</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-ed22daf6-dac8-4e98-87b4-8e215ae2cf4a</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-27a2618d-feb1-4aac-8500-c96fbbbea796</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-acdd8bbd-c6a3-4073-b36a-c5d1202b9160</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
@@ -352,6 +384,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-acdd8bbd-c6a3-4073-b36a-c5d1202b9160</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Systeminformasjon</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection2</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
