@@ -100,6 +100,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Entitlement__c</fieldItem>
+                <identifier>RecordEntitlement_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Name</fieldItem>
                 <identifier>RecordNameField</identifier>
             </fieldInstance>
@@ -134,8 +144,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.CommentFromNAV__c</fieldItem>
-                <identifier>RecordCommentFromNAV_cField</identifier>
+                <fieldItem>Record.ApprovedByUser__c</fieldItem>
+                <identifier>RecordApprovedByUser_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -154,8 +164,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.ApprovedByUser__c</fieldItem>
-                <identifier>RecordApprovedByUser_cField</identifier>
+                <fieldItem>Record.ApprovedByNAV__c</fieldItem>
+                <identifier>RecordApprovedByNAV_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -164,8 +174,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.ApprovedByNAV__c</fieldItem>
-                <identifier>RecordApprovedByNAV_cField</identifier>
+                <fieldItem>Record.CommentFromNAV__c</fieldItem>
+                <identifier>RecordCommentFromNAV_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -257,16 +267,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IsNotificationSent__c</fieldItem>
                 <identifier>RecordIsNotificationSent_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Entitlement__c</fieldItem>
-                <identifier>RecordEntitlement_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b9ed18d5-948e-4786-a959-b5cb0ae8a21d</name>
