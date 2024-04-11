@@ -20,7 +20,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             if (
                 (triggerOldMap.get(claim.Id).get('Status__c') == 'Sent' ||
                 triggerOldMap.get(claim.Id).get('Status__c') == 'Approved by user') &&
-                (claim.Status__c == 'Declined' ||
+                (claim.Status__c == 'Declined by NAV' ||
                 claim.Status__c == 'Declined by user')
             ) {
                 claimsToNotifyUserOnDeclinedStatus.add(claim);
