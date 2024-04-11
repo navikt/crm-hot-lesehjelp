@@ -168,9 +168,9 @@ public class HOT_ClaimControllerTest {
             'startTimeTravelTo' => '080000',
             'endTimeTravelTo' => '090000',
             'hasTravelFrom' => 'true',
-            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
-            'startTimeTravelFrom' => '170000', // Assuming timestamp format
-            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'dateTravelFrom' => Date.today().addDays(-1),
+            'startTimeTravelFrom' => '170000',
+            'endTimeTravelFrom' => '180000',
             'travelDistance' => 10
         };
         claimLineItems.add(claimLineItem);
@@ -214,9 +214,9 @@ public class HOT_ClaimControllerTest {
             'startTimeTravelTo' => '080000',
             'endTimeTravelTo' => '090000',
             'hasTravelFrom' => 'true',
-            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
-            'startTimeTravelFrom' => '170000', // Assuming timestamp format
-            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'dateTravelFrom' => Date.today().addDays(-1),
+            'startTimeTravelFrom' => '170000',
+            'endTimeTravelFrom' => '180000',
             'travelDistance' => 10
         };
         claimLineItems.add(claimLineItem);
@@ -260,9 +260,9 @@ public class HOT_ClaimControllerTest {
             'startTimeTravelTo' => '080000',
             'endTimeTravelTo' => '090000',
             'hasTravelFrom' => 'true',
-            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
-            'startTimeTravelFrom' => '170000', // Assuming timestamp format
-            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'dateTravelFrom' => Date.today().addDays(-1),
+            'startTimeTravelFrom' => '170000',
+            'endTimeTravelFrom' => '180000',
             'travelDistance' => 10
         };
         claimLineItems.add(claimLineItem);
@@ -306,9 +306,9 @@ public class HOT_ClaimControllerTest {
             'startTimeTravelTo' => '080000',
             'endTimeTravelTo' => '090000',
             'hasTravelFrom' => 'true',
-            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
-            'startTimeTravelFrom' => '170000', // Assuming timestamp format
-            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'dateTravelFrom' => Date.today().addDays(-1),
+            'startTimeTravelFrom' => '170000',
+            'endTimeTravelFrom' => '180000',
             'travelDistance' => 10
         };
         claimLineItems.add(claimLineItem);
@@ -352,9 +352,9 @@ public class HOT_ClaimControllerTest {
             'startTimeTravelTo' => '080000',
             'endTimeTravelTo' => '090000',
             'hasTravelFrom' => 'true',
-            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
-            'startTimeTravelFrom' => '170000', // Assuming timestamp format
-            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'dateTravelFrom' => Date.today().addDays(-1),
+            'startTimeTravelFrom' => '170000',
+            'endTimeTravelFrom' => '180000',
             'travelDistance' => 10
         };
         claimLineItems.add(claimLineItem);
@@ -397,6 +397,85 @@ public class HOT_ClaimControllerTest {
         List<Map<String, String>> times = HOT_ClaimController.getTimes(claim.Id);
         Test.stopTest();
         System.assertNotEquals(0, times.size(), 'List of times should not be empty');
+    }
+    @IsTest
+    static void CreateNewClaimFromCommunityAndThenUpdateItTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '01010101010';
+        String userPhoneNumber = '';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'false';
+        String employerName = '';
+        String organizationNumber = '';
+        String employerExpensesPerHour = '';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), 
+            'startTimeTravelFrom' => '170000', 
+            'endTimeTravelFrom' => '180000', 
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        HOT_Claim__c claimToUpdate = [SELECT Id FROM HOT_Claim__c WHERE Type__c ='Dagligliv' LIMIT 1];
+        List <HOT_ClaimLineItem__c> claimLineItemsList = [SELECT Id FROM HOT_ClaimLineItem__c WHERE Claim__c = :claimToUpdate.Id];
+        //
+List<Map<String, Object>> claimLineItemsUpdated = new List<Map<String, Object>>();
+
+for (HOT_ClaimLineItem__c cli : claimLineItemsList) {
+    Map<String, Object> claimLineItemUpdated = new Map<String, Object>{
+        'id' => cli.Id,
+        'date' => Date.today().addDays(-1),
+        'task' => '',
+        'startTime' => '100000',
+        'endTime' => '120000', 
+        'hasAdditionalInformation' => 'true',
+        'additionalInformation' => 'Additional info',
+        'hasTravelTo' => 'true',
+        'dateTravelTo' => Date.today().addDays(-1), 
+        'startTimeTravelTo' => '080000',
+        'endTimeTravelTo' => '090000',
+        'hasTravelFrom' => 'true',
+        'dateTravelFrom' => Date.today().addDays(-1),
+        'startTimeTravelFrom' => '170000', 
+        'endTimeTravelFrom' => '180000', 
+        'travelDistance' => 10
+    };
+    claimLineItemsUpdated.add(claimLineItemUpdated);
+    }
+        String resultString = HOT_ClaimController.updateClaim(
+            claimToUpdate.Id,
+            'Arbeidsliv',
+            '',
+            'false',
+            claimLineItemsUpdated
+            );
+        Test.stopTest();
+        System.assertEquals('ok', resultString, 'Claim should have been updated');
     }
     
 }
