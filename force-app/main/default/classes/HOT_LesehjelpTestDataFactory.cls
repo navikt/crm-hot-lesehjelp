@@ -30,4 +30,53 @@ public class HOT_LesehjelpTestDataFactory {
         entitlement.ToDate__c=Date.today().addDays(3);
         return entitlement;
     }
+    public static Account createAccount(boolean isPersonAccount) {
+            String personAccountRecordTypeId = Schema.getGlobalDescribe()
+                .get('Account')
+                .getDescribe()
+                .getRecordTypeInfosByDeveloperName()
+                .get('PersonAccount')
+                .getRecordTypeId();
+            Account account = new Account(
+                RecordTypeId = personAccountRecordTypeId,
+                FirstName = 'Test',
+                LastName = 'User',
+                PersonEmail = 'HOT_testaccount@nav.hot.no'
+            );
+            return account;
+        
+    }
+    public static Person__c createPerson() {
+        return createPerson('12015678901');
+    }
+    public static Person__c createPerson(String ident) {
+        Person__c person = new Person__c();
+        person.INT_Confidential__c = 'UGRADERT';
+        person.Name = ident;
+        person.INT_LastName__c = 'Last';
+        person.INT_FirstName__c = 'First';
+
+        return person;
+    }
+    public static User createUser(Profile profile, Account account) {
+        User user = createUser('User', profile);
+        user.ContactId = account.PersonContactId;
+        return user;
+    }
+    public static User createUser(String lastName, Profile profile) {
+        User user = new User(
+            Username = 'HOT.' + lastName + '@nav.hot.no',
+            LastName = lastName,
+            Email = 'HOT_testuser@nav.hot.no',
+            Alias = lastName,
+            CommunityNickname = lastName,
+            TimeZoneSidKey = 'Europe/Paris',
+            LocaleSidKey = 'no_NO',
+            EmailEncodingKey = 'UTF-8',
+            LanguageLocaleKey = 'no',
+            ProfileId = profile.id
+        );
+
+        return user;
+    }
 }
