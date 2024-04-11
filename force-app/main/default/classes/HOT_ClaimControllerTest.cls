@@ -43,6 +43,13 @@ public class HOT_ClaimControllerTest {
         System.assertEquals(0, sms.size()); 
     }
      @isTest
+    static void notifyUserOnNewClaimTest(){
+        Test.startTest();
+        List<HOT_Claim__c> claims=[SELECT Id, Account__c, Account__r.CRM_Person__r.INT_KrrMobilePhone__c FROM HOT_Claim__c];
+        HOT_SMSService.notifyUserOnNewClaim(claims);
+        Test.stopTest();
+    }
+     @isTest
     static void notifyUserOnDeclinedClaim2Test(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id, Account__c FROM HOT_Claim__c];
