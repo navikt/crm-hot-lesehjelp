@@ -35,4 +35,26 @@ private class HOT_EntitlementControllerTest {
         Test.stopTest();
 
     }
+    @isTest
+    static void checkIfNewEntitlementsWillOverlapTest(){
+        Test.startTest();
+        Account acc2 = new Account();
+        acc2.Name = 'Ola Bruker';
+        insert acc2;
+
+        HOT_Entitlement__c entitlement=HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
+        insert entitlement;
+        try{
+            HOT_Entitlement__c entitlement2=HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
+            insert entitlement2;
+        }
+        catch(Exception e)
+        {
+            Boolean expectedExceptionThrown =  e.getMessage().contains('overlappende') ? true : false;
+        System.assertEquals(expectedExceptionThrown, true);
+        }
+
+       
+        Test.stopTest();
+    }
 }
