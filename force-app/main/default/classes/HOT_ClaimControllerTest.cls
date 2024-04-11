@@ -374,5 +374,29 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertNotEquals('ok', result, 'Should have give an error');
     }
+    @IsTest
+    static void getTimesTest(){
+        HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
+        Date yesterday = Date.today().addDays(-1);
+        HOT_ClaimLineItem__c cli=HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+            cli.Date__c = yesterday;
+            cli.StartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
+            cli.EndTime__c = DateTime.newInstance(yesterday, Time.newInstance(17, 0, 0, 0));
+            cli.TypeOfTask__c = '';
+            cli.HasTravelTo__c = true;
+            cli.HasTravelFrom__c=true;
+            cli.TravelTo__c = yesterday;
+            cli.TravelFrom__c = yesterday;
+            cli.TravelToStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(10, 0, 0, 0));
+            cli.TravelToEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(11, 0, 0, 0));
+            cli.TravelFromStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
+            cli.TravelFromEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(14, 0, 0, 0));
+            cli.TravelDistance__c = 10;
+        insert cli;
+        Test.startTest();
+        List<Map<String, String>> times = HOT_ClaimController.getTimes(claim.Id);
+        Test.stopTest();
+        System.assertNotEquals(0, times.size(), 'List of times should not be empty');
+    }
     
 }
