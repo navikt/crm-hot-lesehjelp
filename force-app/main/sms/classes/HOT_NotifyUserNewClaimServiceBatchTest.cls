@@ -1,4 +1,4 @@
-@isTest
+@Istest
 private class HOT_NotifyUserNewClaimServiceBatchTest {
      @TestSetup
     static void setup(){
@@ -17,7 +17,7 @@ private class HOT_NotifyUserNewClaimServiceBatchTest {
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(personAccount, acc);
         insert claim;
     }
-     @isTest
+     @Istest
     static void schedulableTest() {
         // Start the batch
         Test.startTest();

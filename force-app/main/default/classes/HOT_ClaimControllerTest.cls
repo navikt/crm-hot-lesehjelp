@@ -1,4 +1,4 @@
-@isTest
+@Istest
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup(){
@@ -9,12 +9,13 @@ public class HOT_ClaimControllerTest {
         acc2.Name = 'Kari Bruker';
         insert acc2;
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
+        claim.UserPersonNumber__c='01010101010';
         insert claim;
 
         HOT_Entitlement__c entitlement=HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
         insert entitlement;
     }
-    @isTest
+    @Istest
     static void setEntitlementOnClaimTest(){
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
         HOT_ClaimLineItem__c cli=HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
@@ -25,14 +26,14 @@ public class HOT_ClaimControllerTest {
         System.assertNotEquals(null, claimResult.Entitlement__c);
 
     }
-    @isTest
+    @Istest
     static void getMyClaimsTest(){
         Test.startTest();
         List<HOT_Claim__c> myClaims=HOT_ClaimController.getMyClaims();
         Test.stopTest();
         System.assertEquals(0, myClaims.size());
     }
-    @isTest
+    @Istest
     static void notifyUserOnDeclinedClaimTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id, Account__c FROM HOT_Claim__c];
@@ -42,14 +43,14 @@ public class HOT_ClaimControllerTest {
         List <SMS__c> sms=[SELECT Id, Account__c FROM SMS__c WHERE Account__c=:claim.Account__c];
         System.assertEquals(0, sms.size()); 
     }
-     @isTest
+     @Istest
     static void notifyUserOnNewClaimTest(){
         Test.startTest();
         List<HOT_Claim__c> claims=[SELECT Id, Account__c, Account__r.CRM_Person__r.INT_KrrMobilePhone__c FROM HOT_Claim__c];
         HOT_SMSService.notifyUserOnNewClaim(claims);
         Test.stopTest();
     }
-     @isTest
+     @Istest
     static void notifyUserOnDeclinedClaim2Test(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id, Account__c FROM HOT_Claim__c];
@@ -61,7 +62,7 @@ public class HOT_ClaimControllerTest {
         List <SMS__c> sms=[SELECT Id, Account__c FROM SMS__c WHERE Account__c=:claim.Account__c];
         System.assertEquals(0, sms.size()); 
     }
-     @isTest
+     @Istest
     static void updateEntitleHoursAlreadyUsedTest(){
         Test.startTest();
         HOT_Entitlement__c entitlement=[SELECT Id, EntitledHoursAlreadyUsed__c FROM HOT_Entitlement__c];
@@ -72,14 +73,14 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(12, result.EntitledHoursUsed__c); 
     }
-     @isTest
+     @Istest
     static void getMyEntitlementsTest(){
         Test.startTest();
         List<HOT_Entitlement__c> entitlements =HOT_EntitlementController.getEntitlements();
         Test.stopTest();
         System.assertEquals(0, entitlements.size()); 
     }
-    @isTest
+    @Istest
     static void recalculateEntitlementOnClaimWhenCLIUpdateTest(){
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
         HOT_ClaimLineItem__c cli=HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
@@ -89,7 +90,7 @@ public class HOT_ClaimControllerTest {
         cliChange.Date__c = twoDaysAgo;
         update cliChange;
     }
-    @isTest
+    @Istest
     static void approveClaimTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
@@ -100,7 +101,7 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(true, result.ApprovedByUser__c); 
     }
-    @isTest
+    @Istest
     static void declineClaimTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
@@ -111,7 +112,7 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(false, result.ApprovedByUser__c); 
     }
-    @isTest
+    @Istest
     static void cancelClaimTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
@@ -122,7 +123,7 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals('Withdrawn', result.Status__c); 
     }
-    @isTest
+    @Istest
     static void getClaimTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];
@@ -130,7 +131,7 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(1, result.size()); 
     }
-    @isTest
+    @Istest
     static void getMyPreviousClaimsTest(){
         Test.startTest();
         List<HOT_Claim__c> result=HOT_ClaimController.getMyPreviousClaims();

@@ -1,4 +1,4 @@
-@isTest
+@Istest
 public class HOT_LesehjelpTestDataFactory {
     public static HOT_Claim__c createClaim(Account account, Account claimaint) {
         HOT_Claim__c claim=new HOT_Claim__c();

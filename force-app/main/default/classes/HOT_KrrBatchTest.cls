@@ -1,6 +1,6 @@
-@isTest
+@Istest
 private with sharing class HOT_KrrBatchTest {
-    @isTest
+    @Istest
     static void schedulableTest() {
         String cron_exp = '0 0 0 3 9 ? 2024';
         Test.startTest();
@@ -8,7 +8,7 @@ private with sharing class HOT_KrrBatchTest {
         Test.stopTest();
         System.assert(jobId != null);
     }
-     @isTest
+     @Istest
     static void batchableTest() {
         Person__c person = new Person__c();
         person.Name = '12015678999';
