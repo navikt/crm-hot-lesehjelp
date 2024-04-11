@@ -6,8 +6,14 @@ public class HOT_ClaimControllerTest {
         acc.Name = 'Ola Lesehjelp';
         insert acc;
         Account acc2 = new Account();
+        acc2.INT_PersonIdent__c='01010101010';
         acc2.Name = 'Kari Bruker';
+        acc2.INT_KrrMobilePhone__c='12345678';
         insert acc2;
+        Account acc3 = new Account();
+        acc3.Name = 'NAV';
+        acc3.INT_OrganizationNumber__c='123456789';
+        insert acc3;
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
         claim.UserPersonNumber__c='01010101010';
         insert claim;
@@ -138,4 +144,235 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(0, result.size()); 
     }
+    @IsTest
+    static void CreateNewClaimFromCommunityPersonNumberTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '01010101010';
+        String userPhoneNumber = '';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'false';
+        String employerName = '';
+        String organizationNumber = '';
+        String employerExpensesPerHour = '';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
+            'startTimeTravelFrom' => '170000', // Assuming timestamp format
+            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        Test.stopTest();
+        System.assertEquals('ok', result, 'Claim creation should be successful');
+    }
+    @IsTest
+    static void CreateNewClaimFromCommunityMobileNumberTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '';
+        String userPhoneNumber = '12345678';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'false';
+        String employerName = '';
+        String organizationNumber = '';
+        String employerExpensesPerHour = '';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
+            'startTimeTravelFrom' => '170000', // Assuming timestamp format
+            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        Test.stopTest();
+        System.assertEquals('ok', result, 'Claim creation should be successful');
+    }
+      @IsTest
+    static void CreateNewClaimFromCommunityMobileNumberOnEmployerTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '';
+        String userPhoneNumber = '12345678';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'true';
+        String employerName = 'NAV';
+        String organizationNumber = '123456789';
+        String employerExpensesPerHour = '120';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
+            'startTimeTravelFrom' => '170000', // Assuming timestamp format
+            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        Test.stopTest();
+        System.assertEquals('ok', result, 'Claim creation should be successful');
+    }
+       @IsTest
+    static void CreateNewClaimFromCommunityMobileNumberOnEmployerNoEmployerTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '';
+        String userPhoneNumber = '12345678';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'true';
+        String employerName = 'NAV';
+        String organizationNumber = '123456787';
+        String employerExpensesPerHour = '120';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
+            'startTimeTravelFrom' => '170000', // Assuming timestamp format
+            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        Test.stopTest();
+        System.assertNotEquals('ok', result, 'Should have give an error');
+    }
+      @IsTest
+    static void CreateNewClaimFromCommunityMobileNumberNoAccountTest() {
+        String userName = 'Test User';
+        String userPersonNumber = '';
+        String userPhoneNumber = '12345671';
+        String claimType = 'Dagligliv';
+        String onEmployer = 'false';
+        String employerName = '';
+        String organizationNumber = '';
+        String employerExpensesPerHour = '';
+
+        List<Map<String, Object>> claimLineItems = new List<Map<String, Object>>();
+        Map<String, Object> claimLineItem = new Map<String, Object>{
+            'date' => Date.today().addDays(-1),
+            'task' => '',
+            'startTime' => '100000',
+            'endTime' => '120000', 
+            'hasAdditionalInformation' => 'true',
+            'additionalInformation' => 'Additional info',
+            'hasTravelTo' => 'true',
+            'dateTravelTo' => Date.today().addDays(-1), 
+            'startTimeTravelTo' => '080000',
+            'endTimeTravelTo' => '090000',
+            'hasTravelFrom' => 'true',
+            'dateTravelFrom' => Date.today().addDays(-1), // Yesterday's date
+            'startTimeTravelFrom' => '170000', // Assuming timestamp format
+            'endTimeTravelFrom' => '180000', // Assuming timestamp format
+            'travelDistance' => 10
+        };
+        claimLineItems.add(claimLineItem);
+
+        Test.startTest();
+        String result = HOT_ClaimController.createNewClaimFromCommunity(
+            userName,
+            userPersonNumber,
+            userPhoneNumber,
+            claimType,
+            onEmployer,
+            employerName,
+            organizationNumber,
+            employerExpensesPerHour,
+            claimLineItems
+        );
+        Test.stopTest();
+        System.assertNotEquals('ok', result, 'Should have give an error');
+    }
+    
 }
