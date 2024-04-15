@@ -271,8 +271,6 @@ force-app/main/default/classes/SiteRegisterController.cls-meta.xml
 force-app/main/default/classes/SiteRegisterController.cls
 force-app/main/default/classes/SiteLoginControllerTest.cls-meta.xml
 force-app/main/default/classes/SiteLoginControllerTest.cls
-force-app/main/default/classes/SiteLoginController.cls-meta.xml
-force-app/main/default/classes/SiteLoginController.cls
 force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls-meta.xml
 force-app/main/default/classes/MicrobatchSelfRegControllerTest.cls
 force-app/main/default/classes/MicrobatchSelfRegController.cls-meta.xml

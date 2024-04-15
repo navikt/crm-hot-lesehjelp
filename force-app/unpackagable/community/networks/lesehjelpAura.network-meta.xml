@@ -34,7 +34,6 @@
     <networkMemberGroups>
         <permissionSet>HOT_Lesehjelp_Admin</permissionSet>
         <profile>admin</profile>
-        <profile>nav bruker</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
@@ -48,7 +47,7 @@
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>lesehjelpAura</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>
-    <status>UnderConstruction</status>
+    <status>Live</status>
     <tabs>
         <defaultTab>home</defaultTab>
         <standardTab>Chatter</standardTab>

@@ -23,7 +23,6 @@
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-    <serverIsDown>SNA_lesehjelpAura1_sf_default_cdn_W44zM</serverIsDown>
     <siteAdmin>edvard.brekke@nav.no</siteAdmin>
     <siteGuestRecordDefaultOwner>edvard.brekke@nav.no</siteGuestRecordDefaultOwner>
     <siteType>ChatterNetwork</siteType>
