@@ -19,12 +19,14 @@
     <genericErrorPage>Exception</genericErrorPage>
     <inMaintenancePage>InMaintenance</inMaintenancePage>
     <indexPage>CommunitiesLanding</indexPage>
-    <masterLabel>lesehjelp</masterLabel>
+    <masterLabel>lesehjelpAura</masterLabel>
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-    <siteAdmin>test-7thilmgf1j6i@example.com</siteAdmin>
-    <siteGuestRecordDefaultOwner>test-7thilmgf1j6i@example.com</siteGuestRecordDefaultOwner>
+    <serverIsDown>SNA_lesehjelpAura1_sf_default_cdn_W44zM</serverIsDown>
+    <siteAdmin>edvard.brekke@nav.no</siteAdmin>
+    <siteGuestRecordDefaultOwner>edvard.brekke@nav.no</siteGuestRecordDefaultOwner>
     <siteType>ChatterNetwork</siteType>
-    <urlPathPrefix>lesehjelp</urlPathPrefix>
+    <subdomain>navdialog</subdomain>
+    <urlPathPrefix>lesehjelpAura</urlPathPrefix>
 </CustomSite>
