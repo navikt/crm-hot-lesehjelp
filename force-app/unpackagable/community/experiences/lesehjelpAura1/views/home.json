@@ -1,8 +1,8 @@
 {
-  "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "5b02e13a-0e51-4fa3-9890-e7e8bfe69f57",
+  "id" : "4c2562ab-0d76-469b-997b-80134fbbcead",
   "label" : "Home",
   "regions" : [ {
     "components" : [ {
@@ -11,36 +11,36 @@
         "env" : "Dev"
       },
       "componentName" : "c:decoratorHeader",
-      "id" : "3d734f87-6cca-4dea-a318-670b96463bf7",
+      "id" : "8170a1bc-f63c-4fb3-939e-6e0e9dcb2c91",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "4fd1702d-59d5-4494-960b-48424d685a22",
+    "id" : "ce1f3fdf-0765-45f2-a086-2bcc3ed4f700",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:hot_lesehjelp_home",
-      "id" : "68d78557-d04e-4a76-8e43-322f062b0868",
+      "id" : "c37d31eb-b201-4ff7-a591-712e88d0a689",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "6914476d-b2d6-47e7-8408-bb318afcfb33",
+    "id" : "3aa928a8-6539-49d6-8690-40a24d756a3b",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:decoratorFooter",
-      "id" : "295918d5-d77d-4f2b-b352-18df3d7abf52",
+      "id" : "c6e1eb22-eb32-43ac-9723-0497e70b1578",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "665a8945-5f14-4040-a0d4-5d642608cd82",
+    "id" : "e848597a-ec0a-4a97-9a41-8a128c035b24",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -51,11 +51,11 @@
         "title" : "Home"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "5bd000af-df33-4af3-ad99-2d1214476661",
+      "id" : "1d51140a-208d-440c-9cc7-42a2eb23a660",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "5e02e912-21bb-4d67-97b2-eac6b0e3f56f",
+    "id" : "0bfed62b-1cef-4751-8e5a-b72b5e25ed7b",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],

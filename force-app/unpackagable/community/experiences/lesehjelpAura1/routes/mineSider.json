@@ -1,9 +1,9 @@
 {
-  "activeViewId" : "49fabc16-fb4f-4257-bc06-ae31d57a0fc2",
-  "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
+  "activeViewId" : "f8c6ba88-0b23-4a8d-96aa-e2c8607b9fbb",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
   "configurationTags" : [ ],
   "devName" : "Mine_sider__c",
-  "id" : "eb3f4265-e956-4e64-94c4-d00827a5a93a",
+  "id" : "b28ea15e-9695-4678-8c67-eaeafd28584f",
   "label" : "Mine sider",
   "pageAccess" : "UseParent",
   "routeType" : "custom-mine-sider",

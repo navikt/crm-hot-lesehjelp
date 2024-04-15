@@ -1,9 +1,9 @@
 {
-  "activeViewId" : "5b02e13a-0e51-4fa3-9890-e7e8bfe69f57",
-  "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
+  "activeViewId" : "4c2562ab-0d76-469b-997b-80134fbbcead",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
   "configurationTags" : [ ],
   "devName" : "Home",
-  "id" : "1c05b3b3-e1c8-4317-826d-2c30f6c34854",
+  "id" : "d44a16c1-0759-4af7-9a33-4c31ee6d595c",
   "label" : "Home",
   "pageAccess" : "UseParent",
   "routeType" : "home",

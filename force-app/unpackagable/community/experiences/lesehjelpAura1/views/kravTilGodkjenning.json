@@ -1,8 +1,8 @@
 {
-  "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "6f71221a-f1b7-4903-bd2b-4b4594f00275",
+  "id" : "a5fd5c88-476f-4560-9862-4b2178d3ae31",
   "label" : "Krav til godkjenning",
   "regions" : [ {
     "components" : [ {
@@ -11,36 +11,36 @@
         "env" : "Dev"
       },
       "componentName" : "c:decoratorHeader",
-      "id" : "33fe5981-4e15-4f95-810e-1a96ff895b98",
+      "id" : "70430298-b079-40dd-a499-337228bc3d68",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "02728e8d-5421-4f2d-8c16-8756a1a31399",
+    "id" : "faf7c93c-fb13-4ce4-bb07-b07000a00e79",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:hot_claimList",
-      "id" : "6d791756-d6ee-4164-a653-1e7d53c7a207",
+      "id" : "b116ef3a-e7a3-4017-954d-615862b026d3",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "c828343b-520f-4760-9e90-28a2e84ee6f9",
+    "id" : "69ca4223-8a93-4a6f-8842-c3cd4a6c4b9e",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:decoratorFooter",
-      "id" : "2555ecee-e26d-42ff-b625-1f9121a86af5",
+      "id" : "8696ce8d-fae8-4a3a-8191-5cd0a84050f4",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "14c90544-956d-46c1-95d1-4ec7b642e1a3",
+    "id" : "81ee3bfa-06b5-432e-b950-7f7d0a22ead8",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -51,11 +51,11 @@
         "title" : "Krav til godkjenning"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "5c2acd7f-96e5-4911-a93d-85cebb434ba2",
+      "id" : "29368d0b-e7f0-4ea2-86c1-42f8441722d9",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "bd59c94f-530f-47ef-9c19-6b174243861a",
+    "id" : "8d54e834-2f80-433d-b564-cfd45cc61adf",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],

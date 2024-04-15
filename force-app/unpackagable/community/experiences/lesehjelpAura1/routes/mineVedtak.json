@@ -1,9 +1,9 @@
 {
-  "activeViewId" : "9675d877-b76e-4443-9b5f-31c140326f65",
-  "appPageId" : "d7230d24-3471-4f44-946c-1747d67daa79",
+  "activeViewId" : "3105a76f-7173-4a9c-89a1-9a0c27fd13f1",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
   "configurationTags" : [ ],
   "devName" : "Mine_vedtak__c",
-  "id" : "f9471a3a-6514-4f94-b8a5-dbadd592f400",
+  "id" : "f99854df-83c1-4de0-b7be-08f411f5db44",
   "label" : "Mine vedtak",
   "pageAccess" : "UseParent",
   "routeType" : "custom-mine-vedtak",
