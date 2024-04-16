@@ -4,7 +4,7 @@
     <name>Source__c</name>
     <picklistValues>
         <masterLabel>Community</masterLabel>
-        <translation>Community</translation>
+        <translation>Nav.no</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Manual</masterLabel>
