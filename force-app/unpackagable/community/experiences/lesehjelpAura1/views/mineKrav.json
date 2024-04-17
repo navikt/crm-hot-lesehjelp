@@ -1,0 +1,65 @@
+{
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "3cf1c02f-d56e-4820-9d6f-75409dd85547",
+  "label" : "Mine krav",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "context" : "Privatperson",
+        "env" : "Dev"
+      },
+      "componentName" : "c:decoratorHeader",
+      "id" : "73bac13a-2289-4d11-ba75-41051ff6941d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d74a33ad-7215-4617-b5e8-9fdd03c85982",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:hot_claimantClaimList",
+      "id" : "658d9a22-69b7-4cd3-84af-b1ba69b36f1c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "301f465a-abb5-4659-a625-f3818c00806e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:decoratorFooter",
+      "id" : "100d1485-f5cd-4e88-92b6-6a07690c7045",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "86d1f0b4-098d-4436-9135-6e10177fdcfd",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Mine krav"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "c6aa4a77-30af-4251-b480-0769eb55cbcd",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6d2812a4-b1d8-491c-a33f-88d20eca6da2",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-mine-krav"
+}

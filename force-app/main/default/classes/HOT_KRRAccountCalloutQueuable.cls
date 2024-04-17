@@ -63,7 +63,12 @@ public without sharing class HOT_KRRAccountCalloutQueuable implements Queueable,
             cdo.updateRecords(personsToUpdate);
         } catch (Exception e) {
             LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, accounts[0], CRM_ApplicationDomain.Domain.HOT);
+            if (!accounts.isEmpty()) {
+                logger.exception(e, accounts[0], CRM_ApplicationDomain.Domain.HOT);
+            }
+            else{
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            }
             logger.publish();
 
             List<Person__c> personsToUpdate = new List<Person__c>();

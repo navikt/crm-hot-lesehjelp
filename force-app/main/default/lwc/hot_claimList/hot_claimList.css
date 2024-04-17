@@ -73,6 +73,7 @@
     position: relative;
     flex-grow: 0;
     overflow-x: auto;
+    overflow-y: auto;
     max-height: 100%;
     margin-bottom: 1rem;
     margin-top: 1rem;
@@ -80,6 +81,7 @@
     max-width: 432px;
     max-height: 75%;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
 }
 .hidden {
     display: none;
@@ -102,11 +104,12 @@ p {
     }
     .details-container {
         display: block;
-        overflow: hidden;
+        /* overflow: hidden; */
         max-height: 100%;
         z-index: 1010;
         width: 100vw;
         padding: 2rem;
+        overflow-y: auto;
     }
     .container {
         display: block;

@@ -23,7 +23,7 @@ echo "Tildeler tilatelsessett til brukeren"
 call sf org assign permset --name HOT_Lesehjelp_Admin
 
 echo "Publish Experience Site"
-call sf community publish --name lesehjelp
+call sf community publish --name lesehjelpAura
 
 echo "Creating testdata"
 call sf apex run --file scripts/apex/createTestData.apex

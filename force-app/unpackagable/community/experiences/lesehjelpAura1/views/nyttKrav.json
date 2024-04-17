@@ -1,0 +1,65 @@
+{
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "9c76d18b-42e5-45a4-918e-a5063da11789",
+  "label" : "Nytt krav",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "context" : "Privatperson",
+        "env" : "Dev"
+      },
+      "componentName" : "c:decoratorHeader",
+      "id" : "f03c8849-34ca-411b-9ec0-edcaabc9bf86",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "51bd81f4-6e7c-4446-bee6-9eb72b45ecb1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:hot_claimFormWrapper",
+      "id" : "b165cb01-dff0-4932-96fc-0e74b4caf567",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d291252e-f7a3-4ac9-9936-3bce51350269",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:decoratorFooter",
+      "id" : "cbdf4521-dabc-4b21-8558-b956e8a67dc8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "945f6505-0e20-42bc-8802-c18e3d49c96d",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Nytt krav"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "18345762-e2f9-4add-ac46-b63db91b469f",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "32193459-ff3c-4391-93c3-d11c2ccf4701",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-nytt-krav"
+}

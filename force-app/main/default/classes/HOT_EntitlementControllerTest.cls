@@ -1,4 +1,4 @@
-@isTest
+@Istest
 private class HOT_EntitlementControllerTest {
       @TestSetup
     static void setup(){
@@ -14,7 +14,7 @@ private class HOT_EntitlementControllerTest {
         HOT_Entitlement__c entitlement=HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
         insert entitlement;
     }
-    @isTest
+    @Istest
     static void recalculateUsedEntitlementsTest(){
         Test.startTest();
         HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
@@ -35,7 +35,7 @@ private class HOT_EntitlementControllerTest {
         Test.stopTest();
 
     }
-    @isTest
+    @Istest
     static void checkIfNewEntitlementsWillOverlapTest(){
         Test.startTest();
         Account acc2 = new Account();
