@@ -172,6 +172,7 @@ public without sharing class HOT_ClaimController {
         HOT_Claim__c newClaim = new HOT_Claim__c();
         newClaim.Claimant__c = currentUser.AccountId;
         newclaim.Account__c = account.Id;
+        newClaim.Source__c= 'Community';
         newClaim.onEmployer__c = false;
         newClaim.Type__c = claimType;
         newClaim.ClaimCreatedFromIdent__c = claimCreatedFromIdent;
@@ -208,6 +209,7 @@ public without sharing class HOT_ClaimController {
 
         HOT_Claim__c newClaim = new HOT_Claim__c();
         newClaim.UserName__c = userName;
+        newClaim.Source__c= 'Community';
         newClaim.UserPersonNumber__c = userPersonNumber;
         newClaim.UserPhoneNumber__c = userPhoneNumber;
         newClaim.Claimant__c = currentUser.AccountId;

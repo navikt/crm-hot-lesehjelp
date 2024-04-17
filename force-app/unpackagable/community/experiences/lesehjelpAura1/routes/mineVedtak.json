@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "3105a76f-7173-4a9c-89a1-9a0c27fd13f1",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "configurationTags" : [ ],
+  "devName" : "Mine_vedtak__c",
+  "id" : "f99854df-83c1-4de0-b7be-08f411f5db44",
+  "label" : "Mine vedtak",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-mine-vedtak",
+  "type" : "route",
+  "urlPrefix" : "mine-vedtak"
+}

@@ -1,0 +1,65 @@
+{
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "a5fd5c88-476f-4560-9862-4b2178d3ae31",
+  "label" : "Krav til godkjenning",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "context" : "Privatperson",
+        "env" : "Dev"
+      },
+      "componentName" : "c:decoratorHeader",
+      "id" : "70430298-b079-40dd-a499-337228bc3d68",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "faf7c93c-fb13-4ce4-bb07-b07000a00e79",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:hot_claimList",
+      "id" : "b116ef3a-e7a3-4017-954d-615862b026d3",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "69ca4223-8a93-4a6f-8842-c3cd4a6c4b9e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:decoratorFooter",
+      "id" : "8696ce8d-fae8-4a3a-8191-5cd0a84050f4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "81ee3bfa-06b5-432e-b950-7f7d0a22ead8",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Krav til godkjenning"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "29368d0b-e7f0-4ea2-86c1-42f8441722d9",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8d54e834-2f80-433d-b564-cfd45cc61adf",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-krav-til-godkjenning"
+}

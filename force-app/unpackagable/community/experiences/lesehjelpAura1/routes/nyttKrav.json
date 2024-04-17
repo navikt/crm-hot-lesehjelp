@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "9c76d18b-42e5-45a4-918e-a5063da11789",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "configurationTags" : [ ],
+  "devName" : "Nytt_krav__c",
+  "id" : "8bc9233d-1a46-4770-a1d5-ef13ff2a3100",
+  "label" : "Nytt krav",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-nytt-krav",
+  "type" : "route",
+  "urlPrefix" : "nytt-krav"
+}

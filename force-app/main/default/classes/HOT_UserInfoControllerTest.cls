@@ -1,4 +1,4 @@
-@isTest
+@Istest
 private class HOT_UserInfoControllerTest {
     @TestSetup
     static void setup(){
@@ -12,7 +12,7 @@ private class HOT_UserInfoControllerTest {
         personAccount.Name='Kari';
         insert personAccount;
     }
-    @isTest
+    @Istest
     static void checkIsLosTest(){
         Test.startTest();
         Boolean isLos=HOT_UserInfoController.checkIsLos();
@@ -20,28 +20,28 @@ private class HOT_UserInfoControllerTest {
         System.assertEquals(false, isLos);
 
     }
-    @isTest
+    @Istest
     static void checkAccountExistWithFnrFalseTest(){
         Test.startTest();
         Boolean accountExist=HOT_UserInfoController.checkAccountExist('01010100095','');
         Test.stopTest();
         System.assertEquals(false, accountExist);
     }
-    @isTest
+    @Istest
     static void checkAccountExistWithTlfFalseTest(){
         Test.startTest();
         Boolean accountExist=HOT_UserInfoController.checkAccountExist('','12345677');
         Test.stopTest();
         System.assertEquals(false, accountExist);
     }
-    @isTest
+    @Istest
     static void checkAccountExistWithTlfTrueTest(){
         Test.startTest();
         Boolean accountExist=HOT_UserInfoController.checkAccountExist('','12345678');
         Test.stopTest();
         System.assertEquals(true, accountExist);
     }
-    @isTest
+    @Istest
     static void updateKrrStatusTest(){
         Test.startTest();
         Person__c person =[SELECT Id FROM Person__c];
@@ -52,7 +52,7 @@ private class HOT_UserInfoControllerTest {
         System.assertEquals('Queued', personResult.INT_KrrIntegrationStatus__c);
 
     }
-      @isTest
+      @Istest
     static void getPersonDetailsTest(){
         // Profile profile = [SELECT Id FROM Profile WHERE Name = 'Standard User' OR Name = 'Standardbruker' LIMIT 1];
 

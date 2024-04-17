@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "a5fd5c88-476f-4560-9862-4b2178d3ae31",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "configurationTags" : [ ],
+  "devName" : "Krav_til_godkjenning__c",
+  "id" : "55828296-bc32-419c-8bd5-d454753e80de",
+  "label" : "Krav til godkjenning",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-krav-til-godkjenning",
+  "type" : "route",
+  "urlPrefix" : "krav-til-godkjenning"
+}

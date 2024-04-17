@@ -1,4 +1,4 @@
-@isTest
+@Istest
 public class HOT_ClaimLineItemControllerTest {
      @TestSetup
     static void setup(){
@@ -11,7 +11,7 @@ public class HOT_ClaimLineItemControllerTest {
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
         insert claim;
     }
-    @isTest
+    @Istest
     static void getClaimLineItemsTest(){
         Test.startTest();
         HOT_Claim__c claim=[SELECT Id FROM HOT_Claim__c];

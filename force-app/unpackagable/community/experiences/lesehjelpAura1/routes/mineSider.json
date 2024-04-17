@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f8c6ba88-0b23-4a8d-96aa-e2c8607b9fbb",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "configurationTags" : [ ],
+  "devName" : "Mine_sider__c",
+  "id" : "b28ea15e-9695-4678-8c67-eaeafd28584f",
+  "label" : "Mine sider",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-mine-sider",
+  "type" : "route",
+  "urlPrefix" : "mine-sider"
+}
