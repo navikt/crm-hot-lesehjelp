@@ -3,7 +3,7 @@
     <fullName>HOT_isLOS__c</fullName>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
-    <label>Lese og Sekretærhjelp</label>
+    <label>is LOS</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
