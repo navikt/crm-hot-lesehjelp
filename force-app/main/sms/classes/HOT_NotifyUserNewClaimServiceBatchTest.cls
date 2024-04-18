@@ -1,7 +1,7 @@
-@Istest
+@IsTest
 private class HOT_NotifyUserNewClaimServiceBatchTest {
-     @TestSetup
-    static void setup(){
+    @TestSetup
+    static void setup() {
         Account acc = new Account();
         acc.Name = 'Ola Lesehjelp';
         insert acc;
@@ -11,13 +11,13 @@ private class HOT_NotifyUserNewClaimServiceBatchTest {
         Account personAccount = new Account();
         personAccount.INT_PersonIdent__c = '12015678995';
         personAccount.CRM_Person__c = person.Id;
-        personAccount.INT_KrrMobilePhone__c='12345678';
-        personAccount.Name='Kari';
+        personAccount.INT_KrrMobilePhone__c = '12345678';
+        personAccount.Name = 'Kari';
         insert personAccount;
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(personAccount, acc);
         insert claim;
     }
-     @Istest
+    @IsTest
     static void schedulableTest() {
         // Start the batch
         Test.startTest();

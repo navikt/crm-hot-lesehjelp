@@ -1,6 +1,6 @@
-@Istest
+@IsTest
 private with sharing class HOT_KrrBatchTest {
-    @Istest
+    @IsTest
     static void schedulableTest() {
         String cron_exp = '0 0 0 3 9 ? 2024';
         Test.startTest();
@@ -8,7 +8,7 @@ private with sharing class HOT_KrrBatchTest {
         Test.stopTest();
         System.assert(jobId != null);
     }
-     @Istest
+    @IsTest
     static void batchableTest() {
         Person__c person = new Person__c();
         person.Name = '12015678999';
@@ -16,7 +16,7 @@ private with sharing class HOT_KrrBatchTest {
         Account personAccount = new Account();
         personAccount.INT_PersonIdent__c = '12015678999';
         personAccount.CRM_Person__c = person.Id;
-        personAccount.Name='Kari';
+        personAccount.Name = 'Kari';
         insert personAccount;
 
         person.INT_KrrIntegrationStatus__c = 'Failed';
