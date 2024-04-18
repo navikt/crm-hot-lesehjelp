@@ -19,14 +19,12 @@ public without sharing class HOT_KrrBatch implements Database.Batchable<sObject>
     }
 
     public void finish(Database.BatchableContext bc) {
-        if (!Test.isRunningTest()) {
-            try {
-                System.scheduleBatch(new HOT_KrrBatch(), 'HOT_KrrBatch', 60, 10);
-            } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-            }
+        try {
+            System.scheduleBatch(new HOT_KrrBatch(), 'HOT_KrrBatch', 60, 10);
+        } catch (Exception e) {
+            LoggerUtility logger = new LoggerUtility();
+            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            logger.publishSynch();
         }
     }
 }
