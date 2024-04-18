@@ -1,59 +1,57 @@
-@Istest
+@IsTest
 private class HOT_UserInfoControllerTest {
     @TestSetup
-    static void setup(){
+    static void setup() {
         Person__c person = new Person__c();
         person.Name = '12015678995';
         insert person;
         Account personAccount = new Account();
         personAccount.INT_PersonIdent__c = '12015678995';
         personAccount.CRM_Person__c = person.Id;
-        personAccount.INT_KrrMobilePhone__c='12345678';
-        personAccount.Name='Kari';
+        personAccount.INT_KrrMobilePhone__c = '12345678';
+        personAccount.Name = 'Kari';
         insert personAccount;
     }
-    @Istest
-    static void checkIsLosTest(){
+    @IsTest
+    static void checkIsLosTest() {
         Test.startTest();
-        Boolean isLos=HOT_UserInfoController.checkIsLos();
+        Boolean isLos = HOT_UserInfoController.checkIsLos();
         Test.stopTest();
         System.assertEquals(false, isLos);
-
     }
-    @Istest
-    static void checkAccountExistWithFnrFalseTest(){
+    @IsTest
+    static void checkAccountExistWithFnrFalseTest() {
         Test.startTest();
-        Boolean accountExist=HOT_UserInfoController.checkAccountExist('01010100095','');
+        Boolean accountExist = HOT_UserInfoController.checkAccountExist('01010100095', '');
         Test.stopTest();
         System.assertEquals(false, accountExist);
     }
-    @Istest
-    static void checkAccountExistWithTlfFalseTest(){
+    @IsTest
+    static void checkAccountExistWithTlfFalseTest() {
         Test.startTest();
-        Boolean accountExist=HOT_UserInfoController.checkAccountExist('','12345677');
+        Boolean accountExist = HOT_UserInfoController.checkAccountExist('', '12345677');
         Test.stopTest();
         System.assertEquals(false, accountExist);
     }
-    @Istest
-    static void checkAccountExistWithTlfTrueTest(){
+    @IsTest
+    static void checkAccountExistWithTlfTrueTest() {
         Test.startTest();
-        Boolean accountExist=HOT_UserInfoController.checkAccountExist('','12345678');
+        Boolean accountExist = HOT_UserInfoController.checkAccountExist('', '12345678');
         Test.stopTest();
         System.assertEquals(true, accountExist);
     }
-    @Istest
-    static void updateKrrStatusTest(){
+    @IsTest
+    static void updateKrrStatusTest() {
         Test.startTest();
-        Person__c person =[SELECT Id FROM Person__c];
+        Person__c person = [SELECT Id FROM Person__c];
         person.INT_KrrIntegrationStatus__c = 'Queued';
         HOT_UserInfoController.updateKrrStatus(person);
         Test.stopTest();
-        Person__c personResult =[SELECT Id, INT_KrrIntegrationStatus__c FROM Person__c];
+        Person__c personResult = [SELECT Id, INT_KrrIntegrationStatus__c FROM Person__c];
         System.assertEquals('Queued', personResult.INT_KrrIntegrationStatus__c);
-
     }
-      @Istest
-    static void getPersonDetailsTest(){
+    @IsTest
+    static void getPersonDetailsTest() {
         // Profile profile = [SELECT Id FROM Profile WHERE Name = 'Standard User' OR Name = 'Standardbruker' LIMIT 1];
 
         // Test.startTest();
@@ -66,6 +64,5 @@ private class HOT_UserInfoControllerTest {
         //     System.assertEquals('12345678', personResult.INT_KrrMobilePhone__c);
         // }
         // Test.stopTest();
-
     }
 }

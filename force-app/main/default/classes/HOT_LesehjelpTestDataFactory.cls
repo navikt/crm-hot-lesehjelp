@@ -1,15 +1,15 @@
-@Istest
+@IsTest
 public class HOT_LesehjelpTestDataFactory {
     public static HOT_Claim__c createClaim(Account account, Account claimaint) {
-        HOT_Claim__c claim=new HOT_Claim__c();
-        claim.Account__c=account.Id;
-        claim.Claimant__c=claimaint.Id;
-        claim.Type__c='Arbeidsliv';
+        HOT_Claim__c claim = new HOT_Claim__c();
+        claim.Account__c = account.Id;
+        claim.Claimant__c = claimaint.Id;
+        claim.Type__c = 'Arbeidsliv';
         return claim;
     }
     public static HOT_ClaimLineItem__c createClaimLineItems(HOT_Claim__c claim) {
         HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c();
-        cli.Claim__c=claim.Id;
+        cli.Claim__c = claim.Id;
         Date yesterday = Date.today().addDays(-1);
         cli.Date__c = yesterday;
         // Set start and end times to yesterday from 14:00 to 15:00
@@ -21,30 +21,29 @@ public class HOT_LesehjelpTestDataFactory {
         cli.EndTime__c = endDateTime;
         return cli;
     }
-    public static HOT_Entitlement__c createEntitlement(Account account){
+    public static HOT_Entitlement__c createEntitlement(Account account) {
         HOT_Entitlement__c entitlement = new HOT_Entitlement__c();
-        entitlement.Account__c=account.Id;
-        entitlement.Type__c='Arbeidsliv';
-        entitlement.EntitledHours__c=120;
-        entitlement.FromDate__c=Date.today().addDays(-1);
-        entitlement.ToDate__c=Date.today().addDays(3);
+        entitlement.Account__c = account.Id;
+        entitlement.Type__c = 'Arbeidsliv';
+        entitlement.EntitledHours__c = 120;
+        entitlement.FromDate__c = Date.today().addDays(-1);
+        entitlement.ToDate__c = Date.today().addDays(3);
         return entitlement;
     }
     public static Account createAccount(boolean isPersonAccount) {
-            String personAccountRecordTypeId = Schema.getGlobalDescribe()
-                .get('Account')
-                .getDescribe()
-                .getRecordTypeInfosByDeveloperName()
-                .get('PersonAccount')
-                .getRecordTypeId();
-            Account account = new Account(
-                RecordTypeId = personAccountRecordTypeId,
-                FirstName = 'Test',
-                LastName = 'User',
-                PersonEmail = 'HOT_testaccount@nav.hot.no'
-            );
-            return account;
-        
+        String personAccountRecordTypeId = Schema.getGlobalDescribe()
+            .get('Account')
+            .getDescribe()
+            .getRecordTypeInfosByDeveloperName()
+            .get('PersonAccount')
+            .getRecordTypeId();
+        Account account = new Account(
+            RecordTypeId = personAccountRecordTypeId,
+            FirstName = 'Test',
+            LastName = 'User',
+            PersonEmail = 'HOT_testaccount@nav.hot.no'
+        );
+        return account;
     }
     public static Person__c createPerson() {
         return createPerson('12015678901');
