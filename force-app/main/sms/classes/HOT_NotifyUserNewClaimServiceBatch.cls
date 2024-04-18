@@ -1,4 +1,4 @@
-public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Database.Batchable<sObject>{
+public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Database.Batchable<sObject> {
     public Database.QueryLocator start(Database.BatchableContext bc) {
         Datetime now = Datetime.now();
         String query = 'SELECT ';
@@ -9,12 +9,12 @@ public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Datab
 
         return Database.getQueryLocator(query);
     }
-     public void execute(Database.BatchableContext bc, List<HOT_Claim__c> records) {
+    public void execute(Database.BatchableContext bc, List<HOT_Claim__c> records) {
         List<HOT_Claim__c> smsNotifications = new List<HOT_Claim__c>();
 
         for (HOT_Claim__c claim : records) {
-                smsNotifications.add(claim);
-                claim.IsNotificationSent__c=true;
+            smsNotifications.add(claim);
+            claim.IsNotificationSent__c = true;
         }
         try {
             if (!smsNotifications.isEmpty()) {
@@ -27,21 +27,18 @@ public without sharing class HOT_NotifyUserNewClaimServiceBatch implements Datab
             logger.publish();
         }
     }
-     public void finish(Database.BatchableContext bc) {
-        if (!Test.isRunningTest()) {
-            try {
-                System.scheduleBatch(
-                    new HOT_NotifyUserNewClaimServiceBatch(),
-                    'HOT_NotifyUserNewClaimServiceBatch',
-                    60,
-                    10
-                );
-            } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-            }
+    public void finish(Database.BatchableContext bc) {
+        try {
+            System.scheduleBatch(
+                new HOT_NotifyUserNewClaimServiceBatch(),
+                'HOT_NotifyUserNewClaimServiceBatch',
+                60,
+                10
+            );
+        } catch (Exception e) {
+            LoggerUtility logger = new LoggerUtility();
+            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+            logger.publishSynch();
         }
     }
-
 }
