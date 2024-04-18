@@ -483,4 +483,25 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals('ok', resultString, 'Claim should have been updated');
     }
+
+    @IsTest
+    static void getOrganizationInfoTest() {
+        Account acc = new Account();
+        acc.Name = '987654321';
+        acc.INT_OrganizationNumber__c = '987654321';
+        insert acc;
+
+        Test.startTest();
+        List<Account> accounts = HOT_ClaimController.getOrganizationInfo('987654321');
+        Test.stopTest();
+        System.assertEquals(1, accounts.size());
+    }
+
+    @IsTest
+    static void getClaimsToApproveTest() {
+        Test.startTest();
+        List<HOT_Claim__c> myClaims = HOT_ClaimController.getClaimsToApprove();
+        Test.stopTest();
+        System.assertEquals(0, myClaims.size());
+    }
 }
