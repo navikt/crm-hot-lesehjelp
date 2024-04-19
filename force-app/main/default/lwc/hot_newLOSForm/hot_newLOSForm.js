@@ -1,10 +1,12 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
 import updateKrrStatus from '@salesforce/apex/HOT_UserInfoController.updateKrrStatus';
+import icons from '@salesforce/resourceUrl/icons';
 
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 export default class Hot_newLOSForm extends LightningElement {
     LinkImg = LINK;
+    warningicon = icons + '/warningicon.svg';
 
     @track isKrrQueued;
     @track fieldValues = {
