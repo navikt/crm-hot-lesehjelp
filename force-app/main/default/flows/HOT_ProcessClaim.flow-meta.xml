@@ -13,6 +13,13 @@
                 <stringValue>Declined by NAV</stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getClaim.CommentFromNAV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DeclineClaimReason</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>declineUpdateClaim</targetReference>
         </connector>
