@@ -10,6 +10,30 @@
     margin-bottom: 1rem;
 }
 
+.navno-dekorator.alertstripe {
+    display: block;
+    padding: 1rem 1rem 1rem 0rem;
+    border-radius: 4px;
+    display: flex;
+    align-content: center;
+    border-radius: 0.25rem;
+    color: #3e3832;
+}
+
+.navno-dekorator.alertstripe--advarsel {
+    border: 1px solid #ff9100;
+    background-color: #ffe9cc;
+}
+.navno-dekorator.alertstripe__ikon {
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+    display: flex;
+    top: 1rem;
+    flex-shrink: 0;
+    height: 24px;
+    width: 24px;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
