@@ -132,7 +132,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims
                 .filter(
                     (claim) =>
-                        claim.ExternalStatus__c === 'Avslått av bruker' || claim.ExternalStatus__c === 'Avslått av NAV'
+                        claim.ExternalStatus__c === 'Avvist av bruker' || claim.ExternalStatus__c === 'Avslått av NAV'
                 )
                 .map((claim) => ({
                     ...claim,
@@ -172,7 +172,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
     }
     checkRedStatus(status) {
-        if (status == 'Avslått av NAV' || status == 'Avslått av bruker' || status == 'Tilbaketrukket') {
+        if (status == 'Avslått av NAV' || status == 'Avvist av bruker' || status == 'Tilbaketrukket') {
             return true;
         } else {
             return false;
