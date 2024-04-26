@@ -26,7 +26,7 @@
                     </div>
                     <div if:false={noRecievedClaims}>
                         <p class="typo-normal" tabindex="0">Trykk på et krav for å se detaljene
-                            og for å godkjenne eller avslå kravet.
+                            og for å godkjenne eller avvise kravet.
                         </p>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
@@ -45,9 +45,9 @@
                     <div if:false={noOlderClaims}>
                     </br>
                      </br>
-                     <h2 class="typo-overskrift" tabindex="0">Tidligere godkjente og avslåtte krav</h2>
+                     <h2 class="typo-overskrift" tabindex="0">Tidligere godkjente og avviste krav</h2>
                         <p class="typo-normal" tabindex="0">
-                            Her finner du eldre krav som du allerede har godkjent eller avslått.
+                            Her finner du eldre krav som du allerede har godkjent eller avvist.
                         </p>
                         <template for:each={olderClaims} for:item="claim">
                             <button key={claim.Id} class="claim-single older" data-id={claim.Id} onclick={goToClaim}>
@@ -101,7 +101,7 @@
                                     helptext-hovertext="Dette må feltet fylles ut ved avslag."
                                     error-text="Kommentar må fylles ut ved avslag."
                                     maxlength=255
-                                    aria-label="Her kan du skrive inn en kommentar. Om du skal avslå kravet må du skrive inn årsaken."
+                                    aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
                                 ></c-textarea>
                            <div class="confirmationCheckbox" if:false={record.isOldClaim}>
                              <c-checkbox
@@ -124,7 +124,7 @@
                         </br>
                              <c-button
                              if:false={record.isOldClaim}
-                                button-label="Avslå"
+                                button-label="Avvis"
                                 button-styling="danger"
                                 disabled={notRedClaim}
                                 onbuttonclick={declineClaim}

@@ -17,5 +17,5 @@
         <operation>equals</operation>
         <value>Declined by user</value>
     </filters>
-    <label>Krav avslått av bruker</label>
+    <label>Krav avvist av bruker</label>
 </ListView>
