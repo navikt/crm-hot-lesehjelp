@@ -60,7 +60,7 @@ export default class Hot_claimFormUser extends LightningElement {
     personNumberOrPhoneNumber(personNumber, phoneNumber) {
         let result;
         if (personNumber) {
-            result = 'Personnummer: ' + personNumber;
+            result = 'Fødselsnummer: ' + personNumber;
         } else {
             result = 'Telefonnummer: ' + phoneNumber;
         }

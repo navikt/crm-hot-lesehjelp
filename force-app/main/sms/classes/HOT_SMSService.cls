@@ -9,7 +9,7 @@ public without sharing class HOT_SMSService {
             sms.Type__c = 'Message';
             sms.Account__c = claim.Account__c;
             sms.Recipient__c = claim.Account__r.CRM_Person__r.INT_KrrMobilePhone__c;
-            String message='En lesehjelp har opprettet et krav som du kan godkjenne.';
+            String message='En lesehjelper har meldt inn et krav som du må  behandle.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message+='Du kan ikke svare på denne meldingen. ';
             message += '\nMvh NAV';
@@ -30,7 +30,7 @@ public without sharing class HOT_SMSService {
             sms.Type__c = 'Message';
             sms.Account__c = claim.Claimant__c;
             sms.Recipient__c = claim.Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c;
-            String message='Et krav du har sendt inn etter å ha vært lesehjelp er blitt avslått.';
+            String message='Et krav du har sendt inn etter å ha vært lesehjelper er avvist.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message+='Du kan ikke svare på denne meldingen. ';
             message += '\nMvh NAV';
