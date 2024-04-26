@@ -47,7 +47,8 @@ public without sharing class HOT_UserInfoController {
                 INT_ResidentialPlace__c,
                 INT_KrrMobilePhone__c,
                 INT_LastUpdatedFromKRR__c,
-                INT_KrrIntegrationStatus__c
+                INT_KrrIntegrationStatus__c,
+                HOT_isLOS__c
             FROM Person__c
             WHERE Id = :currentUser.Account.CRM_Person__c
         ];
