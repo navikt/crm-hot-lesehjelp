@@ -12,18 +12,23 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
     }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
         List<HOT_Claim__c> claimsToNotifyUserOnDeclinedStatus = new List<HOT_Claim__c>();
+        List<HOT_Claim__c> claimsToNotifyUserOnDeclinedByNAVStatus = new List<HOT_Claim__c>();
         Set<Id> entitlements = new Set<Id>();
         Set<Id> claimIds = new Set<Id>();
 
         List<HOT_Claim__c> updatedClaims = new List<HOT_Claim__c>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
             if (
-                (triggerOldMap.get(claim.Id).get('Status__c') == 'Sent' ||
-                triggerOldMap.get(claim.Id).get('Status__c') == 'Approved by user') &&
-                (claim.Status__c == 'Declined by NAV' ||
-                claim.Status__c == 'Declined by user')
+                (triggerOldMap.get(claim.Id).get('Status__c') == 'Sent') &&
+                (claim.Status__c == 'Declined by user')
             ) {
                 claimsToNotifyUserOnDeclinedStatus.add(claim);
+            }
+            if (
+                (triggerOldMap.get(claim.Id).get('Status__c') == 'Approved by user') &&
+                (claim.Status__c == 'Declined by NAV')
+            ) {
+                claimsToNotifyUserOnDeclinedByNAVStatus.add(claim);
             }
 
             Id oldEntitlementId = (Id) triggerOldMap.get(claim.Id).get('Entitlement__c');
@@ -42,6 +47,10 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
             System.debug('Går inn her 102');
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
+        }
+        if (claimsToNotifyUserOnDeclinedByNAVStatus.size() > 0) {
+            System.debug('Går inn her 102');
+            HOT_SMSService.notifyUserOnDeclinedClaimByNAV(claimsToNotifyUserOnDeclinedByNAVStatus);
         }
         if (entitlements.size() > 0) {
             System.debug('Går inn her 103');
