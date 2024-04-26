@@ -7,6 +7,9 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>HOT_Claim__c.CreateClaimLineItem</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>HOT_Claim__c.Behandle_kravet</value>
                         </valueListItems>
                         <valueListItems>
@@ -505,16 +508,16 @@
                             <value>NumberOfHours__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TravelDistance__c</value>
+                            <value>StartTime__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>StartTime__c</value>
+                            <value>EndTime__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Weekday__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>EndTime__c</value>
+                            <value>TravelDistance__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>TravelToStartTime__c</value>
