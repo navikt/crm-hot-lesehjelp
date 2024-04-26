@@ -173,7 +173,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         if (status == 'Withdrawn') {
             return 'Kravet ble trukket tilbake.';
         } else if (approvedByUser == false) {
-            return 'Avslått av deg.';
+            return 'Avvist av deg.';
         } else if (approvedByUser == true) {
             return 'Godkjent av deg.';
         } else {
@@ -281,7 +281,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             return;
         } else {
             this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
-            this.actionText = 'Avslår kravet...';
+            this.actionText = 'Avviser kravet...';
             this.spin = true;
             this.hideFormAndShowLoading();
             declineClaim({
@@ -290,7 +290,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             })
                 .then((result) => {
                     if (result == 'ok') {
-                        this.submitSuccessMessage = 'Kravet ble avslått av deg';
+                        this.submitSuccessMessage = 'Kravet ble avvist av deg';
                         this.hideFormAndShowSuccess();
                     } else {
                         this.hideLoading();
