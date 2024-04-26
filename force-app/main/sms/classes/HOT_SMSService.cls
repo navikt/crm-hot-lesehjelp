@@ -9,7 +9,7 @@ public without sharing class HOT_SMSService {
             sms.Type__c = 'Message';
             sms.Account__c = claim.Account__c;
             sms.Recipient__c = claim.Account__r.CRM_Person__r.INT_KrrMobilePhone__c;
-            String message='En lesehjelper har meldt inn et krav som du må  behandle.';
+            String message='En lesehjelper har meldt inn et krav som du må behandle.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message+='Du kan ikke svare på denne meldingen. ';
             message += '\nMvh NAV';
