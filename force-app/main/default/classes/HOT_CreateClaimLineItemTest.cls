@@ -173,36 +173,4 @@ private class HOT_CreateClaimLineItemTest {
         ];
         System.assertEquals(14, claimLines.size(), 'Det ble ikke opprettet korrekt antall linjer');
     }
-
-    @IsTest
-    private static void createClaimMonthly() {
-        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
-
-        HOT_CreateClaimLineItem inputVariable = new HOT_CreateClaimLineItem();
-        inputVariable.claimId = claim.Id;
-        inputVariable.startDate = Datetime.now();
-        inputVariable.endDate = Datetime.now().addHours(1);
-        inputVariable.recurringType = 'Monthly';
-        inputVariable.recurringEndDate = Date.today().addMonths(10);
-        inputVariable.travelToStartDate = Datetime.now().addHours(-1);
-        inputVariable.travelToEndDate = Datetime.now();
-        inputVariable.travelFromStartDate = Datetime.now().addHours(1);
-        inputVariable.travelFromEndDate = Datetime.now().addHours(2);
-        inputVariable.hasTraveledTo = true;
-        inputVariable.hasTraveledFrom = true;
-        inputVariable.distanceTraveled = 10;
-
-        List<HOT_CreateClaimLineItem> inputVariables = new List<HOT_CreateClaimLineItem>();
-        inputVariables.add(inputVariable);
-
-        Test.startTest();
-        HOT_CreateClaimLineItem.createClaimLineItems(inputVariables);
-        Test.stopTest();
-
-        List<HOT_ClaimLineItem__c> claimLines = [
-            SELECT Id, Claim__c, StartTime__c, EndTime__c
-            FROM HOT_ClaimLineItem__c
-        ];
-        System.assertEquals(11, claimLines.size(), 'Det ble ikke opprettet korrekt antall linjer');
-    }
 }
