@@ -45,7 +45,7 @@ public without sharing class HOT_CreateClaimLineItem {
         List<String> errors = new List<String>();
         LoggerUtility logger = new LoggerUtility();
 
-        HOT_Claim__c claim = new HOT_Claim__c (Id = input.claimId);
+        HOT_Claim__c claim = new HOT_Claim__c(Id = input.claimId);
 
         TimeZone tz = UserInfo.getTimeZone();
         Datetime oldStartDate = input.startDate;
@@ -86,7 +86,6 @@ public without sharing class HOT_CreateClaimLineItem {
                 HasTravelTo__c = input.hasTraveledTo,
                 HasTravelFrom__c = input.hasTraveledFrom,
                 TravelDistance__c = input.distanceTraveled
-
             );
 
             try {
@@ -110,19 +109,18 @@ public without sharing class HOT_CreateClaimLineItem {
             for (Integer i = 0; i <= numberOfRecurrences; i++) {
                 Datetime startDate = input.startDate.addDays(i);
                 Datetime endDate = input.endDate.addDays(i);
-                Datetime travelFromStartDate = input.travelFromStartDate.addDays(i);
-                Datetime travelFromEndDate = input.travelFromEndDate.addDays(i);
-                Datetime travelToStartDate = input.travelToStartDate.addDays(i);
-                Datetime travelToEndDate = input.travelToEndDate.addDays(i);
+                Datetime travelFromStartDate = input.travelFromStartDate?.addDays(i);
+                Datetime travelFromEndDate = input.travelFromEndDate?.addDays(i);
+                Datetime travelToStartDate = input.travelToStartDate?.addDays(i);
+                Datetime travelToEndDate = input.travelToEndDate?.addDays(i);
                 Integer os = tz.getOffset(startDate) - tz.getOffset(oldStartDate);
                 startDate = startDate.addHours(-os / 3600000);
                 endDate = endDate.addHours(-os / 3600000);
-                travelFromStartDate = travelFromStartDate.addHours(-os / 3600000);
-                travelFromEndDate = travelFromEndDate.addHours(-os / 3600000);
-                travelToStartDate = travelToStartDate.addHours(-os / 3600000);
-                travelToEndDate = travelToEndDate.addHours(-os / 3600000);
-                
-                
+                travelFromStartDate = travelFromStartDate?.addHours(-os / 3600000);
+                travelFromEndDate = travelFromEndDate?.addHours(-os / 3600000);
+                travelToStartDate = travelToStartDate?.addHours(-os / 3600000);
+                travelToEndDate = travelToEndDate?.addHours(-os / 3600000);
+
                 HOT_ClaimLineItem__c claimLineItem = new HOT_ClaimLineItem__c(
                     Claim__c = input.claimId,
                     StartTime__c = startDate,
@@ -152,20 +150,20 @@ public without sharing class HOT_CreateClaimLineItem {
             Integer numberOfRecurrences = input.startDate.date().daysBetween(input.recurringEndDate);
 
             for (Integer i = 0; i <= numberOfRecurrences; i++) {
-                Datetime startDate = input.startDate.addDays(i); 
+                Datetime startDate = input.startDate.addDays(i);
                 Datetime endDate = input.endDate.addDays(i);
-                Datetime travelFromStartDate = input.travelFromStartDate.addDays(i);
-                Datetime travelFromEndDate = input.travelFromEndDate.addDays(i);
-                Datetime travelToStartDate = input.travelToStartDate.addDays(i);
-                Datetime travelToEndDate = input.travelToEndDate.addDays(i);
+                Datetime travelFromStartDate = input.travelFromStartDate?.addDays(i);
+                Datetime travelFromEndDate = input.travelFromEndDate?.addDays(i);
+                Datetime travelToStartDate = input.travelToStartDate?.addDays(i);
+                Datetime travelToEndDate = input.travelToEndDate?.addDays(i);
                 String dayOfWeek = startDate.format('EEEE');
                 Integer os = tz.getOffset(startDate) - tz.getOffset(oldStartDate);
                 startDate = startDate.addHours(-os / 3600000);
                 endDate = endDate.addHours(-os / 3600000);
-                travelFromStartDate = travelFromStartDate.addHours(-os / 3600000);
-                travelFromEndDate = travelFromEndDate.addHours(-os / 3600000);
-                travelToStartDate = travelToStartDate.addHours(-os / 3600000);
-                travelToEndDate = travelToEndDate.addHours(-os / 3600000);
+                travelFromStartDate = travelFromStartDate?.addHours(-os / 3600000);
+                travelFromEndDate = travelFromEndDate?.addHours(-os / 3600000);
+                travelToStartDate = travelToStartDate?.addHours(-os / 3600000);
+                travelToEndDate = travelToEndDate?.addHours(-os / 3600000);
 
                 System.debug('dayOfWeek: ' + dayOfWeek);
                 if (
@@ -214,19 +212,19 @@ public without sharing class HOT_CreateClaimLineItem {
             for (Integer i = 0; i <= numberOfRecurrences; i++) {
                 Datetime startDate = input.startDate.addDays(i);
                 Datetime endDate = input.endDate.addDays(i);
-                Datetime travelFromStartDate = input.travelFromStartDate.addDays(i);
-                Datetime travelFromEndDate = input.travelFromEndDate.addDays(i);
-                Datetime travelToStartDate = input.travelToStartDate.addDays(i);
-                Datetime travelToEndDate = input.travelToEndDate.addDays(i);
+                Datetime travelFromStartDate = input.travelFromStartDate?.addDays(i);
+                Datetime travelFromEndDate = input.travelFromEndDate?.addDays(i);
+                Datetime travelToStartDate = input.travelToStartDate?.addDays(i);
+                Datetime travelToEndDate = input.travelToEndDate?.addDays(i);
                 String dayOfWeek = startDate.format('EEEE');
                 Integer os = tz.getOffset(startDate) - tz.getOffset(oldStartDate);
                 startDate = startDate.addHours(-os / 3600000);
                 endDate = endDate.addHours(-os / 3600000);
-                travelFromStartDate = travelFromStartDate.addHours(-os / 3600000);
-                travelFromEndDate = travelFromEndDate.addHours(-os / 3600000);
-                travelToStartDate = travelToStartDate.addHours(-os / 3600000);
-                travelToEndDate = travelToEndDate.addHours(-os / 3600000);
-                
+                travelFromStartDate = travelFromStartDate?.addHours(-os / 3600000);
+                travelFromEndDate = travelFromEndDate?.addHours(-os / 3600000);
+                travelToStartDate = travelToStartDate?.addHours(-os / 3600000);
+                travelToEndDate = travelToEndDate?.addHours(-os / 3600000);
+
                 System.debug('dayOfWeek: ' + dayOfWeek);
                 if (
                     input.monday && dayOfWeek == 'Monday' ||
@@ -270,58 +268,7 @@ public without sharing class HOT_CreateClaimLineItem {
             }
 
             return errors;
-        } else if (input.recurringType == 'Monthly') {
-            List<HOT_ClaimLineItem__c> claimLineItems = new List<HOT_ClaimLineItem__c>();
-            Integer numberOfRecurrences = input.startDate.date().monthsBetween(input.recurringEndDate);
-
-            if (numberOfRecurrences > maxNumberOfRecurrences) {
-                errors.add('Kan ikke opprette mer enn 200 lesekravslinjer av gangen');
-                return errors;
-            }
-
-            for (Integer i = 0; i <= numberOfRecurrences; i++) {
-                Datetime startDate = input.startDate.addMonths(i);
-                Datetime endDate = input.endDate.addMonths(i);
-                Datetime travelFromStartDate = input.travelFromStartDate.addMonths(i);
-                Datetime travelFromEndDate = input.travelFromEndDate.addMonths(i);
-                Datetime travelToStartDate = input.travelToStartDate.addMonths(i);
-                Datetime travelToEndDate = input.travelToEndDate.addMonths(i);
-                Integer os = tz.getOffset(startDate) - tz.getOffset(oldStartDate);
-                startDate = startDate.addHours(-os / 3600000);
-                endDate = endDate.addHours(-os / 3600000);
-                travelFromStartDate = travelFromStartDate.addHours(-os / 3600000);
-                travelFromEndDate = travelFromEndDate.addHours(-os / 3600000);
-                travelToStartDate = travelToStartDate.addHours(-os / 3600000);
-                travelToEndDate = travelToEndDate.addHours(-os / 3600000);
-
-                HOT_ClaimLineItem__c claimLineItem = new HOT_ClaimLineItem__c(
-                    Claim__c = input.claimId,
-                    StartTime__c = startDate,
-                    EndTime__c = endDate,
-                    TravelFromEndTime__c = travelFromEndDate,
-                    TravelFromStartTime__c = travelFromStartDate,
-                    TravelToEndTime__c = travelToEndDate,
-                    TravelToStartTime__c = travelToStartDate,
-                    HasTravelTo__c = input.hasTraveledTo,
-                    HasTravelFrom__c = input.hasTraveledFrom,
-                    TravelDistance__c = input.distanceTraveled
-                );
-                if (startDate.date() <= input.recurringEndDate) {
-                    claimLineItems.add(claimLineItem);
-                }
-            }
-
-            try {
-                insert claimLineItems;
-            } catch (Exception e) {
-                errors.add('Opprettelsen av lesekravslinjer feilet.');
-                logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-            }
-
-            return errors;
         }
-
         return errors;
     }
 }
