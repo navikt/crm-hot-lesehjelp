@@ -59,7 +59,20 @@
                     <p class="typo-undertittel">Min side</p>
                 </div>
             </a>
-            <a class="box-small" href="https://www.nav.no/lese-og-sekretaerhjelp" aria-label="Til veiledning">
+            <a
+                if:false={hasDecisions}
+                class="box-small"
+                href={pageLinks.veiledningLesehjelp}
+                aria-label="Til veiledning"
+            >
+                <div class="box-elements">
+                    <img src={veiledningImg} alt="Knapp" />
+                </div>
+                <div class="box-elements">
+                    <p class="typo-undertittel">Veiledning</p>
+                </div>
+            </a>
+            <a if:true={hasDecisions} class="box-small" href={pageLinks.veiledningBruker} aria-label="Til veiledning">
                 <div class="box-elements">
                     <img src={veiledningImg} alt="Knapp" />
                 </div>
