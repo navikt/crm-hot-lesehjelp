@@ -1,0 +1,48 @@
+{
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "1c6bbc25-bcf7-40eb-8932-961664675282",
+  "label" : "Veiledning til innbyggere med vedtak",
+  "regions" : [ {
+    "id" : "4a40e63a-4504-4b0a-b8e8-ea1682f97431",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<!DOCTYPE html>\n<h1 style=\"padding-left: 20px;\">Innledning</h1>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Dette er en veiledning for deg som har vedtak om lese- og sekretærhjelp, og hvordan du digitalt kan bekrefte at du har mottatt lese- og sekretærhjelps tjenester.\n</p>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Den som har lest for deg, kan digitalt sende et regningskrav til deg for de tidene hen har lest for deg, og du kan gjennom denne løsningen få oversikt over det regningskravet lesehjelpen har sendt inn, og godkjenne eller avvise dette.\n</p>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Når lesehjelpen sender deg et regningskrav, vil du motta en sms om at du har mottatt et nytt krav og at du må logge inn med BankID på <a href=\"https://lesehjelp.nav.no\">https://lesehjelp.nav.no</a> for å behandle dette.\n</p>\n<br>\n\n<h2 style=\"padding-left: 20px;\">Hjem-siden</h2>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Når du har logget inn kommer du til en Hjem-side med 4 punkter:\n</p>\n<br>\n<ul style=\"padding-left: 20px; font-size: 1.2em;\">\n    <li>Krav til godkjenning</li>\n    <li>Vedtak</li>\n    <li>Min side</li>\n    <li>Veiledning</li>\n</ul>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    For å behandle et regningskrav må du gå inn på punktet «Krav til godkjenning».\n</p>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Her får du oversikt over de regningskrav lesehjelpen har sendt til deg, og som du må ta stilling til om du skal Godkjenne eller Avvise.\n</p>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Trykk på den linjen i listen som du ønsker å behandle.\n</p>\n<br>\n<h2 style=\"padding-left: 20px;\">Godkjenn eller Avvis kravet</h2>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Når du har trykket på den linjen som du ønsker å behandle, får du opp en liste som viser de tidene lesehjelpen har sendt inn regningskrav på.\n</p>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Listen inneholder:\n</p>\n<br>\n<ul style=\"padding-left: 20px; font-size: 1.2em;\">\n    <li>Hvilke tider du har hatt lesehjelp</li>\n    <li>Totalt antall timer for alle tidspunkt</li>\n</ul>\n<br>\n<p style=\"padding-left: 20px; padding-right: 20px; max-width: 600px; word-wrap: break-word; font-size: 1.2em;\">\n    Du har mulighet til å legge inn en kommentar til lesehjelpen. Om du avviser regningskravet, må du legge inn en kommentar.\n    Du må deretter hake av for «Jeg bekrefter at jeg har lest all informasjon i kravet»\n    Velg til slutt knapp for Godkjenn eller knapp for Avvis.\n</p>\n<br>\n<p style=\"padding-left: 20px; font-size: 1.2em;\"><a href=\"https://www.nav.no/lese-og-sekretaerhjelp\">Informasjon om lese- og sekretærhjelp på nav.no</a></p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "e5a11c63-8877-4590-bee2-13957f392f8d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "12dbd29a-7429-47e4-93d2-67093169dc43",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "717be101-7878-43b0-9bbe-5f06ecb46938",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "<meta charset=\"UTF-8\">",
+        "description" : "",
+        "title" : "Veiledning til innbyggere med vedtak"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "afa9fe2c-4c2d-4615-b988-d62d461ecfa9",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "840772dd-8a30-4271-a201-bf3268a8f745",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-veiledning-til-innbyggere-med-vedtak"
+}

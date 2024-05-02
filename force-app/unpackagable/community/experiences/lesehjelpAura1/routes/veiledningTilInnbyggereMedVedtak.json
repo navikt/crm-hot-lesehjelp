@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "1c6bbc25-bcf7-40eb-8932-961664675282",
+  "appPageId" : "16787644-8f50-441f-9d6a-40835db85076",
+  "configurationTags" : [ ],
+  "devName" : "Veiledning_til_innbyggere_med_vedtak__c",
+  "id" : "047bd2d5-7b5c-42b4-a4b0-4440dabf7069",
+  "label" : "Veiledning til innbyggere med vedtak",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-veiledning-til-innbyggere-med-vedtak",
+  "type" : "route",
+  "urlPrefix" : "veiledning-til-innbyggere-med-vedtak"
+}
