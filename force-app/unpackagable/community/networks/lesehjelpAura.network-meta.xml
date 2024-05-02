@@ -3,7 +3,7 @@
     <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
-    <communityRoles/>
+    <communityRoles />
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
     <emailSenderAddress>edvard.brekke@nav.no</emailSenderAddress>
     <emailSenderName>lesehjelpAura</emailSenderName>
@@ -33,6 +33,7 @@
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <networkMemberGroups>
         <permissionSet>HOT_Lesehjelp_Admin</permissionSet>
+        <permissionSet>HOT_Lesehjelp_Bruker</permissionSet>
         <profile>admin</profile>
     </networkMemberGroups>
     <networkPageOverrides>
