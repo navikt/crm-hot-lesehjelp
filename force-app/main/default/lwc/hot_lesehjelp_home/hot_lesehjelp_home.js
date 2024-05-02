@@ -43,7 +43,8 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
             myEntitlements: baseURL + '/mine-vedtak',
             myClaimsToReview: baseURL + '/krav-til-godkjenning',
             myPage: baseURL + '/mine-sider',
-            veiledning: 'https://www.nav.no/lese-og-sekretaerhjelp'
+            veiledningLesehjelp: 'https://www.nav.no/samarbeidspartner/lese-og-sekretarhjelp',
+            veiledningBruker: baseURL + '/veiledning-til-innbyggere-med-vedtak'
         };
     }
 }
