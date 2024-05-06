@@ -96,10 +96,10 @@
                                 <c-textarea
                                     if:false={record.isOldClaim}
                                     name="CommentFromUser__c"
-                                    label="Kommentar"
+                                    label="Kommentar (ingen sensitiv informasjon)"
                                     value={fieldValues.CommentFromUser__c}
                                     helptext-hovertext="Dette må feltet fylles ut ved avslag."
-                                    error-text="Kommentar må fylles ut ved avslag."
+                                    error-text="Kommentar må fylles ut ved avvisning."
                                     maxlength=255
                                     aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
                                 ></c-textarea>
