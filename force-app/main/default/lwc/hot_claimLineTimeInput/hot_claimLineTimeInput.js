@@ -49,6 +49,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 if (t.travelDistance == undefined) {
                     t.travelDistance = 0;
                 }
+                if (t.totalUndocumentedExpenses == undefined) {
+                    t.totalUndocumentedExpenses = 0;
+                }
                 if (t.additionalInformation == undefined) {
                     t.additionalInformation = 0;
                 }

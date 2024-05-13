@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SumTotalUndocumentedExpenses__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Total sum for udokumenterte utlegg (som ikke krever kvittering), som buss/tog og parkering/bompenger.</inlineHelpText>
+    <inlineHelpText>Total sum for udokumenterte utlegg (som ikke krever kvittering), som
+        buss/trikk/t-bane og parkering/bompenger.</inlineHelpText>
     <label>Sum total undocumented expenses</label>
     <summarizedField>HOT_ClaimLineItem__c.TotalUndocumentedExpenses__c</summarizedField>
     <summaryForeignKey>HOT_ClaimLineItem__c.Claim__c</summaryForeignKey>
