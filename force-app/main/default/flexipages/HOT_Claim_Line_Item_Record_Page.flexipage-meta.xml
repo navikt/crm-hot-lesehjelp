@@ -211,6 +211,16 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TotalUndocumentedExpenses__c</fieldItem>
+                <identifier>RecordTotalUndocumentedExpenses_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-1439886a-cb04-4a2c-ab93-5e884e8a3379</name>
         <type>Facet</type>
     </flexiPageRegions>
