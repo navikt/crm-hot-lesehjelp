@@ -414,11 +414,4 @@
         <tab>HOT_Entitlement__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
-<<<<<<< Updated upstream
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>RunFlow</name>
-    </userPermissions>
-=======
->>>>>>> Stashed changes
 </PermissionSet>
