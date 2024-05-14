@@ -28,6 +28,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             '.addTravelMinutesFromButtonContainer'
         );
         let totalDistanceContainer = this.template.querySelectorAll('.totalDistanceContainer');
+        let totalUndocumenterExpensesontainer = this.template.querySelectorAll('.totalUndocumenterExpensesontainer');
 
         if (this.isEdit == true) {
             for (let t of this.times) {
@@ -48,13 +49,18 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 if (t.travelDistance == undefined) {
                     t.travelDistance = 0;
                 }
+                if (t.totalUndocumentedExpenses == undefined) {
+                    t.totalUndocumentedExpenses = 0;
+                }
                 if (t.additionalInformation == undefined) {
                     t.additionalInformation = 0;
                 }
                 if (t.hasTravelTo || t.hasTravelFrom) {
                     totalDistanceContainer[t.editId].classList.remove('hidden');
+                    totalUndocumenterExpensesontainer[t.editId].classList.remove('hidden');
                 } else {
                     totalDistanceContainer[t.editId].classList.add('hidden');
+                    totalUndocumenterExpensesontainer[t.editId].classList.add('hidden');
                 }
             }
         } else {
@@ -75,8 +81,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 }
                 if (t.hasTravelTo || t.hasTravelFrom) {
                     totalDistanceContainer[t.id].classList.remove('hidden');
+                    totalUndocumenterExpensesontainer[t.id].classList.remove('hidden');
                 } else {
                     totalDistanceContainer[t.id].classList.add('hidden');
+                    totalUndocumenterExpensesontainer[t.id].classList.add('hidden');
                 }
             }
         }
@@ -232,7 +240,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             randomNumber: timeObject === null ? null : timeObject.randomNumber,
             hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
             additionalInformation: timeObject === null ? null : timeObject.additionalInformation,
-            travelDistance: timeObject === null ? null : timeObject.travelDistance
+            travelDistance: timeObject === null ? null : timeObject.travelDistance,
+            totalUndocumentedExpenses: timeObject === null ? null : timeObject.totalUndocumentedExpenses
         };
     }
     handleAdditionalInformation(event) {
@@ -242,6 +251,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     handleTravelDistance(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].travelDistance = event.detail;
+    }
+    handleTotalUndocumentetExpenses(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].totalUndocumentedExpenses = event.detail;
     }
 
     getTimesIndex(name) {
@@ -872,6 +885,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         hasAdditionalInformation: time.hasAdditionalInformation,
                         additionalInformation: time.additionalInformation,
                         travelDistance: time.travelDistance,
+                        totalUndocumentedExpenses: time.totalUndocumentedExpenses,
                         isNew: 0
                     };
                     let clonedTime = this.setTimesValue(testTimeObject);
