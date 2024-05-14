@@ -133,6 +133,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.SumTotalUndocumentedExpenses__c</fieldItem>
+                <identifier>RecordSumTotalUndocumentedExpenses_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Source__c</fieldItem>
                 <identifier>RecordSource_cField</identifier>
             </fieldInstance>

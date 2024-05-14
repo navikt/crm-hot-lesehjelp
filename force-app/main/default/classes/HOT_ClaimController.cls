@@ -143,8 +143,12 @@ public without sharing class HOT_ClaimController {
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                 Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
                 cli.TravelDistance__c = travelDistance;
+                Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
+                cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
+
             } else {
                 cli.TravelDistance__c = 0;
+                cli.TotalUndocumentedExpenses__c = 0;
             }
             claimLineItemList.add(cli);
         }
@@ -403,7 +407,8 @@ public without sharing class HOT_ClaimController {
                 TravelTo__c,
                 TypeOfTask__c,
                 AdditionalInformation__c,
-                TravelDistance__c
+                TravelDistance__c,
+                TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__r.Id = :claimId
             ORDER BY Date__c ASC
@@ -437,6 +442,7 @@ public without sharing class HOT_ClaimController {
             }
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                 timeMap.put('travelDistance', String.valueOf(cli.TravelDistance__c));
+                timeMap.put('totalUndocumentedExpenses', String.valueOf(cli.TotalUndocumentedExpenses__c));
             }
             //Date tempDateTravelFrom = cli.TravelFrom__c.date();
             timeMap.put('task', cli.TypeOfTask__c);
@@ -527,7 +533,8 @@ public without sharing class HOT_ClaimController {
                 TravelToEndTime__c,
                 TravelFromStartTime__c,
                 TravelFromEndTime__c,
-                TravelDistance__c
+                TravelDistance__c,
+                TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :claim.Id
         ];
@@ -598,8 +605,11 @@ public without sharing class HOT_ClaimController {
                     if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                         Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
                         cli.TravelDistance__c = travelDistance;
+                        Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
+                        cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
                     } else {
                         cli.TravelDistance__c = 0;
+                        cli.TotalUndocumentedExpenses__c = 0;
                     }
                 }
             }

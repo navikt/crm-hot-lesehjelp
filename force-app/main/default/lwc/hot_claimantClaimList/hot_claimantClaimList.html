@@ -158,6 +158,10 @@
                                     <p if:true={cli.hasTravel} tabindex="0">
                                         <strong>Totalt distanse reisevei: </strong> {cli.TravelDistance__c} km
                                     </p>
+                                    <p if:true={cli.hasTravel} tabindex="0">
+                                        <strong>Sum udokumenterte utgifter: </strong> {cli.TotalUndocumentedExpenses__c}
+                                        kr
+                                    </p>
                                 </div>
                             </template>
                             <div class="buttons">
