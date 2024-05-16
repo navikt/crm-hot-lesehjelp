@@ -42,7 +42,7 @@
     </classAccesses>
     <description>Permissionset for Saksbehandler i lesehjelpsløsningen.</description>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.CRM_Person__c</field>
         <readable>true</readable>
     </fieldPermissions>
