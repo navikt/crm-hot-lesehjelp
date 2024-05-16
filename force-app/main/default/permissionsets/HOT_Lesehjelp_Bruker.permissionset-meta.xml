@@ -18,6 +18,11 @@
     </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.CRM_Person__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.HOT_IsLOS__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -279,6 +284,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Person__c.CRM_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Person__c.CRM_FullName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
