@@ -45,7 +45,6 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         if (result.data) {
             this.unmappedClaims = [];
             this.unmappedOlderClaims = [];
-            console.log('res: ' + result.data);
 
             this.claims = [];
             this.olderClaims = [];

@@ -314,6 +314,7 @@ public without sharing class HOT_ClaimController {
                 Organization__r.Name,
                 Type__c,
                 Claimant__r.Name,
+                Claimant__r.CRM_Person__r.CRM_FullName__c,
                 ApprovedByUser__c,
                 CommentFromUser__c,
                 TotalHours__c

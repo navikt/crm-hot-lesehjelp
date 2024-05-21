@@ -31,7 +31,6 @@ export default class Hot_warningBannerOnClaim extends LightningElement {
                     this.exceedsEntitlementHours = false;
                 }
             }
-            console.log(result.data);
         }
     }
 }
