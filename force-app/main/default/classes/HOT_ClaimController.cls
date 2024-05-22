@@ -505,6 +505,7 @@ public without sharing class HOT_ClaimController {
             claim.Entitlement__c = null;
             claim.CommentFromNAV__c = null;
             claim.CommentFromUser__c = null;
+            claim.IsNotificationSent__c = false;
         }
         try {
             update claims;
