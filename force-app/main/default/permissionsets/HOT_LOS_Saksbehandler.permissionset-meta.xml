@@ -68,6 +68,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.ExpensesParking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.ExpensesPublicTransport__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_ClaimLineItem__c.ExpensesToll__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_ClaimLineItem__c.HasTravelFrom__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -244,6 +259,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.SumTotalUndocumentedExpenses__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.SumUndocumentedExpenses__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalExpensesParking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalExpensesPublicTransport__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalExpensesToll__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
