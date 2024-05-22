@@ -19,7 +19,9 @@ public without sharing class HOT_ClaimLineItemController {
                 Weekday__c,
                 AdditionalInformation__c,
                 TravelDistance__c,
-                TotalUndocumentedExpenses__c
+                ExpensesParking__c,
+                ExpensesPublicTransport__c,
+                ExpensesToll__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
             ORDER BY Date__c ASC

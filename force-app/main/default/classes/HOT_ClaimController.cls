@@ -143,12 +143,34 @@ public without sharing class HOT_ClaimController {
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                 Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
                 cli.TravelDistance__c = travelDistance;
-                Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
-                cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
+                Integer expensesPublicTransport = Integer.valueOf(claimLineItem.get('expensesPublicTransport'));
+                if(expensesPublicTransport!=null){
+                    cli.ExpensesPublicTransport__c = expensesPublicTransport;
+                }
+                else{
+                    cli.ExpensesPublicTransport__c = 0;
+                }
+                Integer expensesToll = Integer.valueOf(claimLineItem.get('expensesToll'));
+                if(expensesToll!=null){
+                    cli.ExpensesToll__c = expensesToll;
+                }
+                else{
+                    cli.ExpensesToll__c = 0;
+                }
+                Integer expensesParking = Integer.valueOf(claimLineItem.get('expensesParking'));
+                if(expensesParking!=null){
+                    cli.ExpensesParking__c = expensesParking;
+                }
+                else{
+                    cli.ExpensesParking__c = 0;
+                }
 
             } else {
                 cli.TravelDistance__c = 0;
-                cli.TotalUndocumentedExpenses__c = 0;
+                cli.ExpensesPublicTransport__c = 0;
+                cli.ExpensesParking__c=0;
+                cli.ExpensesToll__c=0;
+
             }
             claimLineItemList.add(cli);
         }
@@ -409,7 +431,9 @@ public without sharing class HOT_ClaimController {
                 TypeOfTask__c,
                 AdditionalInformation__c,
                 TravelDistance__c,
-                TotalUndocumentedExpenses__c
+                ExpensesPublicTransport__c,
+                ExpensesParking__c,
+                ExpensesToll__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__r.Id = :claimId
             ORDER BY Date__c ASC
@@ -443,7 +467,10 @@ public without sharing class HOT_ClaimController {
             }
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                 timeMap.put('travelDistance', String.valueOf(cli.TravelDistance__c));
-                timeMap.put('totalUndocumentedExpenses', String.valueOf(cli.TotalUndocumentedExpenses__c));
+                timeMap.put('expensesPublicTransport', String.valueOf(cli.ExpensesPublicTransport__c));
+                timeMap.put('expensesParking', String.valueOf(cli.ExpensesParking__c));
+                timeMap.put('expensesToll', String.valueOf(cli.ExpensesToll__c));
+                //her
             }
             //Date tempDateTravelFrom = cli.TravelFrom__c.date();
             timeMap.put('task', cli.TypeOfTask__c);
@@ -606,11 +633,32 @@ public without sharing class HOT_ClaimController {
                     if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
                         Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
                         cli.TravelDistance__c = travelDistance;
-                        Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
-                        cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
+                        Integer expensesPublicTransport = Integer.valueOf(claimLineItem.get('expensesPublicTransport'));
+                        if(expensesPublicTransport==null){
+                            cli.ExpensesPublicTransport__c = 0;
+                        }
+                        else{
+                            cli.ExpensesPublicTransport__c = expensesPublicTransport;
+                        }
+                        Integer expensesToll = Integer.valueOf(claimLineItem.get('expensesToll'));
+                        if(expensesToll!=null){
+                            cli.ExpensesToll__c = expensesToll;
+                        }
+                        else{
+                            cli.ExpensesToll__c = 0;
+                        }
+                        Integer expensesParking = Integer.valueOf(claimLineItem.get('expensesParking'));
+                        if(expensesParking!=null){
+                            cli.ExpensesParking__c = expensesParking;
+                        }
+                        else{
+                            cli.ExpensesParking__c = 0;
+                        }
                     } else {
                         cli.TravelDistance__c = 0;
-                        cli.TotalUndocumentedExpenses__c = 0;
+                        cli.ExpensesPublicTransport__c = 0;
+                        cli.ExpensesParking__c=0;
+                        cli.ExpensesToll__c=0;
                     }
                 }
             }
