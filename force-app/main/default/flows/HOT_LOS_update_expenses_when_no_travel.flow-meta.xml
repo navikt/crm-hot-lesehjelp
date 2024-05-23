@@ -2,6 +2,60 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
     <assignments>
+        <name>Copy_1_of_remove_has_travel_from</name>
+        <label>Copy 1 of remove has travel from</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFrom__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFromStartTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFromEndTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>remove_has_travel_to</name>
+        <label>remove has travel to</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.TravelTo__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelToStartTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelToEndTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
         <name>set_expenses_to_null</name>
         <label>set expenses to null</label>
         <locationX>50</locationX>
@@ -48,8 +102,11 @@
     <decisions>
         <name>check_if_has_travel</name>
         <label>check if has travel</label>
-        <locationX>182</locationX>
+        <locationX>314</locationX>
         <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>only_has_travel_to_check</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>has_travel</name>
@@ -74,7 +131,68 @@
             <label>has no travel</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>only_has_travel_to_check</name>
+        <label>has travel</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>only_has_travel_to</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HasTravelTo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.HasTravelFrom__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>remove_has_travel_to</targetReference>
+            </connector>
+            <label>only has travel to</label>
+        </rules>
+        <rules>
+            <name>only_has_travel_from</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HasTravelFrom__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.HasTravelTo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_remove_has_travel_from</targetReference>
+            </connector>
+            <label>only has travel from</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>noDate</name>
+        <dataType>Date</dataType>
+        <expression>NULL</expression>
+    </formulas>
+    <formulas>
+        <name>noDateTime</name>
+        <dataType>DateTime</dataType>
+        <expression>NULL</expression>
+    </formulas>
     <interviewLabel>HOT_LOS_update expenses when no travel {!$Flow.CurrentDateTime}</interviewLabel>
     <label>HOT_LOS_update expenses when no travel</label>
     <processMetadataValues>
@@ -104,7 +222,7 @@
         <inputReference>recordstoupdate</inputReference>
     </recordUpdates>
     <start>
-        <locationX>56</locationX>
+        <locationX>188</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>check_if_has_travel</targetReference>
