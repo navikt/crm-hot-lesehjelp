@@ -81,7 +81,11 @@
     margin-top: 1vw;
     width: 100%;
 }
-.totalUndocumenterExpensesontainer {
-    margin-top: 1vw;
+.undocumentedExpensesontainer {
     width: 100%;
+    margin-top: 1vw;
+    padding: 1vw;
+    background-color: #e6f0ff;
+    border: 2px solid black;
+    border-radius: 5px;
 }

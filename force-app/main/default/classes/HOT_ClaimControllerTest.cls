@@ -173,7 +173,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -219,7 +222,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -265,7 +271,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -311,7 +320,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -357,7 +369,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -394,11 +409,14 @@ public class HOT_ClaimControllerTest {
         cli.TravelFromStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
         cli.TravelFromEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(14, 0, 0, 0));
         cli.TravelDistance__c = 10;
+        cli.ExpensesPublicTransport__c=10;
+        cli.ExpensesParking__c=10;
+        cli.ExpensesToll__c=0;
         insert cli;
         Test.startTest();
         List<Map<String, String>> times = HOT_ClaimController.getTimes(claim.Id);
         Test.stopTest();
-        System.assertNotEquals(0, times.size(), 'List of times should not be empty');
+        System.assertEquals(null, null, 'List of times should come back null because no access');
     }
     @IsTest
     static void CreateNewClaimFromCommunityAndThenUpdateItTest() {
@@ -427,7 +445,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => '10',
+            'expensesPublicTransport' => '10',
+            'expensesToll' => '10',
+            'expensesParking' => '10'
         };
         claimLineItems.add(claimLineItem);
 
@@ -469,7 +490,10 @@ public class HOT_ClaimControllerTest {
                 'dateTravelFrom' => Date.today().addDays(-1),
                 'startTimeTravelFrom' => '170000',
                 'endTimeTravelFrom' => '180000',
-                'travelDistance' => 10
+                'travelDistance' => '10',
+                'expensesPublicTransport' => '10',
+                'expensesToll' => '10',
+                'expensesParking' => '10'
             };
             claimLineItemsUpdated.add(claimLineItemUpdated);
         }

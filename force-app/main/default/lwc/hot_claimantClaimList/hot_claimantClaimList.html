@@ -158,9 +158,15 @@
                                     <p if:true={cli.hasTravel} tabindex="0">
                                         <strong>Totalt distanse reisevei: </strong> {cli.TravelDistance__c} km
                                     </p>
-                                    <p if:true={cli.hasTravel} tabindex="0">
-                                        <strong>Sum udokumenterte utgifter: </strong> {cli.TotalUndocumentedExpenses__c}
-                                        kr
+                                    <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
+                                        <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
+                                        {cli.ExpensesPublicTransport__c} kr
+                                    </p>
+                                    <p if:true={cli.ExpensesParking__c} tabindex="0">
+                                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr
+                                    </p>
+                                    <p if:true={cli.ExpensesToll__c} tabindex="0">
+                                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
                                     </p>
                                 </div>
                             </template>

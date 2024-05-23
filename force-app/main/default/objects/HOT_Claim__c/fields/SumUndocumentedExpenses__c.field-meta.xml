@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SumUndocumentedExpenses__c</fullName>
+    <externalId>false</externalId>
+    <formula>TotalExpensesParking__c + TotalExpensesPublicTransport__c + TotalExpensesToll__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Sum udokumenterte utlegg: Buss,trikk,t-bane innland. Bompenger enkel passering. P-avgift innland under 500 kr.</inlineHelpText>
+    <label>Sum undocumented expenses</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
