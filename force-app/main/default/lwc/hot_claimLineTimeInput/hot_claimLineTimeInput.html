@@ -321,30 +321,50 @@
                         ></c-input>
                     </div>
                 </div>
-                <div class="totalDistanceContainer hidden">
+                <div class="undocumentedExpensesontainer hidden">
+                    <!-- <div class="totalDistanceContainer hidden"> -->
                     <c-input
-                        label="Totalt antall km reisevei"
+                        label="Totalt antall km reisevei. NB! Kun om reisen er med egen bil."
                         data-id="travelDistance"
                         type="text"
                         value={it.value.travelDistance}
-                        error-text="Feltet kan kun inne"
+                        error-text="Skriv 0 om du ikke har hatt utgifter"
                         name={it.value.id}
                         onchange={handleTravelDistance}
                         desktop-style="max-width: 20vw"
-                        helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. "
+                        helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. Fyll ut kun om reisen er med egen bil."
                     ></c-input>
-                </div>
-                <div class="totalUndocumenterExpensesontainer hidden">
+                    <!-- </div> -->
                     <c-input
-                        label="Udokumenterte reiseutlegg"
-                        data-id="totalUndocumentedExpenses"
+                        label="Utlegg for Buss, Trikk, Tbane- innland"
+                        data-id="expensesPublicTransport"
                         type="text"
-                        value={it.value.totalUndocumentedExpenses}
-                        error-text="Feltet kan kun inne"
+                        value={it.value.expensesPublicTransport}
                         name={it.value.id}
-                        onchange={handleTotalUndocumentetExpenses}
+                        onchange={handleExpensesPublicTransport}
                         desktop-style="max-width: 20vw"
-                        helptext-content="Her kan du legge inn udokumenterte reiseutlegg (som ikke krever kvittering). Det er buss/trikk/t-bane innland, bompassering, eller p-avgift under 500 kr. Andre utlegg må legges i Unit 4 Travel & Expenses."
+                        helptext-content=""
+                    ></c-input>
+                    <c-input
+                        label="Utlegg for bompenger"
+                        data-id="expensesToll"
+                        type="text"
+                        value={it.value.expensesToll}
+                        name={it.value.id}
+                        onchange={handleExpensesToll}
+                        desktop-style="max-width: 20vw"
+                        helptext-content=""
+                    ></c-input>
+                    <c-input
+                        label="Utlegg for p-avgift"
+                        data-id="expensesParking"
+                        type="text"
+                        value={it.value.expensesParking}
+                        name={it.value.id}
+                        onchange={handleExpensesParking}
+                        desktop-style="max-width: 20vw"
+                        helptext-content=""
+                        placeholder="0"
                     ></c-input>
                 </div>
                 <div style="padding-top: 1rem; padding-right: 1rem">
