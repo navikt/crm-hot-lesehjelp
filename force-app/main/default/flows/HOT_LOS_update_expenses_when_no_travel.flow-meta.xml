@@ -34,6 +34,13 @@
                 <numberValue>0.0</numberValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>recordstoupdate</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>update_record</targetReference>
         </connector>
@@ -94,7 +101,7 @@
         <label>update record</label>
         <locationX>50</locationX>
         <locationY>539</locationY>
-        <inputReference>$Record</inputReference>
+        <inputReference>recordstoupdate</inputReference>
     </recordUpdates>
     <start>
         <locationX>56</locationX>
@@ -107,4 +114,12 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <variables>
+        <name>recordstoupdate</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>HOT_ClaimLineItem__c</objectType>
+    </variables>
 </Flow>
