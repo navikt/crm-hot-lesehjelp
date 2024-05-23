@@ -216,8 +216,8 @@
         <dataType>DateTime</dataType>
         <expression>NULL</expression>
     </formulas>
-    <interviewLabel>HOT_LOS Update Travel and expenses {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>HOT_LOS Update Travel and expenses</label>
+    <interviewLabel>HOT_LOS update travel and expenses {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>HOT_LOS update travel and expenses</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
