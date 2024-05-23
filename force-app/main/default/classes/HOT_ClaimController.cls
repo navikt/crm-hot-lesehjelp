@@ -440,7 +440,7 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled(cacheable=false)
     public static List<Map<String, String>> getTimes(String claimId) {
-        User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
         HOT_Claim__c claim = [SELECT Id, Claimant__c FROM HOT_Claim__c WHERE Id=:claimId];
         if(claim.Claimant__c==currentUser.AccountId){
             List<Map<String, String>> times = new List<Map<String, String>>();
