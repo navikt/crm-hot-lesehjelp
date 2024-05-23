@@ -1,7 +1,7 @@
 <template>
     <div class="body">
         <div class="content-form">
-            <div class="hot">
+            <div class="hot" if:false={noAccess}>
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <c-alertdialog
@@ -14,7 +14,7 @@
                 onbuttonclick={handleAlertDialogClick}
             >
             </c-alertdialog>
-            <main class="main-content submitted-false">
+            <main if:false={noAccess} class="main-content submitted-false">
                 <div class="skjema skjema-max-width">
                     <c-hot_claim-form-type
                         if:false={claimTypeChosen}
@@ -84,6 +84,9 @@
                         </div>
                     </div>
                 </div>
+            </main>
+            <main if:true={noAccess} class="main-content submitted-false">
+                <p>Kunne ikke finne kravet</p>
             </main>
             <div class="main-content hidden submitted-true">
                 <div class="main-content dialog-boks skjema-max-width">

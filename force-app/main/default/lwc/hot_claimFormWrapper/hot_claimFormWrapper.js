@@ -4,6 +4,7 @@ import createNewClaimFromCommunity from '@salesforce/apex/HOT_ClaimController.cr
 import checkAccountExist from '@salesforce/apex/HOT_UserInfoController.checkAccountExist';
 import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
+import checkAccess from '@salesforce/apex/HOT_ClaimController.checkAccess';
 import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
@@ -18,6 +19,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track claimTypeResult = {};
     @track currentPage = '';
     @track submitSuccessMessage = '';
+    @track noAccess = false;
 
     breadcrumbs = [
         {
@@ -40,6 +42,14 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
 
             if (parsed_params.fieldValues != null) {
                 this.setFieldValuesFromURL(parsed_params);
+                checkAccess({
+                    claimId: this.recordId
+                }).then((result) => {
+                    console.log(result);
+                    if (result == false) {
+                        this.noAccess = true;
+                    }
+                });
             }
         }
     }
@@ -257,6 +267,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             console.log('Reisetid fra oppdrag dato: ' + timeInput[i].dateTravelFrom);
             console.log('Reisetid fra oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelFromString);
             console.log('Reisetid fra oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelFromString);
+            console.log('Utgift tbane: ' + timeInput[i].expensesPublicTransport);
             console.log('-------------------------------------------------');
         }
         if (

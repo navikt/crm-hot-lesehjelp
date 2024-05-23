@@ -16,6 +16,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track disableAddMoreTimes = false;
     @api claim;
     @api isEdit;
+    @track noAccess = false;
     renderedCallback() {
         for (let i = 0; i < this.times.length; i++) {
             console.log('ider: ' + this.times[i].id);
@@ -103,10 +104,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 claimId: this.claim.Id
             }).then((result) => {
                 console.log(result);
-                if (result.length === 0) {
-                    this.times = [this.setTimesValue(null)];
-                    this.times[0].randomNumber = 300;
-                    this.updateIsOnlyOneTime();
+                if (result == null) {
+                    this.noAccess = true;
                 } else {
                     this.times = []; // Empty times
                     for (let timeMap of result) {
