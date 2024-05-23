@@ -265,7 +265,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => 10,
+            'expensesPublicTransport' => 10,
+            'expensesToll' => 10,
+            'expensesParking' => 10
         };
         claimLineItems.add(claimLineItem);
 
@@ -311,7 +314,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => 10,
+            'expensesPublicTransport' => 10,
+            'expensesToll' => 10,
+            'expensesParking' => 10
         };
         claimLineItems.add(claimLineItem);
 
@@ -357,7 +363,10 @@ public class HOT_ClaimControllerTest {
             'dateTravelFrom' => Date.today().addDays(-1),
             'startTimeTravelFrom' => '170000',
             'endTimeTravelFrom' => '180000',
-            'travelDistance' => 10
+            'travelDistance' => 10,
+            'expensesPublicTransport' => 10,
+            'expensesToll' => 10,
+            'expensesParking' => 10
         };
         claimLineItems.add(claimLineItem);
 

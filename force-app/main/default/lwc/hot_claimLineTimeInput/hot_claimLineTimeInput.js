@@ -5,7 +5,8 @@ import {
     requireInputNumbers,
     dateInPast,
     startBeforeEnd,
-    dateWithinSixMonths
+    dateWithinSixMonths,
+    validateInputNumbersOnlyNumbers
 } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
@@ -245,10 +246,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             randomNumber: timeObject === null ? null : timeObject.randomNumber,
             hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
             additionalInformation: timeObject === null ? null : timeObject.additionalInformation,
-            travelDistance: timeObject === null ? 0 : timeObject.travelDistance,
-            expensesPublicTransport: timeObject === null ? 0 : timeObject.expensesPublicTransport,
-            expensesToll: timeObject === null ? 0 : timeObject.expensesToll,
-            expensesParking: timeObject === null ? 0 : timeObject.expensesParking
+            travelDistance: timeObject === null ? null : timeObject.travelDistance,
+            expensesPublicTransport: timeObject === null ? null : timeObject.expensesPublicTransport,
+            expensesToll: timeObject === null ? null : timeObject.expensesToll,
+            expensesParking: timeObject === null ? null : timeObject.expensesParking
         };
     }
     handleAdditionalInformation(event) {
@@ -453,7 +454,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Antall km reisevei');
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Antall km reisevei');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
@@ -464,7 +465,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="expensesParking"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Felt');
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
@@ -475,7 +476,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="expensesPublicTransport"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Felt');
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
@@ -486,7 +487,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="expensesToll"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Felt');
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
