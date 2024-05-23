@@ -2,9 +2,9 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
     <assignments>
-        <name>Copy_1_of_remove_has_travel_from</name>
-        <label>Copy 1 of remove has travel from</label>
-        <locationX>578</locationX>
+        <name>remove_has_travel_from</name>
+        <label>remove has travel from</label>
+        <locationX>314</locationX>
         <locationY>539</locationY>
         <assignmentItems>
             <assignToReference>$Record.TravelFrom__c</assignToReference>
@@ -27,11 +27,21 @@
                 <elementReference>noDateTime</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>recordstoupdate</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_update_record</targetReference>
+        </connector>
     </assignments>
     <assignments>
         <name>remove_has_travel_to</name>
         <label>remove has travel to</label>
-        <locationX>314</locationX>
+        <locationX>578</locationX>
         <locationY>539</locationY>
         <assignmentItems>
             <assignToReference>$Record.TravelTo__c</assignToReference>
@@ -54,6 +64,16 @@
                 <elementReference>noDateTime</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>recordstoupdate</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_update_record</targetReference>
+        </connector>
     </assignments>
     <assignments>
         <name>set_expenses_to_null</name>
@@ -96,7 +116,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>update_record</targetReference>
+            <targetReference>Copy_1_of_update_record</targetReference>
         </connector>
     </assignments>
     <decisions>
@@ -136,6 +156,9 @@
         <label>has travel</label>
         <locationX>578</locationX>
         <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_update_record</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>only_has_travel_to</name>
@@ -155,7 +178,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>remove_has_travel_to</targetReference>
+                <targetReference>remove_has_travel_from</targetReference>
             </connector>
             <label>only has travel to</label>
         </rules>
@@ -177,7 +200,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Copy_1_of_remove_has_travel_from</targetReference>
+                <targetReference>remove_has_travel_to</targetReference>
             </connector>
             <label>only has travel from</label>
         </rules>
@@ -215,10 +238,10 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>update_record</name>
-        <label>update record</label>
-        <locationX>50</locationX>
-        <locationY>539</locationY>
+        <name>Copy_1_of_update_record</name>
+        <label>Copy 1 of update record</label>
+        <locationX>314</locationX>
+        <locationY>815</locationY>
         <inputReference>recordstoupdate</inputReference>
     </recordUpdates>
     <start>
