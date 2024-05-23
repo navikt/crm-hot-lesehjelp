@@ -532,6 +532,7 @@ public without sharing class HOT_ClaimController {
                 Claimant__c,
                 OnEmployer__c,
                 Type__c,
+                ApprovedByNAV__c,
                 EmployerExpensesPerHour__c,
                 OrganizationNumber__c,
                 Organization__c,
@@ -542,31 +543,33 @@ public without sharing class HOT_ClaimController {
             WHERE Id = :recordId AND Claimant__c = :currentUser.AccountId
         ];
         for (HOT_Claim__c claim : claims) {
-            if (claimType == 'Arbeidsliv' && onEmployer == 'true') {
-                Integer strToInt = Integer.valueOf(employerExpensesPerHour);
-                claim.EmployerExpensesPerHour__c = strToInt;
-            } else {
-                claim.EmployerExpensesPerHour__c = null;
-                claim.OrganizationNumber__c = null;
-                claim.Organization__c = null;
-                claim.EmployerName__c = null;
-                claim.OnEmployer__c = false;
+            if(claim.ApprovedByNAV__c==false){
+                if (claimType == 'Arbeidsliv' && onEmployer == 'true') {
+                    Integer strToInt = Integer.valueOf(employerExpensesPerHour);
+                    claim.EmployerExpensesPerHour__c = strToInt;
+                } else {
+                    claim.EmployerExpensesPerHour__c = null;
+                    claim.OrganizationNumber__c = null;
+                    claim.Organization__c = null;
+                    claim.EmployerName__c = null;
+                    claim.OnEmployer__c = false;
+                }
+                claim.Type__c = claimType;
+                if (onEmployer == 'false') {
+                    claim.EmployerExpensesPerHour__c = null;
+                    claim.OrganizationNumber__c = null;
+                    claim.Organization__c = null;
+                    claim.EmployerName__c = null;
+                    claim.OnEmployer__c = false;
+                }
+                claim.Status__c = 'Sent';
+                claim.ApprovedByNAV__c = false;
+                claim.ApprovedByUser__c = false;
+                claim.Entitlement__c = null;
+                claim.CommentFromNAV__c = null;
+                claim.CommentFromUser__c = null;
+                claim.IsNotificationSent__c = false;
             }
-            claim.Type__c = claimType;
-            if (onEmployer == 'false') {
-                claim.EmployerExpensesPerHour__c = null;
-                claim.OrganizationNumber__c = null;
-                claim.Organization__c = null;
-                claim.EmployerName__c = null;
-                claim.OnEmployer__c = false;
-            }
-            claim.Status__c = 'Sent';
-            claim.ApprovedByNAV__c = false;
-            claim.ApprovedByUser__c = false;
-            claim.Entitlement__c = null;
-            claim.CommentFromNAV__c = null;
-            claim.CommentFromUser__c = null;
-            claim.IsNotificationSent__c = false;
         }
         try {
             update claims;
