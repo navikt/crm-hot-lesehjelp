@@ -12,6 +12,13 @@ export function requireInputNumbers(input, label) {
         return '';
     }
 }
+export function validateInputNumbersOnlyNumbers(input, label) {
+    if (input !== '' && input !== undefined && input !== null && !/^\d+$/.test(input)) {
+        return label + ' må kun inneholde tall uten desimaler';
+    } else {
+        return '';
+    }
+}
 
 export function dateInPast(date) {
     date = new Date(date);

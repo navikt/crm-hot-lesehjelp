@@ -152,29 +152,45 @@ public without sharing class HOT_ClaimController {
                 cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
             }
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                String travelDistanceStr = (String) claimLineItem.get('travelDistance');
+                Integer travelDistance = 0;
+
+                if (travelDistanceStr != null && travelDistanceStr!='') {
+                    if (Pattern.matches('^\\d+$', travelDistanceStr)) {
+                        travelDistance = Integer.valueOf(travelDistanceStr);
+                    }
+                }
                 cli.TravelDistance__c = travelDistance;
-                Integer expensesPublicTransport = Integer.valueOf(claimLineItem.get('expensesPublicTransport'));
-                if(expensesPublicTransport!=null){
-                    cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
+                Integer expensesPublicTransport = 0;
+
+                if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
+                        expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
+                    }
                 }
-                else{
-                    cli.ExpensesPublicTransport__c = 0;
+                cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                String expensesTollStr = (String) claimLineItem.get('expensesToll');
+                Integer expensesToll = 0;
+
+                if (expensesTollStr != null && expensesTollStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesTollStr)) {
+                        expensesToll = Integer.valueOf(expensesTollStr);
+                    }
                 }
-                Integer expensesToll = Integer.valueOf(claimLineItem.get('expensesToll'));
-                if(expensesToll!=null){
-                    cli.ExpensesToll__c = expensesToll;
+                cli.ExpensesToll__c = expensesToll;
+
+                String expensesParkingStr = (String) claimLineItem.get('expensesParking');
+                Integer expensesParking = 0;
+
+                if (expensesParkingStr != null && expensesParkingStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesParkingStr)) {
+                        expensesParking = Integer.valueOf(expensesParkingStr);
+                    }
                 }
-                else{
-                    cli.ExpensesToll__c = 0;
-                }
-                Integer expensesParking = Integer.valueOf(claimLineItem.get('expensesParking'));
-                if(expensesParking!=null){
-                    cli.ExpensesParking__c = expensesParking;
-                }
-                else{
-                    cli.ExpensesParking__c = 0;
-                }
+                cli.ExpensesParking__c = expensesParking;
 
             } else {
                 cli.TravelDistance__c = 0;
@@ -653,29 +669,45 @@ public without sharing class HOT_ClaimController {
                         cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                     }
                     if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                        Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                        String travelDistanceStr = (String) claimLineItem.get('travelDistance');
+                        Integer travelDistance = 0;
+
+                        if (travelDistanceStr != null && travelDistanceStr!='') {
+                            if (Pattern.matches('^\\d+$', travelDistanceStr)) {
+                                travelDistance = Integer.valueOf(travelDistanceStr);
+                            }
+                        }
                         cli.TravelDistance__c = travelDistance;
-                        Integer expensesPublicTransport = Integer.valueOf(claimLineItem.get('expensesPublicTransport'));
-                        if(expensesPublicTransport==null){
-                            cli.ExpensesPublicTransport__c = 0;
+
+                        String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
+                        Integer expensesPublicTransport = 0;
+
+                        if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
+                                expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
+                            }
                         }
-                        else{
-                            cli.ExpensesPublicTransport__c = expensesPublicTransport;
+                        cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                        String expensesTollStr = (String) claimLineItem.get('expensesToll');
+                        Integer expensesToll = 0;
+
+                        if (expensesTollStr != null && expensesTollStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesTollStr)) {
+                                expensesToll = Integer.valueOf(expensesTollStr);
+                            }
                         }
-                        Integer expensesToll = Integer.valueOf(claimLineItem.get('expensesToll'));
-                        if(expensesToll!=null){
-                            cli.ExpensesToll__c = expensesToll;
+                        cli.ExpensesToll__c = expensesToll;
+
+                        String expensesParkingStr = (String) claimLineItem.get('expensesParking');
+                        Integer expensesParking = 0;
+
+                        if (expensesParkingStr != null && expensesParkingStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesParkingStr)) {
+                                expensesParking = Integer.valueOf(expensesParkingStr);
+                            }
                         }
-                        else{
-                            cli.ExpensesToll__c = 0;
-                        }
-                        Integer expensesParking = Integer.valueOf(claimLineItem.get('expensesParking'));
-                        if(expensesParking!=null){
-                            cli.ExpensesParking__c = expensesParking;
-                        }
-                        else{
-                            cli.ExpensesParking__c = 0;
-                        }
+                        cli.ExpensesParking__c = expensesParking;
                     } else {
                         cli.TravelDistance__c = 0;
                         cli.ExpensesPublicTransport__c = 0;

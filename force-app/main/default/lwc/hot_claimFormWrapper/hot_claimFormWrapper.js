@@ -268,6 +268,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             console.log('Reisetid fra oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelFromString);
             console.log('Reisetid fra oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelFromString);
             console.log('Utgift tbane: ' + timeInput[i].expensesPublicTransport);
+            console.log('Utgift tbane: ' + timeInput[i].expensesParking);
             console.log('-------------------------------------------------');
         }
         if (
