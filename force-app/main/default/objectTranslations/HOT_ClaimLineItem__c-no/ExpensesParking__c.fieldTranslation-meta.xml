@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help></help>
+    <label>P-avgift innland utlegg</label>
+    <name>ExpensesParking__c</name>
+</CustomFieldTranslation>
