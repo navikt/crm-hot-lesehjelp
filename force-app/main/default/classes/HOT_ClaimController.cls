@@ -581,7 +581,10 @@ public without sharing class HOT_ClaimController {
                 TravelFromStartTime__c,
                 TravelFromEndTime__c,
                 TravelDistance__c,
-                TotalUndocumentedExpenses__c
+                ExpensesPublicTransport__c,
+                ExpensesToll__c,
+                ExpensesParking__c
+
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :claim.Id
         ];

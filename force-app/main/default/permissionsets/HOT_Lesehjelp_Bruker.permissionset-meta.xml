@@ -228,11 +228,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>HOT_Claim__c.SumTotalUndocumentedExpenses__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>HOT_Claim__c.SumUndocumentedExpenses__c</field>
         <readable>true</readable>
     </fieldPermissions>
