@@ -109,6 +109,48 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>$Record.TravelTo__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelToStartTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelToEndTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFrom__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFromStartTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelFromEndTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>noDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>recordstoupdate</assignToReference>
             <operator>Add</operator>
             <value>
