@@ -133,8 +133,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.SumTotalUndocumentedExpenses__c</fieldItem>
-                <identifier>RecordSumTotalUndocumentedExpenses_cField</identifier>
+                <fieldItem>Record.SumUndocumentedExpenses__c</fieldItem>
+                <identifier>RecordSumUndocumentedExpenses_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -530,16 +530,13 @@
                             <value>TravelDistance__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TravelToStartTime__c</value>
+                            <value>ExpensesParking__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TravelToEndTime__c</value>
+                            <value>ExpensesPublicTransport__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TravelFromStartTime__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>TravelFromEndTime__c</value>
+                            <value>ExpensesToll__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

@@ -1,5 +1,16 @@
 public without sharing class HOT_ClaimController {
     @AuraEnabled
+    public static Boolean checkAccess(String claimId){
+        User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+        HOT_Claim__c claim = [SELECT Id, Claimant__c FROM HOT_Claim__c WHERE Id=:claimId];
+        if(claim.Claimant__c==currentUser.AccountId){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    @AuraEnabled
     public static String createNewClaimFromCommunity(
         String userName,
         String userPersonNumber,
@@ -141,14 +152,52 @@ public without sharing class HOT_ClaimController {
                 cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
             }
             if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                String travelDistanceStr = (String) claimLineItem.get('travelDistance');
+                Integer travelDistance = 0;
+
+                if (travelDistanceStr != null && travelDistanceStr!='') {
+                    if (Pattern.matches('^\\d+$', travelDistanceStr)) {
+                        travelDistance = Integer.valueOf(travelDistanceStr);
+                    }
+                }
                 cli.TravelDistance__c = travelDistance;
-                Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
-                cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
+
+                String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
+                Integer expensesPublicTransport = 0;
+
+                if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
+                        expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
+                    }
+                }
+                cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                String expensesTollStr = (String) claimLineItem.get('expensesToll');
+                Integer expensesToll = 0;
+
+                if (expensesTollStr != null && expensesTollStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesTollStr)) {
+                        expensesToll = Integer.valueOf(expensesTollStr);
+                    }
+                }
+                cli.ExpensesToll__c = expensesToll;
+
+                String expensesParkingStr = (String) claimLineItem.get('expensesParking');
+                Integer expensesParking = 0;
+
+                if (expensesParkingStr != null && expensesParkingStr!='') {
+                    if (Pattern.matches('^\\d+$', expensesParkingStr)) {
+                        expensesParking = Integer.valueOf(expensesParkingStr);
+                    }
+                }
+                cli.ExpensesParking__c = expensesParking;
 
             } else {
                 cli.TravelDistance__c = 0;
-                cli.TotalUndocumentedExpenses__c = 0;
+                cli.ExpensesPublicTransport__c = 0;
+                cli.ExpensesParking__c=0;
+                cli.ExpensesToll__c=0;
+
             }
             claimLineItemList.add(cli);
         }
@@ -391,68 +440,80 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled(cacheable=false)
     public static List<Map<String, String>> getTimes(String claimId) {
-        List<Map<String, String>> times = new List<Map<String, String>>();
-        List<HOT_ClaimLineItem__c> claimLineItems = [
-            SELECT
-                Id,
-                Date__c,
-                StartTime__c,
-                TravelFromStartTime__c,
-                TravelToStartTime__c,
-                EndTime__c,
-                TravelFromEndTime__c,
-                TravelToEndTime__c,
-                HasTravelFrom__c,
-                HasTravelTo__c,
-                TravelFrom__c,
-                TravelTo__c,
-                TypeOfTask__c,
-                AdditionalInformation__c,
-                TravelDistance__c,
-                TotalUndocumentedExpenses__c
-            FROM HOT_ClaimLineItem__c
-            WHERE Claim__r.Id = :claimId
-            ORDER BY Date__c ASC
-        ];
-        for (HOT_ClaimLineItem__c cli : claimLineItems) {
-            Map<String, String> timeMap = new Map<String, String>();
-            timeMap.put('id', (String) cli.Id);
-            Date tempDate = cli.StartTime__c.date();
-            timeMap.put('date', Datetime.newInstance(tempDate, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd'));
-            timeMap.put('startTime', String.valueOf(cli.StartTime__c.getTime()));
-            timeMap.put('endTime', String.valueOf(cli.EndTime__c.getTime()));
-
-            //Date tempDateTravelTo = cli.TravelTo__c.date();
-            Date tempDateTravelTo = Date.valueOf(cli.TravelTo__c);
-            if (cli.HasTravelTo__c) {
-                timeMap.put(
-                    'dateTravelTo',
-                    Datetime.newInstance(tempDateTravelTo, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd')
-                );
-                timeMap.put('startTimeTravelTo', String.valueOf(cli.TravelToStartTime__c.getTime()));
-                timeMap.put('endTimeTravelTo', String.valueOf(cli.TravelToEndTime__c.getTime()));
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
+        HOT_Claim__c claim = [SELECT Id, Claimant__c FROM HOT_Claim__c WHERE Id=:claimId];
+        if(claim.Claimant__c==currentUser.AccountId){
+            List<Map<String, String>> times = new List<Map<String, String>>();
+            List<HOT_ClaimLineItem__c> claimLineItems = [
+                SELECT
+                    Id,
+                    Date__c,
+                    StartTime__c,
+                    TravelFromStartTime__c,
+                    TravelToStartTime__c,
+                    EndTime__c,
+                    TravelFromEndTime__c,
+                    TravelToEndTime__c,
+                    HasTravelFrom__c,
+                    HasTravelTo__c,
+                    TravelFrom__c,
+                    TravelTo__c,
+                    TypeOfTask__c,
+                    AdditionalInformation__c,
+                    TravelDistance__c,
+                    ExpensesPublicTransport__c,
+                    ExpensesParking__c,
+                    ExpensesToll__c
+                FROM HOT_ClaimLineItem__c
+                WHERE Claim__r.Id = :claimId
+                ORDER BY Date__c ASC
+            ];
+            for (HOT_ClaimLineItem__c cli : claimLineItems) {
+                Map<String, String> timeMap = new Map<String, String>();
+                timeMap.put('id', (String) cli.Id);
+                Date tempDate = cli.StartTime__c.date();
+                timeMap.put('date', Datetime.newInstance(tempDate, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd'));
+                timeMap.put('startTime', String.valueOf(cli.StartTime__c.getTime()));
+                timeMap.put('endTime', String.valueOf(cli.EndTime__c.getTime()));
+    
+                //Date tempDateTravelTo = cli.TravelTo__c.date();
+                Date tempDateTravelTo = Date.valueOf(cli.TravelTo__c);
+                if (cli.HasTravelTo__c) {
+                    timeMap.put(
+                        'dateTravelTo',
+                        Datetime.newInstance(tempDateTravelTo, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd')
+                    );
+                    timeMap.put('startTimeTravelTo', String.valueOf(cli.TravelToStartTime__c.getTime()));
+                    timeMap.put('endTimeTravelTo', String.valueOf(cli.TravelToEndTime__c.getTime()));
+                }
+                if (cli.HasTravelFrom__c) {
+                    Date tempDateTravelFrom = Date.valueOf(cli.TravelFrom__c);
+                    timeMap.put(
+                        'dateTravelFrom',
+                        Datetime.newInstance(tempDateTravelFrom, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd')
+                    );
+                    timeMap.put('startTimeTravelFrom', String.valueOf(cli.TravelFromStartTime__c.getTime()));
+                    timeMap.put('endTimeTravelFrom', String.valueOf(cli.TravelFromEndTime__c.getTime()));
+                }
+                if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+                    timeMap.put('travelDistance', String.valueOf(cli.TravelDistance__c));
+                    timeMap.put('expensesPublicTransport', String.valueOf(cli.ExpensesPublicTransport__c));
+                    timeMap.put('expensesParking', String.valueOf(cli.ExpensesParking__c));
+                    timeMap.put('expensesToll', String.valueOf(cli.ExpensesToll__c));
+                    //her
+                }
+                //Date tempDateTravelFrom = cli.TravelFrom__c.date();
+                timeMap.put('task', cli.TypeOfTask__c);
+                timeMap.put('hasTravelTo', String.valueOf(cli.HasTravelTo__c));
+                timeMap.put('hasTravelFrom', String.valueOf(cli.HasTravelFrom__c));
+                timeMap.put('additionalInformation', String.valueOf(cli.AdditionalInformation__c));
+                times.add(timeMap);
             }
-            if (cli.HasTravelFrom__c) {
-                Date tempDateTravelFrom = Date.valueOf(cli.TravelFrom__c);
-                timeMap.put(
-                    'dateTravelFrom',
-                    Datetime.newInstance(tempDateTravelFrom, Time.newInstance(0, 0, 0, 0)).format('yyyy-MM-dd')
-                );
-                timeMap.put('startTimeTravelFrom', String.valueOf(cli.TravelFromStartTime__c.getTime()));
-                timeMap.put('endTimeTravelFrom', String.valueOf(cli.TravelFromEndTime__c.getTime()));
-            }
-            if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                timeMap.put('travelDistance', String.valueOf(cli.TravelDistance__c));
-                timeMap.put('totalUndocumentedExpenses', String.valueOf(cli.TotalUndocumentedExpenses__c));
-            }
-            //Date tempDateTravelFrom = cli.TravelFrom__c.date();
-            timeMap.put('task', cli.TypeOfTask__c);
-            timeMap.put('hasTravelTo', String.valueOf(cli.HasTravelTo__c));
-            timeMap.put('hasTravelFrom', String.valueOf(cli.HasTravelFrom__c));
-            timeMap.put('additionalInformation', String.valueOf(cli.AdditionalInformation__c));
-            times.add(timeMap);
+            return times;
         }
-        return times;
+        else{
+            return null;
+        }
     }
     @AuraEnabled
     public static String updateClaim(
@@ -536,7 +597,10 @@ public without sharing class HOT_ClaimController {
                 TravelFromStartTime__c,
                 TravelFromEndTime__c,
                 TravelDistance__c,
-                TotalUndocumentedExpenses__c
+                ExpensesPublicTransport__c,
+                ExpensesToll__c,
+                ExpensesParking__c
+
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :claim.Id
         ];
@@ -605,13 +669,50 @@ public without sharing class HOT_ClaimController {
                         cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
                     }
                     if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                        Integer travelDistance = Integer.valueOf(claimLineItem.get('travelDistance'));
+                        String travelDistanceStr = (String) claimLineItem.get('travelDistance');
+                        Integer travelDistance = 0;
+
+                        if (travelDistanceStr != null && travelDistanceStr!='') {
+                            if (Pattern.matches('^\\d+$', travelDistanceStr)) {
+                                travelDistance = Integer.valueOf(travelDistanceStr);
+                            }
+                        }
                         cli.TravelDistance__c = travelDistance;
-                        Integer totalUndocumentedExpenses = Integer.valueOf(claimLineItem.get('totalUndocumentedExpenses'));
-                        cli.TotalUndocumentedExpenses__c = totalUndocumentedExpenses;
+
+                        String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
+                        Integer expensesPublicTransport = 0;
+
+                        if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
+                                expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
+                            }
+                        }
+                        cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                        String expensesTollStr = (String) claimLineItem.get('expensesToll');
+                        Integer expensesToll = 0;
+
+                        if (expensesTollStr != null && expensesTollStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesTollStr)) {
+                                expensesToll = Integer.valueOf(expensesTollStr);
+                            }
+                        }
+                        cli.ExpensesToll__c = expensesToll;
+
+                        String expensesParkingStr = (String) claimLineItem.get('expensesParking');
+                        Integer expensesParking = 0;
+
+                        if (expensesParkingStr != null && expensesParkingStr!='') {
+                            if (Pattern.matches('^\\d+$', expensesParkingStr)) {
+                                expensesParking = Integer.valueOf(expensesParkingStr);
+                            }
+                        }
+                        cli.ExpensesParking__c = expensesParking;
                     } else {
                         cli.TravelDistance__c = 0;
-                        cli.TotalUndocumentedExpenses__c = 0;
+                        cli.ExpensesPublicTransport__c = 0;
+                        cli.ExpensesParking__c=0;
+                        cli.ExpensesToll__c=0;
                     }
                 }
             }

@@ -5,7 +5,8 @@ import {
     requireInputNumbers,
     dateInPast,
     startBeforeEnd,
-    dateWithinSixMonths
+    dateWithinSixMonths,
+    validateInputNumbersOnlyNumbers
 } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
@@ -16,6 +17,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track disableAddMoreTimes = false;
     @api claim;
     @api isEdit;
+    @track noAccess = false;
     renderedCallback() {
         for (let i = 0; i < this.times.length; i++) {
             console.log('ider: ' + this.times[i].id);
@@ -27,8 +29,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let addTravelMinutesFromButtonContainer = this.template.querySelectorAll(
             '.addTravelMinutesFromButtonContainer'
         );
-        let totalDistanceContainer = this.template.querySelectorAll('.totalDistanceContainer');
-        let totalUndocumenterExpensesontainer = this.template.querySelectorAll('.totalUndocumenterExpensesontainer');
+        //let totalDistanceContainer = this.template.querySelectorAll('.totalDistanceContainer');
+        let undocumentedExpensesontainer = this.template.querySelectorAll('.undocumentedExpensesontainer');
 
         if (this.isEdit == true) {
             for (let t of this.times) {
@@ -49,18 +51,24 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 if (t.travelDistance == undefined) {
                     t.travelDistance = 0;
                 }
-                if (t.totalUndocumentedExpenses == undefined) {
-                    t.totalUndocumentedExpenses = 0;
+                if (t.expensesPublicTransport == undefined) {
+                    t.expensesPublicTransport = 0;
+                }
+                if (t.expensesToll == undefined) {
+                    t.expensesToll = 0;
+                }
+                if (t.expensesParking == undefined) {
+                    t.expensesParking = 0;
                 }
                 if (t.additionalInformation == undefined) {
                     t.additionalInformation = 0;
                 }
                 if (t.hasTravelTo || t.hasTravelFrom) {
-                    totalDistanceContainer[t.editId].classList.remove('hidden');
-                    totalUndocumenterExpensesontainer[t.editId].classList.remove('hidden');
+                    //totalDistanceContainer[t.editId].classList.remove('hidden');
+                    undocumentedExpensesontainer[t.editId].classList.remove('hidden');
                 } else {
-                    totalDistanceContainer[t.editId].classList.add('hidden');
-                    totalUndocumenterExpensesontainer[t.editId].classList.add('hidden');
+                    //totalDistanceContainer[t.editId].classList.add('hidden');
+                    undocumentedExpensesontainer[t.editId].classList.add('hidden');
                 }
             }
         } else {
@@ -80,11 +88,11 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     addTravelMinutesFromButtonContainer[t.id].classList.remove('hidden');
                 }
                 if (t.hasTravelTo || t.hasTravelFrom) {
-                    totalDistanceContainer[t.id].classList.remove('hidden');
-                    totalUndocumenterExpensesontainer[t.id].classList.remove('hidden');
+                    // totalDistanceContainer[t.id].classList.remove('hidden');
+                    undocumentedExpensesontainer[t.id].classList.remove('hidden');
                 } else {
-                    totalDistanceContainer[t.id].classList.add('hidden');
-                    totalUndocumenterExpensesontainer[t.id].classList.add('hidden');
+                    //totalDistanceContainer[t.id].classList.add('hidden');
+                    undocumentedExpensesontainer[t.id].classList.add('hidden');
                 }
             }
         }
@@ -97,10 +105,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 claimId: this.claim.Id
             }).then((result) => {
                 console.log(result);
-                if (result.length === 0) {
-                    this.times = [this.setTimesValue(null)];
-                    this.times[0].randomNumber = 300;
-                    this.updateIsOnlyOneTime();
+                if (result == null) {
+                    this.noAccess = true;
                 } else {
                     this.times = []; // Empty times
                     for (let timeMap of result) {
@@ -241,7 +247,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             hasAdditionalInformation: timeObject === null ? null : timeObject.hasAdditionalInformation,
             additionalInformation: timeObject === null ? null : timeObject.additionalInformation,
             travelDistance: timeObject === null ? null : timeObject.travelDistance,
-            totalUndocumentedExpenses: timeObject === null ? null : timeObject.totalUndocumentedExpenses
+            expensesPublicTransport: timeObject === null ? null : timeObject.expensesPublicTransport,
+            expensesToll: timeObject === null ? null : timeObject.expensesToll,
+            expensesParking: timeObject === null ? null : timeObject.expensesParking
         };
     }
     handleAdditionalInformation(event) {
@@ -252,9 +260,17 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].travelDistance = event.detail;
     }
-    handleTotalUndocumentetExpenses(event) {
+    handleExpensesPublicTransport(event) {
         const index = this.getTimesIndex(event.target.name);
-        this.times[index].totalUndocumentedExpenses = event.detail;
+        this.times[index].expensesPublicTransport = event.detail;
+    }
+    handleExpensesToll(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].expensesToll = event.detail;
+    }
+    handleExpensesParking(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].expensesParking = event.detail;
     }
 
     getTimesIndex(name) {
@@ -415,6 +431,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateTravelFromEndTime();
         hasErrors += this.validateSameYear();
         hasErrors += this.validateTravelDistance();
+        hasErrors += this.validateExpensesParking();
+        hasErrors += this.validateExpensesPublicTransport();
+        hasErrors += this.validateEexpensesToll();
         return hasErrors;
     }
     validateType() {
@@ -435,7 +454,40 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
-                let errorMessage = requireInputNumbers(element.value, 'Antall km reisevei');
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Antall km reisevei');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
+        });
+        return hasErrors;
+    }
+    validateExpensesParking() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="expensesParking"]').forEach((element, index) => {
+            if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
+        });
+        return hasErrors;
+    }
+    validateExpensesPublicTransport() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="expensesPublicTransport"]').forEach((element, index) => {
+            if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
+                element.sendErrorMessage(errorMessage);
+                hasErrors += errorMessage !== '';
+            }
+        });
+        return hasErrors;
+    }
+    validateEexpensesToll() {
+        let hasErrors = false;
+        this.template.querySelectorAll('[data-id="expensesToll"]').forEach((element, index) => {
+            if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
+                let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }
@@ -885,7 +937,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         hasAdditionalInformation: time.hasAdditionalInformation,
                         additionalInformation: time.additionalInformation,
                         travelDistance: time.travelDistance,
-                        totalUndocumentedExpenses: time.totalUndocumentedExpenses,
+                        expensesPublicTransport: time.expensesPublicTransport,
+                        expensesToll: time.expensesToll,
+                        expensesParking: time.expensesParking,
                         isNew: 0
                     };
                     let clonedTime = this.setTimesValue(testTimeObject);
