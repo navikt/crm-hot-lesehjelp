@@ -321,104 +321,90 @@
                         ></c-input>
                     </div>
                 </div>
-                <div class="undocumentedExpensesontainer orangeBackground hidden">
-                    <h2 style="text-align: center">Reiseutgifter</h2>
+                <div class="undocumentedExpensesontainer hidden">
+                    <h2 class="typo-undertittel" style="text-align: center">Reiseutgifter</h2>
                     <div class="expensesSingle">
-                        <h2>Bruk av egen bil</h2>
-                        <div class="inputField">
-                            <c-input
-                                label="Ant. km"
-                                data-id="travelDistance"
-                                type="text"
-                                value={it.value.travelDistance}
-                                error-text=""
-                                name={it.value.id}
-                                onchange={handleTravelDistance}
-                                desktop-style="max-width: 8vw"
-                                helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. Fyll ut kun om reisen er med egen bil."
-                            ></c-input>
-                        </div>
-                        <div class="inputField">
-                            <c-input
-                                label="Til/fra gateadresse/by"
-                                data-id="travelToFromAddresses"
-                                type="text"
-                                value={it.value.travelToFromAddresses}
-                                error-text=""
-                                name={it.value.id}
-                                onchange={handleTravelToFromAddresses}
-                                desktop-style="width:20vw"
-                            ></c-input>
-                        </div>
+                        <h2 class="typo-undertittel">Bruk av egen bil</h2>
+                        <c-input
+                            label="Ant. km"
+                            data-id="travelDistance"
+                            type="text"
+                            value={it.value.travelDistance}
+                            error-text=""
+                            name={it.value.id}
+                            onchange={handleTravelDistance}
+                            desktop-style="max-width: 8vw"
+                            helptext-content="Ettersom du har hatt en reise, kan du få enkel refusjon ved å fylle ut totalt antall km du hadde reise til og fra dette oppdraget. Rund opp til nærmeste km. Fyll ut kun om reisen er med egen bil."
+                        ></c-input>
+                        <c-input
+                            label="Til/fra gateadresse/by"
+                            data-id="travelToFromAddresses"
+                            type="text"
+                            value={it.value.travelToFromAddresses}
+                            error-text=""
+                            name={it.value.id}
+                            onchange={handleTravelToFromAddresses}
+                            desktop-style="max-width: 30vw"
+                        ></c-input>
                     </div>
                     <div class="expensesSingle">
-                        <h2>Parkering</h2>
-                        <div class="inputField">
-                            <c-input
-                                label="Beløp"
-                                data-id="expensesParking"
-                                type="text"
-                                value={it.value.expensesParking}
-                                name={it.value.id}
-                                onchange={handleExpensesParking}
-                                desktop-style="max-width: 8vw"
-                                helptext-content=""
-                            ></c-input>
-                        </div>
-                        <div class="inputField">
-                            <c-input
-                                label="Hvor har du parkert?"
-                                data-id="parkingAddress"
-                                type="text"
-                                value={it.value.parkingAddress}
-                                name={it.value.id}
-                                onchange={handleParkingAddress}
-                                desktop-style="width: 20vw"
-                                helptext-content=""
-                            ></c-input>
-                        </div>
+                        <h2 class="typo-undertittel">Parkering</h2>
+                        <c-input
+                            label="Beløp"
+                            data-id="expensesParking"
+                            type="text"
+                            value={it.value.expensesParking}
+                            name={it.value.id}
+                            onchange={handleExpensesParking}
+                            desktop-style="max-width: 8vw"
+                            helptext-content=""
+                        ></c-input>
+                        <c-input
+                            label="Hvor har du parkert?"
+                            data-id="parkingAddress"
+                            type="text"
+                            value={it.value.parkingAddress}
+                            name={it.value.id}
+                            onchange={handleParkingAddress}
+                            desktop-style="max-width: 30vw"
+                            helptext-content=""
+                        ></c-input>
                     </div>
                     <div class="expensesSingle">
-                        <h2>Bompasseringer</h2>
-                        <div class="inputField">
-                            <c-input
-                                label="Beløp"
-                                data-id="expensesToll"
-                                type="text"
-                                value={it.value.expensesToll}
-                                name={it.value.id}
-                                onchange={handleExpensesToll}
-                                desktop-style="max-width: 8vw"
-                                helptext-content=""
-                            ></c-input>
-                        </div>
+                        <h2 class="typo-undertittel">Bompasseringer</h2>
+                        <c-input
+                            label="Beløp"
+                            data-id="expensesToll"
+                            type="text"
+                            value={it.value.expensesToll}
+                            name={it.value.id}
+                            onchange={handleExpensesToll}
+                            desktop-style="max-width: 8vw"
+                            helptext-content=""
+                        ></c-input>
                     </div>
                     <div class="expensesSingle">
-                        <h2>Buss, Trikk, Tbane- innland</h2>
-                        <div class="inputField">
-                            <c-input
-                                label="Beløp"
-                                data-id="expensesPublicTransport"
-                                type="text"
-                                value={it.value.expensesPublicTransport}
-                                name={it.value.id}
-                                onchange={handleExpensesPublicTransport}
-                                desktop-style="max-width: 8vw"
-                                helptext-content=""
-                            ></c-input>
-                        </div>
-                        <div class="inputField">
-                            <c-input
-                                label="Hvilket transportmiddel, samt reiserute"
-                                data-id="publicTransportRoute"
-                                type="text"
-                                value={it.value.publicTransportRoute}
-                                name={it.value.id}
-                                onchange={handlePublicTransportRoute}
-                                desktop-style="width: 20vw"
-                                helptext-content=""
-                            ></c-input>
-                        </div>
+                        <h2 class="typo-undertittel">Buss, Trikk, Tbane- innland</h2>
+                        <c-input
+                            label="Beløp"
+                            data-id="expensesPublicTransport"
+                            type="text"
+                            value={it.value.expensesPublicTransport}
+                            name={it.value.id}
+                            onchange={handleExpensesPublicTransport}
+                            desktop-style="max-width: 8vw"
+                            helptext-content=""
+                        ></c-input>
+                        <c-input
+                            label="Hvilket transportmiddel, samt reiserute"
+                            data-id="publicTransportRoute"
+                            type="text"
+                            value={it.value.publicTransportRoute}
+                            name={it.value.id}
+                            onchange={handlePublicTransportRoute}
+                            desktop-style="max-width: 30vw"
+                            helptext-content=""
+                        ></c-input>
                     </div>
                 </div>
                 <div style="padding-top: 1rem; padding-right: 1rem">

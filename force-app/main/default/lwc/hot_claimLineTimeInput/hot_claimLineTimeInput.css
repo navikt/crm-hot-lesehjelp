@@ -74,8 +74,6 @@
     margin-top: 1vw;
     padding: 1vw;
     background-color: #e6f0ff;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 .totalDistanceContainer {
     margin-top: 1vw;
@@ -84,19 +82,13 @@
 .undocumentedExpensesontainer {
     width: 100%;
     margin-top: 1vw;
-    padding: 1vw;
-    background-color: #e6f0ff;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 .expensesSingle {
     border: none;
     width: 100%;
-    background-color: #efecf4;
+    background-color: #e6f0ff;
     padding: 1rem;
-}
-.orangeBackground {
-    background-color: #efecf4;
+    margin-bottom: 1rem;
 }
 .inputField {
     display: inline-block;
@@ -108,4 +100,5 @@ h2 {
     font-size: large;
     font-family: 'Source Sans Pro';
     font-weight: bold;
+    margin-bottom: 1rem;
 }

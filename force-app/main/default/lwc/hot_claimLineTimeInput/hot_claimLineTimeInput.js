@@ -458,6 +458,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateExpensesParking();
         hasErrors += this.validateExpensesPublicTransport();
         hasErrors += this.validateEexpensesToll();
+        console.log('errors: ' + this.hasErrors);
         return hasErrors;
     }
     validateType() {
@@ -476,37 +477,80 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     validateTravelDistance() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
+        const travelDistanceElements = this.template.querySelectorAll('[data-id="travelDistance"]');
+        const travelToFromAddressElements = this.template.querySelectorAll('[data-id="travelToFromAddresses"]');
+        travelDistanceElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Antall km reisevei');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let addressElement = travelToFromAddressElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].travelToFromAddresses, 'Feltet');
+                    addressElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let addressElement = travelToFromAddressElements[index];
+                    addressElement.sendErrorMessage('');
+                }
             }
         });
+
         return hasErrors;
     }
+
     validateExpensesParking() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="expensesParking"]').forEach((element, index) => {
+        const expensesParkingElements = this.template.querySelectorAll('[data-id="expensesParking"]');
+        const parkingAddressElements = this.template.querySelectorAll('[data-id="parkingAddress"]');
+
+        expensesParkingElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let addressElement = parkingAddressElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].parkingAddress, 'Feltet');
+                    addressElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let addressElement = parkingAddressElements[index];
+                    addressElement.sendErrorMessage('');
+                }
             }
         });
+
         return hasErrors;
     }
+
     validateExpensesPublicTransport() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="expensesPublicTransport"]').forEach((element, index) => {
+        const expensesPublicTransportElements = this.template.querySelectorAll('[data-id="expensesPublicTransport"]');
+        const publicTransportRouteElements = this.template.querySelectorAll('[data-id="publicTransportRoute"]');
+
+        expensesPublicTransportElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let routeElement = publicTransportRouteElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].publicTransportRoute, 'Feltet');
+                    routeElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let routeElement = publicTransportRouteElements[index];
+                    routeElement.sendErrorMessage('');
+                }
             }
         });
         return hasErrors;
     }
+
     validateEexpensesToll() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="expensesToll"]').forEach((element, index) => {
