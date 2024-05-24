@@ -191,6 +191,12 @@ public without sharing class HOT_ClaimController {
                     }
                 }
                 cli.ExpensesParking__c = expensesParking;
+                //her
+                cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
+                cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
+                cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
+                
+                //her slutt
 
             } else {
                 cli.TravelDistance__c = 0;
@@ -463,7 +469,10 @@ public without sharing class HOT_ClaimController {
                     TravelDistance__c,
                     ExpensesPublicTransport__c,
                     ExpensesParking__c,
-                    ExpensesToll__c
+                    ExpensesToll__c,
+                    PublicTransportRoute__c,
+                    ParkingAddress__c,
+                    TravelToFromAddresses__c
                 FROM HOT_ClaimLineItem__c
                 WHERE Claim__r.Id = :claimId
                 ORDER BY Date__c ASC
@@ -507,6 +516,9 @@ public without sharing class HOT_ClaimController {
                 timeMap.put('hasTravelTo', String.valueOf(cli.HasTravelTo__c));
                 timeMap.put('hasTravelFrom', String.valueOf(cli.HasTravelFrom__c));
                 timeMap.put('additionalInformation', String.valueOf(cli.AdditionalInformation__c));
+                timeMap.put('publicTransportRoute', String.valueOf(cli.PublicTransportRoute__c));
+                timeMap.put('parkingAddress', String.valueOf(cli.ParkingAddress__c));
+                timeMap.put('travelToFromAddresses', String.valueOf(cli.TravelToFromAddresses__c));
                 times.add(timeMap);
             }
             return times;
@@ -599,7 +611,10 @@ public without sharing class HOT_ClaimController {
                 TravelDistance__c,
                 ExpensesPublicTransport__c,
                 ExpensesToll__c,
-                ExpensesParking__c
+                ExpensesParking__c,
+                PublicTransportRoute__c,
+                ParkingAddress__c,
+                TravelToFromAddresses__c
 
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :claim.Id
@@ -708,6 +723,9 @@ public without sharing class HOT_ClaimController {
                             }
                         }
                         cli.ExpensesParking__c = expensesParking;
+                        cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
+                        cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
+                        cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
                     } else {
                         cli.TravelDistance__c = 0;
                         cli.ExpensesPublicTransport__c = 0;

@@ -89,3 +89,23 @@
     border: 2px solid black;
     border-radius: 5px;
 }
+.expensesSingle {
+    border: none;
+    width: 100%;
+    background-color: #efecf4;
+    padding: 1rem;
+}
+.orangeBackground {
+    background-color: #efecf4;
+}
+.inputField {
+    display: inline-block;
+    padding: 0.2rem;
+}
+h2 {
+    margin: 0;
+    margin-bottom: auto;
+    font-size: large;
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
+}

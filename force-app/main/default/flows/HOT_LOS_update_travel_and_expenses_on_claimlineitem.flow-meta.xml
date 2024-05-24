@@ -151,6 +151,18 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>$Record.ParkingAddress__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.TravelToFromAddresses__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.PublicTransportRoute__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>recordstoupdate</assignToReference>
             <operator>Add</operator>
             <value>

@@ -63,6 +63,15 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 if (t.additionalInformation == undefined) {
                     t.additionalInformation = 0;
                 }
+                if (t.publicTransportRoute == undefined) {
+                    t.publicTransportRoute = '';
+                }
+                if (t.parkingAddress == undefined) {
+                    t.parkingAddress = '';
+                }
+                if (t.travelToFromAddresses == undefined) {
+                    t.travelToFromAddresses = '';
+                }
                 if (t.hasTravelTo || t.hasTravelFrom) {
                     //totalDistanceContainer[t.editId].classList.remove('hidden');
                     undocumentedExpensesontainer[t.editId].classList.remove('hidden');
@@ -249,7 +258,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             travelDistance: timeObject === null ? null : timeObject.travelDistance,
             expensesPublicTransport: timeObject === null ? null : timeObject.expensesPublicTransport,
             expensesToll: timeObject === null ? null : timeObject.expensesToll,
-            expensesParking: timeObject === null ? null : timeObject.expensesParking
+            expensesParking: timeObject === null ? null : timeObject.expensesParking,
+            travelToFromAddresses: timeObject === null ? null : timeObject.travelToFromAddresses,
+            parkingAddress: timeObject === null ? null : timeObject.parkingAddress,
+            publicTransportRoute: timeObject === null ? null : timeObject.publicTransportRoute
         };
     }
     handleAdditionalInformation(event) {
@@ -271,6 +283,18 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     handleExpensesParking(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].expensesParking = event.detail;
+    }
+    handleTravelToFromAddresses(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].travelToFromAddresses = event.detail;
+    }
+    handleParkingAddress(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].parkingAddress = event.detail;
+    }
+    handlePublicTransportRoute(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].publicTransportRoute = event.detail;
     }
 
     getTimesIndex(name) {
@@ -940,6 +964,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         expensesPublicTransport: time.expensesPublicTransport,
                         expensesToll: time.expensesToll,
                         expensesParking: time.expensesParking,
+                        travelToFromAddresses: time.travelToFromAddresses,
+                        parkingAddress: time.parkingAddress,
+                        publicTransportRoute: time.publicTransportRoute,
                         isNew: 0
                     };
                     let clonedTime = this.setTimesValue(testTimeObject);
