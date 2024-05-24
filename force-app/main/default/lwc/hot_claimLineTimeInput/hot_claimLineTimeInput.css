@@ -4,8 +4,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color: #cce1ff;
-    border: 2px solid black;
-    border-radius: 5px;
     margin-bottom: 1rem;
 }
 .travelTimesToInputContainer {
@@ -23,6 +21,7 @@
 
 @media only screen and (max-device-width: 768px) {
     .listClass {
+        padding: 0.2vw;
         align-items: start;
         padding-bottom: 1vw;
         display: flex;
