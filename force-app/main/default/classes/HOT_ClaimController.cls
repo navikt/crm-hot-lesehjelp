@@ -578,7 +578,7 @@ public static String updateClaim(
             return 'ok' + result;
         }
         else{
-            return 'Dette kravet kan ikke endres.';
+            return 'Dette kravet kan ikke endres. Det er allerede godkjent av NAV.';
         }
     } catch (Exception e) {
         LoggerUtility logger = new LoggerUtility();
