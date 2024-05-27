@@ -88,132 +88,135 @@ public without sharing class HOT_ClaimController {
         return result;
     }
     private static String createClaimLineItems(HOT_Claim__c claim, List<Map<String, Object>> claimLineItems) {
-        List<HOT_ClaimLineItem__c> claimLineItemList = new List<HOT_ClaimLineItem__c>();
-        for (Map<String, Object> claimLineItem : claimLineItems) {
-            HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c();
-            cli.Claim__c = claim.Id;
+    List<HOT_ClaimLineItem__c> claimLineItemList = new List<HOT_ClaimLineItem__c>();
+    for (Map<String, Object> claimLineItem : claimLineItems) {
+        HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c();
+        cli.Claim__c = claim.Id;
 
-            String dateClaim = String.valueOf(claimLineItem.get('date'));
-            Date convertedDate = Date.valueOf(dateClaim);
-            cli.Date__c = convertedDate;
+        String dateClaim = String.valueOf(claimLineItem.get('date'));
+        Date convertedDate = Date.valueOf(dateClaim);
+        cli.Date__c = convertedDate;
 
-            cli.TypeOfTask__c = String.valueOf(claimLineItem.get('task'));
-            String startTimeClaim = String.valueOf(claimLineItem.get('startTime'));
-            Long timestampMillisStart = Long.valueOf(startTimeClaim);
-            Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
-            cli.StartTime__c = convertedDatetimeStart;
+        cli.TypeOfTask__c = String.valueOf(claimLineItem.get('task'));
+        String startTimeClaim = String.valueOf(claimLineItem.get('startTime'));
+        Long timestampMillisStart = Long.valueOf(startTimeClaim);
+        Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
+        cli.StartTime__c = convertedDatetimeStart;
 
-            String endTimeClaim = String.valueOf(claimLineItem.get('endTime'));
-            Long timestampMillisEnd = Long.valueOf(endTimeClaim);
-            Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
-            cli.EndTime__c = convertedDatetimeEnd;
-            String hasAdditionalInformation = String.valueOf(claimLineItem.get('hasAdditionalInformation'));
-            if (hasAdditionalInformation == 'true') {
-                cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
-            }
-            String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
-            if (hasTravelToValue == 'false' || hasTravelToValue == 'null' || hasTravelToValue == null) {
-                cli.HasTravelTo__c = false;
-            } else {
-                cli.HasTravelTo__c = true;
+        String endTimeClaim = String.valueOf(claimLineItem.get('endTime'));
+        Long timestampMillisEnd = Long.valueOf(endTimeClaim);
+        Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
+        cli.EndTime__c = convertedDatetimeEnd;
 
-                String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
-                Date convertedTravelToDate = Date.valueOf(dateTravelTo);
-                cli.TravelTo__c = convertedTravelToDate;
-
-                String travelToStartTime = String.valueOf(claimLineItem.get('startTimeTravelTo'));
-                Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
-                Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
-                cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
-
-                String travelToEndTime = String.valueOf(claimLineItem.get('endTimeTravelTo'));
-                Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
-                Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
-                cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
-            }
-            String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
-            if (hasTravelFromValue == 'false' || hasTravelFromValue == 'null' || hasTravelFromValue == null) {
-                cli.HasTravelFrom__c = false;
-            } else {
-                cli.HasTravelFrom__c = true;
-
-                String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
-                Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
-                cli.TravelFrom__c = convertedTravelFromDate;
-
-                String travelFromStartTime = String.valueOf(claimLineItem.get('startTimeTravelFrom'));
-                Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
-                Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
-                cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
-
-                String travelFromEndTime = String.valueOf(claimLineItem.get('endTimeTravelFrom'));
-                Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
-                Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
-                cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
-            }
-            if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                String travelDistanceStr = (String) claimLineItem.get('travelDistance');
-                Integer travelDistance = 0;
-
-                if (travelDistanceStr != null && travelDistanceStr!='') {
-                    if (Pattern.matches('^\\d+$', travelDistanceStr)) {
-                        travelDistance = Integer.valueOf(travelDistanceStr);
-                    }
-                }
-                cli.TravelDistance__c = travelDistance;
-
-                String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
-                Integer expensesPublicTransport = 0;
-
-                if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
-                    if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
-                        expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
-                    }
-                }
-                cli.ExpensesPublicTransport__c = expensesPublicTransport;
-
-                String expensesTollStr = (String) claimLineItem.get('expensesToll');
-                Integer expensesToll = 0;
-
-                if (expensesTollStr != null && expensesTollStr!='') {
-                    if (Pattern.matches('^\\d+$', expensesTollStr)) {
-                        expensesToll = Integer.valueOf(expensesTollStr);
-                    }
-                }
-                cli.ExpensesToll__c = expensesToll;
-
-                String expensesParkingStr = (String) claimLineItem.get('expensesParking');
-                Integer expensesParking = 0;
-
-                if (expensesParkingStr != null && expensesParkingStr!='') {
-                    if (Pattern.matches('^\\d+$', expensesParkingStr)) {
-                        expensesParking = Integer.valueOf(expensesParkingStr);
-                    }
-                }
-                cli.ExpensesParking__c = expensesParking;
-                cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
-                cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
-                cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
-
-            } else {
-                cli.TravelDistance__c = 0;
-                cli.ExpensesPublicTransport__c = 0;
-                cli.ExpensesParking__c=0;
-                cli.ExpensesToll__c=0;
-
-            }
-            claimLineItemList.add(cli);
+        String hasAdditionalInformation = String.valueOf(claimLineItem.get('hasAdditionalInformation'));
+        if (hasAdditionalInformation == 'true') {
+            cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
         }
-        try {
-            insert claimLineItemList;
-            return '';
-        } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+
+        String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
+        if (hasTravelToValue == 'false' || hasTravelToValue == 'null' || hasTravelToValue == null) {
+            cli.HasTravelTo__c = false;
+        } else {
+            cli.HasTravelTo__c = true;
+
+            String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
+            Date convertedTravelToDate = Date.valueOf(dateTravelTo);
+            cli.TravelTo__c = convertedTravelToDate;
+
+            String travelToStartTime = String.valueOf(claimLineItem.get('startTimeTravelTo'));
+            Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
+            Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
+            cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
+
+            String travelToEndTime = String.valueOf(claimLineItem.get('endTimeTravelTo'));
+            Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
+            Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
+            cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
         }
+
+        String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
+        if (hasTravelFromValue == 'false' || hasTravelFromValue == 'null' || hasTravelFromValue == null) {
+            cli.HasTravelFrom__c = false;
+        } else {
+            cli.HasTravelFrom__c = true;
+
+            String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
+            Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
+            cli.TravelFrom__c = convertedTravelFromDate;
+
+            String travelFromStartTime = String.valueOf(claimLineItem.get('startTimeTravelFrom'));
+            Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
+            Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
+            cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
+
+            String travelFromEndTime = String.valueOf(claimLineItem.get('endTimeTravelFrom'));
+            Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
+            Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
+            cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
+        }
+
+        if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+            Decimal expensesToll;
+Object tollValue = claimLineItem.get('expensesToll');
+if (tollValue != null && String.valueOf(tollValue) != '') {
+    expensesToll = tollValue instanceof Decimal ? (Decimal)tollValue : Decimal.valueOf(String.valueOf(tollValue));
+} else {
+    expensesToll = 0;
+}
+cli.ExpensesToll__c = expensesToll;
+
+Decimal expensesPublicTransport;
+Object publicTransportValue = claimLineItem.get('expensesPublicTransport');
+if (publicTransportValue != null && String.valueOf(publicTransportValue) != '') {
+    expensesPublicTransport = publicTransportValue instanceof Decimal ? (Decimal)publicTransportValue : Decimal.valueOf(String.valueOf(publicTransportValue));
+} else {
+    expensesPublicTransport = 0;
+}
+cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+Decimal expensesParking;
+Object parkingValue = claimLineItem.get('expensesParking');
+if (parkingValue != null && String.valueOf(parkingValue) != '') {
+    expensesParking = parkingValue instanceof Decimal ? (Decimal)parkingValue : Decimal.valueOf(String.valueOf(parkingValue));
+} else {
+    expensesParking = 0;
+}
+cli.ExpensesParking__c = expensesParking;
+
+Decimal travelDistance;
+Object distanceValue = claimLineItem.get('travelDistance');
+if (distanceValue != null && String.valueOf(distanceValue) != '') {
+    travelDistance = distanceValue instanceof Decimal ? (Decimal)distanceValue : Decimal.valueOf(String.valueOf(distanceValue));
+} else {
+    travelDistance = 0;
+}
+cli.TravelDistance__c = travelDistance;
+
+
+            cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
+            cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
+            cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
+        } else {
+            cli.TravelDistance__c = 0;
+            cli.ExpensesPublicTransport__c = 0;
+            cli.ExpensesParking__c = 0;
+            cli.ExpensesToll__c = 0;
+        }
+
+        claimLineItemList.add(cli);
     }
+
+    try {
+        insert claimLineItemList;
+        return '';
+    } catch (Exception e) {
+        LoggerUtility logger = new LoggerUtility();
+        logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+        return e.getMessage();
+    }
+}
+
     private static String createClaimSelf(
         Boolean claimCreatedFromIdent,
         String userName,
@@ -597,175 +600,172 @@ public static String updateClaim(
 }
 
     private static String updateClaimLineItems(HOT_Claim__c claim, List<Map<String, Object>> claimLineItems) {
-        List<HOT_ClaimLineItem__c> claimLineItemList = [
-            SELECT
-                Id,
-                Claim__c,
-                Date__c,
-                TypeOfTask__c,
-                StartTime__c,
-                EndTime__c,
-                HasTravelTo__c,
-                HasTravelFrom__c,
-                TravelTo__c,
-                TravelFrom__c,
-                TravelToStartTime__c,
-                TravelToEndTime__c,
-                TravelFromStartTime__c,
-                TravelFromEndTime__c,
-                TravelDistance__c,
-                ExpensesPublicTransport__c,
-                ExpensesToll__c,
-                ExpensesParking__c,
-                PublicTransportRoute__c,
-                ParkingAddress__c,
-                TravelToFromAddresses__c
+    List<HOT_ClaimLineItem__c> claimLineItemList = [
+        SELECT
+            Id,
+            Claim__c,
+            Date__c,
+            TypeOfTask__c,
+            StartTime__c,
+            EndTime__c,
+            HasTravelTo__c,
+            HasTravelFrom__c,
+            TravelTo__c,
+            TravelFrom__c,
+            TravelToStartTime__c,
+            TravelToEndTime__c,
+            TravelFromStartTime__c,
+            TravelFromEndTime__c,
+            TravelDistance__c,
+            ExpensesPublicTransport__c,
+            ExpensesToll__c,
+            ExpensesParking__c,
+            PublicTransportRoute__c,
+            ParkingAddress__c,
+            TravelToFromAddresses__c
+        FROM HOT_ClaimLineItem__c
+        WHERE Claim__c = :claim.Id
+    ];
 
-            FROM HOT_ClaimLineItem__c
-            WHERE Claim__c = :claim.Id
-        ];
-
-        //find and update records
-        for (Map<String, Object> claimLineItem : claimLineItems) {
-            for (HOT_ClaimLineItem__c cli : claimLineItemList) {
-                if (cli.Id == claimLineItem.get('id')) {
-                    String dateClaim = String.valueOf(claimLineItem.get('date'));
-                    Date convertedDate = Date.valueOf(dateClaim);
-                    cli.Date__c = convertedDate;
-
-                    cli.TypeOfTask__c = String.valueOf(claimLineItem.get('task'));
-                    String startTimeClaim = String.valueOf(claimLineItem.get('startTime'));
-                    Long timestampMillisStart = Long.valueOf(startTimeClaim);
-                    Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
-                    cli.StartTime__c = convertedDatetimeStart;
-
-                    String endTimeClaim = String.valueOf(claimLineItem.get('endTime'));
-                    Long timestampMillisEnd = Long.valueOf(endTimeClaim);
-                    Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
-                    cli.EndTime__c = convertedDatetimeEnd;
-
-                    cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
-
-                    String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
-                    if (hasTravelToValue == 'false' || hasTravelToValue == 'null' || hasTravelToValue == null) {
-                        cli.HasTravelTo__c = false;
-                    } else {
-                        cli.HasTravelTo__c = true;
-
-                        String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
-                        Date convertedTravelToDate = Date.valueOf(dateTravelTo);
-                        cli.TravelTo__c = convertedTravelToDate;
-
-                        String travelToStartTime = String.valueOf(claimLineItem.get('startTimeTravelTo'));
-                        Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
-                        Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
-                        cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
-
-                        String travelToEndTime = String.valueOf(claimLineItem.get('endTimeTravelTo'));
-                        Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
-                        Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
-                        cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
-                    }
-                    String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
-                    if (hasTravelFromValue == 'false' || hasTravelFromValue == 'null' || hasTravelFromValue == null) {
-                        cli.HasTravelFrom__c = false;
-                    } else {
-                        cli.HasTravelFrom__c = true;
-
-                        String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
-                        Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
-                        cli.TravelFrom__c = convertedTravelFromDate;
-
-                        String travelFromStartTime = String.valueOf(claimLineItem.get('startTimeTravelFrom'));
-                        Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
-                        Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(
-                            timestampMillisTravelFromStart
-                        );
-                        cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
-
-                        String travelFromEndTime = String.valueOf(claimLineItem.get('endTimeTravelFrom'));
-                        Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
-                        Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
-                        cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
-                    }
-                    if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
-                        String travelDistanceStr = (String) claimLineItem.get('travelDistance');
-                        Integer travelDistance = 0;
-
-                        if (travelDistanceStr != null && travelDistanceStr!='') {
-                            if (Pattern.matches('^\\d+$', travelDistanceStr)) {
-                                travelDistance = Integer.valueOf(travelDistanceStr);
-                            }
-                        }
-                        cli.TravelDistance__c = travelDistance;
-
-                        String expensesPublicTransportStr = (String) claimLineItem.get('expensesPublicTransport');
-                        Integer expensesPublicTransport = 0;
-
-                        if (expensesPublicTransportStr != null && expensesPublicTransportStr!='') {
-                            if (Pattern.matches('^\\d+$', expensesPublicTransportStr)) {
-                                expensesPublicTransport = Integer.valueOf(expensesPublicTransportStr);
-                            }
-                        }
-                        cli.ExpensesPublicTransport__c = expensesPublicTransport;
-
-                        String expensesTollStr = (String) claimLineItem.get('expensesToll');
-                        Integer expensesToll = 0;
-
-                        if (expensesTollStr != null && expensesTollStr!='') {
-                            if (Pattern.matches('^\\d+$', expensesTollStr)) {
-                                expensesToll = Integer.valueOf(expensesTollStr);
-                            }
-                        }
-                        cli.ExpensesToll__c = expensesToll;
-
-                        String expensesParkingStr = (String) claimLineItem.get('expensesParking');
-                        Integer expensesParking = 0;
-
-                        if (expensesParkingStr != null && expensesParkingStr!='') {
-                            if (Pattern.matches('^\\d+$', expensesParkingStr)) {
-                                expensesParking = Integer.valueOf(expensesParkingStr);
-                            }
-                        }
-                        cli.ExpensesParking__c = expensesParking;
-                        cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
-                        cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
-                        cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
-                    } else {
-                        cli.TravelDistance__c = 0;
-                        cli.ExpensesPublicTransport__c = 0;
-                        cli.ExpensesParking__c=0;
-                        cli.ExpensesToll__c=0;
-                    }
-                }
-            }
-        }
-        //find and delete records
-        List<HOT_ClaimLineItem__c> recordToDelete = new List<HOT_ClaimLineItem__c>();
-
+    // Find and update records
+    for (Map<String, Object> claimLineItem : claimLineItems) {
         for (HOT_ClaimLineItem__c cli : claimLineItemList) {
-            Boolean found = false;
-            for (Map<String, Object> claimLineItem : claimLineItems) {
-                if (cli.Id == claimLineItem.get('id')) {
-                    found = true;
-                    break;
+            if (cli.Id == claimLineItem.get('id')) {
+                String dateClaim = String.valueOf(claimLineItem.get('date'));
+                Date convertedDate = Date.valueOf(dateClaim);
+                cli.Date__c = convertedDate;
+
+                cli.TypeOfTask__c = String.valueOf(claimLineItem.get('task'));
+                String startTimeClaim = String.valueOf(claimLineItem.get('startTime'));
+                Long timestampMillisStart = Long.valueOf(startTimeClaim);
+                Datetime convertedDatetimeStart = Datetime.newInstance(timestampMillisStart);
+                cli.StartTime__c = convertedDatetimeStart;
+
+                String endTimeClaim = String.valueOf(claimLineItem.get('endTime'));
+                Long timestampMillisEnd = Long.valueOf(endTimeClaim);
+                Datetime convertedDatetimeEnd = Datetime.newInstance(timestampMillisEnd);
+                cli.EndTime__c = convertedDatetimeEnd;
+
+                cli.AdditionalInformation__c = String.valueOf(claimLineItem.get('additionalInformation'));
+
+                String hasTravelToValue = String.valueOf(claimLineItem.get('hasTravelTo'));
+                if (hasTravelToValue == 'false' || hasTravelToValue == 'null' || hasTravelToValue == null) {
+                    cli.HasTravelTo__c = false;
+                } else {
+                    cli.HasTravelTo__c = true;
+
+                    String dateTravelTo = String.valueOf(claimLineItem.get('dateTravelTo'));
+                    Date convertedTravelToDate = Date.valueOf(dateTravelTo);
+                    cli.TravelTo__c = convertedTravelToDate;
+
+                    String travelToStartTime = String.valueOf(claimLineItem.get('startTimeTravelTo'));
+                    Long timestampMillisTravelToStart = Long.valueOf(travelToStartTime);
+                    Datetime convertedDatetimeTravelToStart = Datetime.newInstance(timestampMillisTravelToStart);
+                    cli.TravelToStartTime__c = convertedDatetimeTravelToStart;
+
+                    String travelToEndTime = String.valueOf(claimLineItem.get('endTimeTravelTo'));
+                    Long timestampMillisTravelToEnd = Long.valueOf(travelToEndTime);
+                    Datetime convertedDatetimeTravelToEnd = Datetime.newInstance(timestampMillisTravelToEnd);
+                    cli.TravelToEndTime__c = convertedDatetimeTravelToEnd;
+                }
+                String hasTravelFromValue = String.valueOf(claimLineItem.get('hasTravelFrom'));
+                if (hasTravelFromValue == 'false' || hasTravelFromValue == 'null' || hasTravelFromValue == null) {
+                    cli.HasTravelFrom__c = false;
+                } else {
+                    cli.HasTravelFrom__c = true;
+
+                    String dateTravelFrom = String.valueOf(claimLineItem.get('dateTravelFrom'));
+                    Date convertedTravelFromDate = Date.valueOf(dateTravelFrom);
+                    cli.TravelFrom__c = convertedTravelFromDate;
+
+                    String travelFromStartTime = String.valueOf(claimLineItem.get('startTimeTravelFrom'));
+                    Long timestampMillisTravelFromStart = Long.valueOf(travelFromStartTime);
+                    Datetime convertedDatetimeTravelFromStart = Datetime.newInstance(timestampMillisTravelFromStart);
+                    cli.TravelFromStartTime__c = convertedDatetimeTravelFromStart;
+
+                    String travelFromEndTime = String.valueOf(claimLineItem.get('endTimeTravelFrom'));
+                    Long timestampMillisTravelFromEnd = Long.valueOf(travelFromEndTime);
+                    Datetime convertedDatetimeTravelFromEnd = Datetime.newInstance(timestampMillisTravelFromEnd);
+                    cli.TravelFromEndTime__c = convertedDatetimeTravelFromEnd;
+                }
+                if (cli.HasTravelFrom__c || cli.HasTravelTo__c) {
+                    Decimal expensesToll;
+                    Object tollValue = claimLineItem.get('expensesToll');
+                    if (tollValue != null && String.valueOf(tollValue) != '') {
+                        expensesToll = tollValue instanceof Decimal ? (Decimal)tollValue : Decimal.valueOf(String.valueOf(tollValue));
+                    } else {
+                        expensesToll = 0;
+                    }
+                    cli.ExpensesToll__c = expensesToll;
+
+                    Decimal expensesPublicTransport;
+                    Object publicTransportValue = claimLineItem.get('expensesPublicTransport');
+                    if (publicTransportValue != null && String.valueOf(publicTransportValue) != '') {
+                        expensesPublicTransport = publicTransportValue instanceof Decimal ? (Decimal)publicTransportValue : Decimal.valueOf(String.valueOf(publicTransportValue));
+                    } else {
+                        expensesPublicTransport = 0;
+                    }
+                    cli.ExpensesPublicTransport__c = expensesPublicTransport;
+
+                    Decimal expensesParking;
+                    Object parkingValue = claimLineItem.get('expensesParking');
+                    if (parkingValue != null && String.valueOf(parkingValue) != '') {
+                        expensesParking = parkingValue instanceof Decimal ? (Decimal)parkingValue : Decimal.valueOf(String.valueOf(parkingValue));
+                    } else {
+                        expensesParking = 0;
+                    }
+                    cli.ExpensesParking__c = expensesParking;
+
+                    Decimal travelDistance;
+                    Object distanceValue = claimLineItem.get('travelDistance');
+                    if (distanceValue != null && String.valueOf(distanceValue) != '') {
+                        travelDistance = distanceValue instanceof Decimal ? (Decimal)distanceValue : Decimal.valueOf(String.valueOf(distanceValue));
+                    } else {
+                        travelDistance = 0;
+                    }
+                    cli.TravelDistance__c = travelDistance;
+
+
+                    cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
+                    cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
+                    cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
+                } else {
+                    cli.TravelDistance__c = 0;
+                    cli.ExpensesPublicTransport__c = 0;
+                    cli.ExpensesParking__c = 0;
+                    cli.ExpensesToll__c = 0;
                 }
             }
-            if (!found) {
-                recordToDelete.add(cli);
-            }
-        }
-        try {
-            update claimLineItemList;
-            delete recordToDelete;
-            return '';
-        } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
         }
     }
+    // Find and delete records
+    List<HOT_ClaimLineItem__c> recordToDelete = new List<HOT_ClaimLineItem__c>();
+
+    for (HOT_ClaimLineItem__c cli : claimLineItemList) {
+        Boolean found = false;
+        for (Map<String, Object> claimLineItem : claimLineItems) {
+            if (cli.Id == claimLineItem.get('id')) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            recordToDelete.add(cli);
+        }
+    }
+    try {
+        update claimLineItemList;
+        delete recordToDelete;
+        return '';
+    } catch (Exception e) {
+        LoggerUtility logger = new LoggerUtility();
+        logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+        return e.getMessage();
+    }
+}
+
+
     public static void setEntitlementOnClaim(Set<Id> claimIds) {
         List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
         List<HOT_Claim__c> claimsToBeUpdated = new List<HOT_Claim__c>();

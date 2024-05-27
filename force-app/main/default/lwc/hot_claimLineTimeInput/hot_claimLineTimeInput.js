@@ -479,20 +479,26 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         let hasErrors = false;
         const travelDistanceElements = this.template.querySelectorAll('[data-id="travelDistance"]');
         const travelToFromAddressElements = this.template.querySelectorAll('[data-id="travelToFromAddresses"]');
+
         travelDistanceElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Antall km reisevei');
                 element.sendErrorMessage(errorMessage);
-                hasErrors += errorMessage !== '';
+                hasErrors = hasErrors || errorMessage !== ''; // Using logical OR to accumulate errors
 
-                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                if (
+                    element.value !== '' &&
+                    element.value !== '0' &&
+                    element.value !== null &&
+                    Number(element.value) > 0
+                ) {
                     let addressElement = travelToFromAddressElements[index];
                     let addressErrorMessage = requireInput(this.times[index].travelToFromAddresses, 'Feltet');
                     addressElement.sendErrorMessage(addressErrorMessage);
-                    hasErrors += addressErrorMessage !== '';
+                    hasErrors = hasErrors || addressErrorMessage !== '';
                 } else {
                     let addressElement = travelToFromAddressElements[index];
-                    addressElement.sendErrorMessage('');
+                    addressElement.sendErrorMessage(''); // Clear any previous error messages
                 }
             }
         });
@@ -509,16 +515,21 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
-                hasErrors += errorMessage !== '';
+                hasErrors = hasErrors || errorMessage !== ''; // Using logical OR to accumulate errors
 
-                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                if (
+                    element.value !== '' &&
+                    element.value !== '0' &&
+                    element.value !== null &&
+                    Number(element.value) > 0
+                ) {
                     let addressElement = parkingAddressElements[index];
                     let addressErrorMessage = requireInput(this.times[index].parkingAddress, 'Feltet');
                     addressElement.sendErrorMessage(addressErrorMessage);
-                    hasErrors += addressErrorMessage !== '';
+                    hasErrors = hasErrors || addressErrorMessage !== '';
                 } else {
                     let addressElement = parkingAddressElements[index];
-                    addressElement.sendErrorMessage('');
+                    addressElement.sendErrorMessage(''); // Clear any previous error messages
                 }
             }
         });
@@ -535,16 +546,21 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
-                hasErrors += errorMessage !== '';
+                hasErrors = hasErrors || errorMessage !== ''; // Using logical OR to accumulate errors
 
-                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                if (
+                    element.value !== '' &&
+                    element.value !== '0' &&
+                    element.value !== null &&
+                    Number(element.value) > 0
+                ) {
                     let routeElement = publicTransportRouteElements[index];
                     let addressErrorMessage = requireInput(this.times[index].publicTransportRoute, 'Feltet');
                     routeElement.sendErrorMessage(addressErrorMessage);
-                    hasErrors += addressErrorMessage !== '';
+                    hasErrors = hasErrors || addressErrorMessage !== '';
                 } else {
                     let routeElement = publicTransportRouteElements[index];
-                    routeElement.sendErrorMessage('');
+                    routeElement.sendErrorMessage(''); // Clear any previous error messages
                 }
             }
         });
