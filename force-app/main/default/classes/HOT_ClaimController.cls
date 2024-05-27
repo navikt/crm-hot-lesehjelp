@@ -191,12 +191,9 @@ public without sharing class HOT_ClaimController {
                     }
                 }
                 cli.ExpensesParking__c = expensesParking;
-                //her
                 cli.PublicTransportRoute__c = String.valueOf(claimLineItem.get('publicTransportRoute'));
                 cli.ParkingAddress__c = String.valueOf(claimLineItem.get('parkingAddress'));
                 cli.TravelToFromAddresses__c = String.valueOf(claimLineItem.get('travelToFromAddresses'));
-                
-                //her slutt
 
             } else {
                 cli.TravelDistance__c = 0;
