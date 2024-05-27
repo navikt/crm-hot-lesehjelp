@@ -156,29 +156,34 @@
                                         <Strong>Reisen fra: </Strong>{cli.travelFromPeriode}
                                     </p>
                                     <br />
-                                    <p if:true={cli.TravelDistance__c} tabindex="0">
-                                        <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km
-                                    </p>
-                                    <p if:true={cli.TravelDistance__c} tabindex="0">
-                                        <strong>Til/fra gateadresse/by: </strong> {cli.TravelToFromAddresses__c} km
-                                    </p>
-                                    <p if:true={cli.ExpensesParking__c} tabindex="0">
-                                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr
-                                    </p>
-                                    <p if:true={cli.ExpensesParking__c} tabindex="0">
-                                        <strong>Hvor du har parkert: </strong> {cli.ParkingAddress__c}
-                                    </p>
-                                    <p if:true={cli.ExpensesToll__c} tabindex="0">
-                                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
-                                    </p>
-                                    <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
-                                        <strong>Utlegg for Buss, Trikk, Tbane: </strong>
-                                        {cli.ExpensesPublicTransport__c} kr
-                                    </p>
-                                    <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
-                                        <strong>Hvilket transportmiddel, samt reiserute: </strong>
-                                        {cli.PublicTransportRoute__c}
-                                    </p>
+                                    <div if:true={cli.TravelDistance__c} class="expensesSingle">
+                                        <p if:true={cli.TravelDistance__c} tabindex="0">
+                                            <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km
+                                        </p>
+                                        <p if:true={cli.TravelDistance__c} tabindex="0">
+                                            {cli.TravelToFromAddresses__c}
+                                        </p>
+                                    </div>
+                                    <div if:true={cli.ExpensesParking__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesParking__c} tabindex="0">
+                                            <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr
+                                        </p>
+                                        <p if:true={cli.ExpensesParking__c} tabindex="0">{cli.ParkingAddress__c}</p>
+                                    </div>
+                                    <div if:true={cli.ExpensesToll__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesToll__c} tabindex="0">
+                                            <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
+                                        </p>
+                                    </div>
+                                    <div if:true={cli.ExpensesPublicTransport__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
+                                            <strong>Utlegg for Buss, Trikk, Tbane: </strong>
+                                            {cli.ExpensesPublicTransport__c} kr
+                                        </p>
+                                        <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
+                                            {cli.PublicTransportRoute__c}
+                                        </p>
+                                    </div>
                                 </div>
                             </template>
                             <div class="buttons">

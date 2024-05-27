@@ -506,7 +506,6 @@ public without sharing class HOT_ClaimController {
                     timeMap.put('expensesPublicTransport', String.valueOf(cli.ExpensesPublicTransport__c));
                     timeMap.put('expensesParking', String.valueOf(cli.ExpensesParking__c));
                     timeMap.put('expensesToll', String.valueOf(cli.ExpensesToll__c));
-                    //her
                 }
                 //Date tempDateTravelFrom = cli.TravelFrom__c.date();
                 timeMap.put('task', cli.TypeOfTask__c);
