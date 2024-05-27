@@ -526,33 +526,37 @@ cli.TravelDistance__c = travelDistance;
             return null;
         }
     }
-    @AuraEnabled
-    public static String updateClaim(
-        String recordId,
-        String claimType,
-        String employerExpensesPerHour,
-        String onEmployer,
-        List<Map<String, Object>> claimLineItems
-    ) {
-        String result = '';
-        User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
-        List<HOT_Claim__c> claims = [
+   @AuraEnabled
+public static String updateClaim(
+    String recordId,
+    String claimType,
+    String employerExpensesPerHour,
+    String onEmployer,
+    List<Map<String, Object>> claimLineItems
+) {
+    String result = '';
+    User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
+    
+    try {
+        HOT_Claim__c claim = [
             SELECT
                 Id,
                 Name,
                 Claimant__c,
                 OnEmployer__c,
                 Type__c,
+                ApprovedByNAV__c,
                 EmployerExpensesPerHour__c,
                 OrganizationNumber__c,
                 Organization__c,
                 EmployerName__c,
-                ApprovedByUser__c,
-                ApprovedByNAV__c
-            FROM HOT_Claim__c
+                ApprovedByUser__c
+                FROM HOT_Claim__c
             WHERE Id = :recordId AND Claimant__c = :currentUser.AccountId
+            LIMIT 1
         ];
-        for (HOT_Claim__c claim : claims) {
+
+        if (claim != null && !claim.ApprovedByNAV__c) {
             if (claimType == 'Arbeidsliv' && onEmployer == 'true') {
                 Integer strToInt = Integer.valueOf(employerExpensesPerHour);
                 claim.EmployerExpensesPerHour__c = strToInt;
@@ -578,18 +582,23 @@ cli.TravelDistance__c = travelDistance;
             claim.CommentFromNAV__c = null;
             claim.CommentFromUser__c = null;
             claim.IsNotificationSent__c = false;
-        }
-        try {
-            update claims;
-            result = updateClaimLineItems(claims[0], claimLineItems);
+
+            update claim;
+
+            result = updateClaimLineItems(claim, claimLineItems);
             return 'ok' + result;
-        } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
         }
+        else{
+            return 'Dette kravet kan ikke endres. Det er allerede godkjent av NAV.';
+        }
+    } catch (Exception e) {
+        LoggerUtility logger = new LoggerUtility();
+        logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+        return e.getMessage();
     }
+}
+
     private static String updateClaimLineItems(HOT_Claim__c claim, List<Map<String, Object>> claimLineItems) {
     List<HOT_ClaimLineItem__c> claimLineItemList = [
         SELECT
