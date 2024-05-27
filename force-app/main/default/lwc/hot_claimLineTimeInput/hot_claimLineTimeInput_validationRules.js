@@ -1,17 +1,27 @@
 let nowDate = new Date();
 
 export function requireInput(input, label) {
-    return input === '' || input === undefined || input === null ? label + ' må fylles ut.' : '';
+    if (input === '' || input === undefined || input === null) {
+        return label + ' må fylles ut.';
+    } else if (input.length > 255) {
+        return label + ' kan ikke være lengre enn 255 tegn.';
+    } else {
+        return '';
+    }
 }
+
 export function requireInputNumbers(input, label) {
     if (input === '' || input === undefined || input === null) {
         return label + ' må fylles ut.';
     } else if (!/^\d+$/.test(input)) {
         return label + ' må kun inneholde tall uten desimaler';
+    } else if (input.length > 18) {
+        return label + ' kan ikke være lengre enn 18 tegn';
     } else {
         return '';
     }
 }
+
 export function validateInputNumbersOnlyNumbers(input, label) {
     if (input !== '' && input !== undefined && input !== null && !/^\d+$/.test(input)) {
         return label + ' må kun inneholde tall uten desimaler';

@@ -155,19 +155,35 @@
                                     <p tabindex="0" if:true={cli.HasTravelFrom__c}>
                                         <Strong>Reisen fra: </Strong>{cli.travelFromPeriode}
                                     </p>
-                                    <p if:true={cli.hasTravel} tabindex="0">
-                                        <strong>Totalt distanse reisevei: </strong> {cli.TravelDistance__c} km
-                                    </p>
-                                    <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
-                                        <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
-                                        {cli.ExpensesPublicTransport__c} kr
-                                    </p>
-                                    <p if:true={cli.ExpensesParking__c} tabindex="0">
-                                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr
-                                    </p>
-                                    <p if:true={cli.ExpensesToll__c} tabindex="0">
-                                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
-                                    </p>
+                                    <br />
+                                    <div if:true={cli.TravelDistance__c} class="expensesSingle">
+                                        <p if:true={cli.TravelDistance__c} tabindex="0">
+                                            <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km
+                                        </p>
+                                        <p if:true={cli.TravelDistance__c} tabindex="0">
+                                            {cli.TravelToFromAddresses__c}
+                                        </p>
+                                    </div>
+                                    <div if:true={cli.ExpensesParking__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesParking__c} tabindex="0">
+                                            <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr
+                                        </p>
+                                        <p if:true={cli.ExpensesParking__c} tabindex="0">{cli.ParkingAddress__c}</p>
+                                    </div>
+                                    <div if:true={cli.ExpensesToll__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesToll__c} tabindex="0">
+                                            <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
+                                        </p>
+                                    </div>
+                                    <div if:true={cli.ExpensesPublicTransport__c} class="expensesSingle">
+                                        <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
+                                            <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
+                                            {cli.ExpensesPublicTransport__c} kr
+                                        </p>
+                                        <p if:true={cli.ExpensesPublicTransport__c} tabindex="0">
+                                            {cli.PublicTransportRoute__c}
+                                        </p>
+                                    </div>
                                 </div>
                             </template>
                             <div class="buttons">

@@ -63,6 +63,15 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 if (t.additionalInformation == undefined) {
                     t.additionalInformation = 0;
                 }
+                if (t.publicTransportRoute == undefined) {
+                    t.publicTransportRoute = '';
+                }
+                if (t.parkingAddress == undefined) {
+                    t.parkingAddress = '';
+                }
+                if (t.travelToFromAddresses == undefined) {
+                    t.travelToFromAddresses = '';
+                }
                 if (t.hasTravelTo || t.hasTravelFrom) {
                     //totalDistanceContainer[t.editId].classList.remove('hidden');
                     undocumentedExpensesontainer[t.editId].classList.remove('hidden');
@@ -249,7 +258,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             travelDistance: timeObject === null ? null : timeObject.travelDistance,
             expensesPublicTransport: timeObject === null ? null : timeObject.expensesPublicTransport,
             expensesToll: timeObject === null ? null : timeObject.expensesToll,
-            expensesParking: timeObject === null ? null : timeObject.expensesParking
+            expensesParking: timeObject === null ? null : timeObject.expensesParking,
+            travelToFromAddresses: timeObject === null ? null : timeObject.travelToFromAddresses,
+            parkingAddress: timeObject === null ? null : timeObject.parkingAddress,
+            publicTransportRoute: timeObject === null ? null : timeObject.publicTransportRoute
         };
     }
     handleAdditionalInformation(event) {
@@ -271,6 +283,18 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     handleExpensesParking(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].expensesParking = event.detail;
+    }
+    handleTravelToFromAddresses(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].travelToFromAddresses = event.detail;
+    }
+    handleParkingAddress(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].parkingAddress = event.detail;
+    }
+    handlePublicTransportRoute(event) {
+        const index = this.getTimesIndex(event.target.name);
+        this.times[index].publicTransportRoute = event.detail;
     }
 
     getTimesIndex(name) {
@@ -434,6 +458,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         hasErrors += this.validateExpensesParking();
         hasErrors += this.validateExpensesPublicTransport();
         hasErrors += this.validateEexpensesToll();
+        console.log('errors: ' + this.hasErrors);
         return hasErrors;
     }
     validateType() {
@@ -452,37 +477,80 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     validateTravelDistance() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="travelDistance"]').forEach((element, index) => {
+        const travelDistanceElements = this.template.querySelectorAll('[data-id="travelDistance"]');
+        const travelToFromAddressElements = this.template.querySelectorAll('[data-id="travelToFromAddresses"]');
+        travelDistanceElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Antall km reisevei');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let addressElement = travelToFromAddressElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].travelToFromAddresses, 'Feltet');
+                    addressElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let addressElement = travelToFromAddressElements[index];
+                    addressElement.sendErrorMessage('');
+                }
             }
         });
+
         return hasErrors;
     }
+
     validateExpensesParking() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="expensesParking"]').forEach((element, index) => {
+        const expensesParkingElements = this.template.querySelectorAll('[data-id="expensesParking"]');
+        const parkingAddressElements = this.template.querySelectorAll('[data-id="parkingAddress"]');
+
+        expensesParkingElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let addressElement = parkingAddressElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].parkingAddress, 'Feltet');
+                    addressElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let addressElement = parkingAddressElements[index];
+                    addressElement.sendErrorMessage('');
+                }
             }
         });
+
         return hasErrors;
     }
+
     validateExpensesPublicTransport() {
         let hasErrors = false;
-        this.template.querySelectorAll('[data-id="expensesPublicTransport"]').forEach((element, index) => {
+        const expensesPublicTransportElements = this.template.querySelectorAll('[data-id="expensesPublicTransport"]');
+        const publicTransportRouteElements = this.template.querySelectorAll('[data-id="publicTransportRoute"]');
+
+        expensesPublicTransportElements.forEach((element, index) => {
             if (this.times[index].hasTravelTo || this.times[index].hasTravelFrom) {
                 let errorMessage = validateInputNumbersOnlyNumbers(element.value, 'Felt');
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
+
+                if (element.value !== '' && element.value !== '0' && element.value !== null) {
+                    let routeElement = publicTransportRouteElements[index];
+                    let addressErrorMessage = requireInput(this.times[index].publicTransportRoute, 'Feltet');
+                    routeElement.sendErrorMessage(addressErrorMessage);
+                    hasErrors += addressErrorMessage !== '';
+                } else {
+                    let routeElement = publicTransportRouteElements[index];
+                    routeElement.sendErrorMessage('');
+                }
             }
         });
         return hasErrors;
     }
+
     validateEexpensesToll() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="expensesToll"]').forEach((element, index) => {
@@ -940,6 +1008,9 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         expensesPublicTransport: time.expensesPublicTransport,
                         expensesToll: time.expensesToll,
                         expensesParking: time.expensesParking,
+                        travelToFromAddresses: time.travelToFromAddresses,
+                        parkingAddress: time.parkingAddress,
+                        publicTransportRoute: time.publicTransportRoute,
                         isNew: 0
                     };
                     let clonedTime = this.setTimesValue(testTimeObject);
