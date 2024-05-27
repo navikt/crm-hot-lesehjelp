@@ -4,8 +4,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color: #cce1ff;
-    border: 2px solid black;
-    border-radius: 5px;
     margin-bottom: 1rem;
 }
 .travelTimesToInputContainer {
@@ -23,6 +21,7 @@
 
 @media only screen and (max-device-width: 768px) {
     .listClass {
+        padding: 0.2vw;
         align-items: start;
         padding-bottom: 1vw;
         display: flex;
@@ -74,8 +73,6 @@
     margin-top: 1vw;
     padding: 1vw;
     background-color: #e6f0ff;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 .totalDistanceContainer {
     margin-top: 1vw;
@@ -84,8 +81,23 @@
 .undocumentedExpensesontainer {
     width: 100%;
     margin-top: 1vw;
-    padding: 1vw;
+}
+.expensesSingle {
+    border: none;
+    width: 100%;
     background-color: #e6f0ff;
-    border: 2px solid black;
-    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.inputField {
+    display: inline-block;
+    padding: 0.2rem;
+}
+h2 {
+    margin: 0;
+    margin-bottom: auto;
+    font-size: large;
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
+    margin-bottom: 1rem;
 }

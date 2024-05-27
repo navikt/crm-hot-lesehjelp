@@ -16,6 +16,9 @@
         transform: rotate(360deg);
     }
 }
+.expensesSingle {
+    padding-top: 0.5rem;
+}
 .skjema-max-width {
     width: 100%;
     max-width: 800px;
