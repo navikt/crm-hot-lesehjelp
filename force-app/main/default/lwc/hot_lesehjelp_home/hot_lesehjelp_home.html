@@ -10,10 +10,10 @@
                 </div>
             </div>
         </div>
-        <div class="container" if:false={hasDecisions} role="navigation">
+        <main class="container" if:false={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
-                    <img src={nyttKravImg} alt="Knapp" />
+                    <img src={nyttKravImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Nytt krav</p>
@@ -22,18 +22,18 @@
             </a>
             <a class="box" href={pageLinks.myClaimantClaims}>
                 <div class="box-elements">
-                    <img src={mineKravImg} alt="Knapp" />
+                    <img src={mineKravImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Mine innsendte krav</p>
                     <p>Her får du en oversikt over alle dine innsendte krav.</p>
                 </div>
             </a>
-        </div>
-        <div class="container" if:true={hasDecisions} role="navigation">
+        </main>
+        <main class="container" if:true={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.myClaimsToReview}>
                 <div class="box-elements">
-                    <img src={mineKravTilGodkjenningImg} alt="Knapp" />
+                    <img src={mineKravTilGodkjenningImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Krav til godkjenning</p>
@@ -42,18 +42,18 @@
             </a>
             <a class="box" href={pageLinks.myEntitlements}>
                 <div class="box-elements">
-                    <img src={mineVedtakImg} alt="Knapp" />
+                    <img src={mineVedtakImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Vedtak</p>
                     <p>Her får du en oversikt over dine vedtak.</p>
                 </div>
             </a>
-        </div>
-        <div class="container-bottom" role="navigation">
+        </main>
+        <main class="container-bottom" role="navigation">
             <a class="box-small" href={pageLinks.myPage} aria-label="Til min side">
                 <div class="box-elements">
-                    <img src={mineSiderImg} alt="Knapp" />
+                    <img src={mineSiderImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Min side</p>
@@ -66,7 +66,7 @@
                 aria-label="Til veiledning"
             >
                 <div class="box-elements">
-                    <img src={veiledningImg} alt="Knapp" />
+                    <img src={veiledningImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Veiledning</p>
@@ -74,12 +74,12 @@
             </a>
             <a if:true={hasDecisions} class="box-small" href={pageLinks.veiledningBruker} aria-label="Til veiledning">
                 <div class="box-elements">
-                    <img src={veiledningImg} alt="Knapp" />
+                    <img src={veiledningImg} />
                 </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Veiledning</p>
                 </div>
             </a>
-        </div>
+        </main>
     </div>
 </template>
