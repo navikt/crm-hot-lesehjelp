@@ -359,4 +359,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         }
         return hasErrors;
     }
+    handleKeyDown(event) {
+        if (event.code == 'Escape') {
+            this.closeModal();
+        }
+    }
 }

@@ -434,4 +434,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.showModal();
         this.spin = false;
     }
+    handleKeyDown(event) {
+        if (event.code == 'Escape') {
+            this.closeModal();
+        }
+    }
 }
