@@ -1,0 +1,13 @@
+<template>
+    <!-- <template iterator:record={records}>
+        <tr class="row" key={record.id} data-id={record.id} onclick={handleOnRowClick} onkeypress={handleOnRowClick}>
+            <td tabindex="0" key={record.id}>{record.id}</td>
+            <p key={record.id}>lol</p>
+        </tr>
+    </template> -->
+    <template for:each={claimLineItems} for:item="cli">
+        <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
+            <p tabindex="0"><Strong>Periode: </Strong>{cli.Id} {cli.Id}</p>
+        </div>
+    </template>
+</template>
