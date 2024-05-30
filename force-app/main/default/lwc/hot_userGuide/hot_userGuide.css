@@ -1,0 +1,16 @@
+.main-content {
+    padding-left: 2rem;
+}
+p,
+ul {
+    font-size: large;
+    max-width: 600px;
+    word-wrap: break-word;
+}
+ul {
+    padding-left: 2rem;
+    list-style: disc;
+}
+h2 {
+    font-size: x-large;
+}
