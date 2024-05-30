@@ -560,6 +560,12 @@
                 <identifier>lst_dynamicRelatedList</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>hot_claimLineItemTable</componentName>
+                <identifier>c_hot_claimLineItemTable</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>rightcol</name>
         <type>Region</type>
     </flexiPageRegions>
