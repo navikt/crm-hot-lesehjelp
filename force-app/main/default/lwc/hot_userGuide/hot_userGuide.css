@@ -14,3 +14,17 @@ ul {
 h2 {
     font-size: x-large;
 }
+.back-link {
+    display: flex;
+    text-decoration: none;
+    max-width: fit-content;
+}
+.back-link-div {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    padding-left: 2rem;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
