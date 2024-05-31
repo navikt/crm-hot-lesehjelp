@@ -8,6 +8,10 @@
         <apexClass>HOT_ClaimController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>HOT_LOS_Validation_Override</name>
+    </customPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.HOT_IsLOS__c</field>
