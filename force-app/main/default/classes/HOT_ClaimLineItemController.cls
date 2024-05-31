@@ -4,6 +4,7 @@ public without sharing class HOT_ClaimLineItemController {
         List<HOT_ClaimLineItem__c> claimLineItems = [
             SELECT
                 Id,
+                Name,
                 Date__c,
                 StartTime__c,
                 EndTime__c,
