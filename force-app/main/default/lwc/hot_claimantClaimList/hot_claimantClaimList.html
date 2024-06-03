@@ -86,18 +86,13 @@
                     </div>
                 </div>
             </main>
-            <div
-                class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay details hidden"
-                style="z-index: 9999; background-color: rgba(50, 65, 79, 0.8)"
-                tabindex="-1"
-                aria-label="Informasjon om kravet"
+            <dialog
+                class="dialog details"
+                style="z-index: 9999"
+                aria-labelledby="comment-header-id"
                 onkeydown={handleKeyDown}
             >
-                <div
-                    class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container"
-                    role="dialog"
-                    aria-labelledby="comment-header-id"
-                >
+                <div class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container">
                     <c-alertdialog
                         header={modalHeader}
                         content={modalContent}
@@ -146,9 +141,9 @@
                                 <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
                                     <p tabindex="0"><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>
                                     <!-- <p tabindex="0"><Strong>Oppgave: </Strong>{cli.TypeOfTask__c}</p>
-                                    <p tabindex="0" if:true={cli.AdditionalInformation__c}>
-                                        <Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}
-                                    </p> -->
+                                            <p tabindex="0" if:true={cli.AdditionalInformation__c}>
+                                                <Strong>Tilleggsinformasjon: </Strong>{cli.AdditionalInformation__c}
+                                            </p> -->
                                     <p tabindex="0"><Strong>Periode: </Strong>{cli.period}</p>
                                     <p tabindex="0" if:true={cli.HasTravelTo__c}>
                                         <Strong>Reisen til: </Strong>{cli.travelToPeriode}
@@ -215,7 +210,7 @@
                         <span class="text-hide" aria-label="Lukk">Lukk</span>
                     </button>
                 </div>
-            </div>
+            </dialog>
             <div class="loading-content hidden submitted-true">
                 <div class="loading-content dialog-boks skjema-max-width">
                     <lightning-icon
