@@ -12,6 +12,10 @@
         <enabled>true</enabled>
         <name>HOT_LOS_Validation_Override</name>
     </customPermissions>
+    <classAccesses>
+        <apexClass>HOT_ClaimLineItemController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.HOT_IsLOS__c</field>
