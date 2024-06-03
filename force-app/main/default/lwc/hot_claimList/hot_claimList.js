@@ -152,8 +152,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                             ),
                             hasTravel: this.hasTravel(x.HasTravelTo__c, x.HasTravelFrom__c)
                         }));
-                        this.template.querySelector('.details').classList.remove('hidden');
-                        this.template.querySelector('.details').focus();
+                        const dialog = this.template.querySelector('dialog.details');
+                        dialog.showModal();
+                        dialog.focus();
                     })
                     .catch((error) => {
                         // Handle error
@@ -181,7 +182,8 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     }
 
     closeModal() {
-        this.template.querySelector('.details').classList.add('hidden');
+        const dialog = this.template.querySelector('dialog.details');
+        dialog.close();
         //this.recordId = undefined;
     }
     formatDateTime(date) {
@@ -271,6 +273,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             .catch((error) => {
                 this.hideFormAndShowError(error);
             });
+        this.closeModal();
     }
 
     declineClaimPromptReason() {}
@@ -300,6 +303,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                     this.hideFormAndShowError(error);
                 });
         }
+        this.closeModal();
     }
 
     //SCREENS
