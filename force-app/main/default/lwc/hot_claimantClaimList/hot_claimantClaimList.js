@@ -385,6 +385,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                         this.hideLoading();
                         this.hideFormAndShowError(result);
                     }
+                    this.closeModal();
                 })
                 .catch((error) => {
                     this.hideFormAndShowError(error);
