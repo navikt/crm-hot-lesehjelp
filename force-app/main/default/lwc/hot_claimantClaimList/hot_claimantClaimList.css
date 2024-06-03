@@ -64,9 +64,17 @@
     background-color: #e6f0ff;
     padding: 1rem;
 }
+.dialog {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.dialog::backdrop {
+    background: rgba(50, 65, 79, 0.8);
+}
 
 .details-container {
-    all: unset;
     background-color: #fff;
     display: block;
     padding: 5rem;
@@ -79,10 +87,9 @@
     margin-bottom: 1rem;
     margin-top: 1rem;
     z-index: 1010;
-    max-width: 432px;
-    max-height: 75%;
     width: 100%;
     -webkit-overflow-scrolling: touch;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .hidden {
     display: none;

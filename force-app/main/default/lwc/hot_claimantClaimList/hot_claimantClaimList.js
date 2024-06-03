@@ -223,16 +223,16 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                         travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
                         hasTravel: this.hasTravel(x.HasTravelTo__c, x.HasTravelFrom__c)
                     }));
-                    this.template.querySelector('.details').classList.remove('hidden');
-                    this.template.querySelector('.details').focus();
+                    const dialog = this.template.querySelector('dialog.details');
+                    dialog.showModal();
+                    dialog.focus();
                 })
                 .catch((error) => {});
         }
     }
     closeModal() {
-        this.template.querySelector('.details').classList.add('hidden');
-        //this.recordId = undefined;
-        this.showDetails = false;
+        const dialog = this.template.querySelector('dialog.details');
+        dialog.close();
     }
 
     @track unmappedClaims;
