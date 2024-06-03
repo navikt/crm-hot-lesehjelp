@@ -273,6 +273,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             .catch((error) => {
                 this.hideFormAndShowError(error);
             });
+        this.closeModal();
     }
 
     declineClaimPromptReason() {}
@@ -302,6 +303,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
                     this.hideFormAndShowError(error);
                 });
         }
+        this.closeModal();
     }
 
     //SCREENS

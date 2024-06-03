@@ -8,6 +8,7 @@
     height: 80px;
     animation: spin 1s linear infinite;
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -16,11 +17,13 @@
         transform: rotate(360deg);
     }
 }
+
 .main-content {
     text-align: center;
     font-family: 'Source Sans Pro', Arial, sans-serif;
     align-items: center;
 }
+
 .loading-content {
     padding-top: 3rem;
     font-family: 'Source Sans Pro', Arial, sans-serif;
@@ -29,9 +32,11 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .content {
     width: 60%;
 }
+
 .claim-single {
     cursor: pointer;
     text-align: left;
@@ -42,20 +47,25 @@
     border-radius: 0.2rem;
     width: 90%;
 }
+
 .claim-single:hover {
     background-color: #e0d8e9;
 }
+
 .older {
     background-color: #f2f3f5;
 }
+
 .older:hover {
     background-color: #eceef0;
 }
+
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .cli-container {
     border-radius: 0.2rem;
     /* border: 1px solid black; */
@@ -64,8 +74,73 @@
     padding: 1rem;
 }
 
+.hidden {
+    display: none;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+.buttons {
+    padding-top: 1rem;
+    width: 100%;
+    text-align: center;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .claim-single {
+        width: 100%;
+        padding: 0.75rem;
+    }
+
+    .details-container {
+        display: block;
+        /* overflow: hidden; */
+        max-height: 100%;
+        z-index: 1010;
+        width: 100vw;
+        padding: 2rem;
+        overflow-y: auto;
+    }
+
+    .container {
+        display: block;
+        align-items: center;
+    }
+
+    .content {
+        width: 100%;
+    }
+}
+
+.confirmationCheckbox {
+    background-color: #e6f0ff;
+    margin: auto;
+    margin-top: 1rem;
+    text-align: left;
+    padding: 2rem;
+}
+
+.skjema-max-width {
+    width: 100%;
+    max-width: 800px;
+}
+
+.dialog {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.dialog::backdrop {
+    background: rgba(50, 65, 79, 0.8);
+}
+
 .details-container {
-    all: unset;
     background-color: #fff;
     display: block;
     padding: 5rem;
@@ -78,57 +153,7 @@
     margin-bottom: 1rem;
     margin-top: 1rem;
     z-index: 1010;
-    max-width: 432px;
-    max-height: 75%;
     width: 100%;
     -webkit-overflow-scrolling: touch;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.hidden {
-    display: none;
-}
-p {
-    font-size: 1.1rem;
-}
-.buttons {
-    padding-top: 1rem;
-    width: 100%;
-    text-align: center;
-    flex-direction: row;
-    display: flex;
-    justify-content: center;
-}
-@media (max-width: 768px) {
-    .claim-single {
-        width: 100%;
-        padding: 0.75rem;
-    }
-    .details-container {
-        display: block;
-        /* overflow: hidden; */
-        max-height: 100%;
-        z-index: 1010;
-        width: 100vw;
-        padding: 2rem;
-        overflow-y: auto;
-    }
-    .container {
-        display: block;
-        align-items: center;
-    }
-    .content {
-        width: 100%;
-    }
-}
-.confirmationCheckbox {
-    background-color: #e6f0ff;
-    margin: auto;
-    margin-top: 1rem;
-    text-align: left;
-    padding: 2rem;
-}
-.skjema-max-width {
-    width: 100%;
-    max-width: 800px;
-}
-
-/*  */
