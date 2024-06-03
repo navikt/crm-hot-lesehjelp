@@ -4,7 +4,7 @@
             "path": "force-app",
             "default": true,
             "package": "crm-hot-lesehjelp",
-            "versionNumber": "0.8.0.NEXT",
+            "versionNumber": "0.9.0.NEXT",
             "versionDescription": "",
             "dependencies": [
                 {
