@@ -8,6 +8,7 @@ import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
     warningicon = icons + '/warningicon.svg';
+    @track accountHasNoPhoneNumber;
     @track showClaimlist = true;
     @track noClaims = true;
     @track noClaimLineItems = true;
@@ -195,6 +196,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             this.record = element;
                             this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
+                            this.accountHasNoPhoneNumber = element.accountHasNoPhoneNumber;
                             if (element.ExternalStatus__c) {
                             }
                             if (element.ApprovedByNAV__c == true || element.ExternalStatus__c == 'Tilbaketrukket') {
@@ -266,7 +268,10 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 madeBy: this.setMadeBy(x.OnEmployer__c),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
-                isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
+                isRedStatus: this.checkRedStatus(x.ExternalStatus__c),
+                accountHasNoPhoneNumber: this.checkAccountHasNoPhoneNumber(
+                    x.Account__r.CRM_Person__r.INT_KrrMobilePhone__c
+                )
             }));
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
@@ -275,6 +280,13 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
             });
+        }
+    }
+    checkAccountHasNoPhoneNumber(accountPhoneNumber) {
+        if (accountPhoneNumber == null || accountPhoneNumber == '') {
+            return true;
+        } else {
+            return false;
         }
     }
     setMadeBy(onEmployer) {

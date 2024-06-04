@@ -105,7 +105,10 @@
                     >
                     </c-alertdialog>
                     <section>
-                        <div class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
+                        <div
+                            if:true={accountHasNoPhoneNumber}
+                            class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                        >
                             <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
                             <div class="typo-normal alertstripe__tekst">
                                 Vi mangler kontaktinformasjon til personen du har vært lesehjelp for, som dermed da ikke
