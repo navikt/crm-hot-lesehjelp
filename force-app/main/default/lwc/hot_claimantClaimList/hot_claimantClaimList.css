@@ -168,6 +168,7 @@ p {
 .navno-dekorator.alertstripe--advarsel {
     border: 1px solid #ff9100;
     background-color: #ffe9cc;
+    margin-bottom: 0.2rem;
 }
 .navno-dekorator.alertstripe__ikon {
     margin-right: 0.75rem;
