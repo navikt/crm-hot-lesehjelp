@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Update_When_Approved_By_NAV</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    Claim__r.ApprovedByNAV__c = TRUE,
+    NOT( $Permission.HOT_LOS_Validation_Override),
+
+    OR(
+        ISCHANGED(Claim__c),
+        ISCHANGED(Date__c),
+        ISCHANGED(EndTime__c),
+        ISCHANGED(AdditionalInformation__c),
+        ISCHANGED(ExpensesParking__c),
+        ISCHANGED(ExpensesPublicTransport__c),
+        ISCHANGED(ExpensesToll__c),
+        ISCHANGED(HasTravelFrom__c),
+        ISCHANGED(HasTravelTo__c),
+        ISCHANGED(ParkingAddress__c),
+        ISCHANGED(PublicTransportRoute__c),
+        ISCHANGED(StartTime__c),
+        ISCHANGED(TotalUndocumentedExpenses__c),
+        ISCHANGED(TravelDistance__c),
+        ISCHANGED(TravelFrom__c),
+        ISCHANGED(TravelFromEndTime__c),
+        ISCHANGED(TravelFromStartTime__c),
+        ISCHANGED(TravelTo__c),
+        ISCHANGED(TravelToEndTime__c),
+        ISCHANGED(TravelToFromAddresses__c),
+        ISCHANGED(TravelToStartTime__c),
+        ISCHANGED(TypeOfTask__c)
+    )
+)</errorConditionFormula>
+    <errorMessage>Kravet er allerede godkjent av NAV og kan ikke endres</errorMessage>
+</ValidationRule>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Update_When_Approved_By_NAV</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  PRIORVALUE(ApprovedByNAV__c) = TRUE,
+  NOT(
+    OR(
+      $Permission.HOT_LOS_Validation_Override,
+      AND(
+        $Permission.HOT_LOS_Validation_Override_RPA,
+        ISCHANGED(Status__c),
+        NOT(
+          OR(
+            ISCHANGED(Account__c),
+            ISCHANGED(ApprovedByNAV__c),
+            ISCHANGED(ApprovedByUser__c),
+            ISCHANGED(Claimant__c),
+            ISCHANGED(CommentFromNAV__c),
+            ISCHANGED(CommentFromUser__c),
+            ISCHANGED(EmployerExpensesPerHour__c),
+            ISCHANGED(EmployerName__c),
+            ISCHANGED(Entitlement__c),
+            ISCHANGED(EntitlementType__c),
+            ISCHANGED(OnEmployer__c),
+            ISCHANGED(Organization__c),
+            ISCHANGED(OrganizationNumber__c),
+            ISCHANGED(Source__c),
+            ISCHANGED(Type__c)
+          )
+        )
+      )
+    )
+  ),
+  OR(
+    ISCHANGED(Account__c),
+    ISCHANGED(ApprovedByNAV__c),
+    ISCHANGED(ApprovedByUser__c),
+    ISCHANGED(Claimant__c),
+    ISCHANGED(CommentFromNAV__c),
+    ISCHANGED(CommentFromUser__c),
+    ISCHANGED(EmployerExpensesPerHour__c),
+    ISCHANGED(EmployerName__c),
+    ISCHANGED(Entitlement__c),
+    ISCHANGED(EntitlementType__c),
+    ISCHANGED(OnEmployer__c),
+    ISCHANGED(Organization__c),
+    ISCHANGED(OrganizationNumber__c),
+    ISCHANGED(Source__c),
+    ISCHANGED(Status__c),
+    ISCHANGED(Type__c)
+  )
+)</errorConditionFormula>
+    <errorMessage>Kravet er allerede godkjent av NAV og kan ikke endres</errorMessage>
+</ValidationRule>
