@@ -18,9 +18,9 @@
         <value>1</value>
     </filters>
     <filters>
-        <field>Status__c</field>
-        <operation>notEqual</operation>
-        <value>Declined by NAV,Approved by NAV,Withdrawn,Paid out,Declined by user,Sent for payment</value>
+        <field>Processed__c</field>
+        <operation>equals</operation>
+        <value>0</value>
     </filters>
     <label>Krav klare til behandling av NAV</label>
 </ListView>
