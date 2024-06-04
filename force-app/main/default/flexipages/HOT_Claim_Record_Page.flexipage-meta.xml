@@ -282,6 +282,16 @@
                 <identifier>RecordIsNotificationSent_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Processed__c</fieldItem>
+                <identifier>RecordProcessed_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b9ed18d5-948e-4786-a959-b5cb0ae8a21d</name>
         <type>Facet</type>
     </flexiPageRegions>
