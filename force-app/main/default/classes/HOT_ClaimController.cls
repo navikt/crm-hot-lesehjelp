@@ -332,6 +332,7 @@ cli.TravelDistance__c = travelDistance;
                 Id,
                 Name,
                 Claimant__c,
+                Account__r.CRM_Person__r.INT_KrrMobilePhone__c,
                 ClaimCreatedFromIdent__c,
                 UserPersonNumber__c,
                 UserPhoneNumber__c,

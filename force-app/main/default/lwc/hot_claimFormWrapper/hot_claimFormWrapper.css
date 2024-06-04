@@ -203,3 +203,25 @@ section.sub-form:last-child {
 .navds-button--secondary:hover {
     opacity: 0.7;
 }
+.navno-dekorator.warningstripe {
+    display: block;
+    padding: 1rem 1rem 1rem 0rem;
+    border-radius: 4px;
+    display: flex;
+    align-content: center;
+    border-radius: 0.25rem;
+    color: #3e3832;
+}
+.navno-dekorator.warningstripe--advarsel {
+    border: 1px solid #c30000;
+    background-color: #ffe6e6;
+}
+.navno-dekorator.warningstripe__ikon {
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+    display: flex;
+    top: 1rem;
+    flex-shrink: 0;
+    height: 24px;
+    width: 24px;
+}
