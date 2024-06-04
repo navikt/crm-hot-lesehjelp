@@ -4,8 +4,10 @@ import { NavigationMixin } from 'lightning/navigation';
 import getMyClaims from '@salesforce/apex/HOT_ClaimController.getMyClaims';
 import cancelClaim from '@salesforce/apex/HOT_ClaimController.cancelClaim';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
+import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
+    warningicon = icons + '/warningicon.svg';
     @track showClaimlist = true;
     @track noClaims = true;
     @track noClaimLineItems = true;

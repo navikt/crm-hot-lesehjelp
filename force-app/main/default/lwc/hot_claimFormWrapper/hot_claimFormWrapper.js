@@ -6,8 +6,10 @@ import updateClaim from '@salesforce/apex/HOT_ClaimController.updateClaim';
 import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 import checkAccess from '@salesforce/apex/HOT_ClaimController.checkAccess';
 import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
+import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
+    erroricon = icons + '/erroricon.svg';
     @track claimTypeChosen = false;
     @track fieldValues = {};
     @track componentValues = {};
