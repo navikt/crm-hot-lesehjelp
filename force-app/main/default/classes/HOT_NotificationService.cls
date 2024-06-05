@@ -17,7 +17,7 @@ public without sharing class HOT_NotificationService {
                 notification.setBody('Lesehjelp uten ressursnummer har sendt inn et nytt krav');
                 notification.setNotificationTypeId(getCustomNotificationType('HOT_NotifyNAV').Id); 
                 notification.setTargetId(claim.Id); 
-                sendNotification(notification, recipients, (SObject) claim); // send med parameter for denne
+                sendNotification(notification, recipients, (SObject) claim);
             }
         }
     }
