@@ -17,7 +17,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             System.enqueueJob(krr);
         }
         if (!claimIds.isEmpty()) {
-            HOT_ClaimNotificationService.NotifyNAVNotNoEntitlementOnUser(claimIds);
+            HOT_ClaimNotificationService.NotifyNAVNoEntitlementOnUser(claimIds);
         }
         if (!notifyNAVNotRegisteredReader.isEmpty()) {
             HOT_ClaimNotificationService.NotifyNAVNotRegisteredReader(notifyNAVNotRegisteredReader);

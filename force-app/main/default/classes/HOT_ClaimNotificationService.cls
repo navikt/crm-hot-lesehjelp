@@ -1,6 +1,6 @@
 public without sharing class HOT_ClaimNotificationService {
     @Future
-    public static void NotifyNAVNotNoEntitlementOnUser(List<Id> claimIds) {
+    public static void NotifyNAVNoEntitlementOnUser(List<Id> claimIds) {
     List<HOT_Claim__c> claims = [
         SELECT Id, Name, Account__c
         FROM HOT_Claim__c
