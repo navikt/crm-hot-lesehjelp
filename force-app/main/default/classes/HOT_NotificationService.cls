@@ -1,6 +1,50 @@
 public without sharing class HOT_NotificationService {
     @Future
-    public static void NotifyNAV(List<Id> claimIds) {
+    public static void NotifyNAVNotNoEntitlementOnUser(List<Id> claimIds) {
+    List<HOT_Claim__c> claims = [
+        SELECT Id, Name, Account__c
+        FROM HOT_Claim__c
+        WHERE Id IN :claimIds
+    ];
+    Set<Id> accountIds = new Set<Id>();
+    Map<Id, HOT_Claim__c> claimMap = new Map<Id, HOT_Claim__c>();
+    for(HOT_Claim__c claim : claims){
+        accountIds.add(claim.Account__c);
+        claimMap.put(claim.Account__c, claim);
+    }
+        List<HOT_Entitlement__c> entitlements = [
+        SELECT Id, Account__c
+        FROM HOT_Entitlement__c
+        WHERE Account__c IN :accountIds
+    ];
+    
+    Set<Id> entitledAccountIds = new Set<Id>();
+    for(HOT_Entitlement__c entitlement : entitlements){
+        entitledAccountIds.add(entitlement.Account__c);
+    }
+    List<User> navUsers =[SELECT Id FROM User WHERE Id in (SELECT userorgroupid from groupmember where group.name = 'HOT LOS Saksbehandler')];
+
+    for(Id accountId : accountIds){
+        if (!entitledAccountIds.contains(accountId)) {
+            HOT_Claim__c claim = claimMap.get(accountId);
+            if (claim != null) {
+                for(User user : navUsers){
+                Set<String> recipients = new Set<String>();
+                recipients.add(user.Id);
+                Messaging.CustomNotification notification = new Messaging.CustomNotification();
+                notification.setTitle('Lesehjelp har sendt inn krav på en bruker som ikke har noen vedtak');
+                notification.setBody('Legg på vedtak på brukeren');
+                notification.setNotificationTypeId(getCustomNotificationType('HOT_NotifyNAV').Id); 
+                notification.setTargetId(claim.Id); 
+                sendNotification(notification, recipients, (SObject) claim);
+                }
+            }
+        }
+    }
+}
+
+    @Future
+    public static void NotifyNAVNotRegisteredReader(List<Id> claimIds) {
         List<HOT_Claim__c> claims = [
             SELECT Id, Name
             FROM HOT_Claim__c
