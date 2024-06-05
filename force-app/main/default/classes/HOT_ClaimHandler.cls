@@ -1,13 +1,21 @@
 public without sharing class HOT_ClaimHandler extends MyTriggers {
     public override void onAfterInsert() {
+        List<Id> notifyNAVNotRegisteredReader = new List<Id>();
+
         Set<Id> accountIds = new Set<Id>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
             accountIds.add(claim.Claimant__c);
+            if(claim.IsLos__c==false){
+                notifyNAVNotRegisteredReader.add(claim.Id);
+            }
         }
         if (accountIds.size() > 0) {
             // Call out to KRR through Queuable Apex
             HOT_KRRAccountCalloutQueuable krr = new HOT_KRRAccountCalloutQueuable(accountIds);
             System.enqueueJob(krr);
+        }
+        if (!notifyNAVNotRegisteredReader.isEmpty()) {
+            HOT_NotificationService.NotifyNAV(notifyNAVNotRegisteredReader);
         }
     }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
