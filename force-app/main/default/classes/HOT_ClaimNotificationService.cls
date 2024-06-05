@@ -1,4 +1,4 @@
-public without sharing class HOT_NotificationService {
+public without sharing class HOT_ClaimNotificationService {
     @Future
     public static void NotifyNAVNotNoEntitlementOnUser(List<Id> claimIds) {
     List<HOT_Claim__c> claims = [

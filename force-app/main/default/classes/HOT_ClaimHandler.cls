@@ -17,10 +17,10 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             System.enqueueJob(krr);
         }
         if (!claimIds.isEmpty()) {
-            HOT_NotificationService.NotifyNAVNotNoEntitlementOnUser(claimIds);
+            HOT_ClaimNotificationService.NotifyNAVNotNoEntitlementOnUser(claimIds);
         }
         if (!notifyNAVNotRegisteredReader.isEmpty()) {
-            HOT_NotificationService.NotifyNAVNotRegisteredReader(notifyNAVNotRegisteredReader);
+            HOT_ClaimNotificationService.NotifyNAVNotRegisteredReader(notifyNAVNotRegisteredReader);
         }
     }
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
