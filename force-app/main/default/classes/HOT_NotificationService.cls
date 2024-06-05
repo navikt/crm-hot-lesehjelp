@@ -34,7 +34,7 @@ public without sharing class HOT_NotificationService {
                 Messaging.CustomNotification notification = new Messaging.CustomNotification();
                 notification.setTitle('Lesehjelp har sendt inn krav på en bruker som ikke har noen vedtak');
                 notification.setBody('Legg på vedtak på brukeren');
-                notification.setNotificationTypeId(getCustomNotificationType('HOT_NotifyNAV').Id); 
+                notification.setNotificationTypeId(getCustomNotificationType('HOT_ClaimNotification').Id); 
                 notification.setTargetId(claim.Id); 
                 sendNotification(notification, recipients, (SObject) claim);
                 }
@@ -59,7 +59,7 @@ public without sharing class HOT_NotificationService {
                 Messaging.CustomNotification notification = new Messaging.CustomNotification();
                 notification.setTitle('Lesehjelp uten ressursnummer');
                 notification.setBody('Lesehjelp uten ressursnummer har sendt inn et nytt krav');
-                notification.setNotificationTypeId(getCustomNotificationType('HOT_NotifyNAV').Id); 
+                notification.setNotificationTypeId(getCustomNotificationType('HOT_ClaimNotification').Id); 
                 notification.setTargetId(claim.Id); 
                 sendNotification(notification, recipients, (SObject) claim);
             }
