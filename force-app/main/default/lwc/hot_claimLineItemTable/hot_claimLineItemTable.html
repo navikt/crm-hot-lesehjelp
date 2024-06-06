@@ -1,6 +1,29 @@
 <template>
     <template for:each={claimLineItems} for:item="cli">
         <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
+            <div
+                if:true={cli.hasOverlap}
+                class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                role="alert"
+                style="display: block"
+            >
+                <span class="slds-assistive-text">Advarsel</span>
+                <lightning-icon
+                    icon-name="utility:warning"
+                    size="x-small"
+                    class="slds-m-right--x-small"
+                    variant="inverse"
+                ></lightning-icon>
+                 <div style="display: inline-flex">
+                <div style="display: block">
+                    Tidene på denne kravlinjen overlapper med:
+                    <p key={cli.Id} for:each={cli.overlappingLinks} for:item="overlap">
+                         <a href={overlap.link} key={overlap.id}>{overlap.id}</a>
+                        </p>
+                    </p>
+                </div>
+            </div>
+        </div>
             <a href={cli.link}>{cli.Name}</a>
             <p>
                 <Strong>Periode: </Strong>{cli.Weekday__c} {cli.period}
@@ -19,6 +42,9 @@
             <p if:true={cli.ExpensesPublicTransport__c}>
                 <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
                 {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
+            </p>
+            <p if:true={cli.OverlappingClaimLineItemsIds__c}>
+                <strong>Overlappende: </strong> {cli.OverlappingClaimLineItemsIds__c} kr
             </p>
         </div>
     </template>

@@ -33,7 +33,17 @@ export default class Hot_claimLineItemTable extends LightningElement {
                     period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
                     travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
                     travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
-                    link: this.createLink(x.Id)
+                    link: this.createLink(x.Id),
+                    hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
+                    overlappingLinks: x.OverlappingClaimLineItemsIds__c
+                        ? x.OverlappingClaimLineItemsIds__c.split(',').map((id) => {
+                              const trimmedId = id.trim();
+                              return {
+                                  id: trimmedId,
+                                  link: this.createLink(trimmedId)
+                              };
+                          })
+                        : []
                 }));
             })
             .catch((error) => {
@@ -66,5 +76,12 @@ export default class Hot_claimLineItemTable extends LightningElement {
             formattedTime = '';
         }
         return formattedTime;
+    }
+    checkHasOverlap(overlapIds) {
+        if (overlapIds && overlapIds.length !== 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

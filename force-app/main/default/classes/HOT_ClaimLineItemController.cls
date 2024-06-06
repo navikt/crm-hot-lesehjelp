@@ -25,7 +25,8 @@ public without sharing class HOT_ClaimLineItemController {
                 ExpensesToll__c,
                 PublicTransportRoute__c,
                 ParkingAddress__c,
-                TravelToFromAddresses__c
+                TravelToFromAddresses__c,
+                OverlappingClaimLineItemsIds__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
             ORDER BY Date__c ASC
