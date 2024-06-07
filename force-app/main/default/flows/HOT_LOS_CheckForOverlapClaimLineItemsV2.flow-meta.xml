@@ -4,36 +4,36 @@
     <assignments>
         <name>addCliToCollection</name>
         <label>addCliToCollection</label>
-        <locationX>396</locationX>
-        <locationY>1655</locationY>
+        <locationX>616</locationX>
+        <locationY>2039</locationY>
         <assignmentItems>
             <assignToReference>clisToUpdate</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>checkForMatching</elementReference>
+                <elementReference>loop1</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>checkForMatching</targetReference>
+            <targetReference>loop1</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>addOverlappingIdToVariable</name>
         <label>addOverlappingIdToVariable</label>
-        <locationX>264</locationX>
-        <locationY>863</locationY>
+        <locationX>704</locationX>
+        <locationY>1163</locationY>
         <assignmentItems>
-            <assignToReference>overlappingClaimLineItemsIds</assignToReference>
+            <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!checkForMatching.Id},{!checkForMatching.Name}</stringValue>
+                <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>checkForMatching.OverlappingClaimLineItemsIds__c</assignToReference>
+            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!$Record.Id},{!$Record.Name}</stringValue>
+                <stringValue>,{!checkForOverlap.Id},,{!checkForOverlap.Name}</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -41,22 +41,22 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Copy_1_of_addOverlappingIdToVariable</name>
-        <label>Copy 1 of addOverlappingIdToVariable</label>
-        <locationX>264</locationX>
-        <locationY>1163</locationY>
+        <name>addOverlappingIdToVariable2</name>
+        <label>addOverlappingIdToVariable2</label>
+        <locationX>704</locationX>
+        <locationY>1463</locationY>
         <assignmentItems>
-            <assignToReference>overlappingClaimLineItemsIds</assignToReference>
+            <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!checkForMatching.Id},{!checkForMatching.Name}</stringValue>
+                <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>checkForMatching.OverlappingClaimLineItemsIds__c</assignToReference>
+            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!$Record.Id},{!$Record.Name}</stringValue>
+                <stringValue>,{!checkForOverlap.Id},,{!checkForOverlap.Name}</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -64,133 +64,59 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Copy_2_of_addOverlappingIdToVariable</name>
-        <label>Copy 2 of addOverlappingIdToVariable</label>
-        <locationX>264</locationX>
-        <locationY>1463</locationY>
+        <name>addOverlappingIdToVariable3</name>
+        <label>addOverlappingIdToVariable3</label>
+        <locationX>704</locationX>
+        <locationY>1763</locationY>
         <assignmentItems>
-            <assignToReference>overlappingClaimLineItemsIds</assignToReference>
+            <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!checkForMatching.Id},{!checkForMatching.Name}</stringValue>
+                <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>checkForMatching.OverlappingClaimLineItemsIds__c</assignToReference>
+            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>,{!$Record.Name}</stringValue>
+                <stringValue>,{!checkForOverlap.Id},,{!checkForOverlap.Name}</stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>addCliToCollection</targetReference>
+            <targetReference>checkForOverlap</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>setNullIdDuplicates</name>
         <label>setNullIdDuplicates</label>
-        <locationX>396</locationX>
-        <locationY>647</locationY>
+        <locationX>616</locationX>
+        <locationY>839</locationY>
         <assignmentItems>
-            <assignToReference>checkForMatching.OverlappingClaimLineItemsIds__c</assignToReference>
+            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Assign</operator>
         </assignmentItems>
         <connector>
-            <targetReference>checkForOverlappingReadingTimes</targetReference>
+            <targetReference>checkForOverlap</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>setNullIdDuplicatesRecord</name>
         <label>setNullIdDuplicatesRecord</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
+        <locationX>264</locationX>
+        <locationY>539</locationY>
         <assignmentItems>
-            <assignToReference>$Record.OverlappingClaimLineItemsIds__c</assignToReference>
+            <assignToReference>setDuplicateIdFieldNull.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Assign</operator>
         </assignmentItems>
         <connector>
-            <targetReference>checkForMatching</targetReference>
+            <targetReference>setDuplicateIdFieldNull</targetReference>
         </connector>
     </assignments>
     <decisions>
-        <name>checkForOverlappingReadingTimes</name>
-        <label>checkForOverlappingReadingTimes</label>
-        <locationX>396</locationX>
-        <locationY>755</locationY>
-        <defaultConnector>
-            <targetReference>checkForOverlappingTravelToTimes</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>no overlap</defaultConnectorLabel>
-        <rules>
-            <name>overlapReadingTime</name>
-            <conditionLogic>(1 AND 2) OR (3 AND 4 AND 7) OR (5 AND 6 AND 8)</conditionLogic>
-            <conditions>
-                <leftValueReference>checkForMatching.StartTime__c</leftValueReference>
-                <operator>LessThan</operator>
-                <rightValue>
-                    <elementReference>$Record.EndTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.EndTime__c</leftValueReference>
-                <operator>GreaterThan</operator>
-                <rightValue>
-                    <elementReference>$Record.StartTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.StartTime__c</leftValueReference>
-                <operator>LessThan</operator>
-                <rightValue>
-                    <elementReference>$Record.TravelToEndTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.EndTime__c</leftValueReference>
-                <operator>GreaterThan</operator>
-                <rightValue>
-                    <elementReference>$Record.TravelToStartTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.StartTime__c</leftValueReference>
-                <operator>LessThan</operator>
-                <rightValue>
-                    <elementReference>$Record.TravelFromEndTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.EndTime__c</leftValueReference>
-                <operator>GreaterThan</operator>
-                <rightValue>
-                    <elementReference>$Record.TravelFromStartTime__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.HasTravelTo__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>checkForMatching.HasTravelFrom__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>addOverlappingIdToVariable</targetReference>
-            </connector>
-            <label>overlapReadingTime</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>checkForOverlappingTravelToTimes</name>
         <label>checkForOverlappingTravelToTimes</label>
-        <locationX>396</locationX>
-        <locationY>1055</locationY>
+        <locationX>836</locationX>
+        <locationY>1355</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_checkForOverlappingTravelToTimes</targetReference>
         </defaultConnector>
@@ -199,137 +125,218 @@
             <name>overlapTravelToTime</name>
             <conditionLogic>(1 AND 2 AND 7) OR (3 AND 4 AND 7 ) OR (5 AND 6 AND 7 AND 8)</conditionLogic>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.EndTime__c</elementReference>
+                    <elementReference>checkForOverlap.EndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.StartTime__c</elementReference>
+                    <elementReference>checkForOverlap.StartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelToEndTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelToEndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelToStartTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelToStartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelFromEndTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelFromEndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelToEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelToEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelFromStartTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelFromStartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.HasTravelTo__c</leftValueReference>
+                <leftValueReference>loop1.HasTravelTo__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.HasTravelFrom__c</leftValueReference>
+                <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Copy_1_of_addOverlappingIdToVariable</targetReference>
+                <targetReference>addOverlappingIdToVariable2</targetReference>
             </connector>
             <label>overlapTravelToTime</label>
         </rules>
     </decisions>
     <decisions>
+        <name>Copy_1_of_checkForOverlappingReadingTimes</name>
+        <label>Copy 1 of checkForOverlappingReadingTimes</label>
+        <locationX>836</locationX>
+        <locationY>1055</locationY>
+        <defaultConnector>
+            <targetReference>checkForOverlappingTravelToTimes</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>no overlap</defaultConnectorLabel>
+        <rules>
+            <name>Copy_1_of_overlapReadingTime</name>
+            <conditionLogic>(1 AND 2 AND 9) OR (3 AND 4 AND 7 AND 9) OR (5 AND 6 AND 8 AND 9)</conditionLogic>
+            <conditions>
+                <leftValueReference>loop1.StartTime__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.EndTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.EndTime__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.StartTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.StartTime__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.TravelToEndTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.EndTime__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.TravelToStartTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.StartTime__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.TravelFromEndTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.EndTime__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.TravelFromStartTime__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.HasTravelTo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>loop1.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>addOverlappingIdToVariable</targetReference>
+            </connector>
+            <label>Copy 1 of overlapReadingTime</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Copy_1_of_checkForOverlappingTravelToTimes</name>
         <label>Copy 1 of checkForOverlappingTravelToTimes</label>
-        <locationX>396</locationX>
-        <locationY>1355</locationY>
+        <locationX>836</locationX>
+        <locationY>1655</locationY>
         <defaultConnector>
-            <targetReference>addCliToCollection</targetReference>
+            <targetReference>checkForOverlap</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>no overlap</defaultConnectorLabel>
         <rules>
             <name>overlapTravelFromTime</name>
             <conditionLogic>(1 AND 2 AND 8) OR (3 AND 4 AND 7 AND 8) OR (5 AND 6 AND 8)</conditionLogic>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.EndTime__c</elementReference>
+                    <elementReference>checkForOverlap.EndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.StartTime__c</elementReference>
+                    <elementReference>checkForOverlap.StartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelToEndTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelToEndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelToStartTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelToStartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromStartTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelFromEndTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelFromEndTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.TravelFromEndTime__c</leftValueReference>
+                <leftValueReference>loop1.TravelFromEndTime__c</leftValueReference>
                 <operator>GreaterThan</operator>
                 <rightValue>
-                    <elementReference>$Record.TravelFromStartTime__c</elementReference>
+                    <elementReference>checkForOverlap.TravelFromStartTime__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.HasTravelTo__c</leftValueReference>
+                <leftValueReference>loop1.HasTravelTo__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>checkForMatching.HasTravelFrom__c</leftValueReference>
+                <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Copy_2_of_addOverlappingIdToVariable</targetReference>
+                <targetReference>addOverlappingIdToVariable3</targetReference>
             </connector>
             <label>overlapTravelFromTime</label>
         </rules>
@@ -338,20 +345,34 @@
     <formulas>
         <name>OneDayAfterDate</name>
         <dataType>Date</dataType>
-        <expression>{!$Record.Date__c} +1</expression>
+        <expression>DATEVALUE({!$Record.EndTime__c}) + 1</expression>
     </formulas>
     <formulas>
         <name>OneDayBeforeDate</name>
         <dataType>Date</dataType>
-        <expression>{!$Record.Date__c} - 1</expression>
+        <expression>DATEVALUE({!$Record.StartTime__c}) -1</expression>
     </formulas>
-    <interviewLabel>HOT_LOS_CheckForOverlapClaimLineItems {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>HOT_LOS_CheckForOverlapClaimLineItems</label>
+    <interviewLabel>HOT_LOS_CheckForOverlapClaimLineItemsV2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>HOT_LOS_CheckForOverlapClaimLineItemsV2</label>
     <loops>
-        <name>checkForMatching</name>
-        <label>checkForMatching</label>
+        <name>checkForOverlap</name>
+        <label>checkForOverlap</label>
+        <locationX>616</locationX>
+        <locationY>947</locationY>
+        <collectionReference>getClaimLineItems</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Copy_1_of_checkForOverlappingReadingTimes</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>addCliToCollection</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>loop1</name>
+        <label>loop1</label>
         <locationX>176</locationX>
-        <locationY>539</locationY>
+        <locationY>731</locationY>
         <collectionReference>getClaimLineItems</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -359,6 +380,20 @@
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>updateAll</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>setDuplicateIdFieldNull</name>
+        <label>setDuplicateIdFieldNull</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <collectionReference>getClaimLineItems</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>setNullIdDuplicatesRecord</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>loop1</targetReference>
         </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
@@ -387,7 +422,7 @@
         <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>setNullIdDuplicatesRecord</targetReference>
+            <targetReference>setDuplicateIdFieldNull</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -395,27 +430,6 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>$Record.Claimant__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Id</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Date__c</field>
-            <operator>GreaterThan</operator>
-            <value>
-                <elementReference>OneDayBeforeDate</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Date__c</field>
-            <operator>LessThan</operator>
-            <value>
-                <elementReference>OneDayAfterDate</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -426,24 +440,8 @@
         <name>updateAll</name>
         <label>updateAll</label>
         <locationX>176</locationX>
-        <locationY>1847</locationY>
-        <connector>
-            <targetReference>updateClaimLineItem</targetReference>
-        </connector>
+        <locationY>2231</locationY>
         <inputReference>clisToUpdate</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>updateClaimLineItem</name>
-        <label>updateClaimLineItem</label>
-        <locationX>176</locationX>
-        <locationY>1955</locationY>
-        <inputAssignments>
-            <field>OverlappingClaimLineItemsIds__c</field>
-            <value>
-                <elementReference>overlappingClaimLineItemsIds</elementReference>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
@@ -455,7 +453,7 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>clisToUpdate</name>
         <dataType>SObject</dataType>
