@@ -35,21 +35,37 @@ export default class Hot_claimLineItemTable extends LightningElement {
                     travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
                     link: this.createLink(x.Id),
                     hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
-                    overlappingLinks: x.OverlappingClaimLineItemsIds__c
-                        ? x.OverlappingClaimLineItemsIds__c.split(',').map((id) => {
-                              const trimmedId = id.trim();
-                              return {
-                                  id: trimmedId,
-                                  link: this.createLink(trimmedId)
-                              };
-                          })
-                        : []
+                    overlappingLinks: this.parseOverlappingIds(x.OverlappingClaimLineItemsIds__c)
                 }));
             })
             .catch((error) => {
                 this.error = true;
                 this.errorMessage = error;
             });
+    }
+    parseOverlappingIds(overlapIds) {
+        if (!overlapIds) {
+            return [];
+        }
+
+        const overlaps = overlapIds
+            .split(',')
+            .map((entry) => entry.trim())
+            .filter((entry) => entry);
+
+        const overlappingLinks = [];
+        for (let i = 0; i < overlaps.length; i += 2) {
+            const id = overlaps[i];
+            const name = overlaps[i + 1];
+            if (id && name) {
+                overlappingLinks.push({
+                    id: id,
+                    name: name,
+                    link: this.createLink(id)
+                });
+            }
+        }
+        return overlappingLinks;
     }
     createLink(Id) {
         return '/lightning/r/' + Id + '/view';
