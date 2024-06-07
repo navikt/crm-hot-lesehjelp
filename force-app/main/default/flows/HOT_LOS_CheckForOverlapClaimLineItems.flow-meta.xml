@@ -335,6 +335,16 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>OneDayAfterDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.Date__c} +1</expression>
+    </formulas>
+    <formulas>
+        <name>OneDayBeforeDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.Date__c} - 1</expression>
+    </formulas>
     <interviewLabel>HOT_LOS_CheckForOverlapClaimLineItems {!$Flow.CurrentDateTime}</interviewLabel>
     <label>HOT_LOS_CheckForOverlapClaimLineItems</label>
     <loops>
@@ -392,6 +402,20 @@
             <operator>NotEqualTo</operator>
             <value>
                 <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Date__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <elementReference>OneDayBeforeDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>OneDayAfterDate</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
