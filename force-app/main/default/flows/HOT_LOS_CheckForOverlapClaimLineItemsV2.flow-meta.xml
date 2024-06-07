@@ -4,8 +4,8 @@
     <assignments>
         <name>addCliToCollection</name>
         <label>addCliToCollection</label>
-        <locationX>616</locationX>
-        <locationY>2039</locationY>
+        <locationX>880</locationX>
+        <locationY>3515</locationY>
         <assignmentItems>
             <assignToReference>clisToUpdate</assignToReference>
             <operator>Add</operator>
@@ -18,33 +18,26 @@
         </connector>
     </assignments>
     <assignments>
-        <name>addOverlappingIdToVariable</name>
-        <label>addOverlappingIdToVariable</label>
-        <locationX>704</locationX>
-        <locationY>1163</locationY>
+        <name>Copy_1_of_addOverlappingIdToVariable</name>
+        <label>Copy 1 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>1271</locationY>
         <assignmentItems>
             <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <stringValue>,{!checkForOverlap.Id},,{!checkForOverlap.Name}</stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>checkForOverlappingTravelToTimes</targetReference>
+            <targetReference>Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>addOverlappingIdToVariable2</name>
-        <label>addOverlappingIdToVariable2</label>
-        <locationX>704</locationX>
-        <locationY>1463</locationY>
+        <name>Copy_1_of_Copy_1_of_addOverlappingIdToVariable</name>
+        <label>Copy 1 of Copy 1 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>2063</locationY>
         <assignmentItems>
             <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
@@ -52,6 +45,15 @@
                 <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Copy_1_of_Copy_3_of_addOverlappingIdToVariable</name>
+        <label>Copy 1 of Copy 3 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>2363</locationY>
         <assignmentItems>
             <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
@@ -64,10 +66,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>addOverlappingIdToVariable3</name>
-        <label>addOverlappingIdToVariable3</label>
-        <locationX>704</locationX>
-        <locationY>1763</locationY>
+        <name>Copy_2_of_Copy_1_of_addOverlappingIdToVariable</name>
+        <label>Copy 2 of Copy 1 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>2855</locationY>
         <assignmentItems>
             <assignToReference>checkForOverlap.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
@@ -75,6 +77,15 @@
                 <stringValue>,{!loop1.Id},{!loop1.Name}</stringValue>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>Copy_2_of_Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Copy_2_of_Copy_3_of_addOverlappingIdToVariable</name>
+        <label>Copy 2 of Copy 3 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>3155</locationY>
         <assignmentItems>
             <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
             <operator>Add</operator>
@@ -87,9 +98,25 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Copy_3_of_addOverlappingIdToVariable</name>
+        <label>Copy 3 of addOverlappingIdToVariable</label>
+        <locationX>1144</locationX>
+        <locationY>1571</locationY>
+        <assignmentItems>
+            <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>,{!checkForOverlap.Id},,{!checkForOverlap.Name}</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>checkForOverlappingTravelToTimes</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>setNullIdDuplicates</name>
         <label>setNullIdDuplicates</label>
-        <locationX>616</locationX>
+        <locationX>880</locationX>
         <locationY>839</locationY>
         <assignmentItems>
             <assignToReference>loop1.OverlappingClaimLineItemsIds__c</assignToReference>
@@ -115,15 +142,15 @@
     <decisions>
         <name>checkForOverlappingTravelToTimes</name>
         <label>checkForOverlappingTravelToTimes</label>
-        <locationX>836</locationX>
-        <locationY>1355</locationY>
+        <locationX>1232</locationX>
+        <locationY>1847</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_checkForOverlappingTravelToTimes</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>no overlap</defaultConnectorLabel>
         <rules>
             <name>overlapTravelToTime</name>
-            <conditionLogic>(1 AND 2 AND 7) OR (3 AND 4 AND 7 ) OR (5 AND 6 AND 7 AND 8)</conditionLogic>
+            <conditionLogic>(1 AND 2 AND 7 AND 8) OR (3 AND 4 AND 7  AND 9 AND 8) OR (5 AND 6 AND 7 AND 10 AND 8)</conditionLogic>
             <conditions>
                 <leftValueReference>loop1.TravelToStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
@@ -174,14 +201,28 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
+                <leftValueReference>checkForOverlap.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>loop1.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>checkForOverlap.HasTravelTo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>checkForOverlap.HasTravelFrom__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>addOverlappingIdToVariable2</targetReference>
+                <targetReference>Copy_1_of_ifIdExistInFieldDoNotAdd</targetReference>
             </connector>
             <label>overlapTravelToTime</label>
         </rules>
@@ -189,7 +230,7 @@
     <decisions>
         <name>Copy_1_of_checkForOverlappingReadingTimes</name>
         <label>Copy 1 of checkForOverlappingReadingTimes</label>
-        <locationX>836</locationX>
+        <locationX>1232</locationX>
         <locationY>1055</locationY>
         <defaultConnector>
             <targetReference>checkForOverlappingTravelToTimes</targetReference>
@@ -241,14 +282,14 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loop1.HasTravelTo__c</leftValueReference>
+                <leftValueReference>checkForOverlap.HasTravelTo__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
+                <leftValueReference>checkForOverlap.HasTravelFrom__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -262,7 +303,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>addOverlappingIdToVariable</targetReference>
+                <targetReference>ifIdExistInFieldDoNotAdd</targetReference>
             </connector>
             <label>Copy 1 of overlapReadingTime</label>
         </rules>
@@ -270,15 +311,15 @@
     <decisions>
         <name>Copy_1_of_checkForOverlappingTravelToTimes</name>
         <label>Copy 1 of checkForOverlappingTravelToTimes</label>
-        <locationX>836</locationX>
-        <locationY>1655</locationY>
+        <locationX>1232</locationX>
+        <locationY>2639</locationY>
         <defaultConnector>
             <targetReference>checkForOverlap</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>no overlap</defaultConnectorLabel>
         <rules>
             <name>overlapTravelFromTime</name>
-            <conditionLogic>(1 AND 2 AND 8) OR (3 AND 4 AND 7 AND 8) OR (5 AND 6 AND 8)</conditionLogic>
+            <conditionLogic>(1 AND 2 AND 7 AND 8) OR (3 AND 4 AND 7 AND 8 AND 9) OR (5 AND 6 AND 7 AND 8 AND 10)</conditionLogic>
             <conditions>
                 <leftValueReference>loop1.TravelFromStartTime__c</leftValueReference>
                 <operator>LessThan</operator>
@@ -322,23 +363,187 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loop1.HasTravelTo__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>loop1.HasTravelFrom__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>checkForOverlap.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>loop1.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>checkForOverlap.HasTravelTo__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>checkForOverlap.HasTravelFrom__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>addOverlappingIdToVariable3</targetReference>
+                <targetReference>Copy_3_of_ifIdExistInFieldDoNotAdd</targetReference>
             </connector>
             <label>overlapTravelFromTime</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Copy_1_of_Copy_2_of_ifIdExistInFieldDoNotAdd</name>
+        <label>Copy 1 of Copy 2 of ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>2255</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Copy_3_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_1_of_Copy_2_of_do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loop1.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_checkForOverlappingTravelToTimes</targetReference>
+            </connector>
+            <label>Copy 1 of Copy 2 of do exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Copy_1_of_ifIdExistInFieldDoNotAdd</name>
+        <label>Copy 1 of ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>1955</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Copy_1_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_1_of_do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>checkForOverlap.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>loop1.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
+            </connector>
+            <label>Copy 1 of do exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Copy_2_of_Copy_2_of_ifIdExistInFieldDoNotAdd</name>
+        <label>Copy 2 of Copy 2 of ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>3047</locationY>
+        <defaultConnector>
+            <targetReference>Copy_2_of_Copy_3_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_2_of_Copy_2_of_do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loop1.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>checkForOverlap</targetReference>
+            </connector>
+            <label>Copy 2 of Copy 2 of do exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Copy_2_of_ifIdExistInFieldDoNotAdd</name>
+        <label>Copy 2 of ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>1463</locationY>
+        <defaultConnector>
+            <targetReference>Copy_3_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_2_of_do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loop1.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>checkForOverlap.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>checkForOverlappingTravelToTimes</targetReference>
+            </connector>
+            <label>Copy 2 of do exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Copy_3_of_ifIdExistInFieldDoNotAdd</name>
+        <label>Copy 3 of ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>2747</locationY>
+        <defaultConnector>
+            <targetReference>Copy_2_of_Copy_1_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_3_of_do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>checkForOverlap.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>loop1.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
+            </connector>
+            <label>Copy 3 of do exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>ifIdExistInFieldDoNotAdd</name>
+        <label>ifIdExistInFieldDoNotAdd</label>
+        <locationX>1056</locationX>
+        <locationY>1163</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_addOverlappingIdToVariable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>do_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>checkForOverlap.OverlappingClaimLineItemsIds__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>loop1.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_ifIdExistInFieldDoNotAdd</targetReference>
+            </connector>
+            <label>do exist</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -357,7 +562,7 @@
     <loops>
         <name>checkForOverlap</name>
         <label>checkForOverlap</label>
-        <locationX>616</locationX>
+        <locationX>880</locationX>
         <locationY>947</locationY>
         <collectionReference>getClaimLineItems</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -440,7 +645,7 @@
         <name>updateAll</name>
         <label>updateAll</label>
         <locationX>176</locationX>
-        <locationY>2231</locationY>
+        <locationY>3707</locationY>
         <inputReference>clisToUpdate</inputReference>
     </recordUpdates>
     <start>
