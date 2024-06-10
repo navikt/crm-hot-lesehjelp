@@ -43,9 +43,6 @@
                 <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
                 {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
             </p>
-            <p if:true={cli.OverlappingClaimLineItemsIds__c}>
-                <strong>Overlappende: </strong> {cli.OverlappingClaimLineItemsIds__c} kr
-            </p>
         </div>
     </template>
     <div if:true={noClaimLineItems} class="cli-container">
