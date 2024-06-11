@@ -33,13 +33,39 @@ export default class Hot_claimLineItemTable extends LightningElement {
                     period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
                     travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
                     travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
-                    link: this.createLink(x.Id)
+                    link: this.createLink(x.Id),
+                    hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
+                    overlappingLinks: this.parseOverlappingIds(x.OverlappingClaimLineItemsIds__c)
                 }));
             })
             .catch((error) => {
                 this.error = true;
                 this.errorMessage = error;
             });
+    }
+    parseOverlappingIds(overlapIds) {
+        if (!overlapIds) {
+            return [];
+        }
+
+        const overlaps = overlapIds
+            .split(',')
+            .map((entry) => entry.trim())
+            .filter((entry) => entry);
+
+        const overlappingLinks = [];
+        for (let i = 0; i < overlaps.length; i += 2) {
+            const id = overlaps[i];
+            const name = overlaps[i + 1];
+            if (id && name) {
+                overlappingLinks.push({
+                    id: id,
+                    name: name,
+                    link: this.createLink(id)
+                });
+            }
+        }
+        return overlappingLinks;
     }
     createLink(Id) {
         return '/lightning/r/' + Id + '/view';
@@ -66,5 +92,12 @@ export default class Hot_claimLineItemTable extends LightningElement {
             formattedTime = '';
         }
         return formattedTime;
+    }
+    checkHasOverlap(overlapIds) {
+        if (overlapIds && overlapIds.length !== 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
