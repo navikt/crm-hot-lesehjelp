@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from 'lwc';
-import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
+import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.checkForOverlapClaimLineItem';
 import { refreshApex } from '@salesforce/apex';
 
 export default class Hot_claimLineItemTable extends LightningElement {
