@@ -39,6 +39,7 @@ public without sharing class HOT_ClaimLineItemController {
             SELECT
                 Id,
                 Name,
+                Claimant__c,
                 Date__c,
                 StartTime__c,
                 EndTime__c,
