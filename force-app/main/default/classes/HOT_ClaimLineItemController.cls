@@ -90,7 +90,6 @@ public without sharing class HOT_ClaimLineItemController {
       WHERE Claim__r.Claimant__c = :claim.Claimant__c
     ];
 
-    //FINN YTTERPUNKTENE. YTTERSTE START OG SENESTE SLUTTID FØR DU FORSETTER MED LOOPER
     for (HOT_ClaimLineItem__c cli : claimLineItemsToReturn) {
       for (HOT_ClaimLineItem__c cli2 : claimLineItemsToCheckForOverlap) {
         if (
