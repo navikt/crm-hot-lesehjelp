@@ -35,11 +35,6 @@ public without sharing class HOT_ClaimLineItemController {
     }
     @AuraEnabled(cacheable=false)
     public static List<HOT_ClaimLineItem__c> checkForOverlapClaimLineItem(String recordId) {
-        HOT_Claim__c claim = [
-            SELECT Id, Claimant__c
-            FROM HOT_Claim__c
-            WHERE Id = :recordId
-        ];
         List<HOT_ClaimLineItem__c> claimLineItemsToReturn = [
             SELECT
                 Id,
@@ -67,7 +62,7 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToFromAddresses__c,
                 OverlappingClaimLineItemsIds__c
             FROM HOT_ClaimLineItem__c
-            WHERE Claim__c = :claim.Id
+            WHERE Claim__c = :recordId
         ];
 
         List<HOT_ClaimLineItem__c> claimLineItemsToCheckForOverlap = [
@@ -85,7 +80,7 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToStartTime__c,
                 OverlappingClaimLineItemsIds__c
             FROM HOT_ClaimLineItem__c
-            WHERE Claim__r.Claimant__c = :claim.Claimant__c
+            WHERE Claim__r.Claimant__c = :claimLineItemsToReturn[0].Claimant__c
         ];
 
         for (HOT_ClaimLineItem__c cli : claimLineItemsToReturn) {
