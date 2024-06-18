@@ -21,7 +21,7 @@
 
 @media only screen and (max-device-width: 768px) {
     .listClass {
-        padding: 0.2vw;
+        padding: 2vw;
         align-items: start;
         padding-bottom: 1vw;
         display: flex;
@@ -73,6 +73,11 @@
     margin-top: 1vw;
     padding: 1vw;
     background-color: #e6f0ff;
+}
+@media only screen and (max-device-width: 768px) {
+    .travelTimesContainer {
+        padding: 2vw;
+    }
 }
 .totalDistanceContainer {
     margin-top: 1vw;
