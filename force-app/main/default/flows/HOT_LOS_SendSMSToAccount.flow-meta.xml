@@ -66,6 +66,13 @@
                 <stringValue>Message</stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>sms.Recipient__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>getPersonRecord.INT_KrrMobilePhone__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>createSMS</targetReference>
         </connector>

@@ -1,5 +1,5 @@
 public without sharing class HOT_EntitlementController {
-     public static void checkIfNewEntitlementsWillOverlap(List<HOT_Entitlement__c> entitlements) {
+    public static void checkIfNewEntitlementsWillOverlap(List<HOT_Entitlement__c> entitlements) {
         Set<Id> accountIds = new Set<Id>();
         for (HOT_Entitlement__c entitlement : entitlements) {
             accountIds.add(entitlement.Account__c);
@@ -14,7 +14,9 @@ public without sharing class HOT_EntitlementController {
                 for (HOT_Entitlement__c insertedEntitlement : entitlements) {
                     if (
                         insertedEntitlement.FromDate__c <= existingEntitlement.ToDate__c &&
-                        insertedEntitlement.ToDate__c >= existingEntitlement.FromDate__c && insertedEntitlement.Type__c == existingEntitlement.Type__c
+                        insertedEntitlement.ToDate__c >= existingEntitlement.FromDate__c &&
+                        insertedEntitlement.Type__c == existingEntitlement.Type__c &&
+                        existingEntitlement.Account__c == insertedEntitlement.Account__c
                     ) {
                         insertedEntitlement.addError('Vedtaket er overlappende med ' + existingEntitlement.Name);
                     }
