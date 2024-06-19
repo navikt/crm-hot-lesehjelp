@@ -213,7 +213,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Domain__c|EQUALS|[&quot;HOT&quot;]</value>
+                            <value>Domain__c|EQUALS|[&quot;HOT_LOS&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
