@@ -15,8 +15,8 @@ sf package install --package 04t7U000000Y3I7QAK --no-prompt --installation-key $
 # Installerer crm-henvendelse-base ver. 0.18
 sf package install --package 04t7U000000LPPAQA4 --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installer crm-platform-integration ver. 0.107
-sf package install --package 04t7U000000Y2dsQAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installer crm-platform-integration ver. 0.112
+sf package install --package 04t7U000000Y4QNQA0 --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
 # Dytt kildekoden til scratch org'en
 sf project deploy start
