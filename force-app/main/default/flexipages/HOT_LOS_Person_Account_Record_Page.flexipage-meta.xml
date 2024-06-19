@@ -21,6 +21,9 @@
                         <valueListItems>
                             <value>Share</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Account.HOT_LOSSendSMS</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -424,8 +427,7 @@
         </properties>
         <properties>
             <name>saveOptions</name>
-            <value>
-                [{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
+            <value>[{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;NONE&quot;}]</value>
         </properties>
     </template>
     <type>RecordPage</type>
