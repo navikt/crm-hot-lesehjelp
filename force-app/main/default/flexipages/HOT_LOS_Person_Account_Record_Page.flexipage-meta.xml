@@ -21,9 +21,6 @@
                         <valueListItems>
                             <value>Share</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>Account.HOT_LOSSendSMS</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
