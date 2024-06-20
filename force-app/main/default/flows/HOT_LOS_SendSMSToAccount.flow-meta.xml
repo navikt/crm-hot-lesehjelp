@@ -49,7 +49,7 @@
             <assignToReference>sms.Domain__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>HOT_LOS</stringValue>
+                <stringValue>HOT</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -63,7 +63,7 @@
             <assignToReference>sms.Type__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Message</stringValue>
+                <stringValue>LOS Manually Created</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
