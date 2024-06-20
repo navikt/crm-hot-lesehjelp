@@ -21,9 +21,6 @@
                         <valueListItems>
                             <value>Share</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>Account.HOT_LOSSendSMS</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -213,7 +210,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Domain__c|EQUALS|[&quot;HOT_LOS&quot;]</value>
+                            <value>Domain__c|EQUALS|[&quot;HOT&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
