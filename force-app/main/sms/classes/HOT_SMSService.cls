@@ -5,7 +5,7 @@ public without sharing class HOT_SMSService {
 
         for (HOT_Claim__c claim : claims.values()) {
             SMS__c sms = new SMS__c();
-            sms.Domain__c = 'HOT_LOS';
+            sms.Domain__c = 'HOT';
             sms.Type__c = 'New Claim';
             sms.Account__c = claim.Account__c;
             sms.Recipient__c = claim.Account__r.CRM_Person__r.INT_KrrMobilePhone__c;
@@ -30,7 +30,7 @@ public without sharing class HOT_SMSService {
 
         for (HOT_Claim__c claim : claims) {
             SMS__c sms = new SMS__c();
-            sms.Domain__c = 'HOT_LOS';
+            sms.Domain__c = 'HOT';
             sms.Type__c = 'Claim Declined By User';
             sms.Account__c = claim.Claimant__c;
             sms.Recipient__c = claim.Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c;
@@ -55,7 +55,7 @@ public without sharing class HOT_SMSService {
 
         for (HOT_Claim__c claim : claims) {
             SMS__c sms = new SMS__c();
-            sms.Domain__c = 'HOT_LOS';
+            sms.Domain__c = 'HOT';
             sms.Type__c = 'Claim Declined By NAV';
             sms.Account__c = claim.Claimant__c;
             sms.Recipient__c = claim.Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c;
