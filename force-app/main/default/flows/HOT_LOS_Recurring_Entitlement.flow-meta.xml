@@ -2,10 +2,33 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>61.0</apiVersion>
     <assignments>
+        <name>Copy_1_of_updateEntitlement</name>
+        <label>Copy 1 of updateEntitlement</label>
+        <locationX>528</locationX>
+        <locationY>576</locationY>
+        <assignmentItems>
+            <assignToReference>createEntitlements.Is_recurring__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>entitlementsToUpdate</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>createEntitlements</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>createEntitlements</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>newEntitlementFullYear</name>
         <label>newEntitlementFullYear</label>
         <locationX>264</locationX>
-        <locationY>468</locationY>
+        <locationY>576</locationY>
         <assignmentItems>
             <assignToReference>newEntitlementRecord.Is_recurring__c</assignToReference>
             <operator>Assign</operator>
@@ -77,7 +100,7 @@
         <name>updateEntitlement</name>
         <label>updateEntitlement</label>
         <locationX>264</locationX>
-        <locationY>576</locationY>
+        <locationY>684</locationY>
         <assignmentItems>
             <assignToReference>createEntitlements.HasBeenRecurred__c</assignToReference>
             <operator>Assign</operator>
@@ -96,6 +119,31 @@
             <targetReference>createEntitlements</targetReference>
         </connector>
     </assignments>
+    <decisions>
+        <name>checkIfDead</name>
+        <label>checkIfDead</label>
+        <locationX>396</locationX>
+        <locationY>468</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_updateEntitlement</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>isNotDead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>createEntitlements.Account__r.CRM_Person__r.INT_IsDeceased__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>newEntitlementFullYear</targetReference>
+            </connector>
+            <label>isNotDead</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>add1YearEnd31DecemberToDate</name>
@@ -125,7 +173,7 @@
         <collectionReference>getEntitlements</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
-            <targetReference>newEntitlementFullYear</targetReference>
+            <targetReference>checkIfDead</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>createEntitlementRecords</targetReference>
@@ -154,7 +202,7 @@
         <name>createEntitlementRecords</name>
         <label>createEntitlementRecords</label>
         <locationX>176</locationX>
-        <locationY>768</locationY>
+        <locationY>960</locationY>
         <connector>
             <targetReference>updateExistingEntitlements</targetReference>
         </connector>
@@ -206,7 +254,7 @@
         <name>updateExistingEntitlements</name>
         <label>updateExistingEntitlements</label>
         <locationX>176</locationX>
-        <locationY>876</locationY>
+        <locationY>1068</locationY>
         <inputReference>entitlementsToUpdate</inputReference>
     </recordUpdates>
     <start>
