@@ -2,8 +2,8 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>61.0</apiVersion>
     <assignments>
-        <name>newEntitlement</name>
-        <label>newEntitlement</label>
+        <name>newEntitlementFullYear</name>
+        <label>newEntitlementFullYear</label>
         <locationX>264</locationX>
         <locationY>468</locationY>
         <assignmentItems>
@@ -45,14 +45,14 @@
             <assignToReference>newEntitlementRecord.ToDate__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>add1YearToToDate</elementReference>
+                <elementReference>add1YearEnd31DecemberToDate</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>newEntitlementRecord.FromDate__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>add1YearToFromDate</elementReference>
+                <elementReference>add1YearStart1JanuaryFromDate</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -98,66 +98,22 @@
     </assignments>
     <environments>Default</environments>
     <formulas>
-        <name>add1YearToFromDate</name>
+        <name>add1YearEnd31DecemberToDate</name>
         <dataType>Date</dataType>
         <expression>DATE(
-  YEAR({!createEntitlements.FromDate__c}) + 1,
-  MONTH({!createEntitlements.FromDate__c}),
-  CASE(
-    MONTH({!createEntitlements.FromDate__c}),
-    2, IF(
-         DAY({!createEntitlements.FromDate__c}) &gt; 28,
-         IF(
-           OR(
-             MOD(YEAR({!createEntitlements.FromDate__c}) + 1, 400) = 0,
-             AND(
-               MOD(YEAR({!createEntitlements.FromDate__c}) + 1, 100) &lt;&gt; 0,
-               MOD(YEAR({!createEntitlements.FromDate__c}) + 1, 4) = 0
-             )
-           ),
-           29,
-           28
-         ),
-         DAY({!createEntitlements.FromDate__c})
-       ),
-    4, IF(DAY({!createEntitlements.FromDate__c}) &gt; 30, 30, DAY({!createEntitlements.FromDate__c})),
-    6, IF(DAY({!createEntitlements.FromDate__c}) &gt; 30, 30, DAY({!createEntitlements.FromDate__c})),
-    9, IF(DAY({!createEntitlements.FromDate__c}) &gt; 30, 30, DAY({!createEntitlements.FromDate__c})),
-    11, IF(DAY({!createEntitlements.FromDate__c}) &gt; 30, 30, DAY({!createEntitlements.FromDate__c})),
-    DAY({!createEntitlements.FromDate__c})
-  )
-)</expression>
+            YEAR({!createEntitlements.ToDate__c}) + 1,
+            12,
+            31
+            )</expression>
     </formulas>
     <formulas>
-        <name>add1YearToToDate</name>
+        <name>add1YearStart1JanuaryFromDate</name>
         <dataType>Date</dataType>
         <expression>DATE(
-  YEAR({!createEntitlements.ToDate__c}) + 1,
-  MONTH({!createEntitlements.ToDate__c}),
-  CASE(
-    MONTH({!createEntitlements.ToDate__c}),
-    2, IF(
-         DAY({!createEntitlements.ToDate__c}) &gt; 28,
-         IF(
-           OR(
-             MOD(YEAR({!createEntitlements.ToDate__c}) + 1, 400) = 0,
-             AND(
-               MOD(YEAR({!createEntitlements.ToDate__c}) + 1, 100) &lt;&gt; 0,
-               MOD(YEAR({!createEntitlements.ToDate__c}) + 1, 4) = 0
-             )
-           ),
-           29,
-           28
-         ),
-         DAY({!createEntitlements.ToDate__c})
-       ),
-    4, IF(DAY({!createEntitlements.ToDate__c}) &gt; 30, 30, DAY({!createEntitlements.ToDate__c})),
-    6, IF(DAY({!createEntitlements.ToDate__c}) &gt; 30, 30, DAY({!createEntitlements.ToDate__c})),
-    9, IF(DAY({!createEntitlements.ToDate__c}) &gt; 30, 30, DAY({!createEntitlements.ToDate__c})),
-    11, IF(DAY({!createEntitlements.ToDate__c}) &gt; 30, 30, DAY({!createEntitlements.ToDate__c})),
-    DAY({!createEntitlements.ToDate__c})
-  )
-)</expression>
+            YEAR({!createEntitlements.FromDate__c}) + 1,
+            1,
+            1
+            )</expression>
     </formulas>
     <interviewLabel>HOT LOS Recurring Entitlement {!$Flow.CurrentDateTime}</interviewLabel>
     <label>HOT LOS Recurring Entitlement</label>
@@ -169,7 +125,7 @@
         <collectionReference>getEntitlements</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
-            <targetReference>newEntitlement</targetReference>
+            <targetReference>newEntitlementFullYear</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>createEntitlementRecords</targetReference>
@@ -233,6 +189,13 @@
             <operator>EqualTo</operator>
             <value>
                 <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Dagligliv</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
