@@ -21,6 +21,9 @@
                         <valueListItems>
                             <value>Share</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Account.HOT_LOSSendSMS</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -211,6 +214,9 @@
                     <valueList>
                         <valueListItems>
                             <value>Domain__c|EQUALS|[&quot;HOT&quot;]</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Type__c|EQUALS|[&quot;New Claim&quot;,&quot;Claim Declined By NAV&quot;,&quot;Claim Declined By User&quot;,&quot;LOS Manually Created&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
