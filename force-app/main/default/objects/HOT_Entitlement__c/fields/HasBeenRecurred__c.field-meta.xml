@@ -3,7 +3,7 @@
     <fullName>HasBeenRecurred__c</fullName>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
-    <label>Has Been Recurredd</label>
+    <label>Has Been Recurred</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
