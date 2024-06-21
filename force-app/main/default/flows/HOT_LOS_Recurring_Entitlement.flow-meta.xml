@@ -135,7 +135,7 @@
                 <leftValueReference>createEntitlements.Account__r.CRM_Person__r.INT_IsDeceased__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>true</booleanValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -265,8 +265,8 @@
         </connector>
         <schedule>
             <frequency>Daily</frequency>
-            <startDate>2024-06-19</startDate>
-            <startTime>13:30:00.000Z</startTime>
+            <startDate>2024-06-21</startDate>
+            <startTime>11:45:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
