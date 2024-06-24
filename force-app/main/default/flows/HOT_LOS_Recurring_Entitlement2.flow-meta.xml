@@ -2,26 +2,10 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>61.0</apiVersion>
     <assignments>
-        <name>addAccountToList</name>
-        <label>addAccountToList</label>
-        <locationX>264</locationX>
+        <name>newEntitlementFullYear</name>
+        <label>newEntitlementFullYear</label>
+        <locationX>50</locationX>
         <locationY>468</locationY>
-        <assignmentItems>
-            <assignToReference>accountIdsText</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>loopThroughAccounts.Account__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>loopThroughAccounts</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Copy_2_of_newEntitlementFullYear</name>
-        <label>Copy 2 of newEntitlementFullYear</label>
-        <locationX>264</locationX>
-        <locationY>984</locationY>
         <assignmentItems>
             <assignToReference>newEntitlementRecord.Is_recurring__c</assignToReference>
             <operator>Assign</operator>
@@ -33,7 +17,7 @@
             <assignToReference>newEntitlementRecord.Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>createEntitlements.Account__c</elementReference>
+                <elementReference>$Record.Account__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -75,7 +59,7 @@
             <assignToReference>newEntitlementRecord.Type__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>createEntitlements.Type__c</elementReference>
+                <elementReference>$Record.Type__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -86,76 +70,30 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>updateEntitlement</targetReference>
+            <targetReference>existingEntitlements</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>removeNewEntitlementToAvoidOverlap</name>
+        <name>removeNewEntitlementToAvoidOverlap2</name>
         <label>removeNewEntitlementToAvoidOverlap</label>
-        <locationX>704</locationX>
-        <locationY>1692</locationY>
+        <locationX>138</locationX>
+        <locationY>792</locationY>
         <assignmentItems>
             <assignToReference>newEntitlements</assignToReference>
             <operator>RemoveAll</operator>
             <value>
-                <elementReference>newEntitlementsLoop</elementReference>
+                <elementReference>newEntitlementRecord</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference>existingEntitlements</targetReference>
         </connector>
     </assignments>
-    <assignments>
-        <name>updateEntitlement</name>
-        <label>updateEntitlement</label>
-        <locationX>264</locationX>
-        <locationY>1092</locationY>
-        <assignmentItems>
-            <assignToReference>createEntitlements.HasBeenRecurred__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>entitlementsToUpdate</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>createEntitlements</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>createEntitlements</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>updateEntitlementWhenDead</name>
-        <label>updateEntitlementWhenDead</label>
-        <locationX>528</locationX>
-        <locationY>984</locationY>
-        <assignmentItems>
-            <assignToReference>createEntitlements.Is_recurring__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>entitlementsToUpdate</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>createEntitlements</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>createEntitlements</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <name>checkForOverlap</name>
         <label>checkForOverlap</label>
-        <locationX>836</locationX>
-        <locationY>1584</locationY>
+        <locationX>270</locationX>
+        <locationY>684</locationY>
         <defaultConnector>
             <targetReference>existingEntitlements</targetReference>
         </defaultConnector>
@@ -164,35 +102,28 @@
             <name>hasOverlap</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>existingEntitlements.Account__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>newEntitlementsLoop.Account__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>existingEntitlements.Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>newEntitlementsLoop.Type__c</elementReference>
+                    <elementReference>newEntitlementRecord.Type__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>existingEntitlements.FromDate__c</leftValueReference>
                 <operator>LessThanOrEqualTo</operator>
                 <rightValue>
-                    <elementReference>newEntitlementsLoop.ToDate__c</elementReference>
+                    <elementReference>newEntitlementRecord.ToDate__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>existingEntitlements.ToDate__c</leftValueReference>
                 <operator>GreaterThanOrEqualTo</operator>
                 <rightValue>
-                    <elementReference>newEntitlementsLoop.FromDate__c</elementReference>
+                    <elementReference>newEntitlementRecord.FromDate__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>removeNewEntitlementToAvoidOverlap</targetReference>
+                <targetReference>removeNewEntitlementToAvoidOverlap2</targetReference>
             </connector>
             <label>hasOverlap</label>
         </rules>
@@ -200,24 +131,24 @@
     <decisions>
         <name>checkIfDead</name>
         <label>checkIfDead</label>
-        <locationX>396</locationX>
-        <locationY>876</locationY>
+        <locationX>182</locationX>
+        <locationY>360</locationY>
         <defaultConnector>
             <targetReference>updateEntitlementWhenDead</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>isNotDead</name>
+            <name>isNotDeadCheck2</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>createEntitlements.Account__r.CRM_Person__r.INT_IsDeceased__c</leftValueReference>
+                <leftValueReference>$Record.Account__r.CRM_Person__r.INT_IsDeceased__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Copy_2_of_newEntitlementFullYear</targetReference>
+                <targetReference>newEntitlementFullYear</targetReference>
             </connector>
             <label>isNotDead</label>
         </rules>
@@ -227,7 +158,7 @@
         <name>add1YearEnd31DecemberToDate</name>
         <dataType>Date</dataType>
         <expression>DATE(
-            YEAR({!createEntitlements.ToDate__c}) + 1,
+            YEAR({!$Record.ToDate__c}) + 1,
             12,
             31
             )</expression>
@@ -236,64 +167,22 @@
         <name>add1YearStart1JanuaryFromDate</name>
         <dataType>Date</dataType>
         <expression>DATE(
-            YEAR({!createEntitlements.FromDate__c}) + 1,
+            YEAR({!$Record.FromDate__c}) + 1,
             1,
             1
             )</expression>
     </formulas>
-    <interviewLabel>HOT LOS Recurring Entitlement {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>HOT LOS Recurring Entitlement</label>
-    <loops>
-        <name>createEntitlements</name>
-        <label>createEntitlements</label>
-        <locationX>176</locationX>
-        <locationY>768</locationY>
-        <collectionReference>getEntitlements</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>checkIfDead</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>newEntitlementsLoop</targetReference>
-        </noMoreValuesConnector>
-    </loops>
+    <interviewLabel>HOT LOS Recurring Entitlement2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>HOT LOS Recurring Entitlement2</label>
     <loops>
         <name>existingEntitlements</name>
         <label>existingEntitlements</label>
-        <locationX>616</locationX>
-        <locationY>1476</locationY>
+        <locationX>50</locationX>
+        <locationY>576</locationY>
         <collectionReference>getOtherEntitlements</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>checkForOverlap</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>newEntitlementsLoop</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>loopThroughAccounts</name>
-        <label>loopThroughAccounts</label>
-        <locationX>176</locationX>
-        <locationY>360</locationY>
-        <collectionReference>getEntitlements</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>addAccountToList</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>getOtherEntitlements</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>newEntitlementsLoop</name>
-        <label>newEntitlementsLoop</label>
-        <locationX>176</locationX>
-        <locationY>1368</locationY>
-        <collectionReference>newEntitlements</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>existingEntitlements</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>createEntitlementRecords</targetReference>
@@ -321,32 +210,69 @@
     <recordCreates>
         <name>createEntitlementRecords</name>
         <label>createEntitlementRecords</label>
-        <locationX>176</locationX>
-        <locationY>2052</locationY>
+        <locationX>50</locationX>
+        <locationY>1068</locationY>
         <connector>
             <targetReference>updateExistingEntitlements</targetReference>
         </connector>
         <inputReference>newEntitlements</inputReference>
     </recordCreates>
     <recordLookups>
-        <name>getEntitlements</name>
-        <label>getRecurringEntitlements</label>
-        <locationX>176</locationX>
+        <name>getOtherEntitlements</name>
+        <label>getOtherEntitlements</label>
+        <locationX>182</locationX>
         <locationY>252</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>loopThroughAccounts</targetReference>
+            <targetReference>checkIfDead</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Account__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>HOT_Entitlement__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>updateEntitlementWhenDead</name>
+        <label>updateEntitlementWhenDead</label>
+        <locationX>314</locationX>
+        <locationY>468</locationY>
+        <inputAssignments>
+            <field>Is_recurring__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>updateExistingEntitlements</name>
+        <label>updateExistingEntitlements</label>
+        <locationX>50</locationX>
+        <locationY>1176</locationY>
+        <inputAssignments>
+            <field>HasBeenRecurred__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>getOtherEntitlements</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>AboutToExpire__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Is_recurring__c</field>
             <operator>EqualTo</operator>
             <value>
                 <booleanValue>true</booleanValue>
@@ -366,44 +292,14 @@
                 <stringValue>Dagligliv</stringValue>
             </value>
         </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>HOT_Entitlement__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>getOtherEntitlements</name>
-        <label>getOtherEntitlements</label>
-        <locationX>176</locationX>
-        <locationY>660</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>createEntitlements</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
         <filters>
-            <field>Account__c</field>
-            <operator>In</operator>
+            <field>Is_recurring__c</field>
+            <operator>EqualTo</operator>
             <value>
-                <elementReference>accountIdsText</elementReference>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>HOT_Entitlement__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>updateExistingEntitlements</name>
-        <label>updateExistingEntitlements</label>
-        <locationX>176</locationX>
-        <locationY>2160</locationY>
-        <inputReference>entitlementsToUpdate</inputReference>
-    </recordUpdates>
-    <start>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>getEntitlements</targetReference>
-        </connector>
         <schedule>
             <frequency>Daily</frequency>
             <startDate>2024-06-21</startDate>
@@ -411,7 +307,7 @@
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>accountIds</name>
         <dataType>SObject</dataType>
