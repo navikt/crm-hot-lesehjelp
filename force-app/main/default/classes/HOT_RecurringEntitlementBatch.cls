@@ -14,7 +14,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
     }
 
     public Database.QueryLocator start(Database.BatchableContext bc) {
-        String query = 'SELECT Id, FromDate__c, ToDate__c, HasBeenRecurred__c, Type__c, Account__c, Account__r.CRM_Person__r.INT_IsDeceased__c FROM HOT_Entitlement__c WHERE HasBeenRecurred__c=false AND Type__c=\'Dagligliv\' AND Is_recurring__c=true';
+        String query = 'SELECT Id, FromDate__c, ToDate__c, HasBeenRecurred__c, Type__c, Account__c, Account__r.CRM_Person__r.INT_IsDeceased__c FROM HOT_Entitlement__c WHERE HasBeenRecurred__c=false AND Type__c=\'Dagligliv\' AND Is_recurring__c=true AND AboutToExpire__c=true';
         return Database.getQueryLocator(query);
     }
 
