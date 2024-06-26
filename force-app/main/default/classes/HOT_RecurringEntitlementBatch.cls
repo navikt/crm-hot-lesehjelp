@@ -129,7 +129,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
                     '\nAntall vedtak ikke opprettet pga overlappende tider: ' +
                     notCreatedDueToOverlapCount
             );
-            notification.setNotificationTypeId(getCustomNotificationType('HOT_ClaimNotification').Id);
+            notification.setNotificationTypeId(getCustomNotificationType('HOT_RecurringEntitlementJob').Id);
             String landingpage =
                 '{' +
                 '  "type": "standard__objectPage", ' +
