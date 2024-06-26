@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AboutToExpire__c</fullName>
     <externalId>false</externalId>
-    <formula>ToDate__c = TODAY()</formula>
+    <formula>ToDate__c &gt; ADDMONTHS(TODAY(), -2)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>About To Expire</label>
     <trackHistory>false</trackHistory>

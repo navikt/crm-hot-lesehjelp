@@ -4,7 +4,7 @@
         <name>batch_job</name>
         <label>batch job</label>
         <locationX>176</locationX>
-        <locationY>242</locationY>
+        <locationY>650</locationY>
         <actionName>HOT_RecurringEntitlementBatch</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -15,9 +15,39 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>61.0</apiVersion>
+    <assignments>
+        <name>addToCount</name>
+        <label>addToCount</label>
+        <locationX>264</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>numberOfEntitlementsToBeRecurred</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>count</targetReference>
+        </connector>
+    </assignments>
     <environments>Default</environments>
     <interviewLabel>HOT_LOS_RecurringEntitlementScreenFlow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>HOT_LOS_RecurringEntitlementScreenFlow</label>
+    <loops>
+        <name>count</name>
+        <label>count</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <collectionReference>getAllRecurringEntitlements</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>addToCount</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>firstScreen</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -37,11 +67,46 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordLookups>
+        <name>getAllRecurringEntitlements</name>
+        <label>getAllRecurringEntitlements</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>count</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AboutToExpire__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Is_recurring__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>HasBeenRecurred__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>HOT_Entitlement__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <screens>
         <name>firstScreen</name>
         <label>firstScreen</label>
         <locationX>176</locationX>
-        <locationY>134</locationY>
+        <locationY>542</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -50,23 +115,8 @@
         </connector>
         <fields>
             <name>firstScreenMessage</name>
-            <fieldText>&lt;p&gt;Denne jobben fornyer Dagligliv vedtak med 1 år.&lt;/p&gt;&lt;p&gt;Vedtakene vil få 120 timer hver med start og slutt dato 1. Januar - 31 Desember året etter opprinnelig vedtak som er markert til fornyelse.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Marker checkboxen under og trykk neste for å starte jobben.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Det er {!numberOfEntitlementsToBeRecurred} vedtak klart til å bli fornyet.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Denne jobben fornyer Dagligliv vedtak med 1 år.&lt;/p&gt;&lt;p&gt;Vedtakene vil få 120 timer hver med start og slutt dato 1. Januar - 31 Desember året etter opprinnelig vedtak som er markert til fornyelse.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Marker checkboxen under og trykk neste for å starte jobben.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>startBatchCheckbox</name>
-            <dataType>Boolean</dataType>
-            <defaultValue>
-                <booleanValue>false</booleanValue>
-            </defaultValue>
-            <fieldText>Jeg ønsker å fornye vedtakene</fieldText>
-            <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <validationRule>
-                <errorMessage>&lt;p&gt;Marker checkbox for å kjøre jobben.&lt;/p&gt;</errorMessage>
-                <formulaExpression>{!startBatchCheckbox}==true</formulaExpression>
-            </validationRule>
         </fields>
         <nextOrFinishButtonLabel>Neste</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -76,7 +126,7 @@
         <name>lastScreen</name>
         <label>lastScreen</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>758</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -92,8 +142,19 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>firstScreen</targetReference>
+            <targetReference>getAllRecurringEntitlements</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>numberOfEntitlementsToBeRecurred</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
 </Flow>
