@@ -115,7 +115,7 @@
         </connector>
         <fields>
             <name>firstScreenMessage</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Det er {!numberOfEntitlementsToBeRecurred} vedtak klart til å bli fornyet.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Denne jobben fornyer Dagligliv vedtak med 1 år.&lt;/p&gt;&lt;p&gt;Vedtakene vil få 120 timer hver med start og slutt dato 1. Januar - 31 Desember året etter opprinnelig vedtak som er markert til fornyelse.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Marker checkboxen under og trykk neste for å starte jobben.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Det er {!numberOfEntitlementsToBeRecurred} vedtak klart til å bli fornyet.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Denne jobben fornyer Dagligliv vedtak med 1 år.&lt;/p&gt;&lt;p&gt;Vedtakene vil få 120 timer hver med start og slutt dato 1. Januar - 31 Desember året etter opprinnelig vedtak som er markert til fornyelse.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Trykk neste for å starte jobben.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Neste</nextOrFinishButtonLabel>
