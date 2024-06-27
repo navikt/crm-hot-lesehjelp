@@ -302,6 +302,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Entitlement__c.AboutToExpire__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Entitlement__c.Account__c</field>
         <readable>true</readable>
@@ -324,6 +329,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Entitlement__c.FromDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Entitlement__c.HasBeenRecurred__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
