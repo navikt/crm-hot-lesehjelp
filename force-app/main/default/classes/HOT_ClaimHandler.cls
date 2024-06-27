@@ -6,7 +6,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
         List<Id> claimIds = new List<Id>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
             accountIds.add(claim.Claimant__c);
-            if(claim.IsLos__c==false){
+            if (claim.IsLos__c == false) {
                 notifyNAVNotRegisteredReader.add(claim.Id);
             }
             claimIds.add(claim.Id);
@@ -31,10 +31,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
 
         List<HOT_Claim__c> updatedClaims = new List<HOT_Claim__c>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
-            if (
-                (triggerOldMap.get(claim.Id).get('Status__c') == 'Sent') &&
-                (claim.Status__c == 'Declined by user')
-            ) {
+            if ((triggerOldMap.get(claim.Id).get('Status__c') == 'Sent') && (claim.Status__c == 'Declined by user')) {
                 claimsToNotifyUserOnDeclinedStatus.add(claim);
             }
             if (

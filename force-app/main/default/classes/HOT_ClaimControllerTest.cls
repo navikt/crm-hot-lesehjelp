@@ -409,9 +409,9 @@ public class HOT_ClaimControllerTest {
         cli.TravelFromStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
         cli.TravelFromEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(14, 0, 0, 0));
         cli.TravelDistance__c = 10;
-        cli.ExpensesPublicTransport__c=10;
-        cli.ExpensesParking__c=10;
-        cli.ExpensesToll__c=0;
+        cli.ExpensesPublicTransport__c = 10;
+        cli.ExpensesParking__c = 10;
+        cli.ExpensesToll__c = 0;
         insert cli;
         Test.startTest();
         List<Map<String, String>> times = HOT_ClaimController.getTimes(claim.Id);
