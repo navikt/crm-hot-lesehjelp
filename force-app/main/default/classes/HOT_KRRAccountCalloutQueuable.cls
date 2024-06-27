@@ -65,8 +65,7 @@ public without sharing class HOT_KRRAccountCalloutQueuable implements Queueable,
             LoggerUtility logger = new LoggerUtility();
             if (!accounts.isEmpty()) {
                 logger.exception(e, accounts[0], CRM_ApplicationDomain.Domain.HOT);
-            }
-            else{
+            } else {
                 logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
             }
             logger.publish();
