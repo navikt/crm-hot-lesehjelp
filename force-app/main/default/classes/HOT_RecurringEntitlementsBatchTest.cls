@@ -10,6 +10,7 @@ public class HOT_RecurringEntitlementsBatchTest {
 
         HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
         entitlement.Type__c = 'Dagligliv';
+        entitlement.EntitledHoursAlreadyUsed__c = 12;
         entitlement.Is_recurring__c = true;
         insert entitlement;
     }
@@ -19,10 +20,31 @@ public class HOT_RecurringEntitlementsBatchTest {
         HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
         Database.executeBatch(batchJob, 10);
         Test.stopTest();
-        List<HOT_Entitlement__c> allEntitlements = [SELECT Id FROM HOT_Entitlement__c];
-        List<HOT_Entitlement__c> oldEntitlement = [SELECT Id FROM HOT_Entitlement__c WHERE HasBeenRecurred__c = TRUE];
+        Date today = Date.today();
+        Date firstDayJanuaryNextYear = Date.newInstance(today.year() + 1, 1, 1);
+        Date lastDayDecemberNextYear = Date.newInstance(today.year() + 1, 12, 31);
+        List<HOT_Entitlement__c> allEntitlements = [
+            SELECT Id, Name, ToDate__c, FromDate__c, HasBeenRecurred__c, EntitledHoursAlreadyUsed__c
+            FROM HOT_Entitlement__c
+        ];
 
         System.assertEquals(2, allEntitlements.size(), 'Entitlement did not get recurred');
-        System.assertEquals(1, oldEntitlement.size(), 'Old entitlement dit not get updated');
+        for (HOT_Entitlement__c entitlement : allEntitlements) {
+            if (entitlement.EntitledHoursAlreadyUsed__c != 12) {
+                System.assertEquals(
+                    firstDayJanuaryNextYear,
+                    entitlement.FromDate__c,
+                    'New entitlement did not get correct date'
+                );
+                System.assertEquals(
+                    lastDayDecemberNextYear,
+                    entitlement.ToDate__c,
+                    'New entitlement did not get correct date'
+                );
+            }
+            if (entitlement.EntitledHoursAlreadyUsed__c ==12) {
+                System.assertEquals(true, entitlement.HasBeenRecurred__c, 'Old entitlement dit not get updated');
+            }
+        }
     }
 }
