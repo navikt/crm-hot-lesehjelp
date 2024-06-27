@@ -19,12 +19,12 @@
                                     <p><strong>{entitlement.Type__c}</strong></p>
                                     <p>Periode: {entitlement.period}</p>
                                 </div>
-                                <p if:true={entitlement.Is_recurring__c}>
-                                    Dette vedtaket fornyes automatisk etter perioden.
-                                </p>
                                 <p>Vedtaket har {entitlement.EntitledHours__c} timer.</p>
                                 <p>Antall timer med godkjente krav: {entitlement.EntitledHoursUsed__c} timer.</p>
                                 <br />
+                                <p class="status yellow" if:true={entitlement.isRecurring}>
+                                    Vedtaket vil bli fornyet hvert år etter perioden er over.
+                                </p>
                             </div>
                         </template>
                     </div>

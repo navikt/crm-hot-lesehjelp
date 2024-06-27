@@ -46,3 +46,12 @@ p {
         width: 100%;
     }
 }
+.status {
+    padding: 0.2rem;
+    display: inline;
+    border-radius: 5px;
+}
+.yellow {
+    background-color: #ffd799;
+    border: 1px solid #ffaa33;
+}

@@ -3,7 +3,8 @@
     <fullName>Is_recurring__c</fullName>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
-    <inlineHelpText>Skal dette vedtaket gjentas årlig?</inlineHelpText>
+    <inlineHelpText>Skal dette vedtaket gjentas årlig? Gjelder kun Dagligliv. Vedtaket vil gjentas
+        med datoer 1. Januar til 31. Desember hvert år fremover.</inlineHelpText>
     <label>Is recurring?</label>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

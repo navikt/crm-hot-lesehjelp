@@ -47,7 +47,8 @@ export default class Hot_entitlementList extends LightningElement {
 
             this.entitlements = this.unmappedEntitlements.map((x) => ({
                 ...x,
-                period: this.formatDateTimePeriod(x.FromDate__c, x.ToDate__c)
+                period: this.formatDateTimePeriod(x.FromDate__c, x.ToDate__c),
+                isRecurring: this.checkIfRecurring(x.Is_recurring__c, x.HasBeenRecurred__c)
             }));
             // this.entitlements.sort((a, b) => {
             //     if (b.CreatedDate === a.CreatedDate) {
@@ -56,6 +57,13 @@ export default class Hot_entitlementList extends LightningElement {
             //         return b.CreatedDate < a.CreatedDate ? -1 : 1;
             //     }
             // });
+        }
+    }
+    checkIfRecurring(isRecurring, hasBeenRecurred) {
+        if (isRecurring == true && hasBeenRecurred == false) {
+            return true;
+        } else {
+            return false;
         }
     }
     formatDateTimePeriod(dateFrom, dateTo) {

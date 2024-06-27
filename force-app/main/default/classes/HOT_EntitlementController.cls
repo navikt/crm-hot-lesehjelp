@@ -37,7 +37,8 @@ public without sharing class HOT_EntitlementController {
                 Name,
                 EntitledHours__c,
                 EntitledHoursUsed__c,
-                Is_recurring__c
+                Is_recurring__c,
+                HasBeenRecurred__c
             FROM HOT_Entitlement__c
             WHERE Account__c = :currentUser.Account.Id
             ORDER BY ToDate__c DESC
