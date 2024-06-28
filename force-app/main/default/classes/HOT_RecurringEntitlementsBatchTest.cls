@@ -17,6 +17,20 @@ public class HOT_RecurringEntitlementsBatchTest {
     @IsTest
     static void recurringEntitlementBatchJobTest() {
         Test.startTest();
+        User sysAdminUser = [
+            SELECT Id
+            FROM User
+            WHERE Profile.Name = 'System Administrator' AND IsActive = TRUE
+            LIMIT 1
+        ];
+
+        System.runAs(sysAdminUser) {
+            Group group1 = new Group(Name = 'HOT LOS Saksbehandler', Type = 'Regular');
+            insert group1;
+
+            GroupMember gm = new GroupMember(GroupId = group1.Id, UserOrGroupId = sysAdminUser.Id);
+            insert gm;
+        }
         HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
         Database.executeBatch(batchJob, 10);
         Test.stopTest();
@@ -42,9 +56,15 @@ public class HOT_RecurringEntitlementsBatchTest {
                     'New entitlement did not get correct date'
                 );
             }
-            if (entitlement.EntitledHoursAlreadyUsed__c ==12) {
+            if (entitlement.EntitledHoursAlreadyUsed__c == 12) {
                 System.assertEquals(true, entitlement.HasBeenRecurred__c, 'Old entitlement dit not get updated');
             }
         }
+    }
+    @IsTest
+    static void runBatchJobTest() {
+        Test.startTest();
+        HOT_RecurringEntitlementBatch.startBatchJob();
+        Test.stopTest();
     }
 }
