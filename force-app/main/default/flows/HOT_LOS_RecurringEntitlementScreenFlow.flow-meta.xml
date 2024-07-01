@@ -135,7 +135,7 @@
             <fieldText>&lt;p&gt;Jobben kjøres nå i bakgrunnen.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Alle brukere i LOS Saksbehandler gruppen vil motta varsel og info om hvor mange vedtak som ble opprettet og/eller årsak til hvorfor ikke.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
-        <showFooter>true</showFooter>
+        <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <start>
