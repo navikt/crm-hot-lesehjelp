@@ -152,4 +152,92 @@ public without sharing class HOT_ClaimLineItemController {
         }
         return claimLineItemsToReturn;
     }
+    public static void calculateSatses(List<HOT_ClaimLineItem__c> claimLineItems) {
+        List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
+        Set<Date> holidayDates = new Set<Date>();
+        for (Holiday holiday : holidayList) {
+            holidayDates.add(holiday.ActivityDate);
+        }
+
+        for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
+            if (holidayDates.contains(claimLineItem.StartTime__c.date())) {
+                // Process for holidays
+                calculateHours(claimLineItem, true);
+            } else {
+                // Process for non-holidays
+                calculateHours(claimLineItem, false);
+            }
+        }
+        // Perform DML update on the list of claimLineItems
+        update claimLineItems;
+    }
+
+    public static void calculateHours(HOT_ClaimLineItem__c claimLineItem, Boolean isHoliday) {
+        // Define working hours
+        if (!isHoliday) {
+            Time startOfWorkHours = Time.newInstance(8, 0, 0, 0);
+            Time endOfWorkHours = Time.newInstance(17, 0, 0, 0);
+
+            // Extract start and end times
+            Time startTime = claimLineItem.StartTime__c.time();
+            Time endTime = claimLineItem.EndTime__c.time();
+
+            Integer normalMinutes = 0;
+            Integer overtimeMinutes = 0;
+
+            // Calculate overtime minutes before working hours
+            if (startTime < startOfWorkHours) {
+                Time overtimeEnd = endTime > startOfWorkHours ? startOfWorkHours : endTime;
+                overtimeMinutes += ((overtimeEnd.hour() * 60 + overtimeEnd.minute()) -
+                (startTime.hour() * 60 + startTime.minute()));
+                startTime = overtimeEnd;
+            }
+
+            // Calculate normal working hours minutes
+            if (startTime < endOfWorkHours && endTime > startOfWorkHours) {
+                Time normalStart = startTime > startOfWorkHours ? startTime : startOfWorkHours;
+                Time normalEnd = endTime < endOfWorkHours ? endTime : endOfWorkHours;
+
+                normalMinutes = ((normalEnd.hour() * 60 + normalEnd.minute()) -
+                (normalStart.hour() * 60 + normalStart.minute()));
+            }
+
+            // Calculate overtime minutes after working hours
+            if (endTime > endOfWorkHours) {
+                Time overtimeStart = startTime > endOfWorkHours ? startTime : endOfWorkHours;
+                overtimeMinutes += ((endTime.hour() * 60 + endTime.minute()) -
+                (overtimeStart.hour() * 60 + overtimeStart.minute()));
+            }
+
+            // Apply rounding rules
+            Integer roundedNormalMinutes = roundMinutes(normalMinutes);
+            Integer roundedOvertimeMinutes = roundMinutes(overtimeMinutes);
+
+            // Convert rounded minutes to hours
+            Double normalHours = roundedNormalMinutes / 60.0;
+            Double overtimeHours = roundedOvertimeMinutes / 60.0;
+
+            // Set the calculated values on the claim line item
+            claimLineItem.DayHours__c = (roundedNormalMinutes > 0) ? normalHours : 0;
+            claimLineItem.EveningNightAndWeekendHours__c = (roundedOvertimeMinutes > 0) ? overtimeHours : 0;
+        } else {
+            // Handle holiday logic here
+        }
+    }
+
+    public static Integer roundMinutes(Integer minutes) {
+        if (minutes == 0) {
+            return 0; // No rounding needed if there are zero minutes
+        }
+        Integer remainder = Math.mod(minutes, 30);
+        Integer roundedMinutes;
+
+        if (remainder == 0) {
+            roundedMinutes = minutes;
+        } else {
+            roundedMinutes = minutes + (30 - remainder);
+        }
+
+        return roundedMinutes;
+    }
 }

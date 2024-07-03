@@ -96,6 +96,26 @@
                 <identifier>RecordNumberOfHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EveningNightAndWeekendHours__c</fieldItem>
+                <identifier>RecordEveningNightAndWeekendHours_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DayHours__c</fieldItem>
+                <identifier>RecordDayHours_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c5baebb1-c70d-43d2-912f-d6db51cdf9ef</name>
         <type>Facet</type>
     </flexiPageRegions>
