@@ -7,8 +7,8 @@ call sf package install --package 04t7U000000Y2gcQAC --no-prompt --installation-
 echo "Installerer crm-platform-access-control ver. 0.116"
 call sf package install --package 04t7U000000Y2ZlQAK --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installerer crm-community-base ver. 0.101"
-call sf package install --package 04t7U000000Y3I7QAK --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installerer crm-community-base ver. 0.113"
+call sf package install --package 04t7U000000Y4ZAQA0 --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Installerer crm-henvendelse-base ver. 0.18"
 call sf package install --package 04t7U000000LPPAQA4 --no-prompt --installation-key %3 --wait 30 --publish-wait 30
