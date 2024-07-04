@@ -93,7 +93,7 @@ p {
 .details-container {
     background-color: #fff;
     display: block;
-    padding: 5rem;
+    padding: 5.5rem;
     border-radius: 4px;
     position: relative;
     flex-grow: 0;
@@ -108,7 +108,7 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .dialog {
-    width: 40%;
+    width: 45%;
     padding: 0;
     border: none;
     background: transparent;
