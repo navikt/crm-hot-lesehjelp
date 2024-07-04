@@ -91,16 +91,17 @@
                         <p tabindex="0"><strong>Totalt antall timer: </strong>{record.TotalHours__c}</p>
                     </div>
                     <br />
-                    <c-textarea
+                    <c-hot_textarea
                         if:false={record.isOldClaim}
                         name="CommentFromUser__c"
-                        label="Kommentar (ikke skriv inn personopplysninger)"
+                        label="Kommentar til regningen: "
                         value={fieldValues.CommentFromUser__c}
+                        helptext-content="Her kan du skrive en kommentar til lese- og sekretærhjelpen som er relevant for denne regningen. Det du skriver her blir synlig for lese- og sekretærhjelpen og for NAV-ansatt som behandler kravet."
                         helptext-hovertext="Dette må feltet fylles ut ved avslag."
                         error-text="Kommentar må fylles ut ved avvisning."
                         maxlength=255
                         aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
-                    ></c-textarea>
+                    ></c-hot_textarea>
                     <div class="confirmationCheckbox" if:false={record.isOldClaim}>
                         <c-checkbox
                             label="Jeg bekrefter at jeg har lest all informasjon i kravet."
