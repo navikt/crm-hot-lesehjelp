@@ -81,7 +81,7 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToStartTime__c,
                 OverlappingClaimLineItemsIds__c
             FROM HOT_ClaimLineItem__c
-            WHERE Claim__r.Claimant__c = :claimLineItemsToReturn[0].Claimant__c
+            WHERE Claim__r.Claimant__c = :claimLineItemsToReturn[0].Claimant__c AND Claim__r.Status__c != 'Withdrawn'
         ];
 
         for (HOT_ClaimLineItem__c cli : claimLineItemsToReturn) {
