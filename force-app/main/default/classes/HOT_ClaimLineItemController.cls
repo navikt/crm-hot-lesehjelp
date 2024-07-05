@@ -220,8 +220,23 @@ public without sharing class HOT_ClaimLineItemController {
             // Set the calculated values on the claim line item
             claimLineItem.DayHours__c = (roundedNormalMinutes > 0) ? normalHours : 0;
             claimLineItem.EveningNightAndWeekendHours__c = (roundedOvertimeMinutes > 0) ? overtimeHours : 0;
-        } else {
-            // Handle holiday logic here
+        } else if (isHoliday) {
+            // Extract start and end times
+            Time startTime = claimLineItem.StartTime__c.time();
+            Time endTime = claimLineItem.EndTime__c.time();
+
+            // Calculate total minutes worked
+            Integer totalMinutes = ((endTime.hour() * 60 + endTime.minute()) -
+            (startTime.hour() * 60 + startTime.minute()));
+
+            // Apply rounding rules
+            Integer roundedMinutes = roundMinutes(totalMinutes);
+
+            // Convert rounded minutes to hours
+            Double holidayHours = roundedMinutes / 60.0;
+
+            // Set the calculated values on the claim line item
+            claimLineItem.EveningNightAndWeekendHours__c = (roundedMinutes > 0) ? holidayHours : 0;
         }
     }
 
