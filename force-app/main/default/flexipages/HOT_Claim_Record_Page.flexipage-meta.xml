@@ -330,6 +330,16 @@
                 <identifier>RecordTotalDayHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TotalEveningNightAndWeekendHours__c</fieldItem>
+                <identifier>RecordTotalEveningNightAndWeekendHours_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b3bda57d-63f0-449d-9cc0-17a6d92d6494</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -340,8 +350,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TotalEveningNightAndWeekendHours__c</fieldItem>
-                <identifier>RecordTotalEveningNightAndWeekendHours_cField</identifier>
+                <fieldItem>Record.TotalTravelHours__c</fieldItem>
+                <identifier>RecordTotalTravelHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-03a6c13d-ae83-4fe1-81d1-57786fd00ec9</name>
