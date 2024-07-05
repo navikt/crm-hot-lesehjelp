@@ -45,6 +45,19 @@ export function dateWithinSixMonths(date) {
 export function startBeforeEnd(endDate, startDate) {
     startDate = new Date(startDate);
     endDate = new Date(endDate);
+
+    const startYear = startDate.getFullYear();
+    const startMonth = startDate.getMonth();
+    const startDay = startDate.getDate();
+
+    const endYear = endDate.getFullYear();
+    const endMonth = endDate.getMonth();
+    const endDay = endDate.getDate();
+
+    if (startYear !== endYear || startMonth !== endMonth || startDay !== endDay) {
+        return 'Start- og sluttid må være på samme dag.';
+    }
+
     return startDate.getTime() >= endDate.getTime()
         ? 'Start- og sluttid må være ulike, og sluttid kan ikke være før starttid.'
         : '';
