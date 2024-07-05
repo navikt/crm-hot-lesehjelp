@@ -6,7 +6,9 @@ import {
     dateInPast,
     startBeforeEnd,
     dateWithinSixMonths,
-    validateInputNumbersOnlyNumbers
+    validateInputNumbersOnlyNumbers,
+    startBeforeEndAndStartDateTravelTo,
+    startBeforeEndAndStartDateTravelFrom
 } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
@@ -666,9 +668,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             if (this.times[index].hasTravelTo) {
                 let errorMessage = requireInput(element.getValue(), 'Sluttid');
                 if (errorMessage === '') {
-                    errorMessage = startBeforeEnd(
+                    errorMessage = startBeforeEndAndStartDateTravelTo(
                         this.times[index].endTimeTravelTo,
-                        this.times[index].startTimeTravelTo
+                        this.times[index].startTimeTravelTo,
+                        this.times[index].startTime
                     );
                 }
                 element.sendErrorMessage(errorMessage);
@@ -699,6 +702,13 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.template.querySelectorAll('[data-id="startTimeTravelFrom"]').forEach((element, index) => {
             if (this.times[index].hasTravelFrom) {
                 let errorMessage = requireInput(element.getValue(), 'Starttid');
+                if (errorMessage === '') {
+                    errorMessage = startBeforeEndAndStartDateTravelFrom(
+                        this.times[index].endTimeTravelFrom,
+                        this.times[index].startTimeTravelFrom,
+                        this.times[index].endTime
+                    );
+                }
                 element.sendErrorMessage(errorMessage);
                 hasErrors += errorMessage !== '';
             }

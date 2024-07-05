@@ -164,6 +164,23 @@ public without sharing class HOT_ClaimLineItemController {
             DateTime claimDateTime = claimLineItem.StartTime__c;
             Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
 
+            // Calculate travel time if applicable
+            Integer travelMinutes = 0;
+            if (claimLineItem.HasTravelTo__c) {
+                travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+            }
+            if (claimLineItem.HasTravelFrom__c) {
+                travelMinutes += calculateTravelMinutes(
+                    claimLineItem.TravelFromStartTime__c,
+                    claimLineItem.TravelFromEndTime__c
+                );
+            }
+
+            // Round travel minutes and calculate travel hours
+            Integer roundedTravelMinutes = roundMinutes(travelMinutes);
+            Double travelHours = roundedTravelMinutes / 60.0;
+            claimLineItem.TravelHours__c = travelHours;
+
             // Check if the date is a holiday or Sunday
             if (holidayDates.contains(claimDate) || isSunday) {
                 calculateHours(claimLineItem, true, false);
@@ -295,5 +312,13 @@ public without sharing class HOT_ClaimLineItemController {
         }
 
         return roundedMinutes;
+    }
+
+    public static Integer calculateTravelMinutes(DateTime startTime, DateTime endTime) {
+        Integer travelMinutes = 0;
+        if (startTime != null && endTime != null) {
+            travelMinutes = ((endTime.hour() * 60 + endTime.minute()) - (startTime.hour() * 60 + startTime.minute()));
+        }
+        return travelMinutes;
     }
 }
