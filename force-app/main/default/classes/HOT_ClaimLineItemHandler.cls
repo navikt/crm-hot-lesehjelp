@@ -23,7 +23,5 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
         for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
             HOT_ClaimLineItemController.calculateSatses(record);
         }
-        if (updateStatusWorkOrderLineItems.size() > 0) {
-        }
     }
 }
