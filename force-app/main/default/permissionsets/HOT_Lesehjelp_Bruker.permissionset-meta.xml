@@ -127,6 +127,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.TravelHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelToEndTime__c</field>
         <readable>true</readable>
@@ -289,6 +294,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.TotalHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalTravelHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
