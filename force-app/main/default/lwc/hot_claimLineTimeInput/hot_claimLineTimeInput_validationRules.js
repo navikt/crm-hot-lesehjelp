@@ -97,17 +97,12 @@ export function startBeforeEndAndStartDateTravelFrom(endTimeTravelFrom, startTim
     const endMonth = endTime.getMonth();
     const endDay = endTime.getDate();
 
-    // Check if all dates are on the same calendar day
     if (startTravelYear !== endYear || startTravelMonth !== endMonth || startTravelDay !== endDay) {
         return 'Reisen må være på samme dato som oppdraget, og etter oppdraget.';
     }
-
-    // Check if travel start time is before travel end time
     if (startTimeTravelFrom.getTime() >= endTimeTravelFrom.getTime()) {
         return 'Starttid må være før sluttid.';
     }
-
-    // Check if travel start time is after the assignment end time
     if (startTimeTravelFrom.getTime() < endTime.getTime()) {
         return 'Starttid må være etter sluttid på oppdraget.';
     }
