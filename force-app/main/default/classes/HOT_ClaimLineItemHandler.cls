@@ -24,4 +24,9 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
             HOT_ClaimLineItemController.calculateSatser(record);
         }
     }
+    public override void onBeforeInsert() {
+        for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
+            HOT_ClaimLineItemController.calculateSatser(record);
+        }
+    }
 }
