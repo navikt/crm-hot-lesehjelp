@@ -21,7 +21,7 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
         Set<Id> updateStatusWorkOrderLineItems = new Set<Id>();
 
         for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
-            HOT_ClaimLineItemController.calculateSatses(record);
+            HOT_ClaimLineItemController.calculateSatser(record);
         }
     }
 }

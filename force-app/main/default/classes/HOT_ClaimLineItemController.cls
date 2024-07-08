@@ -61,7 +61,10 @@ public without sharing class HOT_ClaimLineItemController {
                 PublicTransportRoute__c,
                 ParkingAddress__c,
                 TravelToFromAddresses__c,
-                OverlappingClaimLineItemsIds__c
+                OverlappingClaimLineItemsIds__c,
+                DayHours__c,
+                EveningNightAndWeekendHours__c,
+                TravelHours__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
         ];
@@ -152,7 +155,7 @@ public without sharing class HOT_ClaimLineItemController {
         }
         return claimLineItemsToReturn;
     }
-    public static void calculateSatses(HOT_ClaimLineItem__c claimLineItem) {
+    public static void calculateSatser(HOT_ClaimLineItem__c claimLineItem) {
         List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
         Set<Date> holidayDates = new Set<Date>();
         for (Holiday holiday : holidayList) {
@@ -290,7 +293,7 @@ public without sharing class HOT_ClaimLineItemController {
 
     public static Integer roundMinutes(Integer minutes) {
         if (minutes == 0) {
-            return 0; 
+            return 0;
         }
         Integer remainder = Math.mod(minutes, 30);
         Integer roundedMinutes;
