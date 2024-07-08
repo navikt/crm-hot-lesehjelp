@@ -4,9 +4,9 @@
     <defaultValue>0</defaultValue>
     <externalId>false</externalId>
     <label>TravelHours</label>
-    <precision>6</precision>
+    <precision>5</precision>
     <required>false</required>
-    <scale>2</scale>
+    <scale>1</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>
