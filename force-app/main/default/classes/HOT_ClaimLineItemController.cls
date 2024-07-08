@@ -61,7 +61,10 @@ public without sharing class HOT_ClaimLineItemController {
                 PublicTransportRoute__c,
                 ParkingAddress__c,
                 TravelToFromAddresses__c,
-                OverlappingClaimLineItemsIds__c
+                OverlappingClaimLineItemsIds__c,
+                DayHours__c,
+                EveningNightAndWeekendHours__c,
+                TravelHours__c
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :recordId
         ];
@@ -151,5 +154,164 @@ public without sharing class HOT_ClaimLineItemController {
             }
         }
         return claimLineItemsToReturn;
+    }
+    public static void calculateSatser(HOT_ClaimLineItem__c claimLineItem) {
+        List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
+        Set<Date> holidayDates = new Set<Date>();
+        for (Holiday holiday : holidayList) {
+            holidayDates.add(holiday.ActivityDate);
+        }
+
+        Date claimDate = claimLineItem.StartTime__c.date();
+        DateTime claimDateTime = claimLineItem.StartTime__c;
+        Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
+
+        Integer travelMinutes = 0;
+        if (claimLineItem.HasTravelTo__c) {
+            travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+        }
+        if (claimLineItem.HasTravelFrom__c) {
+            travelMinutes += calculateTravelMinutes(
+                claimLineItem.TravelFromStartTime__c,
+                claimLineItem.TravelFromEndTime__c
+            );
+        }
+        Integer roundedTravelMinutes = roundMinutes(travelMinutes);
+        Double travelHours = roundedTravelMinutes / 60.0;
+        claimLineItem.TravelHours__c = travelHours;
+
+        if (holidayDates.contains(claimDate) || isSunday) {
+            calculateHours(claimLineItem, true, false);
+        } else {
+            Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
+            Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
+
+            if (isSaturday || isDayBeforeHoliday) {
+                calculateHours(claimLineItem, false, true);
+            } else {
+                calculateHours(claimLineItem, false, false);
+            }
+        }
+    }
+
+    public static void calculateHours(
+        HOT_ClaimLineItem__c claimLineItem,
+        Boolean isHoliday,
+        Boolean isSaturdayOrDayBeforeHoliday
+    ) {
+        if (isHoliday) {
+            Time startTime = claimLineItem.StartTime__c.time();
+            Time endTime = claimLineItem.EndTime__c.time();
+
+            Integer totalMinutes = ((endTime.hour() * 60 + endTime.minute()) -
+            (startTime.hour() * 60 + startTime.minute()));
+
+            Integer roundedMinutes = roundMinutes(totalMinutes);
+
+            Double holidayHours = roundedMinutes / 60.0;
+
+            claimLineItem.EveningNightAndWeekendHours__c = (roundedMinutes > 0) ? holidayHours : 0;
+            claimLineItem.DayHours__c = 0;
+        } else if (!isHoliday && !isSaturdayOrDayBeforeHoliday) {
+            Time startOfWorkHours = Time.newInstance(8, 0, 0, 0);
+            Time endOfWorkHours = Time.newInstance(17, 0, 0, 0);
+
+            Time startTime = claimLineItem.StartTime__c.time();
+            Time endTime = claimLineItem.EndTime__c.time();
+
+            Integer normalMinutes = 0;
+            Integer overtimeMinutes = 0;
+
+            if (startTime < startOfWorkHours) {
+                Time overtimeEnd = endTime > startOfWorkHours ? startOfWorkHours : endTime;
+                overtimeMinutes += ((overtimeEnd.hour() * 60 + overtimeEnd.minute()) -
+                (startTime.hour() * 60 + startTime.minute()));
+                startTime = overtimeEnd;
+            }
+
+            if (startTime < endOfWorkHours && endTime > startOfWorkHours) {
+                Time normalStart = startTime > startOfWorkHours ? startTime : startOfWorkHours;
+                Time normalEnd = endTime < endOfWorkHours ? endTime : endOfWorkHours;
+
+                normalMinutes = ((normalEnd.hour() * 60 + normalEnd.minute()) -
+                (normalStart.hour() * 60 + normalStart.minute()));
+            }
+
+            if (endTime > endOfWorkHours) {
+                Time overtimeStart = startTime > endOfWorkHours ? startTime : endOfWorkHours;
+                overtimeMinutes += ((endTime.hour() * 60 + endTime.minute()) -
+                (overtimeStart.hour() * 60 + overtimeStart.minute()));
+            }
+
+            Integer roundedNormalMinutes = roundMinutes(normalMinutes);
+            Integer roundedOvertimeMinutes = roundMinutes(overtimeMinutes);
+
+            Double normalHours = roundedNormalMinutes / 60.0;
+            Double overtimeHours = roundedOvertimeMinutes / 60.0;
+
+            claimLineItem.DayHours__c = (roundedNormalMinutes > 0) ? normalHours : 0;
+            claimLineItem.EveningNightAndWeekendHours__c = (roundedOvertimeMinutes > 0) ? overtimeHours : 0;
+        } else if (isSaturdayOrDayBeforeHoliday) {
+            Time startOfWorkHours = Time.newInstance(8, 0, 0, 0);
+            Time endOfWorkHours = Time.newInstance(14, 0, 0, 0);
+
+            Time startTime = claimLineItem.StartTime__c.time();
+            Time endTime = claimLineItem.EndTime__c.time();
+
+            Integer normalMinutes = 0;
+            Integer overtimeMinutes = 0;
+
+            if (startTime < endOfWorkHours && endTime > startOfWorkHours) {
+                Time normalStart = startTime > startOfWorkHours ? startTime : startOfWorkHours;
+                Time normalEnd = endTime < endOfWorkHours ? endTime : endOfWorkHours;
+
+                normalMinutes = ((normalEnd.hour() * 60 + normalEnd.minute()) -
+                (normalStart.hour() * 60 + normalStart.minute()));
+            }
+
+            if (startTime < startOfWorkHours) {
+                Time overtimeEnd = endTime > startOfWorkHours ? startOfWorkHours : endTime;
+                overtimeMinutes += ((overtimeEnd.hour() * 60 + overtimeEnd.minute()) -
+                (startTime.hour() * 60 + startTime.minute()));
+            }
+            if (endTime > endOfWorkHours) {
+                Time overtimeStart = startTime > endOfWorkHours ? startTime : endOfWorkHours;
+                overtimeMinutes += ((endTime.hour() * 60 + endTime.minute()) -
+                (overtimeStart.hour() * 60 + overtimeStart.minute()));
+            }
+
+            Integer roundedNormalMinutes = roundMinutes(normalMinutes);
+            Integer roundedOvertimeMinutes = roundMinutes(overtimeMinutes);
+
+            Double normalHours = roundedNormalMinutes / 60.0;
+            Double overtimeHours = roundedOvertimeMinutes / 60.0;
+
+            claimLineItem.DayHours__c = (roundedNormalMinutes > 0) ? normalHours : 0;
+            claimLineItem.EveningNightAndWeekendHours__c = (roundedOvertimeMinutes > 0) ? overtimeHours : 0;
+        }
+    }
+
+    public static Integer roundMinutes(Integer minutes) {
+        if (minutes == 0) {
+            return 0;
+        }
+        Integer remainder = Math.mod(minutes, 30);
+        Integer roundedMinutes;
+
+        if (remainder == 0) {
+            roundedMinutes = minutes;
+        } else {
+            roundedMinutes = minutes + (30 - remainder);
+        }
+
+        return roundedMinutes;
+    }
+
+    public static Integer calculateTravelMinutes(DateTime startTime, DateTime endTime) {
+        Integer travelMinutes = 0;
+        if (startTime != null && endTime != null) {
+            travelMinutes = ((endTime.hour() * 60 + endTime.minute()) - (startTime.hour() * 60 + startTime.minute()));
+        }
+        return travelMinutes;
     }
 }

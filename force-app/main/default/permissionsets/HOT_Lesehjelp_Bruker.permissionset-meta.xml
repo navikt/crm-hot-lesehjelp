@@ -42,8 +42,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.DayHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.EveningNightAndWeekendHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -114,6 +124,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelFrom__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.TravelHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -253,6 +268,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>HOT_Claim__c.TotalDayHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalEveningNightAndWeekendHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>HOT_Claim__c.TotalExpensesParking__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -269,6 +294,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.TotalHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalTravelHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

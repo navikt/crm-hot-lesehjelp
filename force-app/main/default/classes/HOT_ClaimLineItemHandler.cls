@@ -17,4 +17,11 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
     }
+    public override void onBeforeUpdate(Map<Id, sObject> triggerOldMap) {
+        Set<Id> updateStatusWorkOrderLineItems = new Set<Id>();
+
+        for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
+            HOT_ClaimLineItemController.calculateSatser(record);
+        }
+    }
 }
