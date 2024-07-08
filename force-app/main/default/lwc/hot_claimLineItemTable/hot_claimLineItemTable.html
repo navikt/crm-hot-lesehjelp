@@ -14,35 +14,42 @@
                     class="slds-m-right--x-small"
                     variant="inverse"
                 ></lightning-icon>
-                 <div style="display: inline-flex">
-                <div style="display: block">
-                    Tidene på denne kravlinjen overlapper med:
-                    <p key={cli.Id} for:each={cli.overlappingLinks} for:item="overlap">
-                         <a href={overlap.link} key={overlap.id}>{overlap.name}</a>
+                <div style="display: inline-flex">
+                    <div style="display: block">
+                        Tidene på denne kravlinjen overlapper med:
+                        <p key={cli.Id} for:each={cli.overlappingLinks} for:item="overlap">
+                            <a href={overlap.link} key={overlap.id}>{overlap.name}</a>
                         </p>
-                    </p>
+                    </div>
                 </div>
             </div>
-        </div>
-            <a href={cli.link}>{cli.Name}</a>
-            <p>
-                <Strong>Periode: </Strong>{cli.Weekday__c} {cli.period}
-                <strong> ({cli.NumberOfHours__c} timer)</strong>
-            </p>
-            <p if:true={cli.HasTravelTo__c}><Strong>Reisen til: </Strong>{cli.travelToPeriode}</p>
-            <p if:true={cli.HasTravelFrom__c}><Strong>Reisen fra: </Strong>{cli.travelFromPeriode}</p>
-
-            <p if:true={cli.TravelDistance__c}>
-                <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})
-            </p>
-            <p if:true={cli.ExpensesParking__c}>
-                <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})
-            </p>
-            <p if:true={cli.ExpensesToll__c}><strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr</p>
-            <p if:true={cli.ExpensesPublicTransport__c}>
-                <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
-                {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
-            </p>
+            <div class="content-container">
+                <div class="left-content">
+                    <a href={cli.link}>{cli.Name}</a>
+                    <p><strong>Periode: </strong>{cli.Weekday__c} {cli.period}</p>
+                    <p if:true={cli.HasTravelTo__c}><strong>Reisen til: </strong>{cli.travelToPeriode}</p>
+                    <p if:true={cli.HasTravelFrom__c}><strong>Reisen fra: </strong>{cli.travelFromPeriode}</p>
+                    <p if:true={cli.TravelDistance__c}>
+                        <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})
+                    </p>
+                    <p if:true={cli.ExpensesParking__c}>
+                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})
+                    </p>
+                    <p if:true={cli.ExpensesToll__c}>
+                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
+                    </p>
+                    <p if:true={cli.ExpensesPublicTransport__c}>
+                        <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
+                        {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
+                    </p>
+                </div>
+                <div class="right-content satser">
+                    <p><strong>BEREGNINGER:</strong></p>
+                    <p><strong>Timer med dagsats: </strong>{cli.DayHours__c}</p>
+                    <p><strong>Timer med kveld/natt/helgesats: </strong>{cli.EveningNightAndWeekendHours__c}</p>
+                    <p><strong>Timer med reise (inkl ventetid): </strong>{cli.TravelHours__c}</p>
+                </div>
+            </div>
         </div>
     </template>
     <div if:true={noClaimLineItems} class="cli-container">
