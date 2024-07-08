@@ -152,53 +152,49 @@ public without sharing class HOT_ClaimLineItemController {
         }
         return claimLineItemsToReturn;
     }
-    public static void calculateSatses(List<HOT_ClaimLineItem__c> claimLineItems) {
+    public static void calculateSatses(HOT_ClaimLineItem__c claimLineItem) {
         List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
         Set<Date> holidayDates = new Set<Date>();
         for (Holiday holiday : holidayList) {
             holidayDates.add(holiday.ActivityDate);
         }
 
-        for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
-            Date claimDate = claimLineItem.StartTime__c.date();
-            DateTime claimDateTime = claimLineItem.StartTime__c;
-            Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
+        Date claimDate = claimLineItem.StartTime__c.date();
+        DateTime claimDateTime = claimLineItem.StartTime__c;
+        Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
 
-            // Calculate travel time if applicable
-            Integer travelMinutes = 0;
-            if (claimLineItem.HasTravelTo__c) {
-                travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
-            }
-            if (claimLineItem.HasTravelFrom__c) {
-                travelMinutes += calculateTravelMinutes(
-                    claimLineItem.TravelFromStartTime__c,
-                    claimLineItem.TravelFromEndTime__c
-                );
-            }
+        // Calculate travel time if applicable
+        Integer travelMinutes = 0;
+        if (claimLineItem.HasTravelTo__c) {
+            travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+        }
+        if (claimLineItem.HasTravelFrom__c) {
+            travelMinutes += calculateTravelMinutes(
+                claimLineItem.TravelFromStartTime__c,
+                claimLineItem.TravelFromEndTime__c
+            );
+        }
 
-            // Round travel minutes and calculate travel hours
-            Integer roundedTravelMinutes = roundMinutes(travelMinutes);
-            Double travelHours = roundedTravelMinutes / 60.0;
-            claimLineItem.TravelHours__c = travelHours;
+        // Round travel minutes and calculate travel hours
+        Integer roundedTravelMinutes = roundMinutes(travelMinutes);
+        Double travelHours = roundedTravelMinutes / 60.0;
+        claimLineItem.TravelHours__c = travelHours;
 
-            // Check if the date is a holiday or Sunday
-            if (holidayDates.contains(claimDate) || isSunday) {
-                calculateHours(claimLineItem, true, false);
+        // Check if the date is a holiday or Sunday
+        if (holidayDates.contains(claimDate) || isSunday) {
+            calculateHours(claimLineItem, true, false);
+        } else {
+            // Check if the date is a Saturday or the day before a holiday
+            Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
+            Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
+
+            if (isSaturday || isDayBeforeHoliday) {
+                calculateHours(claimLineItem, false, true);
             } else {
-                // Check if the date is a Saturday or the day before a holiday
-                Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
-                Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
-
-                if (isSaturday || isDayBeforeHoliday) {
-                    calculateHours(claimLineItem, false, true);
-                } else {
-                    // Process for regular days
-                    calculateHours(claimLineItem, false, false);
-                }
+                // Process for regular days
+                calculateHours(claimLineItem, false, false);
             }
         }
-        // Perform DML update on the list of claimLineItems
-        update claimLineItems;
     }
 
     public static void calculateHours(
@@ -308,7 +304,7 @@ public without sharing class HOT_ClaimLineItemController {
         if (remainder == 0) {
             roundedMinutes = minutes;
         } else {
-            roundedMinutes = minutes + (30 - remainder);
+            roundedMinutes = minutes + (30 - remainder); // Always round up to the next 30 minutes
         }
 
         return roundedMinutes;
