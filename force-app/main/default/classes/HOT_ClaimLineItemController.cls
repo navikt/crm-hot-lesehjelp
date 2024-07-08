@@ -163,7 +163,6 @@ public without sharing class HOT_ClaimLineItemController {
         DateTime claimDateTime = claimLineItem.StartTime__c;
         Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
 
-        // Calculate travel time if applicable
         Integer travelMinutes = 0;
         if (claimLineItem.HasTravelTo__c) {
             travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
@@ -174,24 +173,19 @@ public without sharing class HOT_ClaimLineItemController {
                 claimLineItem.TravelFromEndTime__c
             );
         }
-
-        // Round travel minutes and calculate travel hours
         Integer roundedTravelMinutes = roundMinutes(travelMinutes);
         Double travelHours = roundedTravelMinutes / 60.0;
         claimLineItem.TravelHours__c = travelHours;
 
-        // Check if the date is a holiday or Sunday
         if (holidayDates.contains(claimDate) || isSunday) {
             calculateHours(claimLineItem, true, false);
         } else {
-            // Check if the date is a Saturday or the day before a holiday
             Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
             Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
 
             if (isSaturday || isDayBeforeHoliday) {
                 calculateHours(claimLineItem, false, true);
             } else {
-                // Process for regular days
                 calculateHours(claimLineItem, false, false);
             }
         }
@@ -296,7 +290,7 @@ public without sharing class HOT_ClaimLineItemController {
 
     public static Integer roundMinutes(Integer minutes) {
         if (minutes == 0) {
-            return 0; // No rounding needed if there are zero minutes
+            return 0; 
         }
         Integer remainder = Math.mod(minutes, 30);
         Integer roundedMinutes;
@@ -304,7 +298,7 @@ public without sharing class HOT_ClaimLineItemController {
         if (remainder == 0) {
             roundedMinutes = minutes;
         } else {
-            roundedMinutes = minutes + (30 - remainder); // Always round up to the next 30 minutes
+            roundedMinutes = minutes + (30 - remainder);
         }
 
         return roundedMinutes;
