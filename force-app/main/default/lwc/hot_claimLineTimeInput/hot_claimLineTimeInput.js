@@ -669,8 +669,8 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 let errorMessage = requireInput(element.getValue(), 'Sluttid');
                 if (errorMessage === '') {
                     errorMessage = startBeforeEndAndStartDateTravelTo(
-                        this.times[index].endTimeTravelTo,
                         this.times[index].startTimeTravelTo,
+                        this.times[index].endTimeTravelTo,
                         this.times[index].startTime
                     );
                 }
