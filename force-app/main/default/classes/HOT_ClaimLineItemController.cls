@@ -155,41 +155,42 @@ public without sharing class HOT_ClaimLineItemController {
         }
         return claimLineItemsToReturn;
     }
-    public static void calculateSatser(HOT_ClaimLineItem__c claimLineItem) {
+    public static void calculateHoursOnRates(List<HOT_ClaimLineItem__c> claimLineItems) {
         List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
         Set<Date> holidayDates = new Set<Date>();
         for (Holiday holiday : holidayList) {
             holidayDates.add(holiday.ActivityDate);
         }
+        for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
+            Date claimDate = claimLineItem.StartTime__c.date();
+            DateTime claimDateTime = claimLineItem.StartTime__c;
+            Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
 
-        Date claimDate = claimLineItem.StartTime__c.date();
-        DateTime claimDateTime = claimLineItem.StartTime__c;
-        Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
+            Integer travelMinutes = 0;
+            if (claimLineItem.HasTravelTo__c) {
+                travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+            }
+            if (claimLineItem.HasTravelFrom__c) {
+                travelMinutes += calculateTravelMinutes(
+                    claimLineItem.TravelFromStartTime__c,
+                    claimLineItem.TravelFromEndTime__c
+                );
+            }
+            Integer roundedTravelMinutes = roundMinutes(travelMinutes);
+            Double travelHours = roundedTravelMinutes / 60.0;
+            claimLineItem.TravelHours__c = travelHours;
 
-        Integer travelMinutes = 0;
-        if (claimLineItem.HasTravelTo__c) {
-            travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
-        }
-        if (claimLineItem.HasTravelFrom__c) {
-            travelMinutes += calculateTravelMinutes(
-                claimLineItem.TravelFromStartTime__c,
-                claimLineItem.TravelFromEndTime__c
-            );
-        }
-        Integer roundedTravelMinutes = roundMinutes(travelMinutes);
-        Double travelHours = roundedTravelMinutes / 60.0;
-        claimLineItem.TravelHours__c = travelHours;
-
-        if (holidayDates.contains(claimDate) || isSunday) {
-            calculateHours(claimLineItem, true, false);
-        } else {
-            Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
-            Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
-
-            if (isSaturday || isDayBeforeHoliday) {
-                calculateHours(claimLineItem, false, true);
+            if (holidayDates.contains(claimDate) || isSunday) {
+                calculateHours(claimLineItem, true, false);
             } else {
-                calculateHours(claimLineItem, false, false);
+                Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
+                Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
+
+                if (isSaturday || isDayBeforeHoliday) {
+                    calculateHours(claimLineItem, false, true);
+                } else {
+                    calculateHours(claimLineItem, false, false);
+                }
             }
         }
     }

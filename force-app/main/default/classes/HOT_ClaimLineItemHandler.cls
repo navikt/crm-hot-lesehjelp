@@ -18,15 +18,9 @@ public without sharing class HOT_ClaimLineItemHandler extends MyTriggers {
         }
     }
     public override void onBeforeUpdate(Map<Id, sObject> triggerOldMap) {
-        Set<Id> updateStatusWorkOrderLineItems = new Set<Id>();
-
-        for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
-            HOT_ClaimLineItemController.calculateSatser(record);
-        }
+        HOT_ClaimLineItemController.calculateHoursOnRates((List<HOT_ClaimLineItem__c>) records);
     }
     public override void onBeforeInsert() {
-        for (HOT_ClaimLineItem__c record : (List<HOT_ClaimLineItem__c>) records) {
-            HOT_ClaimLineItemController.calculateSatser(record);
-        }
+        HOT_ClaimLineItemController.calculateHoursOnRates((List<HOT_ClaimLineItem__c>) records);
     }
 }
