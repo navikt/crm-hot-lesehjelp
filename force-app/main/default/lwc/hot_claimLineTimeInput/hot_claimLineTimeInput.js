@@ -946,29 +946,31 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     addTravelTime(event) {
         const index = this.getTimesIndex(event.target.name);
-        //date
+
+        // Date
         this.times[index].dateTravelTo = this.times[index].date;
         this.times[index].dateTravelToMilliseconds = new Date(this.times[index].date).getTime();
 
-        //start
-        let dateTimeStart = new Date(this.times[index].startTime);
-        dateTimeStart.setMinutes(dateTimeStart.getMinutes() - event.detail);
-
+        // Start Time Travel To (start time of the appointment - travel duration)
+        let startTime = new Date(this.times[index].startTime);
+        let dateTimeStart = new Date(startTime.getTime() - event.detail * 60000);
         let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
         this.times[index].startTimeTravelToString = timeStringStart;
         this.times[index].startTimeTravelTo = dateTimeStart.getTime();
+
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelTo"]');
         startTimeElements[index].setValue(this.times[index].startTimeTravelToString);
 
-        //end
+        // End Time Travel To (start time of the appointment)
         let dateTime = new Date(this.times[index].startTime);
-        dateTime.setHours(dateTime.getHours());
         let timeString = this.dateTimeToTimeString(dateTime, false);
         this.times[index].endTimeTravelToString = timeString;
         this.times[index].endTimeTravelTo = dateTime.getTime();
+
         let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
         endTimeElements[index].setValue(this.times[index].endTimeTravelToString);
     }
+
     addTravelTimeFrom(event) {
         const index = this.getTimesIndex(event.target.name);
 
