@@ -971,29 +971,32 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     addTravelTimeFrom(event) {
         const index = this.getTimesIndex(event.target.name);
-        //date
+
+        // Date
         this.times[index].dateTravelFrom = this.times[index].date;
         this.times[index].dateTravelFromMilliseconds = new Date(this.times[index].date).getTime();
-        //end
-        let dateTime = new Date(this.times[index].endTime);
-        dateTime.setHours(dateTime.getHours());
-        let timeString = this.dateTimeToTimeString(dateTime, false);
-        this.times[index].startTimeTravelFromString = timeString;
-        this.times[index].startTimeTravelFrom = dateTime.getTime();
+
+        // Start Time Travel From (end time of the appointment)
+        let endTime = new Date(this.times[index].endTime);
+        let startTimeTravelFromString = this.dateTimeToTimeString(endTime, false);
+        this.times[index].startTimeTravelFromString = startTimeTravelFromString;
+        this.times[index].startTimeTravelFrom = endTime.getTime();
+
         let startTimeElements = this.template.querySelectorAll('[data-id="startTimeTravelFrom"]');
         startTimeElements[index].setValue(this.times[index].startTimeTravelFromString);
-        //start
 
-        let dateTimeStart = new Date(this.times[index].endTime);
-        dateTimeStart.setMinutes(dateTimeStart.getMinutes() + event.detail);
+        // End Time Travel From (start time of travel + travel duration)
+        let endTimeTravelFrom = new Date(this.times[index].endTime);
+        endTimeTravelFrom = new Date(endTimeTravelFrom.getTime() + event.detail * 60000);
 
-        let timeStringStart = this.dateTimeToTimeString(dateTimeStart, false);
-        this.times[index].endTimeTravelFromString = timeStringStart;
-        this.times[index].endTimeTravelFrom = dateTimeStart.getTime();
+        let endTimeTravelFromString = this.dateTimeToTimeString(endTimeTravelFrom, false);
+        this.times[index].endTimeTravelFromString = endTimeTravelFromString;
+        this.times[index].endTimeTravelFrom = endTimeTravelFrom.getTime();
 
         let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelFrom"]');
         endTimeElements[index].setValue(this.times[index].endTimeTravelFromString);
     }
+
     cloneClaimLineItem(event) {
         let hasErrors = 0;
         hasErrors += this.validateSimpleTimes();
