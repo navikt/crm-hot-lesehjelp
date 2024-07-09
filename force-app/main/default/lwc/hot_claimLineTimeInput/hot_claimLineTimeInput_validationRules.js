@@ -74,7 +74,7 @@ export function startBeforeEndAndStartDateTravelTo(startTimeTravelTo, endTimeTra
     }
 
     if (endTimeTravelTo.getTime() > startTime.getTime()) {
-        return 'Reise må være før starttid på oppdraget.';
+        return 'Reisen må være før starttid på oppdraget.';
     }
 
     return '';
