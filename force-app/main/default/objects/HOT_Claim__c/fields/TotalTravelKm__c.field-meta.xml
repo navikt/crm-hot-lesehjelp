@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>TotalTravelHours__c</fullName>
+    <fullName>TotalTravelKm__c</fullName>
+    <description>Total reise km egen bil</description>
     <externalId>false</externalId>
-    <inlineHelpText>Inkluderer ventetid</inlineHelpText>
-    <label>Total travel hours</label>
-    <summarizedField>HOT_ClaimLineItem__c.TravelHours__c</summarizedField>
+    <label>Total travel km</label>
+    <summarizedField>HOT_ClaimLineItem__c.TravelDistance__c</summarizedField>
     <summaryForeignKey>HOT_ClaimLineItem__c.Claim__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>

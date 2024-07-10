@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help></help>
-    <label>Totalt antall reisetimer</label>
-    <name>TotalTravelHours__c</name>
+    <label>Sum antall km reise med egen bil</label>
+    <name>TotalTravelKm__c</name>
 </CustomFieldTranslation>
