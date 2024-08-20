@@ -10,7 +10,6 @@
                 </div>
             </div>
         </div>
-
         <main class="container" if:false={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.newClaim}>
                 <div class="box-elements">
@@ -25,22 +24,27 @@
                 </div>
             </a>
         </main>
-        <main class="container" if:true={hasDecisions} role="navigation">
-            <a class="box" href={pageLinks.myClaimsToReview}>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Krav til godkjenning</p>
-                    <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
-                </div>
-            </a>
-            <a class="box" href={pageLinks.myEntitlements}>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Vedtak</p>
-                    <p>Her får du en oversikt over dine vedtak.</p>
-                </div>
-            </a>
-        </main>
+        <div class="test">
+            <div class="undertittel">
+                <h2>For deg som mottar lese og sekretærhjelp</h2>
+            </div>
+            <main class="container" if:true={hasDecisions} role="navigation">
+                <a class="box" href={pageLinks.myClaimsToReview}>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Krav til godkjenning</p>
+                        <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
+                    </div>
+                </a>
+                <a class="box" href={pageLinks.myEntitlements}>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Vedtak</p>
+                        <p>Her får du en oversikt over dine vedtak.</p>
+                    </div>
+                </a>
+            </main>
+        </div>
         <main class="container-bottom" role="navigation">
-            <a class="box-small" href={pageLinks.myPage} aria-label="Til min side">
+            <a class="box-small margin" href={pageLinks.myPage} aria-label="Til min side">
                 <div class="box-elements">
                     <img src={mineSiderImg} />
                 </div>
