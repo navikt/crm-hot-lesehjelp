@@ -10,20 +10,15 @@
                 </div>
             </div>
         </div>
+
         <main class="container" if:false={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.newClaim}>
-                <div class="box-elements">
-                    <img src={nyttKravImg} />
-                </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Nytt krav</p>
                     <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
                 </div>
             </a>
             <a class="box" href={pageLinks.myClaimantClaims}>
-                <div class="box-elements">
-                    <img src={mineKravImg} />
-                </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Mine innsendte krav</p>
                     <p>Her får du en oversikt over alle dine innsendte krav.</p>
@@ -33,17 +28,11 @@
         <main class="container" if:true={hasDecisions} role="navigation">
             <a class="box" href={pageLinks.myClaimsToReview}>
                 <div class="box-elements">
-                    <img src={mineKravTilGodkjenningImg} />
-                </div>
-                <div class="box-elements">
                     <p class="typo-undertittel">Krav til godkjenning</p>
                     <p>Her får du en oversikt over krav som er klar til å godkjennes av deg.</p>
                 </div>
             </a>
             <a class="box" href={pageLinks.myEntitlements}>
-                <div class="box-elements">
-                    <img src={mineVedtakImg} />
-                </div>
                 <div class="box-elements">
                     <p class="typo-undertittel">Vedtak</p>
                     <p>Her får du en oversikt over dine vedtak.</p>
