@@ -9,10 +9,10 @@
     padding-bottom: 4rem;
     padding-top: 4rem;
 }
-.test {
+.color-container {
     background-color: #e0e3e6;
     width: 100%;
-    padding-top: 0rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
     justify-content: left;
 }

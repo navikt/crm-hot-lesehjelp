@@ -10,8 +10,8 @@
                 </div>
             </div>
         </div>
-        <div class="test">
-            <div class="undertittel" if:false={hasDecisions}>
+        <div class="color-container" if:false={hasDecisions}>
+            <div class="undertittel">
                 <h2>For deg som er lese og sekretærhjelp</h2>
             </div>
             <main class="container" if:false={hasDecisions} role="navigation">
@@ -29,8 +29,8 @@
                 </a>
             </main>
         </div>
-        <div class="test">
-            <div class="undertittel" if:true={hasDecisions}>
+        <div class="color-container" if:true={hasDecisions}>
+            <div class="undertittel">
                 <h2>For deg som mottar lese og sekretærhjelp</h2>
             </div>
             <main class="container" if:true={hasDecisions} role="navigation">
