@@ -10,7 +10,6 @@
                 </div>
             </div>
         </div>
-        <div class="gap"></div>
         <div class="color-container" if:false={hasDecisions}>
             <div class="undertittel">
                 <h2>For deg som er lese og sekretærhjelp</h2>
@@ -49,36 +48,43 @@
                 </a>
             </main>
         </div>
-        <main class="container-bottom" role="navigation">
-            <a class="box-small margin" href={pageLinks.myPage} aria-label="Til min side">
-                <div class="box-elements">
-                    <img src={mineSiderImg} />
-                </div>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Min side</p>
-                </div>
-            </a>
-            <a
-                if:false={hasDecisions}
-                class="box-small"
-                href={pageLinks.veiledningLesehjelp}
-                aria-label="Til veiledning"
-            >
-                <div class="box-elements">
-                    <img src={veiledningImg} />
-                </div>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Veiledning</p>
-                </div>
-            </a>
-            <a if:true={hasDecisions} class="box-small" href={pageLinks.veiledningBruker} aria-label="Til veiledning">
-                <div class="box-elements">
-                    <img src={veiledningImg} />
-                </div>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Veiledning</p>
-                </div>
-            </a>
-        </main>
+        <div class="color-container-bottom">
+            <main class="container-bottom" role="navigation">
+                <a class="box-small margin" href={pageLinks.myPage} aria-label="Til min side">
+                    <div class="box-elements">
+                        <img src={mineSiderImg} />
+                    </div>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Min side</p>
+                    </div>
+                </a>
+                <a
+                    if:false={hasDecisions}
+                    class="box-small"
+                    href={pageLinks.veiledningLesehjelp}
+                    aria-label="Til veiledning"
+                >
+                    <div class="box-elements">
+                        <img src={veiledningImg} />
+                    </div>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Veiledning</p>
+                    </div>
+                </a>
+                <a
+                    if:true={hasDecisions}
+                    class="box-small"
+                    href={pageLinks.veiledningBruker}
+                    aria-label="Til veiledning"
+                >
+                    <div class="box-elements">
+                        <img src={veiledningImg} />
+                    </div>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Veiledning</p>
+                    </div>
+                </a>
+            </main>
+        </div>
     </div>
 </template>
