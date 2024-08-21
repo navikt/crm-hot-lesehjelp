@@ -11,7 +11,13 @@ export default class Hot_welcomeName extends LightningElement {
     })
     wireuser({ data }) {
         if (data) {
-            this.name = data.fields.FirstName.value;
+            this.name = this.formatName(data.fields.FirstName.value);
         }
+    }
+    formatName(name) {
+        return name
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
     }
 }
