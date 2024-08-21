@@ -81,7 +81,7 @@
     /* border: 0.5px solid #cbcfd5; */
 }
 .box:hover {
-    background-color: #99c4dd;
+    background-color: #cbcfd5;
     cursor: pointer;
     transition: 0.3s;
     border: none;
