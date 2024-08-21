@@ -10,22 +10,27 @@
                 </div>
             </div>
         </div>
-        <main class="container" if:false={hasDecisions} role="navigation">
-            <a class="box" href={pageLinks.newClaim}>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Nytt krav</p>
-                    <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
-                </div>
-            </a>
-            <a class="box" href={pageLinks.myClaimantClaims}>
-                <div class="box-elements">
-                    <p class="typo-undertittel">Mine innsendte krav</p>
-                    <p>Her får du en oversikt over alle dine innsendte krav.</p>
-                </div>
-            </a>
-        </main>
         <div class="test">
-            <div class="undertittel">
+            <div class="undertittel" if:false={hasDecisions}>
+                <h2>For deg som er lese og sekretærhjelp</h2>
+            </div>
+            <main class="container" if:false={hasDecisions} role="navigation">
+                <a class="box" href={pageLinks.newClaim}>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Nytt krav</p>
+                        <p>Her kan du sende inn nytt krav etter å ha vært lese og sekretærhjelp.</p>
+                    </div>
+                </a>
+                <a class="box" href={pageLinks.myClaimantClaims}>
+                    <div class="box-elements">
+                        <p class="typo-undertittel">Mine innsendte krav</p>
+                        <p>Her får du en oversikt over alle dine innsendte krav.</p>
+                    </div>
+                </a>
+            </main>
+        </div>
+        <div class="test">
+            <div class="undertittel" if:true={hasDecisions}>
                 <h2>For deg som mottar lese og sekretærhjelp</h2>
             </div>
             <main class="container" if:true={hasDecisions} role="navigation">
