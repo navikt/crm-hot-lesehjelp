@@ -41,6 +41,29 @@ public class HOT_ClaimControllerTest {
         }
     }
     @IsTest
+    static void checkAccessTest() {
+        Account portalBrukerAccount = [
+            SELECT Id FROM Account
+            WHERE LastName = 'PortalBruker'
+        ];
+        
+        HOT_Claim__c newClaim = HOT_LesehjelpTestDataFactory.createClaim(
+            HOT_LesehjelpTestDataFactory.createAccount(true),
+            portalBrukerAccount
+            );
+        insert newClaim;
+
+        User portalBruker = [
+            SELECT Id, AccountId FROM User 
+            WHERE AccountId = :portalBrukerAccount.Id
+        ]; 
+        
+        System.assertEquals(false, HOT_ClaimController.checkAccess(newClaim.Id), 'Default user should not have access');
+        System.runAs(portalBruker) {
+            System.assertEquals(true, HOT_ClaimController.checkAccess(newClaim.Id), 'Claimant should have access');
+        }
+    }
+    @IsTest
     static void setEntitlementOnClaimTest() {
     HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
         HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
