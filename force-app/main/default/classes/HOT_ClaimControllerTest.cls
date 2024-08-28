@@ -2,28 +2,47 @@
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
-        insert acc;
-        Account acc2 = new Account();
-        acc2.INT_PersonIdent__c = '01010101010';
-        acc2.Name = 'Kari Bruker';
-        acc2.INT_KrrMobilePhone__c = '12345678';
-        insert acc2;
-        Account acc3 = new Account();
-        acc3.Name = 'NAV';
-        acc3.INT_OrganizationNumber__c = '123456789';
-        insert acc3;
-        HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
-        claim.UserPersonNumber__c = '01010101010';
-        insert claim;
+        User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
+        System.runAs(navEmployee) {
+            Account acc = new Account();
+            acc.Name = 'Ola Lesehjelp';
+            insert acc;
+            Account acc2 = new Account();
+            acc2.INT_PersonIdent__c = '01010101010';
+            acc2.Name = 'Kari Bruker';
+            acc2.INT_KrrMobilePhone__c = '12345678';
+            insert acc2;
+            Account acc3 = new Account();
+            acc3.Name = 'NAV';
+            acc3.INT_OrganizationNumber__c = '123456789';
+            insert acc3;
+            HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
+            claim.UserPersonNumber__c = '01010101010';
+            insert claim;
 
-        HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
-        insert entitlement;
+            HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
+            insert entitlement;
+
+
+            // Oppsett portalbruker
+            Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
+            personAccount.LastName = 'PortalBruker';
+            update personAccount;
+            Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+            person.CRM_Account__c = personAccount.Id;
+            Set<Id> personAccountIds=new Set<Id>();
+            personAccountIds.add(personAccount.Id);
+            update person;
+            List<User> users = TestDataFactory_Community.getEmployerCommunityUser(
+                personAccountIds, 
+                'Trial Customer Portal User', 
+                true
+                );
+        }
     }
     @IsTest
     static void setEntitlementOnClaimTest() {
-        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+    HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
         HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
         insert cli;
         Test.startTest();
@@ -418,6 +437,55 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertEquals(null, null, 'List of times should come back null because no access');
     }
+    @IsTest
+    static void getTimesAsValidUserTest() {
+        Account portalBrukerAccount = [
+            SELECT Id FROM Account
+            WHERE LastName = 'PortalBruker'
+        ];
+        
+        HOT_Claim__c newClaim = HOT_LesehjelpTestDataFactory.createClaim(
+            HOT_LesehjelpTestDataFactory.createAccount(true),
+            portalBrukerAccount
+            );
+
+        insert newClaim;
+
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(newClaim);
+
+        Date yesterday = Date.today().addDays(-1);
+        cli.Date__c = yesterday;
+        cli.StartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
+        cli.EndTime__c = DateTime.newInstance(yesterday, Time.newInstance(17, 0, 0, 0));
+        cli.TypeOfTask__c = '';
+        cli.HasTravelTo__c = true;
+        cli.HasTravelFrom__c = true;
+        cli.TravelTo__c = yesterday;
+        cli.TravelFrom__c = yesterday;
+        cli.TravelToStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(10, 0, 0, 0));
+        cli.TravelToEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(11, 0, 0, 0));
+        cli.TravelFromStartTime__c = DateTime.newInstance(yesterday, Time.newInstance(13, 0, 0, 0));
+        cli.TravelFromEndTime__c = DateTime.newInstance(yesterday, Time.newInstance(14, 0, 0, 0));
+        cli.TravelDistance__c = 10;
+        cli.ExpensesPublicTransport__c = 10;
+        cli.ExpensesParking__c = 10;
+        cli.ExpensesToll__c = 0;
+        insert cli;
+
+        User portalBruker = [
+            SELECT Id, AccountId FROM User 
+            WHERE AccountId = :portalBrukerAccount.Id
+        ]; 
+
+        List<Map<String, String>> times = new List<Map<String, String>>();
+        Test.startTest();
+        System.runAs(portalBruker) {
+            times = HOT_ClaimController.getTimes(newClaim.Id);
+        }
+        Test.stopTest();
+        System.assertEquals(1, times.size(), 'Should have 1 time');
+    }
+
     @IsTest
     static void CreateNewClaimFromCommunityAndThenUpdateItTest() {
         String userName = 'Test User';
