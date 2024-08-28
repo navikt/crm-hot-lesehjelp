@@ -435,7 +435,7 @@ public class HOT_ClaimControllerTest {
         Test.startTest();
         List<Map<String, String>> times = HOT_ClaimController.getTimes(claim.Id);
         Test.stopTest();
-        System.assertEquals(null, null, 'List of times should come back null because no access');
+        System.assertEquals(null, times, 'List of times should come back null because no access');
     }
     @IsTest
     static void getTimesAsValidUserTest() {
