@@ -1,4 +1,10 @@
 public without sharing class HOT_ClaimController {
+    private static String handleExceptionAndGetMessage(Exception e) {
+        LoggerUtility logger = new LoggerUtility();
+        logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+        return e.getMessage();
+    }
     @AuraEnabled
     public static Boolean checkAccess(String claimId) {
         User currentUser = [SELECT Id, AccountId, Account.CRM_Person__c FROM User WHERE Id = :UserInfo.getUserId()];
@@ -216,10 +222,7 @@ public without sharing class HOT_ClaimController {
             insert claimLineItemList;
             return '';
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+            return handleExceptionAndGetMessage(e);
         }
     }
 
@@ -250,10 +253,7 @@ public without sharing class HOT_ClaimController {
             String result = createClaimLineItems(newClaim, claimLineItems);
             return 'ok' + result;
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+            return handleExceptionAndGetMessage(e);
         }
     }
     private static String createClaimOrganization(
@@ -293,10 +293,7 @@ public without sharing class HOT_ClaimController {
             String result = createClaimLineItems(newClaim, claimLineItems);
             return 'ok' + result;
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+            return handleExceptionAndGetMessage(e);
         }
     }
     private static List<String> addUserPhoneVariations(List<String> idents, String phoneNumber) {
@@ -400,10 +397,7 @@ public without sharing class HOT_ClaimController {
                 update claims;
                 return 'ok';
             } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-                return e.getMessage();
+                return handleExceptionAndGetMessage(e);
             }
         } else {
             return '';
@@ -424,10 +418,7 @@ public without sharing class HOT_ClaimController {
                 update claims;
                 return 'ok';
             } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-                return e.getMessage();
+                return handleExceptionAndGetMessage(e);
             }
         } else {
             return '';
@@ -442,10 +433,7 @@ public without sharing class HOT_ClaimController {
                 update claims;
                 return 'ok';
             } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
-                return e.getMessage();
+                return handleExceptionAndGetMessage(e);
             }
         } else {
             return '';
@@ -597,10 +585,7 @@ public without sharing class HOT_ClaimController {
                 return 'Dette kravet kan ikke endres. Det er allerede godkjent av NAV.';
             }
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+            return handleExceptionAndGetMessage(e);
         }
     }
 
@@ -772,10 +757,7 @@ public without sharing class HOT_ClaimController {
             delete recordToDelete;
             return '';
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
-            return e.getMessage();
+            return handleExceptionAndGetMessage(e);
         }
     }
 
@@ -835,9 +817,7 @@ public without sharing class HOT_ClaimController {
                 try {
                     update claimsToBeUpdated;
                 } catch (Exception e) {
-                    LoggerUtility logger = new LoggerUtility();
-                    logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                    logger.publishSynch();
+                    handleExceptionAndGetMessage(e);
                 }
             }
         }

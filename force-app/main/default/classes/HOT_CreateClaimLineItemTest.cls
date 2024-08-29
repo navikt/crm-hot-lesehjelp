@@ -21,7 +21,6 @@ private class HOT_CreateClaimLineItemTest {
         HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
         insert entitlement;
     }
-
     @IsTest
     private static void createClaimNever() {
         HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
@@ -172,5 +171,122 @@ private class HOT_CreateClaimLineItemTest {
             FROM HOT_ClaimLineItem__c
         ];
         System.assertEquals(14, claimLines.size(), 'Det ble ikke opprettet korrekt antall linjer');
+    }
+    @IsTest
+    private static void createClaimInvalidStartEndTime() {
+        HOT_Claim__c claim =  [SELECT Id FROM HOT_Claim__c];
+        HOT_CreateClaimLineItem inputVariable = new HOT_CreateClaimLineItem();
+        inputVariable.claimId = claim.Id;
+        inputVariable.endDate = Datetime.now();
+        inputVariable.startDate = Datetime.now().addHours(1);
+
+        Test.startTest();
+        List<String> errors = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+        Test.stopTest();
+
+        System.assert(
+            errors.contains( HOT_CreateClaimLineItem.ERROR_ENDDATE_BEFORE_STARTDATE), 
+            'Errors should include enddate before startdate error'
+            );
+    }
+    @IsTest
+    private static void createClaimInvalidRecurringStartEndTime() {
+        HOT_Claim__c claim =  [SELECT Id FROM HOT_Claim__c];
+        HOT_CreateClaimLineItem inputVariable = new HOT_CreateClaimLineItem();
+        inputVariable.claimId = claim.Id;
+        inputVariable.recurringType = 'Weekly';
+        inputVariable.recurringEndDate = Date.today();
+        inputVariable.startDate = DateTime.now().addDays(1);
+
+        Test.startTest();
+        List<String> errors = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+        Test.stopTest();
+
+        System.assert(
+            errors.contains(HOT_CreateClaimLineItem.ERROR_RECURRING_ENDDATE_BEFORE_STARTDATE),
+            'Errors should include recurring enddate before startdate error'
+        );
+    }
+    @IsTest 
+    private static void createClaimNoDaySelected() {
+        HOT_Claim__c claim =  [SELECT Id FROM HOT_Claim__c];
+        HOT_CreateClaimLineItem inputVariable = new HOT_CreateClaimLineItem();
+        inputVariable.claimId = claim.Id;
+        inputVariable.startDate = Datetime.now();
+        inputVariable.endDate = Datetime.now().addHours(1);
+        inputVariable.recurringType = 'Weekly';
+        inputVariable.travelToStartDate = Datetime.now().addHours(-1);
+        inputVariable.travelToEndDate = Datetime.now();
+        inputVariable.travelFromStartDate = Datetime.now().addHours(1);
+        inputVariable.travelFromEndDate = Datetime.now().addHours(2);
+        inputVariable.monday = false;
+        inputVariable.tuesday = false;
+        inputVariable.wednesday = false;
+        inputVariable.thursday = false;
+        inputVariable.friday = false;
+        inputVariable.saturday = false;
+        inputVariable.sunday = false;
+
+        Test.startTest();
+        List<String> errors = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+        Test.stopTest();
+
+        System.assert(
+            errors.contains(HOT_CreateClaimLineItem.ERROR_NO_DAY_SELECTED),
+            'Errors should include no selected day error'
+        );
+    }
+    @IsTest
+    private static void createClaimTooManyDays() {
+        HOT_Claim__c claim =  [SELECT Id FROM HOT_Claim__c];
+        HOT_CreateClaimLineItem inputVariable = new HOT_CreateClaimLineItem();
+        inputVariable.claimId = claim.Id;
+        inputVariable.startDate = Datetime.now();
+        inputVariable.endDate = Datetime.now().addHours(1);
+        inputVariable.recurringType = 'Weekly';
+        inputVariable.travelToStartDate = Datetime.now().addHours(-1);
+        inputVariable.travelToEndDate = Datetime.now();
+        inputVariable.travelFromStartDate = Datetime.now().addHours(1);
+        inputVariable.travelFromEndDate = Datetime.now().addHours(2);
+        inputVariable.recurringEndDate = Date.today().addYears(10);
+        inputVariable.monday = true;
+        inputVariable.tuesday = true;
+        inputVariable.wednesday = true;
+        inputVariable.thursday = true;
+        inputVariable.friday = true;
+        inputVariable.saturday = true;
+        inputVariable.sunday = true;
+
+        Test.startTest();
+        List<String> errorsWhenWeekly = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+
+
+        inputVariable.recurringType = 'Biweekly';
+        List<String> errorsWhenBiweekly = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+
+        inputVariable.recurringType = 'Daily';
+        List<String> errorsWhenDaily = 
+            HOT_CreateClaimLineItem.createClaimLineItems(new List<HOT_CreateClaimLineItem>{inputVariable});
+
+
+        Test.stopTest();
+
+        System.assert(
+            errorsWhenWeekly.contains(HOT_CreateClaimLineItem.ERROR_EXCEEDED_MAX_ITEMS),
+            'Errors should include too many items error when weekly'
+        );
+        System.assert(
+            errorsWhenBiweekly.contains(HOT_CreateCLaimLineItem.ERROR_EXCEEDED_MAX_ITEMS),
+            'Erros should include too many items error when biweekly'
+        );
+        System.assert(
+            errorsWhenDaily.contains(HOT_CreateCLaimLineItem.ERROR_EXCEEDED_MAX_ITEMS),
+            'Erros should include too many items error when daily'
+        );
     }
 }
