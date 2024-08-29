@@ -38,6 +38,13 @@ public without sharing class HOT_CreateClaimLineItem {
     @InvocableVariable
     public Integer distanceTraveled;
 
+    public static final String ERROR_ENDDATE_BEFORE_STARTDATE = 'Slutt tid må være etter start tid.';
+    public static final String ERROR_RECURRING_ENDDATE_BEFORE_STARTDATE = 'Sluttdato må være etter startdato.';
+    public static final String ERROR_NO_DAY_SELECTED = 'Må velge minst en dag.';
+    public static final String ERROR_FAILED_WORKORDER_CREATION = 'Opprettelsen av arbeidsordrene feilet.';
+    public static final String ERROR_FAILED_CLAIM_LINE_CREATION = 'Opprettelsen av lesekravslinje feilet.';
+    public static final String ERROR_EXCEEDED_MAX_ITEMS = 'Kan ikke opprette mer enn 200 lesekravslinjer av gangen';
+
     @InvocableMethod
     public static List<String> createClaimLineItems(List<HOT_CreateClaimLineItem> inputVariables) {
         HOT_CreateClaimLineItem input = inputVariables[0];
@@ -50,12 +57,12 @@ public without sharing class HOT_CreateClaimLineItem {
         TimeZone tz = UserInfo.getTimeZone();
         Datetime oldStartDate = input.startDate;
         if (input.endDate <= input.startDate) {
-            errors.add('Slutt tid må være etter start tid.');
+            errors.add(ERROR_ENDDATE_BEFORE_STARTDATE);
             return errors;
         }
 
         if (input.recurringType != 'Never' && input.recurringEndDate <= input.startDate.date()) {
-            errors.add('Sluttdato må være etter startdato.');
+            errors.add(ERROR_RECURRING_ENDDATE_BEFORE_STARTDATE);
             return errors;
         }
 
@@ -70,7 +77,7 @@ public without sharing class HOT_CreateClaimLineItem {
             !input.saturday &&
             !input.sunday
         ) {
-            errors.add('Må velge minst en dag.');
+            errors.add(ERROR_NO_DAY_SELECTED);
             return errors;
         }
 
@@ -91,7 +98,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItem;
             } catch (Exception e) {
-                errors.add('Opprettelsen av lesekravslinje feilet.');
+                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
                 logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
                 logger.publishSynch();
             }
@@ -102,7 +109,7 @@ public without sharing class HOT_CreateClaimLineItem {
             Integer numberOfRecurrences = input.startDate.date().daysBetween(input.recurringEndDate);
 
             if (numberOfRecurrences > maxNumberOfRecurrences) {
-                errors.add('Kan ikke opprette flere enn 200 lesekravslinjer av gangen');
+                errors.add(ERROR_EXCEEDED_MAX_ITEMS);
                 return errors;
             }
 
@@ -139,7 +146,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add('Opprettelsen av arbeidsordrene feilet.');
+                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
                 logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
                 logger.publishSynch();
             }
@@ -192,14 +199,14 @@ public without sharing class HOT_CreateClaimLineItem {
             }
 
             if (claimLineItems.size() > maxNumberOfRecurrences) {
-                errors.add('Kan ikke opprette mer enn 200 lesekravslinjer av gangen');
+                errors.add(ERROR_EXCEEDED_MAX_ITEMS);
                 return errors;
             }
 
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add('Opprettelsen av lesekravslinje feilet.');
+                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
                 logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
                 logger.publishSynch();
             }
@@ -255,14 +262,14 @@ public without sharing class HOT_CreateClaimLineItem {
             }
 
             if (claimLineItems.size() > maxNumberOfRecurrences) {
-                errors.add('Kan ikke opprette mer enn 200 lesekravslinjer av gangen');
+                errors.add(ERROR_EXCEEDED_MAX_ITEMS);
                 return errors;
             }
 
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add('Opprettelsen av lesekravslinjer feilet.');
+                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
                 logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
                 logger.publishSynch();
             }
