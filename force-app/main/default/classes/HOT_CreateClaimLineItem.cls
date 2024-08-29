@@ -45,6 +45,12 @@ public without sharing class HOT_CreateClaimLineItem {
     public static final String ERROR_FAILED_CLAIM_LINE_CREATION = 'Opprettelsen av lesekravslinje feilet.';
     public static final String ERROR_EXCEEDED_MAX_ITEMS = 'Kan ikke opprette mer enn 200 lesekravslinjer av gangen';
 
+    private static void handleException(LoggerUtility logger, List<String> errors, String error, SObject relatedRecord, Exception e) {
+        errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
+        logger.exception(e, relatedRecord, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+    }
+
     @InvocableMethod
     public static List<String> createClaimLineItems(List<HOT_CreateClaimLineItem> inputVariables) {
         HOT_CreateClaimLineItem input = inputVariables[0];
@@ -98,9 +104,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItem;
             } catch (Exception e) {
-                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
-                logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(logger, errors, ERROR_FAILED_CLAIM_LINE_CREATION, claim, e);
             }
 
             return errors;
@@ -146,9 +150,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
-                logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(logger, errors, ERROR_FAILED_CLAIM_LINE_CREATION, claim, e);
             }
 
             return errors;
@@ -206,9 +208,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
-                logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(logger, errors, ERROR_FAILED_CLAIM_LINE_CREATION, claim, e);
             }
 
             return errors;
@@ -269,9 +269,7 @@ public without sharing class HOT_CreateClaimLineItem {
             try {
                 insert claimLineItems;
             } catch (Exception e) {
-                errors.add(ERROR_FAILED_CLAIM_LINE_CREATION);
-                logger.exception(e, claim, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(logger, errors, ERROR_FAILED_CLAIM_LINE_CREATION , claim, e);
             }
 
             return errors;
