@@ -104,16 +104,9 @@
     cursor: pointer;
     transition: 0.3s;
 }
-.box img {
-    width: 3.5em;
-    height: 3.5em;
-}
 .box-small img {
-    width: 2em;
-    height: 2em;
-}
-p {
-    font-size: large;
+    width: 1.5em;
+    height: 1.5em;
 }
 .margin {
     margin-right: 1rem;
