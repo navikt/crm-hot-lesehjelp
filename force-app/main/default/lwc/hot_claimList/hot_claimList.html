@@ -15,24 +15,24 @@
             >
             </c-alertdialog>
             <main class="main-content submitted-false">
-                <h1 class="typo-overskrift" tabindex="0">Krav til godkjenning</h1>
+                <h2 class="typo-overskrift" tabindex="0">Krav til godkjenning</h2>
                 <div if:true={showRecievedClaimslist} class="recievedClaimslist">
                     <div>
                         <!-- listen kommer her -->
                     </div>
                     <div if:true={noRecievedClaims} style="text-align: center">
                         <br />
-                        <p class="typo-normal" tabindex="0">Listen er tom. Når lesehjelp har sendt inn krav vil den vises her.</p>
+                        <p tabindex="0">Listen er tom. Når lesehjelp har sendt inn krav vil den vises her.</p>
                     </div>
                     <div if:false={noRecievedClaims}>
-                        <p class="typo-normal" tabindex="0">Trykk på et krav for å se detaljene
+                        <p tabindex="0">Trykk på et krav for å se detaljene
                             og for å godkjenne eller avvise kravet.
                         </p>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
                                     <p><strong>Referansenummer: {claim.Name}</strong></p>
-                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                    <p>Sendt inn {claim.created}</p>
                                 </div>
 
                                 <p>Lesehjelp: {claim.Claimant__r.CRM_Person__r.CRM_FullName__c}</p>
@@ -46,14 +46,14 @@
                     </br>
                      </br>
                      <h2 class="typo-overskrift" tabindex="0">Tidligere godkjente og avviste krav</h2>
-                        <p class="typo-normal" tabindex="0">
+                        <p tabindex="0">
                             Her finner du eldre krav som du allerede har godkjent eller avvist.
                         </p>
                         <template for:each={olderClaims} for:item="claim">
                             <button key={claim.Id} class="claim-single older" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
                                     <p><strong>Referansenummer: {claim.Name} - {claim.status}</strong></p>
-                                    <p class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                    <p>Sendt inn {claim.created}</p>
                                 </div>
 
                                 <p>Lesehjelp: {claim.Claimant__r.CRM_Person__r.CRM_FullName__c}</p>
@@ -79,7 +79,7 @@
                 </div>
                 <div if:true={noClaimLineItems} style="text-align: center">
                     <br />
-                    <p tabindex="0" class="typo-normal">Dette kravet hadde ingen tider.</p>
+                    <p tabindex="0" >Dette kravet hadde ingen tider.</p>
                 </div>
                 <div if:false={noClaimLineItems}>
                     <template for:each={claimLineItems} for:item="cli">
@@ -155,7 +155,7 @@
                         tabindex="-1"
                         role="alert"
                         aria-live="polite"
-                        aria-label="Sender inn kravet..."
+                        aria-label={actionText}
                     >
                         {submitSuccessMessage}
                     </h2>
