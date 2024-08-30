@@ -10,7 +10,7 @@
         <div if:false={isEdit}>
             <br />
             <div class="previousUsersBtn" onclick={handlePreviousUsersBtn}>
-                <p class="typo-normal">Vis liste for å velge en person du tidligere har vært lesehjelp for</p>
+                <p>Vis liste for å velge en person du tidligere har vært lesehjelp for</p>
             </div>
         </div>
         <br />
@@ -84,7 +84,7 @@
                                 onclick={insertPreviousUser}
                             >
                                 <p class="typo-undertittel"><strong>{claim.UserName__c}</strong></p>
-                                <p class="typo-normal">{claim.identification}</p>
+                                <p>{claim.identification}</p>
                             </div>
                         </template>
                     </div>

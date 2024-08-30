@@ -9,12 +9,10 @@
                 <div if:true={showClaimlist}>
                     <div if:true={noClaims} style="text-align: center">
                         <br />
-                        <p tabindex="0" class="typo-normal">
-                            Listen er tom. Når du har sendt inn et krav vil de vises her.
-                        </p>
+                        <p tabindex="0">Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
                     </div>
                     <div if:false={noClaims}>
-                        <p tabindex="0" class="typo-normal">
+                        <p tabindex="0">
                             Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
                         </p>
                         <div class="filterContainer">
@@ -66,7 +64,7 @@
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
                                     <p tabindex="0"><strong>{claim.Name} - {claim.madeBy}</strong></p>
-                                    <p tabindex="0" class="typo-normal cursive">Sendt inn {claim.created}</p>
+                                    <p tabindex="0">Sendt inn {claim.created}</p>
                                 </div>
 
                                 <p tabindex="0" style="padding-bottom: 0.4rem">Lesehjelp for {claim.UserName__c}</p>
@@ -110,7 +108,7 @@
                             class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
                         >
                             <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-                            <div class="typo-normal alertstripe__tekst">
+                            <div class="alertstripe__tekst">
                                 Vi mangler kontaktinformasjon til personen du har vært lesehjelp for, som da ikke har
                                 fått SMS om at du har sendt inn et nytt krav.
                             </div>
@@ -120,7 +118,7 @@
                         </div>
                         <div if:true={noClaimLineItems} style="text-align: center">
                             <br />
-                            <p tabindex="0" class="typo-normal">Dette kravet hadde ingen linjer.</p>
+                            <p tabindex="0">Dette kravet hadde ingen linjer.</p>
                         </div>
                         <div if:false={noClaimLineItems}>
                             <p tabindex="0">{record.madeBy}</p>
