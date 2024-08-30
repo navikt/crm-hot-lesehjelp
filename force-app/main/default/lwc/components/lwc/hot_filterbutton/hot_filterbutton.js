@@ -17,9 +17,9 @@ export default class hot_filterbutton extends LightningElement {
     get buttonClass() {
         let buttonStyle;
         if (this.isActive == true) {
-            return 'navds-button ' + buttonStyle + ' active';
+            return 'hot-button ' + buttonStyle + ' active';
         } else {
-            return 'navds-button ' + buttonStyle;
+            return 'hot-button ' + buttonStyle;
         }
     }
     @api setActive() {
