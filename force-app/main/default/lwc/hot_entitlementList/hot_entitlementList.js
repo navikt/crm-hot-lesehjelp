@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import getEntitlements from '@salesforce/apex/HOT_EntitlementController.getEntitlements';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
 
 export default class Hot_entitlementList extends LightningElement {
     @track showEntitlementlist = true;
@@ -16,6 +18,10 @@ export default class Hot_entitlementList extends LightningElement {
             href: 'mine-vedtak'
         }
     ];
+
+    renderedCallback() {
+        loadStyle(this, Index);
+    }
 
     @track unmappedClaimLineItems;
     @track claimLineItems;
