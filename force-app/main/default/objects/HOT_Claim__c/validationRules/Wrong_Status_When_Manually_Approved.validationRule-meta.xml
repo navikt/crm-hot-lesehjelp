@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wrong_Status_When_Manually_Approved</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISCHANGED(ApprovedByUser__c),
+    ApprovedByUser__c = TRUE,
+    ISPICKVAL(Status__c, &apos;Sent&apos;)
+)</errorConditionFormula>
+    <errorMessage>Status må endres til Godkjent av bruker</errorMessage>
+</ValidationRule>
