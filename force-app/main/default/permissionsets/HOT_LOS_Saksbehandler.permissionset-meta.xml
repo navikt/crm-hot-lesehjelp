@@ -52,6 +52,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.INT_PersonIdent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.AdditionalInformation__c</field>
         <readable>true</readable>
