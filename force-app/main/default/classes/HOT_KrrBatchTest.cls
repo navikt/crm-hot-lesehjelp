@@ -14,7 +14,7 @@ private with sharing class HOT_KrrBatchTest {
         person.INT_KrrIntegrationStatus__c = 'Failed';
         update person;
 
-        String cron_exp = '0 0 0 3 9 ? 2024';
+        String cron_exp = '0 0 0 3 9 ? 2099';
         Test.startTest();
         String jobId = System.schedule('HOT_KrrBatch', cron_exp, new HOT_KrrBatch());
         Test.stopTest();
