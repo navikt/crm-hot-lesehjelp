@@ -22,11 +22,13 @@
                     </div>
                     <div if:true={noRecievedClaims} style="text-align: center">
                         <br />
-                        <p class="typo-normal" tabindex="0">Listen er tom. Når lesehjelp har sendt inn krav vil den vises her.</p>
+                        <p class="typo-normal" tabindex="0">
+                            Listen er tom. Når lesehjelp har sendt inn krav vil den vises her.
+                        </p>
                     </div>
                     <div if:false={noRecievedClaims}>
-                        <p class="typo-normal" tabindex="0">Trykk på et krav for å se detaljene
-                            og for å godkjenne eller avvise kravet.
+                        <p class="typo-normal" tabindex="0">
+                            Trykk på et krav for å se detaljene og for å godkjenne eller avvise kravet.
                         </p>
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
@@ -41,11 +43,10 @@
                             </button>
                         </template>
                     </div>
-
                     <div if:false={noOlderClaims}>
-                    </br>
-                     </br>
-                     <h2 class="typo-overskrift" tabindex="0">Tidligere godkjente og avviste krav</h2>
+                        <br />
+                        <br />
+                        <h2 class="typo-overskrift" tabindex="0">Tidligere godkjente og avviste krav</h2>
                         <p class="typo-normal" tabindex="0">
                             Her finner du eldre krav som du allerede har godkjent eller avvist.
                         </p>
@@ -65,80 +66,78 @@
                 </div>
             </main>
             <dialog
-        class="dialog details"
-        style="z-index: 9999"
-        aria-labelledby="comment-header-id"
-        onkeydown={handleKeyDown}
-    >
-        <div
-            class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container"
-        >
-            <section>
-                <div>
-                    <h2 id="comment-header-id" class="typo-undertittel">Tider du har hatt lesehjelp</h2>
-                </div>
-                <div if:true={noClaimLineItems} style="text-align: center">
-                    <br />
-                    <p tabindex="0" class="typo-normal">Dette kravet hadde ingen tider.</p>
-                </div>
-                <div if:false={noClaimLineItems}>
-                    <template for:each={claimLineItems} for:item="cli">
-                        <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
-                            <p tabindex="0"><strong>Periode: </strong>{cli.Weekday__c} {cli.period}</p>
+                class="dialog details"
+                style="z-index: 9999"
+                aria-labelledby="comment-header-id"
+                onkeydown={handleKeyDown}
+            >
+                <div class="ReactModal__Content ReactModal__Content--after-open navno-dekorator details-container">
+                    <section>
+                        <div>
+                            <h2 id="comment-header-id" class="typo-undertittel">Tider du har hatt lesehjelp</h2>
                         </div>
-                    </template>
-                    <div aria-label="Oppsummering av timer" class="cli-container" key={cli.Id}>
-                        <p tabindex="0"><strong>Totalt antall timer: </strong>{record.TotalHours__c}</p>
-                    </div>
-                    <br />
-                    <c-hot_textarea
-                        if:false={record.isOldClaim}
-                        name="CommentFromUser__c"
-                        label="Kommentar til regningen: "
-                        value={fieldValues.CommentFromUser__c}
-                        helptext-content="Her kan du skrive en kommentar til lese- og sekretærhjelpen som er relevant for denne regningen. Det du skriver her blir synlig for lese- og sekretærhjelpen og for NAV-ansatt som behandler kravet."
-                        helptext-hovertext="Hjelpeknapp"
-                        error-text="Kommentar må fylles ut ved avvisning."
-                        maxlength=255
-                        aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
-                    ></c-hot_textarea>
-                    <div class="confirmationCheckbox" if:false={record.isOldClaim}>
-                        <c-checkbox
-                            label="Jeg bekrefter at jeg har lest all informasjon i kravet."
-                            oncheckboxclick={approveClaimCheckboxHandle}
-                            name="confirmationCheckbox"
-                            aria-label="Jeg bekrefter at jeg har lest all informasjon i kravet."
-                        ></c-checkbox>
-                    </div>
-                    <div class="buttons">
-                        <c-button
-                            if:false={record.isOldClaim}
-                            button-label="Godkjenn"
-                            button-styling="primary"
-                            disabled={notRedClaim}
-                            onbuttonclick={approveClaim}
-                            desktop-style="width: 8rem; justify-content: center;"
-                            mobile-style="width: 8rem; justify-content: center;"
-                        ></c-button>
-                        <br />
-                        <c-button
-                            if:false={record.isOldClaim}
-                            button-label="Avvis"
-                            button-styling="danger"
-                            disabled={notRedClaim}
-                            onbuttonclick={declineClaim}
-                            desktop-style="width: 8rem; justify-content: center; margin-left: 1rem;"
-                            mobile-style="width: 8rem; justify-content: center; margin-left: 1rem;"
-                        ></c-button>
-                    </div>
+                        <div if:true={noClaimLineItems} style="text-align: center">
+                            <br />
+                            <p tabindex="0" class="typo-normal">Dette kravet hadde ingen tider.</p>
+                        </div>
+                        <div if:false={noClaimLineItems}>
+                            <template for:each={claimLineItems} for:item="cli">
+                                <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
+                                    <p tabindex="0"><strong>Periode: </strong>{cli.Weekday__c} {cli.period}</p>
+                                </div>
+                            </template>
+                            <div aria-label="Oppsummering av timer" class="cli-container" key={cli.Id}>
+                                <p tabindex="0"><strong>Totalt antall timer: </strong>{record.TotalHours__c}</p>
+                            </div>
+                            <br />
+                            <c-hot_textarea
+                                if:false={record.isOldClaim}
+                                name="CommentFromUser__c"
+                                label="Kommentar til regningen: "
+                                value={fieldValues.CommentFromUser__c}
+                                helptext-content="Her kan du skrive en kommentar til lese- og sekretærhjelpen som er relevant for denne regningen. Det du skriver her blir synlig for lese- og sekretærhjelpen og for NAV-ansatt som behandler kravet."
+                                helptext-hovertext="Hjelpeknapp"
+                                error-text="Kommentar må fylles ut ved avvisning."
+                                maxlength="255"
+                                aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
+                            ></c-hot_textarea>
+                            <div class="confirmationCheckbox" if:false={record.isOldClaim}>
+                                <c-checkbox
+                                    label="Jeg bekrefter at jeg har lest all informasjon i kravet."
+                                    oncheckboxclick={approveClaimCheckboxHandle}
+                                    name="confirmationCheckbox"
+                                    aria-label="Jeg bekrefter at jeg har lest all informasjon i kravet."
+                                ></c-checkbox>
+                            </div>
+                            <div class="buttons">
+                                <c-button
+                                    if:false={record.isOldClaim}
+                                    button-label="Godkjenn"
+                                    button-styling="primary"
+                                    disabled={notRedClaim}
+                                    onbuttonclick={approveClaim}
+                                    desktop-style="width: 8rem; justify-content: center;"
+                                    mobile-style="width: 8rem; justify-content: center;"
+                                ></c-button>
+                                <br />
+                                <c-button
+                                    if:false={record.isOldClaim}
+                                    button-label="Avvis"
+                                    button-styling="danger"
+                                    disabled={notRedClaim}
+                                    onbuttonclick={declineClaim}
+                                    desktop-style="width: 8rem; justify-content: center; margin-left: 1rem;"
+                                    mobile-style="width: 8rem; justify-content: center; margin-left: 1rem;"
+                                ></c-button>
+                            </div>
+                        </div>
+                    </section>
+                    <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
+                        <span class="text-hide">Lukk</span>
+                    </button>
                 </div>
-            </section>
-            <button class="lukknapp lukknapp--overstHjorne modal__lukkknapp--shake" onclick={closeModal}>
-                <span class="text-hide">Lukk</span>
-            </button>
-        </div>
-    </dialog>
-             <div class="loading-content hidden submitted-true">
+            </dialog>
+            <div class="loading-content hidden submitted-true">
                 <div class="loading-content dialog-boks skjema-max-width">
                     <lightning-icon
                         icon-name="utility:success"
@@ -166,7 +165,7 @@
                         onbuttonclick={goBack}
                         desktop-style="width: 16rem; justify-content: center"
                         mobile-style="width: 16rem; justify-content: center"
-                    ></c-button> 
+                    ></c-button>
                 </div>
             </div>
             <div class="loading-content hidden submitted-loading">
