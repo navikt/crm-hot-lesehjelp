@@ -1,5 +1,11 @@
 # These owners will be the default owners for everything in
+
 # the repo.
-# @navikt/team-tolketjenesten and
+
+# @navikt/hot-crm and
+
 # @navikt/team-crm-hot will be requested for
+
 # review when someone opens a pull request.
+
+@navikt/hot-crm
