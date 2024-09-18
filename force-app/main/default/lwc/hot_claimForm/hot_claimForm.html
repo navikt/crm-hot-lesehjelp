@@ -14,6 +14,19 @@
                 name="OnEmployer__c"
             ></c-radiobuttons>
             <br />
+            <div if:true={employerClaim} class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
+                <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                <div class="typo-normal alertstripe__tekst">
+                    For utbetaling av timer til lese- og sekretærhjelp til arbeidsplassen må det brukes elektronisk
+                    faktura: <br /><br />
+                    <a href="https://www.nav.no/no/nav-og-samfunn/om-nav/slik-gjor-du-det/send-faktura-til-nav"
+                        >For utbetaling til arbeidsplassen brukes elektronisk faktura</a
+                    ><br /><br />
+                    Benytt org.nr. 889640782, referanse T109322, henvis til aktuelle kravnummer fra denne løsningen og
+                    vi ber også om at bekreftelse av lønn/timeliste følger vedlagt.
+                </div>
+            </div>
+            <div if:true={employerClaim}><br /></div>
             <div if:true={employerClaim}>
                 <c-input
                     data-id="orgName"
