@@ -141,39 +141,57 @@ public class HOT_ClaimControllerTest {
         cliChange.Date__c = twoDaysAgo;
         update cliChange;
     }
-    // @IsTest
-    // static void approveClaimTest() {
-    //     Test.startTest();
-    //     HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
-    //     HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
-    //     insert cli;
-    //     HOT_ClaimController.approveClaim(claim.Id, 'Takk for fint møte');
-    //     HOT_Claim__c result = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c];
-    //     Test.stopTest();
-    //     System.assertEquals(true, result.ApprovedByUser__c);
-    // }
-    // @IsTest
-    // static void declineClaimTest() {
-    //     Test.startTest();
-    //     HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
-    //     HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
-    //     insert cli;
-    //     HOT_ClaimController.declineClaim(claim.Id, 'Dette stemmer ikke');
-    //     HOT_Claim__c result = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c];
-    //     Test.stopTest();
-    //     System.assertEquals(false, result.ApprovedByUser__c);
-    // }
-    // @IsTest
-    // static void cancelClaimTest() {
-    //     Test.startTest();
-    //     HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
-    //     HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
-    //     insert cli;
-    //     HOT_ClaimController.cancelClaim(claim.Id);
-    //     HOT_Claim__c result = [SELECT Id, Status__c FROM HOT_Claim__c];
-    //     Test.stopTest();
-    //     System.assertEquals('Withdrawn', result.Status__c);
-    // }
+    @IsTest
+    static void approveClaimTest() {
+        User user = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
+        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+        claim.Account__c = User.AccountId;
+        update claim;
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+        insert cli;
+        Test.startTest();
+        System.runAs(user) {
+            HOT_ClaimController.approveClaim(claim.Id, 'Takk for fint møte');
+        }
+        Test.stopTest();
+
+        HOT_Claim__c result = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c];
+        System.assertEquals(true, result.ApprovedByUser__c);
+    }
+    @IsTest
+    static void declineClaimTest() {
+        User user = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
+        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+        claim.Account__c = User.AccountId;
+        update claim;
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+        insert cli;
+
+        Test.startTest();
+        System.runAs(user) {
+            HOT_ClaimController.declineClaim(claim.Id, 'Dette stemmer ikke');
+        }
+        Test.stopTest();
+        HOT_Claim__c result = [SELECT Id, ApprovedByUser__c FROM HOT_Claim__c];
+        System.assertEquals(false, result.ApprovedByUser__c);
+    }
+    @IsTest
+    static void cancelClaimTest() {
+        User user = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
+        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+        claim.Claimant__c = User.AccountId;
+        update claim;
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+        insert cli;
+
+        Test.startTest();
+        System.runAs(user) {
+            HOT_ClaimController.cancelClaim(claim.Id);
+        }
+        Test.stopTest();
+        HOT_Claim__c result = [SELECT Id, Status__c FROM HOT_Claim__c];
+        System.assertEquals('Withdrawn', result.Status__c);
+    }
     @IsTest
     static void getClaimTest() {
         Test.startTest();
