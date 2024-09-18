@@ -4,11 +4,11 @@ public without sharing class HOT_ClaimLineItemController {
         User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
         Set<String> groupNames = new Set<String>();
         for (GroupMember groupmember : [
-            SELECT group.DeveloperName
+            SELECT group.name
             FROM GroupMember
             WHERE UserOrGroupId = :currentUser.Id
         ]) {
-            groupNames.add(groupmember.group.DeveloperName);
+            groupNames.add(groupmember.group.name);
         }
         if (groupNames.contains('HOT LOS Saksbehandler')) {
             List<HOT_ClaimLineItem__c> claimLineItems = [
