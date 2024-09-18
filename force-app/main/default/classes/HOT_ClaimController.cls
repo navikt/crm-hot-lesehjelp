@@ -834,11 +834,11 @@ public without sharing class HOT_ClaimController {
     public static List<HOT_Claim__c> getClaim(String recordId) {
         Set<String> groupNames = new Set<String>();
         for (GroupMember groupmember : [
-            SELECT group.DeveloperName
+            SELECT group.name
             FROM GroupMember
             WHERE UserOrGroupId = :UserInfo.getUserId()
         ]) {
-            groupNames.add(groupmember.group.DeveloperName);
+            groupNames.add(groupmember.group.name);
         }
         if (groupNames.contains('HOT LOS Saksbehandler')) {
             List<HOT_Claim__c> claim = [
