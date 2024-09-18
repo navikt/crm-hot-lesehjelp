@@ -1,7 +1,10 @@
 import { LightningElement, api, track } from 'lwc';
 import getOrganizationInfo from '@salesforce/apex/HOT_ClaimController.getOrganizationInfo';
+import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_claimForm extends LightningElement {
+    warningicon = icons + '/warningicon.svg';
+
     @api parentFieldValues;
     @api claimType;
     @api isLos;
