@@ -384,12 +384,13 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled
     public static String approveClaim(String recordId, String comment) {
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
         List<HOT_Claim__c> claims = [
-            SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c
+            SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c, Account__c
             FROM HOT_Claim__c
             WHERE Id = :recordId
         ];
-        if (claims.size() == 1) {
+        if (claims.size() == 1 && claims[0].Account__c == currentUser.AccountId) {
             claims[0].ApprovedByUser__c = true;
             claims[0].Status__c = 'Approved by user';
             claims[0].CommentFromUser__c = comment;
@@ -405,12 +406,13 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled
     public static String declineClaim(String recordId, String comment) {
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
         List<HOT_Claim__c> claims = [
-            SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c
+            SELECT Id, Status__c, ApprovedByUser__c, CommentFromUser__c, Account__c
             FROM HOT_Claim__c
             WHERE Id = :recordId
         ];
-        if (claims.size() == 1) {
+        if (claims.size() == 1 && claims[0].Account__c == currentUser.AccountId) {
             claims[0].ApprovedByUser__c = false;
             claims[0].Status__c = 'Declined by user';
             claims[0].CommentFromUser__c = comment;
@@ -426,8 +428,13 @@ public without sharing class HOT_ClaimController {
     }
     @AuraEnabled
     public static String cancelClaim(String recordId) {
-        List<HOT_Claim__c> claims = [SELECT Id, Status__c, ApprovedByUser__c FROM HOT_Claim__c WHERE Id = :recordId];
-        if (claims.size() == 1) {
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
+        List<HOT_Claim__c> claims = [
+            SELECT Id, Status__c, ApprovedByUser__c, Claimant__c
+            FROM HOT_Claim__c
+            WHERE Id = :recordId
+        ];
+        if (claims.size() == 1 && claims[0].Claimant__c == currentUser.AccountId) {
             claims[0].Status__c = 'Withdrawn';
             try {
                 update claims;
@@ -825,18 +832,30 @@ public without sharing class HOT_ClaimController {
 
     @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getClaim(String recordId) {
-        List<HOT_Claim__c> claim = [
-            SELECT
-                Id,
-                Status__c,
-                Entitlement__c,
-                TotalHours__c,
-                Entitlement__r.EntitledHours__c,
-                Entitlement__r.EntitledHoursUsed__c
-            FROM HOT_Claim__c
-            WHERE Id = :recordId
-        ];
-        return claim;
+        Set<String> groupNames = new Set<String>();
+        for (GroupMember groupmember : [
+            SELECT group.DeveloperName
+            FROM GroupMember
+            WHERE UserOrGroupId = :UserInfo.getUserId()
+        ]) {
+            groupNames.add(groupmember.group.DeveloperName);
+        }
+        if (groupNames.contains('HOT LOS Saksbehandler')) {
+            List<HOT_Claim__c> claim = [
+                SELECT
+                    Id,
+                    Status__c,
+                    Entitlement__c,
+                    TotalHours__c,
+                    Entitlement__r.EntitledHours__c,
+                    Entitlement__r.EntitledHoursUsed__c
+                FROM HOT_Claim__c
+                WHERE Id = :recordId
+            ];
+            return claim;
+        } else {
+            return null;
+        }
     }
     @AuraEnabled(cacheable=true)
     public static List<HOT_Claim__c> getMyPreviousClaims() {
