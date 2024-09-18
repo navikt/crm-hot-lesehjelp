@@ -23,41 +23,42 @@ public class HOT_ClaimControllerTest {
             HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
             insert entitlement;
 
-
             // Oppsett portalbruker
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
             personAccount.LastName = 'PortalBruker';
             update personAccount;
             Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
             person.CRM_Account__c = personAccount.Id;
-            Set<Id> personAccountIds=new Set<Id>();
+            Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);
             update person;
             List<User> users = TestDataFactory_Community.getEmployerCommunityUser(
-                personAccountIds, 
-                'Trial Customer Portal User', 
+                personAccountIds,
+                'Trial Customer Portal User',
                 true
-                );
+            );
         }
     }
     @IsTest
     static void checkAccessTest() {
         Account portalBrukerAccount = [
-            SELECT Id FROM Account
+            SELECT Id
+            FROM Account
             WHERE LastName = 'PortalBruker'
         ];
-        
+
         HOT_Claim__c newClaim = HOT_LesehjelpTestDataFactory.createClaim(
             HOT_LesehjelpTestDataFactory.createAccount(true),
             portalBrukerAccount
-            );
+        );
         insert newClaim;
 
         User portalBruker = [
-            SELECT Id, AccountId FROM User 
+            SELECT Id, AccountId
+            FROM User
             WHERE AccountId = :portalBrukerAccount.Id
-        ]; 
-        
+        ];
+
         System.assertEquals(false, HOT_ClaimController.checkAccess(newClaim.Id), 'Default user should not have access');
         System.runAs(portalBruker) {
             System.assertEquals(true, HOT_ClaimController.checkAccess(newClaim.Id), 'Claimant should have access');
@@ -65,7 +66,7 @@ public class HOT_ClaimControllerTest {
     }
     @IsTest
     static void setEntitlementOnClaimTest() {
-    HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
         HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
         insert cli;
         Test.startTest();
@@ -176,10 +177,31 @@ public class HOT_ClaimControllerTest {
     @IsTest
     static void getClaimTest() {
         Test.startTest();
-        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
-        List<HOT_Claim__c> result = HOT_ClaimController.getClaim(claim.Id);
-        Test.stopTest();
-        System.assertEquals(1, result.size());
+
+        User navEmployee = [
+            SELECT Id
+            FROM User
+            WHERE Profile.Name = 'System Administrator' AND IsActive = TRUE
+            LIMIT 1
+        ];
+        Group group1 = new Group(Name = 'HOT LOS Saksbehandler', Type = 'Regular');
+        insert group1;
+
+        GroupMember gm = new GroupMember(GroupId = group1.Id, UserOrGroupId = navEmployee.Id);
+        insert gm;
+        System.runAs(navEmployee) {
+            Account acc = new Account();
+            acc.Name = 'Ola Lesehjelp';
+            insert acc;
+            Account acc2 = new Account();
+            acc2.Name = 'Kari Bruker';
+            insert acc2;
+            HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
+            insert claim;
+            List<HOT_Claim__c> result = HOT_ClaimController.getClaim(claim.Id);
+            Test.stopTest();
+            System.assertEquals(1, result.size());
+        }
     }
     @IsTest
     static void getMyPreviousClaimsTest() {
@@ -463,14 +485,15 @@ public class HOT_ClaimControllerTest {
     @IsTest
     static void getTimesAsValidUserTest() {
         Account portalBrukerAccount = [
-            SELECT Id FROM Account
+            SELECT Id
+            FROM Account
             WHERE LastName = 'PortalBruker'
         ];
-        
+
         HOT_Claim__c newClaim = HOT_LesehjelpTestDataFactory.createClaim(
             HOT_LesehjelpTestDataFactory.createAccount(true),
             portalBrukerAccount
-            );
+        );
 
         insert newClaim;
 
@@ -496,9 +519,10 @@ public class HOT_ClaimControllerTest {
         insert cli;
 
         User portalBruker = [
-            SELECT Id, AccountId FROM User 
+            SELECT Id, AccountId
+            FROM User
             WHERE AccountId = :portalBrukerAccount.Id
-        ]; 
+        ];
 
         List<Map<String, String>> times = new List<Map<String, String>>();
         Test.startTest();
