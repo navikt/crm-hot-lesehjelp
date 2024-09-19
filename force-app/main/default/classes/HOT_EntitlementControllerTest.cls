@@ -21,6 +21,7 @@ private class HOT_EntitlementControllerTest {
         HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
         insert cli;
         claim.ApprovedByUser__c = true;
+        claim.Status__c = 'Approved by user';
         claim.ApprovedByNAV__c = true;
         update claim;
         List<HOT_Entitlement__c> entitlements = [

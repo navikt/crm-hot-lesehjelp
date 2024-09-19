@@ -16,6 +16,7 @@
             </c-alertdialog>
             <main class="main-content submitted-false">
                 <h2 class="typo-overskrift" tabindex="0">Krav til godkjenning</h2>
+                <h2 class="typo-overskrift" tabindex="0">Krav til godkjenning</h2>
                 <div if:true={showRecievedClaimslist} class="recievedClaimslist">
                     <div>
                         <!-- listen kommer her -->
@@ -41,7 +42,6 @@
                             </button>
                         </template>
                     </div>
-
                     <div if:false={noOlderClaims}>
                     </br>
                      </br>
@@ -166,7 +166,7 @@
                         onbuttonclick={goBack}
                         desktop-style="width: 16rem; justify-content: center"
                         mobile-style="width: 16rem; justify-content: center"
-                    ></c-button> 
+                    ></c-button>
                 </div>
             </div>
             <div class="loading-content hidden submitted-loading">
