@@ -5,9 +5,11 @@ import updateKrrStatus from '@salesforce/apex/HOT_UserInfoController.updateKrrSt
 import LINK from '@salesforce/resourceUrl/HOT_Link';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
+import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_lesehjelpUserInformation extends LightningElement {
     LinkImg = LINK;
+    warningicon = icons + '/warningicon.svg';
 
     breadcrumbs = [
         {
