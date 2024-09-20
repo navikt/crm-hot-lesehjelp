@@ -7,6 +7,8 @@ import checkIsLos from '@salesforce/apex/HOT_UserInfoController.checkIsLos';
 import checkAccess from '@salesforce/apex/HOT_ClaimController.checkAccess';
 import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
 import icons from '@salesforce/resourceUrl/icons';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     erroricon = icons + '/erroricon.svg';
@@ -22,6 +24,10 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track currentPage = '';
     @track submitSuccessMessage = '';
     @track noAccess = false;
+
+    renderedCallback() {
+        loadStyle(this, Index);
+    }
 
     breadcrumbs = [
         {

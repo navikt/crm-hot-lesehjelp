@@ -5,6 +5,8 @@ import getMyClaims from '@salesforce/apex/HOT_ClaimController.getMyClaims';
 import cancelClaim from '@salesforce/apex/HOT_ClaimController.cancelClaim';
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 import icons from '@salesforce/resourceUrl/icons';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
 
 export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
     warningicon = icons + '/warningicon.svg';
@@ -35,6 +37,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     @track isEditButtonDisabled = false;
     renderedCallback() {
         refreshApex(this.wiredAllClaim);
+        loadStyle(this, Index);
     }
     connectedCallback() {
         refreshApex(this.wiredAllClaim);

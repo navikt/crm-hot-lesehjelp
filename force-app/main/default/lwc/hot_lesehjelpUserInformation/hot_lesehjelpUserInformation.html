@@ -28,21 +28,26 @@
                         <p>{email}</p>
                     </div>
                 </div>
-                <p tabindex="0">
-                    KILDE: Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no
+                <p tabindex="0" style="text-align: center">
+                    Kilde: Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no
                 </p>
                 <a
                     href="https://www.nav.no/person/personopplysninger/nb/"
                     target="_blank"
                     onclick={setKrrIntegrationStatusToQueued}
                 >
-                    <p>
+                    <p style="text-align: center">
                         <img style="width: 1rem" src={LinkImg} alt="" />Endre alle dine opplysninger på nav.no mine
                         sider
                     </p>
                 </a>
                 <br />
-                <p class="status yellow" if:true={isKrrQueued}>Oppdatert informasjon vil bli synlig innen en time.</p>
+                <div if:true={isKrrQueued} class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
+                    <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                    <div class="typo-normal alertstripe__tekst">
+                        Oppdatert informasjon vil bli synlig innen en time.
+                    </div>
+                </div>
             </main>
         </div>
     </div>

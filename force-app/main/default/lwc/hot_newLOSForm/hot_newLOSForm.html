@@ -24,8 +24,10 @@
         >
             <p><img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på nav.no mine sider</p>
         </a>
-        <p class="status yellow" if:true={isKrrQueued}>Oppdatert informasjon vil bli synlig innen en time.</p>
-
+        <div if:true={isKrrQueued} class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
+            <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+            <div class="typo-normal alertstripe__tekst">Oppdatert informasjon vil bli synlig innen en time.</div>
+        </div>
         <c-input
             label="Adresse"
             name="Address__c"
