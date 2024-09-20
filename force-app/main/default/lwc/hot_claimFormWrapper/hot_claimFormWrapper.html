@@ -56,7 +56,7 @@
                         <div class="button-container">
                             <c-button
                                 button-label="Forrige"
-                                button-styling="secondary"
+                                button-styling="tertiary"
                                 onbuttonclick={handleBackButtonClicked}
                                 desktop-style="width: 8rem; justify-content: center"
                                 mobile-style="width: 8rem; justify-content: center"
@@ -88,7 +88,7 @@
             <main if:true={noAccess} class="main-content submitted-false">
                 <div class="navno-dekorator warningstripe navno-dekorator warningstripe--advarsel">
                     <img class="navno-dekorator warningstripe__ikon" src={erroricon} alt="feilmelding-ikon" />
-                    <div class="typo-normal alertstripe__tekst">Kunne ikke finne kravet.</div>
+                    <div class="alertstripe__tekst">Kunne ikke finne kravet.</div>
                 </div>
             </main>
             <div class="main-content hidden submitted-true">

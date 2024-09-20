@@ -1,4 +1,4 @@
-.navds-button {
+.hot-button {
     cursor: pointer;
     background-color: #e6f0ff;
     border-radius: 25px;
@@ -8,9 +8,10 @@
     padding-left: 0.5rem;
     display: inline-flex;
     margin: 0.2rem;
+    font-size: medium;
 }
 
-.navds-button:hover {
+.hot-button:hover {
     background-color: #99c3ff;
     border-color: #99c3ff;
 }

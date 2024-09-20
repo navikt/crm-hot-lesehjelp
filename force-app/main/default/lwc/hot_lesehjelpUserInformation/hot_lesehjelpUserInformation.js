@@ -3,9 +3,13 @@ import { refreshApex } from '@salesforce/apex';
 import getPersonDetails from '@salesforce/apex/HOT_UserInfoController.getPersonDetails';
 import updateKrrStatus from '@salesforce/apex/HOT_UserInfoController.updateKrrStatus';
 import LINK from '@salesforce/resourceUrl/HOT_Link';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
+import icons from '@salesforce/resourceUrl/icons';
 
 export default class Hot_lesehjelpUserInformation extends LightningElement {
     LinkImg = LINK;
+    warningicon = icons + '/warningicon.svg';
 
     breadcrumbs = [
         {
@@ -17,6 +21,10 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
             href: 'mine-sider'
         }
     ];
+
+    renderedCallback() {
+        loadStyle(this, Index);
+    }
 
     @track mobilenumber;
     @track email;

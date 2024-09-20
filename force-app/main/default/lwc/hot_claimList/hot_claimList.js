@@ -5,6 +5,8 @@ import getClaimsToApprove from '@salesforce/apex/HOT_ClaimController.getClaimsTo
 import getClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getClaimLineItems';
 import approveClaim from '@salesforce/apex/HOT_ClaimController.approveClaim';
 import declineClaim from '@salesforce/apex/HOT_ClaimController.declineClaim';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
 
 export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track showRecievedClaimslist = true;
@@ -15,6 +17,9 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track fieldValues = {
         CommentFromUser__c: ''
     };
+    renderedCallback() {
+        loadStyle(this, Index);
+    }
 
     breadcrumbs = [
         {

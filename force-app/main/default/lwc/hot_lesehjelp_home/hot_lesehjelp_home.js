@@ -7,6 +7,8 @@ import FOLDER from '@salesforce/resourceUrl/HOT_Folder';
 import PERSON from '@salesforce/resourceUrl/HOT_Person';
 import INFORMATION from '@salesforce/resourceUrl/HOT_Information';
 import getEntitlements from '@salesforce/apex/HOT_EntitlementController.getEntitlements';
+import { loadStyle } from 'lightning/platformResourceLoader';
+import Index from '@salesforce/resourceUrl/index';
 
 export default class hot_lesehjelp_home extends NavigationMixin(LightningElement) {
     nyttKravImg = CLAIMSEND;
@@ -29,6 +31,9 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
                 this.hasDecisions = true;
             }
         }
+    }
+    renderedCallback() {
+        loadStyle(this, Index);
     }
 
     connectedCallback() {

@@ -22,9 +22,6 @@
 .hidden {
     display: none;
 }
-p {
-    font-size: 1.1rem;
-}
 @media (max-width: 576px) {
     .entitlement-single {
         width: 100%;
