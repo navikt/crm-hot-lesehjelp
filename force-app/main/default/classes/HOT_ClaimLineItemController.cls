@@ -80,6 +80,28 @@ public without sharing class HOT_ClaimLineItemController {
         }
     }
     @AuraEnabled(cacheable=false)
+    public static List<HOT_ClaimLineItem__c> getMyClaimLineItems(String recordId) {
+        User currentUser = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId()];
+        List<HOT_ClaimLineItem__c> claimLineItems = [
+            SELECT
+                Id,
+                Name,
+                Date__c,
+                StartTime__c,
+                EndTime__c,
+                HasTravelTo__c,
+                HasTravelFrom__c,
+                TravelFromEndTime__c,
+                TravelFromStartTime__c,
+                TravelTo__c,
+                TravelToEndTime__c,
+                TravelToStartTime__c
+            FROM HOT_ClaimLineItem__c
+            WHERE Claim__r.Claimant__c = :currentUser.AccountId AND Claim__r.Status__c != 'Withdrawn'
+        ];
+        return claimLineItems;
+    }
+    @AuraEnabled(cacheable=false)
     public static List<HOT_ClaimLineItem__c> checkForOverlapClaimLineItem(String recordId) {
         List<HOT_ClaimLineItem__c> claimLineItemsToReturn = [
             SELECT
