@@ -58,10 +58,9 @@ section.sub-form:last-child {
     width: 100%;
 }
 .content-form {
-    max-width: 60%;
+    max-width: 1000px;
     margin: auto;
     margin-top: 1.5rem;
-    background-color: aqua;
     padding: 2rem;
     background-color: white;
     border-radius: 5px;
