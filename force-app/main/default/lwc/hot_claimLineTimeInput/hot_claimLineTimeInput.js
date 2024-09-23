@@ -115,9 +115,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     @track myExistingClaimLineItems = [];
     connectedCallback() {
         getMyClaimLineItems({}).then((result) => {
-            console.log('henter');
-            console.log(result);
-            console.log('ferdig hentet');
             this.myExistingClaimLineItems = result;
         });
         if (this.claim.Id != '' && this.isEdit == true) {
@@ -219,6 +216,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         }
                     }
                     this.updateIsOnlyOneTime();
+                    this.checkForOverlap();
                 }
             });
         } else {
