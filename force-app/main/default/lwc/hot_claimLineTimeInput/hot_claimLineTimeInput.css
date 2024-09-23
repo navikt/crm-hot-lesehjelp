@@ -1,5 +1,5 @@
 .listClass {
-    padding: 2vw;
+    padding: 1.5vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -73,6 +73,7 @@
     margin-top: 1vw;
     padding: 1vw;
     background-color: #e6f0ff;
+    border-radius: 5px;
 }
 @media only screen and (max-device-width: 768px) {
     .travelTimesContainer {
@@ -91,6 +92,7 @@
     border: none;
     width: 100%;
     background-color: #e6f0ff;
+    border-radius: 5px;
     padding: 1rem;
     margin-bottom: 1rem;
 }
