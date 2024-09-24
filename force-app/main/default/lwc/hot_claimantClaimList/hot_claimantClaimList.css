@@ -37,7 +37,7 @@
     align-items: center;
 }
 .content {
-    width: 60%;
+    max-width: 1000px;
 }
 .claim-single {
     cursor: pointer;
@@ -69,6 +69,7 @@
     border: none;
     background: transparent;
     width: 40%;
+    max-width: 1000px;
 }
 
 .dialog::backdrop {
