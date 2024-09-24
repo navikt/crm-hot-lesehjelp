@@ -34,7 +34,7 @@
 }
 
 .content {
-    width: 60%;
+    max-width: 1000px;
 }
 
 .claim-single {
@@ -105,6 +105,7 @@
 }
 .dialog {
     width: 45%;
+    max-width: 1000px;
     padding: 0;
     border: none;
     background: transparent;

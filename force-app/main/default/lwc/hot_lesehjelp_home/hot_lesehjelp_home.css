@@ -24,7 +24,7 @@
     display: flex;
     align-items: stretch;
     margin: auto;
-    width: 50%;
+    max-width: 1000px;
     font-size: 24px;
     text-align: left;
     padding-bottom: 1rem;
@@ -34,7 +34,7 @@
     display: flex;
     align-items: stretch;
     margin: auto;
-    width: 50%;
+    max-width: 1000px;
     padding-bottom: 2rem;
 }
 .welcomeName {
@@ -54,7 +54,7 @@
     flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
-    max-width: 50%;
+    max-width: 1000px;
     margin: auto;
 }
 .container-bottom {
@@ -62,7 +62,7 @@
     flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
-    max-width: 50%;
+    max-width: 1000px;
     margin: auto;
     padding-top: 2rem;
 }
