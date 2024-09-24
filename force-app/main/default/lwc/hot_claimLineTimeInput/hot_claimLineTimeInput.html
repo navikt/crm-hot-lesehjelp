@@ -2,6 +2,41 @@
     <div style="margin-bottom: 0.5rem">
         <template iterator:it={times}>
             <div key={it.value.id} class="listClass">
+                <!-- <div if:true={it.value.doOverLapBoth}>
+                    <div
+                        if:true={it.value.doOverlapExistingCLI}
+                        class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                        style="margin-bottom: 1rem"
+                    >
+                        <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                        <div class="alertstripe__tekst">
+                            Du har tidspunkter som overlapper med tider i tidligere innsendte krav.
+                        </div>
+                        <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                        <div class="alertstripe__tekst">Tidpspunkter overlapper med andre tider i dette kravet.</div>
+                    </div>
+                </div> -->
+                <!-- <div if:false={it.value.doOverLapBoth}> -->
+                <div
+                    if:true={it.value.doOverlapOnNewCLI}
+                    class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                    style="margin-bottom: 1rem; width: 100%"
+                >
+                    <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                    <div class="alertstripe__tekst">Tidpspunkter overlapper med andre tider i dette kravet.</div>
+                </div>
+                <br if:true={it.value.doOverlapExistingCLI} />
+                <div
+                    if:true={it.value.doOverlapExistingCLI}
+                    class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                    style="margin-bottom: 1rem; width: 100%"
+                >
+                    <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
+                    <div class="alertstripe__tekst">
+                        Du har tidspunkter som overlapper med tider i tidligere innsendte krav.
+                    </div>
+                </div>
+                <!-- </div> -->
                 <c-input
                     label="Dato"
                     data-id="date"
@@ -36,6 +71,7 @@
                     desktop-style="padding-left: 1vw"
                     style={dateTimeDesktopStyle}
                 ></c-input>
+
                 <!-- <br />
                 <c-picklist
                     name={it.value.id}
