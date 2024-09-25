@@ -86,6 +86,7 @@
     cursor: pointer;
     transition: 0.3s;
     border: none;
+    text-decoration: none;
 }
 .box-small {
     flex-grow: 1;
@@ -101,6 +102,7 @@
     background-color: #cbcfd5;
     cursor: pointer;
     transition: 0.3s;
+    text-decoration: none;
 }
 .box-small img {
     width: 1.5em;
