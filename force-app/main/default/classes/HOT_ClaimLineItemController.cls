@@ -97,7 +97,10 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToEndTime__c,
                 TravelToStartTime__c
             FROM HOT_ClaimLineItem__c
-            WHERE Claim__r.Claimant__c = :currentUser.AccountId AND Claim__r.Status__c != 'Withdrawn'
+            WHERE
+                Claim__r.Claimant__c = :currentUser.AccountId
+                AND Claim__r.Status__c != 'Withdrawn'
+                AND  Claim__r.Id != :recordId
         ];
         return claimLineItems;
     }
