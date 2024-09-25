@@ -59,6 +59,7 @@
                     desktop-style="padding-left: 1vw"
                     mobile-style="padding-bottom: 1vw"
                     style={dateTimeDesktopStyle}
+                    onfocusout={checkForOverlap}
                 ></c-input>
                 <c-input
                     label="Sluttid"
@@ -70,6 +71,7 @@
                     ongetvalueonchange={handleEndTimeChange}
                     desktop-style="padding-left: 1vw"
                     style={dateTimeDesktopStyle}
+                    onfocusout={checkForOverlap}
                 ></c-input>
 
                 <!-- <br />
@@ -214,6 +216,7 @@
                             desktop-style="padding-top: 1vw; padding-left: 1vw"
                             mobile-style="padding-bottom: 1vw"
                             style={dateTimeDesktopStyle}
+                            onfocusout={checkForOverlap}
                         ></c-input>
                         <c-input
                             label="Reise sluttid"
@@ -225,6 +228,7 @@
                             ongetvalueonchange={handleEndTimeTravelToChange}
                             desktop-style="padding-left: 1vw; padding-top: 1vw"
                             style={dateTimeDesktopStyle}
+                            onfocusout={checkForOverlap}
                         ></c-input>
                     </div>
                 </div>
@@ -343,6 +347,7 @@
                             desktop-style="padding-top: 1vw; padding-left: 1vw"
                             mobile-style="padding-bottom: 1vw"
                             style={dateTimeDesktopStyle}
+                            onfocusout={checkForOverlap}
                         ></c-input>
                         <c-input
                             label="Reise sluttid"
@@ -354,6 +359,7 @@
                             ongetvalueonchange={handleEndTimeTravelFromChange}
                             desktop-style="padding-left: 1vw; padding-top: 1vw"
                             style={dateTimeDesktopStyle}
+                            onfocusout={checkForOverlap}
                         ></c-input>
                     </div>
                 </div>
