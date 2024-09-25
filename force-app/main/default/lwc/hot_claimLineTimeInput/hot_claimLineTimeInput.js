@@ -310,19 +310,16 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     checkForOverlap() {
         let timeInput = this.getTimeInput();
-        const claimLineItems = timeInput.map((item) => ({
+        let claimLineItems = timeInput.map((item) => ({
             ...item,
-            startTimeTravelToString: item.startTimeTravelToString
-                ? new Date(item.startTimeTravelToString).getTime()
-                : null,
-            endTimeTravelToString: item.endTimeTravelToString ? new Date(item.endTimeTravelToString).getTime() : null,
-            startTimeTravelFromString: item.startTimeTravelFromString
-                ? new Date(item.startTimeTravelFromString).getTime()
-                : null,
-            endTimeTravelFromString: item.endTimeTravelFromString
-                ? new Date(item.endTimeTravelFromString).getTime()
-                : null
+            startTime: new Date(item.startTime).getTime(),
+            endTime: new Date(item.endTime).getTime(),
+            startTimeTravelTo: item.startTimeTravelTo ? new Date(item.startTimeTravelTo).getTime() : null,
+            endTimeTravelTo: item.endTimeTravelTo ? new Date(item.endTimeTravelTo).getTime() : null,
+            startTimeTravelFrom: item.startTimeTravelFrom ? new Date(item.startTimeTravelFrom).getTime() : null,
+            endTimeTravelFrom: item.endTimeTravelFrom ? new Date(item.endTimeTravelFrom).getTime() : null
         }));
+
         this.times.forEach((time) => {
             time.doOverlapOnNewCLI = false;
             time.doOverlapExistingCLI = false;
