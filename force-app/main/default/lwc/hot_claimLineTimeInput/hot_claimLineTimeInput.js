@@ -325,13 +325,14 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             time.doOverlapExistingCLI = false;
         });
 
-        //Check for overlap on other claim line items in form
+        //Sjekker overlapp mot andre kravlinjer bruker oppretter i samme skjemaet
         for (let i = 0; i < claimLineItems.length; i++) {
             let cli1 = claimLineItems[i];
 
             for (let j = 0; j < claimLineItems.length; j++) {
                 if (i !== j) {
                     let cli2 = claimLineItems[j];
+                    //Sjekker cli1 starttid og slutt tid mot andre start sluttider + mot reise til og fra
                     if (
                         (cli1.startTime < cli2.endTime && cli1.endTime > cli2.startTime) ||
                         (cli1.startTime < cli2.endTimeTravelTo &&
@@ -344,6 +345,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         this.times[i].doOverlapOnNewCLI = true;
                         this.times[j].doOverlapOnNewCLI = true;
                     }
+                    //Sjekker cli1 reise til start og slutt tid mot andre start sluttider + mot reise til og reise fra
                     if (
                         (cli1.startTimeTravelTo < cli2.endTime &&
                             cli1.endTimeTravelTo > cli2.startTime &&
@@ -360,6 +362,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         this.times[i].doOverlapOnNewCLI = true;
                         this.times[j].doOverlapOnNewCLI = true;
                     }
+                    //Sjekker cli1 reise fra start og slutt tid mot andre start sluttider + mot reise til og reise fra
                     if (
                         (cli1.startTimeTravelFrom < cli2.endTime &&
                             cli1.endTimeTravelFrom > cli2.startTime &&
@@ -380,7 +383,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             }
         }
 
-        // Check for overlaps with existing claim line items
+        //Sjekker overlapp nye kravlinjer mot andre kravlinjer som allerede er sendt inn
         try {
             getMyClaimLineItems({}).then((result) => {
                 claimLineItems.forEach((newCli, index) => {
@@ -399,6 +402,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         let existingTravelFromEndTime = existingItem.TravelFromEndTime__c
                             ? new Date(existingItem.TravelFromEndTime__c).getTime()
                             : null;
+                        //Sjekker cli1 starttid og slutt tid mot andre start sluttider + mot reise til og fra
                         if (
                             (newCli.startTime < existingEndTime && newCli.endTime > existingStartTime) ||
                             (newCli.startTime < existingTravelToEndTime &&
@@ -410,6 +414,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         ) {
                             this.times[index].doOverlapExistingCLI = true;
                         }
+                        //Sjekker cli1 reise til start og slutt tid mot andre start sluttider + mot reise til og reise fra
                         if (
                             (newCli.startTimeTravelTo < existingEndTime &&
                                 newCli.endTimeTravelTo > existingStartTime &&
@@ -425,6 +430,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         ) {
                             this.times[index].doOverlapExistingCLI = true;
                         }
+                        //Sjekker cli1 reise fra start og slutt tid mot andre start sluttider + mot reise til og reise fra
                         if (
                             (newCli.startTimeTravelFrom < existingEndTime &&
                                 newCli.endTimeTravelFrom > existingStartTime &&
@@ -507,6 +513,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         } else {
             this.updateEndTimeBasedOnDate(index);
         }
+        this.checkForOverlap();
     }
     setEndTimeBasedOnStartTime(index) {
         if (this.times[index].endTimeString === null || this.times[index].startTime > this.times[index].endTime) {
@@ -518,6 +525,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             let endTimeElements = this.template.querySelectorAll('[data-id="endTime"]');
             endTimeElements[index].setValue(this.times[index].endTimeString);
         }
+        this.checkForOverlap();
     }
 
     updateEndTimeBasedOnDate(index) {
@@ -526,6 +534,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             new Date(this.times[index].endTime)
         );
         this.times[index].endTime = combinedDateTime.getTime();
+        this.checkForOverlap();
     }
 
     dateTimeToTimeString(dateTime) {
