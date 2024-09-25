@@ -114,7 +114,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
     }
     @track myExistingClaimLineItems = [];
     connectedCallback() {
-        getMyClaimLineItems({}).then((result) => {
+        getMyClaimLineItems({ recordId: this.claim.Id }).then((result) => {
             this.myExistingClaimLineItems = result;
         });
         if (this.claim.Id != '' && this.isEdit == true) {
@@ -385,68 +385,66 @@ export default class Hot_claimLineTimeInput extends LightningElement {
 
         //Sjekker overlapp nye kravlinjer mot andre kravlinjer som allerede er sendt inn
         try {
-            getMyClaimLineItems({}).then((result) => {
-                claimLineItems.forEach((newCli, index) => {
-                    result.forEach((existingItem) => {
-                        let existingStartTime = new Date(existingItem.StartTime__c).getTime();
-                        let existingEndTime = new Date(existingItem.EndTime__c).getTime();
-                        let existingTravelToStartTime = existingItem.TravelToStartTime__c
-                            ? new Date(existingItem.TravelToStartTime__c).getTime()
-                            : null;
-                        let existingTravelToEndTime = existingItem.TravelToEndTime__c
-                            ? new Date(existingItem.TravelToEndTime__c).getTime()
-                            : null;
-                        let existingTravelFromStartTime = existingItem.TravelFromStartTime__c
-                            ? new Date(existingItem.TravelFromStartTime__c).getTime()
-                            : null;
-                        let existingTravelFromEndTime = existingItem.TravelFromEndTime__c
-                            ? new Date(existingItem.TravelFromEndTime__c).getTime()
-                            : null;
-                        //Sjekker cli1 starttid og slutt tid mot andre start sluttider + mot reise til og fra
-                        if (
-                            (newCli.startTime < existingEndTime && newCli.endTime > existingStartTime) ||
-                            (newCli.startTime < existingTravelToEndTime &&
-                                newCli.endTime > existingTravelToStartTime &&
-                                existingItem.HasTravelTo__c) ||
-                            (newCli.startTime < existingTravelFromEndTime &&
-                                newCli.endTime > existingTravelFromStartTime &&
-                                existingItem.HasTravelFrom__c)
-                        ) {
-                            this.times[index].doOverlapExistingCLI = true;
-                        }
-                        //Sjekker cli1 reise til start og slutt tid mot andre start sluttider + mot reise til og reise fra
-                        if (
-                            (newCli.startTimeTravelTo < existingEndTime &&
-                                newCli.endTimeTravelTo > existingStartTime &&
-                                newCli.hasTravelTo) ||
-                            (newCli.startTimeTravelTo < existingTravelToEndTime &&
-                                newCli.endTimeTravelTo > existingTravelToStartTime &&
-                                newCli.hasTravelTo &&
-                                existingItem.HasTravelTo__c) ||
-                            (newCli.startTimeTravelTo < existingTravelFromEndTime &&
-                                newCli.endTimeTravelTo > existingTravelFromStartTime &&
-                                newCli.hasTravelTo &&
-                                existingItem.HasTravelFrom__c)
-                        ) {
-                            this.times[index].doOverlapExistingCLI = true;
-                        }
-                        //Sjekker cli1 reise fra start og slutt tid mot andre start sluttider + mot reise til og reise fra
-                        if (
-                            (newCli.startTimeTravelFrom < existingEndTime &&
-                                newCli.endTimeTravelFrom > existingStartTime &&
-                                newCli.hasTravelFrom) ||
-                            (newCli.startTimeTravelFrom < existingTravelToEndTime &&
-                                newCli.endTimeTravelFrom > existingTravelToStartTime &&
-                                newCli.hasTravelFrom &&
-                                existingItem.HasTravelTo__c) ||
-                            (newCli.startTimeTravelFrom < existingTravelFromEndTime &&
-                                newCli.endTimeTravelFrom > existingTravelFromStartTime &&
-                                newCli.hasTravelFrom &&
-                                existingItem.HasTravelFrom__c)
-                        ) {
-                            this.times[index].doOverlapExistingCLI = true;
-                        }
-                    });
+            claimLineItems.forEach((newCli, index) => {
+                this.myExistingClaimLineItems.forEach((existingItem) => {
+                    let existingStartTime = new Date(existingItem.StartTime__c).getTime();
+                    let existingEndTime = new Date(existingItem.EndTime__c).getTime();
+                    let existingTravelToStartTime = existingItem.TravelToStartTime__c
+                        ? new Date(existingItem.TravelToStartTime__c).getTime()
+                        : null;
+                    let existingTravelToEndTime = existingItem.TravelToEndTime__c
+                        ? new Date(existingItem.TravelToEndTime__c).getTime()
+                        : null;
+                    let existingTravelFromStartTime = existingItem.TravelFromStartTime__c
+                        ? new Date(existingItem.TravelFromStartTime__c).getTime()
+                        : null;
+                    let existingTravelFromEndTime = existingItem.TravelFromEndTime__c
+                        ? new Date(existingItem.TravelFromEndTime__c).getTime()
+                        : null;
+                    //Sjekker cli1 starttid og slutt tid mot andre start sluttider + mot reise til og fra
+                    if (
+                        (newCli.startTime < existingEndTime && newCli.endTime > existingStartTime) ||
+                        (newCli.startTime < existingTravelToEndTime &&
+                            newCli.endTime > existingTravelToStartTime &&
+                            existingItem.HasTravelTo__c) ||
+                        (newCli.startTime < existingTravelFromEndTime &&
+                            newCli.endTime > existingTravelFromStartTime &&
+                            existingItem.HasTravelFrom__c)
+                    ) {
+                        this.times[index].doOverlapExistingCLI = true;
+                    }
+                    //Sjekker cli1 reise til start og slutt tid mot andre start sluttider + mot reise til og reise fra
+                    if (
+                        (newCli.startTimeTravelTo < existingEndTime &&
+                            newCli.endTimeTravelTo > existingStartTime &&
+                            newCli.hasTravelTo) ||
+                        (newCli.startTimeTravelTo < existingTravelToEndTime &&
+                            newCli.endTimeTravelTo > existingTravelToStartTime &&
+                            newCli.hasTravelTo &&
+                            existingItem.HasTravelTo__c) ||
+                        (newCli.startTimeTravelTo < existingTravelFromEndTime &&
+                            newCli.endTimeTravelTo > existingTravelFromStartTime &&
+                            newCli.hasTravelTo &&
+                            existingItem.HasTravelFrom__c)
+                    ) {
+                        this.times[index].doOverlapExistingCLI = true;
+                    }
+                    //Sjekker cli1 reise fra start og slutt tid mot andre start sluttider + mot reise til og reise fra
+                    if (
+                        (newCli.startTimeTravelFrom < existingEndTime &&
+                            newCli.endTimeTravelFrom > existingStartTime &&
+                            newCli.hasTravelFrom) ||
+                        (newCli.startTimeTravelFrom < existingTravelToEndTime &&
+                            newCli.endTimeTravelFrom > existingTravelToStartTime &&
+                            newCli.hasTravelFrom &&
+                            existingItem.HasTravelTo__c) ||
+                        (newCli.startTimeTravelFrom < existingTravelFromEndTime &&
+                            newCli.endTimeTravelFrom > existingTravelFromStartTime &&
+                            newCli.hasTravelFrom &&
+                            existingItem.HasTravelFrom__c)
+                    ) {
+                        this.times[index].doOverlapExistingCLI = true;
+                    }
                 });
             });
         } catch (error) {

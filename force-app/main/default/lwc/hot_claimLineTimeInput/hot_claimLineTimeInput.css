@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     background-color: #cce1ff;
     margin-bottom: 1rem;
+    border-radius: 5px;
 }
 .travelTimesToInputContainer {
     padding-bottom: 1vw;

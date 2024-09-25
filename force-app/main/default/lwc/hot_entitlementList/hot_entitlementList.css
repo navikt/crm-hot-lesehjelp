@@ -2,7 +2,7 @@
     text-align: center;
 }
 .content {
-    width: 60%;
+    max-width: 1000px;
 }
 .entitlement-single {
     text-align: left;
