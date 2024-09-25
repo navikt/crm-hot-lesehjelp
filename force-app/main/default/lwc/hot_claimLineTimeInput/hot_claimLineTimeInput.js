@@ -273,8 +273,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
             parkingAddress: timeObject === null ? null : timeObject.parkingAddress,
             publicTransportRoute: timeObject === null ? null : timeObject.publicTransportRoute,
             doOverlapOnNewCLI: false,
-            doOverlapExistingCLI: false,
-            doOverLapBoth: false
+            doOverlapExistingCLI: false
         };
     }
     handleAdditionalInformation(event) {
@@ -310,7 +309,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].publicTransportRoute = event.detail;
     }
     checkForOverlap() {
-        console.log('overlapp metode kjører');
         let timeInput = this.getTimeInput();
         const claimLineItems = timeInput.map((item) => ({
             ...item,
@@ -325,70 +323,61 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                 ? new Date(item.endTimeTravelFromString).getTime()
                 : null
         }));
+        this.times.forEach((time) => {
+            time.doOverlapOnNewCLI = false;
+            time.doOverlapExistingCLI = false;
+        });
 
-        // Initialize all overlap flags to false at the start
-        for (let i = 0; i < this.times.length; i++) {
-            this.times[i].doOverlapOnNewCLI = false;
-            this.times[i].doOverlapExistingCLI = false;
-            this.times[i].doOverLapBoth = true;
-        }
-
-        // Check for overlaps among new claim line items (this.times)
+        //Check for overlap on other claim line items in form
         for (let i = 0; i < claimLineItems.length; i++) {
             let cli1 = claimLineItems[i];
 
             for (let j = 0; j < claimLineItems.length; j++) {
                 if (i !== j) {
                     let cli2 = claimLineItems[j];
-
-                    // Check for the three overlap conditions like in Apex
                     if (
-                        (cli1.startTime < cli2.endTime && cli1.endTime > cli2.startTime) || // Standard overlap
+                        (cli1.startTime < cli2.endTime && cli1.endTime > cli2.startTime) ||
                         (cli1.startTime < cli2.endTimeTravelTo &&
                             cli1.endTime > cli2.startTimeTravelTo &&
-                            cli2.hasTravelTo) || // Travel To overlap
+                            cli2.hasTravelTo) ||
                         (cli1.startTime < cli2.endTimeTravelFrom &&
                             cli1.endTime > cli2.startTimeTravelFrom &&
-                            cli2.hasTravelFrom) // Travel From overlap
+                            cli2.hasTravelFrom)
                     ) {
-                        this.times[j].doOverlapOnNewCLI = true;
                         this.times[i].doOverlapOnNewCLI = true;
+                        this.times[j].doOverlapOnNewCLI = true;
                     }
-
-                    // Additional overlap check based on travel times for cli1
                     if (
                         (cli1.startTimeTravelTo < cli2.endTime &&
                             cli1.endTimeTravelTo > cli2.startTime &&
-                            cli1.hasTravelTo) || // cli1 Travel To overlap
+                            cli1.hasTravelTo) ||
                         (cli1.startTimeTravelTo < cli2.endTimeTravelTo &&
                             cli1.endTimeTravelTo > cli2.startTimeTravelTo &&
                             cli1.hasTravelTo &&
-                            cli2.hasTravelTo) || // Both have Travel To overlap
+                            cli2.hasTravelTo) ||
                         (cli1.startTimeTravelTo < cli2.endTimeTravelFrom &&
                             cli1.endTimeTravelTo > cli2.startTimeTravelFrom &&
                             cli1.hasTravelTo &&
-                            cli2.hasTravelFrom) // cli1 Travel To & cli2 Travel From overlap
+                            cli2.hasTravelFrom)
                     ) {
-                        this.times[j].doOverlapOnNewCLI = true;
                         this.times[i].doOverlapOnNewCLI = true;
+                        this.times[j].doOverlapOnNewCLI = true;
                     }
-
-                    // cli1 Travel From overlap checks
                     if (
                         (cli1.startTimeTravelFrom < cli2.endTime &&
                             cli1.endTimeTravelFrom > cli2.startTime &&
-                            cli1.hasTravelFrom) || // cli1 Travel From overlap
+                            cli1.hasTravelFrom) ||
                         (cli1.startTimeTravelFrom < cli2.endTimeTravelTo &&
                             cli1.endTimeTravelFrom > cli2.startTimeTravelTo &&
                             cli1.hasTravelFrom &&
-                            cli2.hasTravelTo) || // cli1 Travel From & cli2 Travel To overlap
+                            cli2.hasTravelTo) ||
                         (cli1.startTimeTravelFrom < cli2.endTimeTravelFrom &&
                             cli1.endTimeTravelFrom > cli2.startTimeTravelFrom &&
                             cli1.hasTravelFrom &&
-                            cli2.hasTravelFrom) // Both have Travel From overlap
+                            cli2.hasTravelFrom)
                     ) {
-                        this.times[j].doOverlapOnNewCLI = true;
                         this.times[i].doOverlapOnNewCLI = true;
+                        this.times[j].doOverlapOnNewCLI = true;
                     }
                 }
             }
@@ -397,8 +386,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         // Check for overlaps with existing claim line items
         try {
             getMyClaimLineItems({}).then((result) => {
-                console.log('Existing claim line items:', result);
-
                 claimLineItems.forEach((newCli, index) => {
                     result.forEach((existingItem) => {
                         let existingStartTime = new Date(existingItem.StartTime__c).getTime();
@@ -415,9 +402,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         let existingTravelFromEndTime = existingItem.TravelFromEndTime__c
                             ? new Date(existingItem.TravelFromEndTime__c).getTime()
                             : null;
-                        console.log('...' + newCli.startTimeTravelTo);
-                        console.log('starttime' + newCli.startTime);
-                        // Same overlap logic for new claim line items against existing claim line items
                         if (
                             (newCli.startTime < existingEndTime && newCli.endTime > existingStartTime) ||
                             (newCli.startTime < existingTravelToEndTime &&
@@ -429,8 +413,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         ) {
                             this.times[index].doOverlapExistingCLI = true;
                         }
-
-                        // Travel overlap checks for newCli
                         if (
                             (newCli.startTimeTravelTo < existingEndTime &&
                                 newCli.endTimeTravelTo > existingStartTime &&
@@ -446,8 +428,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                         ) {
                             this.times[index].doOverlapExistingCLI = true;
                         }
-
-                        // Travel From overlap checks for newCli
                         if (
                             (newCli.startTimeTravelFrom < existingEndTime &&
                                 newCli.endTimeTravelFrom > existingStartTime &&
@@ -466,12 +446,6 @@ export default class Hot_claimLineTimeInput extends LightningElement {
                     });
                 });
             });
-            // for (let i = 0; i < this.times.length; i++) {
-            //     if (this.times[i].doOverlapOnNewCLI == true && this.times[i].doOverlapExistingCLI == true) {
-            //         this.times[i].doOverLapBoth = true;
-            //         console.log('begge');
-            //     }
-            // }
         } catch (error) {
             console.log('Error retrieving existing claim line items:', error);
         }
