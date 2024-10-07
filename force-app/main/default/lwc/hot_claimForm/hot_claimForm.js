@@ -158,7 +158,7 @@ export default class Hot_claimForm extends LightningElement {
     validateOrgName() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="orgName"]').forEach((element) => {
-            if (element.value === '') {
+            if (element.value === '' || element.value === 'Kunne ikke finne organisasjon') {
                 hasErrors = true;
                 this.showErrorOrgNumber();
             }
