@@ -1,4 +1,10 @@
 public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject>, Database.Stateful {
+    private static String handleException(Exception e) {
+        LoggerUtility logger = new LoggerUtility();
+        logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+        logger.publishSynch();
+        return e.getMessage();
+    }
     private Integer totalEntitlementsToBeRecurred = 0;
     private Integer newEntitlementsCount = 0;
     private Integer notCreatedDueToDeathCount = 0;
@@ -91,9 +97,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
         try {
             update records;
         } catch (Exception e) {
-            LoggerUtility logger = new LoggerUtility();
-            logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-            logger.publishSynch();
+            handleException(e);
         }
 
         if (!newEntitlements.isEmpty()) {
@@ -101,9 +105,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
                 insert newEntitlements;
                 newEntitlementsCount += newEntitlements.size();
             } catch (Exception e) {
-                LoggerUtility logger = new LoggerUtility();
-                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(e);
             }
         }
     }
@@ -161,8 +163,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
             try {
                 notification.send(recipients);
             } catch (Exception e) {
-                logger.exception(e, record, CRM_ApplicationDomain.Domain.HOT);
-                logger.publishSynch();
+                handleException(e);
             }
         }
     }
