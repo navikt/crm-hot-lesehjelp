@@ -116,6 +116,11 @@ export default class Hot_claimForm extends LightningElement {
         this.componentValues.onEmployerRadioButtons = event.detail;
         if (event.detail[0].checked) {
             this.employerClaim = true;
+            if (this.isEdit == false) {
+                this.fieldValues.EmployerName__c = '';
+                this.fieldValues.EmployerNumber__c = '';
+                this.fieldValues.EmployerExpensesPerHour__c = '';
+            }
             if (this.isLos == false) {
                 this.showNewLos = false;
             }
