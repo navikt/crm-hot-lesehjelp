@@ -96,9 +96,7 @@
 .hidden {
     display: none;
 }
-p {
-    font-size: 1.1rem;
-}
+
 .buttons {
     padding-top: 1rem;
     text-align: center;
