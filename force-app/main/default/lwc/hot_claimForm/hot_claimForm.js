@@ -172,14 +172,21 @@ export default class Hot_claimForm extends LightningElement {
     }
     validateOrgExpenses() {
         let hasErrors = false;
+        const numberOnlyRegex = /^\d+$/;
+
         this.template.querySelectorAll('[data-id="orgExpenses"]').forEach((element) => {
             if (element.value === '') {
                 element.sendErrorMessage('Utgifter må fylles ut');
                 hasErrors = true;
+            } else if (!numberOnlyRegex.test(element.value)) {
+                element.sendErrorMessage('Kun hele tall er tillatt');
+                hasErrors = true;
             }
         });
+
         return hasErrors;
     }
+
     showErrorOrgNumber() {
         let hasErrors = false;
         this.template.querySelectorAll('[data-id="orgNumber"]').forEach((element) => {
