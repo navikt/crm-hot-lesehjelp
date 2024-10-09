@@ -68,9 +68,10 @@
     padding: 0;
     border: none;
     background: transparent;
-    width: 70%;
-    height: 100%;
+    /* width: fit-content; */
+    width: 100%;
     max-width: 1000px;
+    box-sizing: border-box;
 }
 
 .dialog::backdrop {
@@ -78,20 +79,25 @@
 }
 
 .details-container {
-    background-color: #fff;
-    display: block;
-    padding: 5rem;
-    border-radius: 4px;
+    all: unset;
+    z-index: 1010;
     position: relative;
+    display: block;
     flex-grow: 0;
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    max-height: 100vh;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 5.5rem;
+    background-color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
     overflow-x: auto;
     overflow-y: auto;
-    max-height: 100%;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    z-index: 1010;
-    -webkit-overflow-scrolling: touch;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .hidden {
     display: none;
@@ -111,6 +117,7 @@
         padding: 0.75rem;
     }
     .dialog {
+        height: 100%;
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
