@@ -22,5 +22,5 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <label>Krav godkjent av NAV</label>
+    <label>Krav godkjent av Nav</label>
 </ListView>

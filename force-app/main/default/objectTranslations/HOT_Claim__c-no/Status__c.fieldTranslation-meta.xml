@@ -4,7 +4,7 @@
     <name>Status__c</name>
     <picklistValues>
         <masterLabel>Approved by NAV</masterLabel>
-        <translation>Godkjent av NAV</translation>
+        <translation>Godkjent av Nav</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Approved by user</masterLabel>
@@ -12,7 +12,7 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Declined by NAV</masterLabel>
-        <translation>Avslått av NAV</translation>
+        <translation>Avslått av Nav</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Declined by user</masterLabel>
