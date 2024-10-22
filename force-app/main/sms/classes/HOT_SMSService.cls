@@ -12,7 +12,7 @@ public without sharing class HOT_SMSService {
             String message = 'En lesehjelper har meldt inn et krav som du må behandle.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message += 'Du kan ikke svare på denne meldingen. ';
-            message += '\nMvh NAV';
+            message += '\nMvh Nav';
             sms.Message__c = message;
             if (SMS.Recipient__c != null) {
                 smsList.add(sms);
@@ -37,7 +37,7 @@ public without sharing class HOT_SMSService {
             String message = 'Et krav du har sendt inn etter å ha vært lesehjelper er avvist.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message += 'Du kan ikke svare på denne meldingen. ';
-            message += '\nMvh NAV';
+            message += '\nMvh Nav';
             sms.Message__c = message;
             if (SMS.Recipient__c != null) {
                 smsList.add(sms);
@@ -59,10 +59,10 @@ public without sharing class HOT_SMSService {
             sms.Type__c = 'Claim Declined By NAV';
             sms.Account__c = claim.Claimant__c;
             sms.Recipient__c = claim.Claimant__r.CRM_Person__r.INT_KrrMobilePhone__c;
-            String message = 'Et krav du har sendt inn etter å ha vært lesehjelper er avslått av NAV.';
+            String message = 'Et krav du har sendt inn etter å ha vært lesehjelper er avslått av Nav.';
             message += '\n\nFor mer informasjon, se lesehjelp.nav.no. ';
             message += 'Du kan ikke svare på denne meldingen. ';
-            message += '\nMvh NAV';
+            message += '\nMvh Nav';
             sms.Message__c = message;
             if (SMS.Recipient__c != null) {
                 smsList.add(sms);

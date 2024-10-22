@@ -219,7 +219,10 @@
         <allowPause>false</allowPause>
         <fields>
             <name>errorMsng</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Brukeren har ikke registrert et telefonnummer i kontakt- og reservasjonsregisteret, og du kan derfor ikke sende en sms til bruker på denne måten.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color:
+                rgb(68, 68, 68);&quot;&gt;Brukeren har ikke registrert et telefonnummer i kontakt-
+                og reservasjonsregisteret, og du kan derfor ikke sende en sms til bruker på denne
+                måten.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -240,7 +243,7 @@
             <name>Message</name>
             <defaultValue>
                 <stringValue>{!choosenQuickTextValue}
-{!endMessageText}</stringValue>
+                    {!endMessageText}</stringValue>
             </defaultValue>
             <fieldText>Melding</fieldText>
             <fieldType>LargeTextArea</fieldType>
@@ -261,8 +264,8 @@
     <textTemplates>
         <name>endMessageText</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>Du kan ikke svare på denne meldingen. 
-Mvh NAV</text>
+        <text>Du kan ikke svare på denne meldingen.
+            Mvh Nav</text>
     </textTemplates>
     <textTemplates>
         <name>quickText1</name>

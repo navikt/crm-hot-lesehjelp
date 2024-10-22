@@ -589,7 +589,7 @@ public without sharing class HOT_ClaimController {
                 result = updateClaimLineItems(claim, claimLineItems);
                 return 'ok' + result;
             } else {
-                return 'Dette kravet kan ikke endres. Det er allerede godkjent av NAV.';
+                return 'Dette kravet kan ikke endres. Det er allerede godkjent av Nav.';
             }
         } catch (Exception e) {
             return handleExceptionAndGetMessage(e);
