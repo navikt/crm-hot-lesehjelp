@@ -11,6 +11,7 @@
     <columns>Entitlement__c</columns>
     <columns>ApprovedByNAV__c</columns>
     <columns>ApprovedByUser__c</columns>
+    <columns>CommentFromNAV__c</columns>
     <filterScope>Everything</filterScope>
     <label>Alle krav</label>
 </ListView>
