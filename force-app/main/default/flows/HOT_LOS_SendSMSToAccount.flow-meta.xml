@@ -265,7 +265,7 @@
         <name>endMessageText</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>Du kan ikke svare på denne meldingen.
-            Mvh Nav</text>
+Mvh Nav</text>
     </textTemplates>
     <textTemplates>
         <name>quickText1</name>
