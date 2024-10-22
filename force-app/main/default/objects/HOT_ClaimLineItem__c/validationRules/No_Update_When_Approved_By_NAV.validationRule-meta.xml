@@ -3,10 +3,10 @@
     <fullName>No_Update_When_Approved_By_NAV</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-    Claim__r.ApprovedByNAV__c = TRUE,
-    NOT( $Permission.HOT_LOS_Validation_Override),
+        Claim__r.ApprovedByNAV__c = TRUE,
+        NOT( $Permission.HOT_LOS_Validation_Override),
 
-    OR(
+        OR(
         ISCHANGED(Claim__c),
         ISCHANGED(Date__c),
         ISCHANGED(EndTime__c),
@@ -29,7 +29,7 @@
         ISCHANGED(TravelToFromAddresses__c),
         ISCHANGED(TravelToStartTime__c),
         ISCHANGED(TypeOfTask__c)
-    )
-)</errorConditionFormula>
-    <errorMessage>Kravet er allerede godkjent av NAV og kan ikke endres</errorMessage>
+        )
+        )</errorConditionFormula>
+    <errorMessage>Kravet er allerede godkjent av Nav og kan ikke endres</errorMessage>
 </ValidationRule>

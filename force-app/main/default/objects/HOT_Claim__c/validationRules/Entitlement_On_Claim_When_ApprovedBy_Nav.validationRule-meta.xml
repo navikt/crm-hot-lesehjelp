@@ -3,8 +3,8 @@
     <fullName>Entitlement_On_Claim_When_ApprovedBy_Nav</fullName>
     <active>true</active>
     <errorConditionFormula>AND(ISBLANK(Entitlement__c),
- ApprovedByNAV__c ==true
-)</errorConditionFormula>
+        ApprovedByNAV__c ==true
+        )</errorConditionFormula>
     <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
-    <errorMessage>Kravet må være påkoblet et vedtak før det kan bli godkjent av NAV</errorMessage>
+    <errorMessage>Kravet må være påkoblet et vedtak før det kan bli godkjent av Nav</errorMessage>
 </ValidationRule>

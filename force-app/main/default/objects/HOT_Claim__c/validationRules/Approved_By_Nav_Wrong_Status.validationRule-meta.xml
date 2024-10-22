@@ -4,5 +4,5 @@
     <active>true</active>
     <errorConditionFormula>AND( ApprovedByNAV__c ==true, TEXT(Status__c)== &apos;Withdrawn&apos;)</errorConditionFormula>
     <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
-    <errorMessage>Kravet kan ikke godkjennes av NAV. Det er tilbaketrukket</errorMessage>
+    <errorMessage>Kravet kan ikke godkjennes av Nav. Det er tilbaketrukket</errorMessage>
 </ValidationRule>

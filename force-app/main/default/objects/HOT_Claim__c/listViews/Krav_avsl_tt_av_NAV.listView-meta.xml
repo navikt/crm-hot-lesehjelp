@@ -17,5 +17,5 @@
         <operation>equals</operation>
         <value>Declined by NAV</value>
     </filters>
-    <label>Krav avslått av NAV</label>
+    <label>Krav avslått av Nav</label>
 </ListView>

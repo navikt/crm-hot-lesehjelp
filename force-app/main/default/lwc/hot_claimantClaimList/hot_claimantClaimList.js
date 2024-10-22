@@ -74,7 +74,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     (claim) =>
                         claim.ExternalStatus__c === 'Innsendt' ||
                         claim.ExternalStatus__c === 'Godkjent av bruker' ||
-                        claim.ExternalStatus__c === 'Godkjent av NAV' ||
+                        claim.ExternalStatus__c === 'Godkjent av Nav' ||
                         claim.ExternalStatus__c === 'Sendt til utbetaling'
                 )
                 .map((claim) => ({
@@ -138,7 +138,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims = this.unmappedClaims
                 .filter(
                     (claim) =>
-                        claim.ExternalStatus__c === 'Avvist av bruker' || claim.ExternalStatus__c === 'Avslått av NAV'
+                        claim.ExternalStatus__c === 'Avvist av bruker' || claim.ExternalStatus__c === 'Avslått av Nav'
                 )
                 .map((claim) => ({
                     ...claim,
@@ -162,7 +162,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         if (
             status == 'Innsendt' ||
             status == 'Godkjent av bruker' ||
-            status == 'Godkjent av NAV' ||
+            status == 'Godkjent av Nav' ||
             status == 'Sendt til utbetaling'
         ) {
             return true;
@@ -178,7 +178,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
     }
     checkRedStatus(status) {
-        if (status == 'Avslått av NAV' || status == 'Avvist av bruker' || status == 'Tilbaketrukket') {
+        if (status == 'Avslått av Nav' || status == 'Avvist av bruker' || status == 'Tilbaketrukket') {
             return true;
         } else {
             return false;
