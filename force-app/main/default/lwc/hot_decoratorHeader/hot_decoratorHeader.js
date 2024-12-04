@@ -91,13 +91,10 @@ export default class DecoratorHeader extends LightningElement {
         if (scripter[tag] != null && scripter[tag] !== '') {
             // eslint-disable-next-line @locker/locker/distorted-element-set-attribute
             let attribute = scripter[tag];
-            if(forceRefetch) {
+            if (forceRefetch) {
                 attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
             }
-            script.setAttribute(
-                tag,
-                attribute
-            );
+            script.setAttribute(tag, attribute);
         }
     }
 }
