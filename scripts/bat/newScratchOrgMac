@@ -15,8 +15,8 @@ sf package install --package 04tKB000000Y6MEYA0 --no-prompt --installation-key $
 # Installer crm-community-base ver. 0.119
 sf package install --package 04tKB000000Y0CZYA0 --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installerer crm-henvendelse-base ver. 0.26
-sf package install --package 04tKB000000Y6NqYAK --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installerer crm-henvendelse-base ver. 0.27
+sf package install --package 04tKB000000Y77jYAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
 # Installer crm-platform-integration ver. 0.142
 sf package install --package 04tKB000000Y6CWYA0 --no-prompt --installation-key $3 --wait 30 --publish-wait 30
