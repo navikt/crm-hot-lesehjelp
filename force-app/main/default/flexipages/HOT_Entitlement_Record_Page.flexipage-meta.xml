@@ -129,6 +129,16 @@
                 <identifier>RecordEntitledHoursUsed_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.InternalComment__c</fieldItem>
+                <identifier>RecordInternalComment_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-3bcc8913-d713-4ba7-b56a-9244afa66307</name>
         <type>Facet</type>
     </flexiPageRegions>
