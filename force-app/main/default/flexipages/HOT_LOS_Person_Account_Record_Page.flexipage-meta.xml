@@ -248,6 +248,9 @@
                         <valueListItems>
                             <value>ToDate__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>InternalComment__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

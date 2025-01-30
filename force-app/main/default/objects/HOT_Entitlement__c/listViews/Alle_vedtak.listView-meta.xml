@@ -8,6 +8,7 @@
     <columns>Type__c</columns>
     <columns>EntitledHours__c</columns>
     <columns>EntitledHoursUsed__c</columns>
+    <columns>InternalComment__c</columns>
     <filterScope>Everything</filterScope>
     <label>Alle vedtak</label>
 </ListView>
