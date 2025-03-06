@@ -11,8 +11,8 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
     private Integer notCreatedDueToOverlapCount = 0;
 
     @InvocableMethod(
-        label='Start Recurring Entitlement Batch Job222'
-        description='Starts the HOT_RecurringEntitlementBatch job22'
+        label='Start Recurring Entitlement Batch Job'
+        description='Starts the HOT_RecurringEntitlementBatch job'
     )
     public static void startBatchJob() {
         HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
