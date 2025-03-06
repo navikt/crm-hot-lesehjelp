@@ -75,6 +75,24 @@ public class HOT_ClaimControllerTest {
         System.assertNotEquals(null, claimResult.Entitlement__c);
     }
     @IsTest
+    static void wantErrorWhenWrongTimePeriodOnEntitlementVSClaimTest() {
+        HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+        insert cli;
+        HOT_Entitlement__c entitlement = [SELECT Id, FromDate__c, ToDate__c FROM HOT_Entitlement__c];
+        entitlement.FromDate__c = Date.today().addYears(-2);
+        entitlement.ToDate__c = Date.today().addYears(-2);
+        update entitlement;
+        claim.Entitlement__c = entitlement.Id;
+        Test.startTest();
+        Database.SaveResult result = Database.update(claim, false);
+        Test.stopTest();
+        System.assert(
+            result.getErrors()[0].getMessage().contains('Du kan ikke legge på dette vedtaket'),
+            'Expected error message about invalid entitlement period.'
+        );
+    }
+    @IsTest
     static void getMyClaimsTest() {
         Test.startTest();
         List<HOT_Claim__c> myClaims = HOT_ClaimController.getMyClaims();
