@@ -769,7 +769,11 @@ public without sharing class HOT_ClaimController {
     }
 
     public static void setEntitlementOnClaim(Set<Id> claimIds) {
-        List<HOT_Claim__c> claims = [SELECT Id, Account__c, Type__c FROM HOT_Claim__c WHERE Id IN :claimIds];
+        List<HOT_Claim__c> claims = [
+            SELECT Id, Account__c, Type__c, Entitlement__c
+            FROM HOT_Claim__c
+            WHERE Id IN :claimIds
+        ];
         List<HOT_Claim__c> claimsToBeUpdated = new List<HOT_Claim__c>();
 
         Set<Id> accountIds = new Set<Id>();
@@ -806,6 +810,8 @@ public without sharing class HOT_ClaimController {
                             }
                         }
                     }
+
+                    Id previousEntitlement = claim.Entitlement__c;
                     claim.Entitlement__c = null;
 
                     for (HOT_Entitlement__c entitlement : entitlements) {
@@ -815,10 +821,13 @@ public without sharing class HOT_ClaimController {
                                 entitlement.ToDate__c >= latestEndTime
                             ) {
                                 claim.Entitlement__c = entitlement.Id;
-                                claimsToBeUpdated.add(claim);
                                 break;
                             }
                         }
+                    }
+
+                    if (previousEntitlement != claim.Entitlement__c) {
+                        claimsToBeUpdated.add(claim);
                     }
                 }
                 try {
@@ -879,5 +888,49 @@ public without sharing class HOT_ClaimController {
         }
 
         return latestClaims;
+    }
+    public static void checkIfClaimIsWithinEntitlementPeriod(List<HOT_Claim__c> updatedClaims) {
+        Set<Id> claimIds = new Set<Id>();
+        Set<Id> entitlementIds = new Set<Id>();
+        for (HOT_Claim__c claim : updatedClaims) {
+            claimIds.add(claim.Id);
+            entitlementIds.add(claim.Entitlement__c);
+        }
+
+        Map<Id, List<HOT_ClaimLineItem__c>> claimLineItemMap = new Map<Id, List<HOT_ClaimLineItem__c>>();
+        for (HOT_ClaimLineItem__c cli : [
+            SELECT Id, StartTime__c, EndTime__c, Claim__c
+            FROM HOT_ClaimLineItem__c
+            WHERE Claim__c IN :claimIds
+        ]) {
+            if (!claimLineItemMap.containsKey(cli.Claim__c)) {
+                claimLineItemMap.put(cli.Claim__c, new List<HOT_ClaimLineItem__c>());
+            }
+            claimLineItemMap.get(cli.Claim__c).add(cli);
+        }
+
+        Map<Id, HOT_Entitlement__c> entitlementMap = new Map<Id, HOT_Entitlement__c>();
+        for (HOT_Entitlement__c entitlement : [
+            SELECT Id, FromDate__c, ToDate__c
+            FROM HOT_Entitlement__c
+            WHERE Id IN :entitlementIds
+        ]) {
+            entitlementMap.put(entitlement.Id, entitlement);
+        }
+        // Validate claim line items against entitlement periods
+        for (HOT_Claim__c claim : updatedClaims) {
+            HOT_Entitlement__c entitlement = entitlementMap.get(claim.Entitlement__c);
+            List<HOT_ClaimLineItem__c> claimLineItems = claimLineItemMap.get(claim.Id);
+            if (claimLineItems != null && claim.Entitlement__c != null) {
+                for (HOT_ClaimLineItem__c cli : claimLineItems) {
+                    if (cli.StartTime__c <= entitlement.FromDate__c || cli.EndTime__c >= entitlement.ToDate__c) {
+                        claim.addError(
+                            'Du kan ikke legge på dette vedtaket. Tidene i kravet er langt utenfor dette vedtakets periode.'
+                        );
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
