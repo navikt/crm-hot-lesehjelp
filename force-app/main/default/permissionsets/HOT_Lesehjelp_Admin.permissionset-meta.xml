@@ -393,6 +393,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Person__c.HOT_LOS_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Person__c.HOT_ResourceNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
