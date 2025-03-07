@@ -1,4 +1,8 @@
-public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject>, Database.Stateful {
+public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject>, Database.Stateful, Schedulable {
+    public void execute(SchedulableContext sc) {
+        HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
+        Database.executeBatch(batchJob, 10);
+    }
     private static String handleException(Exception e) {
         LoggerUtility logger = new LoggerUtility();
         logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
