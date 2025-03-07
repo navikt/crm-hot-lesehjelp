@@ -67,4 +67,16 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             HOT_EntitlementController.recalculateUsedEntitlements(entitlements);
         }
     }
+    public override void onBeforeUpdate(Map<Id, sObject> triggerOldMap) {
+        List<HOT_Claim__c> updatedClaims = new List<HOT_Claim__c>();
+        for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
+            if (
+                (triggerOldMap.get(claim.Id).get('Entitlement__c') != claim.Entitlement__c) ||
+                claim.Entitlement__c != null
+            ) {
+                updatedClaims.add(claim);
+            }
+        }
+        HOT_ClaimController.checkIfClaimIsWithinEntitlementPeriod(updatedClaims);
+    }
 }

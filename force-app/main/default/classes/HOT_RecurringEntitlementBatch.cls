@@ -1,4 +1,8 @@
-public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject>, Database.Stateful {
+public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject>, Database.Stateful, Schedulable {
+    public void execute(SchedulableContext sc) {
+        HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
+        Database.executeBatch(batchJob, 10);
+    }
     private static String handleException(Exception e) {
         LoggerUtility logger = new LoggerUtility();
         logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
@@ -11,8 +15,8 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
     private Integer notCreatedDueToOverlapCount = 0;
 
     @InvocableMethod(
-        label='Start Recurring Entitlement Batch Job222'
-        description='Starts the HOT_RecurringEntitlementBatch job22'
+        label='Start Recurring Entitlement Batch Job'
+        description='Starts the HOT_RecurringEntitlementBatch job'
     )
     public static void startBatchJob() {
         HOT_RecurringEntitlementBatch batchJob = new HOT_RecurringEntitlementBatch();
