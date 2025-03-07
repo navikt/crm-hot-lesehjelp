@@ -81,4 +81,28 @@ public without sharing class HOT_EntitlementController {
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
     }
+    public static void checkForAlreadyApprovedClaims(List<HOT_Entitlement__c> updatedEntitlements) {
+        Set<Id> entitlementsIds = new Set<Id>();
+        if (!updatedEntitlements.isEmpty()) {
+            for (HOT_Entitlement__c entitlement : updatedEntitlements) {
+                entitlementsIds.add(entitlement.Id);
+            }
+            List<HOT_Claim__c> claims = [
+                SELECT Id, ApprovedByNAV__c, Entitlement__c
+                FROM HOT_Claim__c
+                WHERE Entitlement__c IN :entitlementsIds AND ApprovedByNAV__c = TRUE
+            ];
+            Map<Id, Boolean> entitlementHasApprovedClaim = new Map<Id, Boolean>();
+            for (HOT_Claim__c claim : claims) {
+                entitlementHasApprovedClaim.put(claim.Entitlement__c, true);
+            }
+            for (HOT_Entitlement__c entitlement : updatedEntitlements) {
+                if (entitlementHasApprovedClaim.containsKey(entitlement.Id)) {
+                    entitlement.addError(
+                        'Du kan ikke endre tidene på dette vedtaket ettersom det har en eller flere allerede godkjente krav.'
+                    );
+                }
+            }
+        }
+    }
 }
