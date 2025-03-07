@@ -925,7 +925,7 @@ public without sharing class HOT_ClaimController {
                 for (HOT_ClaimLineItem__c cli : claimLineItems) {
                     if (cli.StartTime__c <= entitlement.FromDate__c || cli.EndTime__c >= entitlement.ToDate__c) {
                         claim.addError(
-                            'Du kan ikke legge på dette vedtaket. Tidene i kravet er langt utenfor dette vedtakets periode.'
+                            'Du kan ikke legge på dette vedtaket. Tidene i kravet er utenfor dette vedtakets periode.'
                         );
                         break;
                     }
