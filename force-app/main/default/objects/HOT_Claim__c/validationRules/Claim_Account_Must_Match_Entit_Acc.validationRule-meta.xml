@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Claim_Account_Must_Match_Entit_Acc</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(ISBLANK(Entitlement__r.Account__c)) &amp;&amp; (Entitlement__r.Account__c &lt;&gt; Account__c)</errorConditionFormula>
+    <errorMessage>Du kan ikke sette på et vedtak som tilhører en annen bruker.</errorMessage>
+</ValidationRule>
