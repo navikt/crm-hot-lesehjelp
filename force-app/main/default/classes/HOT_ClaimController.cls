@@ -810,6 +810,9 @@ public without sharing class HOT_ClaimController {
                             }
                         }
                     }
+                    if (earliestStartTime == null || latestEndTime == null) {
+                        continue;
+                    }
 
                     Id previousEntitlement = claim.Entitlement__c;
                     claim.Entitlement__c = null;
