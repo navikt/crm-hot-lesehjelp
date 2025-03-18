@@ -817,7 +817,7 @@ public without sharing class HOT_ClaimController {
                         if (claim.Type__c == entitlement.Type__c && claim.Account__c == entitlement.Account__c) {
                             if (
                                 entitlement.FromDate__c <= earliestStartTime.date() &&
-                                entitlement.ToDate__c.addDays(1) > latestEndTime
+                                entitlement.ToDate__c.addDays(1) >= latestEndTime
                             ) {
                                 claim.Entitlement__c = entitlement.Id;
                                 break;
