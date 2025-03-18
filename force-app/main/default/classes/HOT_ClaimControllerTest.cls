@@ -5,7 +5,7 @@ public class HOT_ClaimControllerTest {
         User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
         System.runAs(navEmployee) {
             Account acc = new Account();
-            acc.Name = 'Ola Lesehjelp';
+            acc.Name = 'Olaa Lesehjelp';
             insert acc;
             Account acc2 = new Account();
             acc2.INT_PersonIdent__c = '01010101010';
