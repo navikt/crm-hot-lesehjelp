@@ -813,11 +813,12 @@ public without sharing class HOT_ClaimController {
 
                     Id previousEntitlement = claim.Entitlement__c;
                     claim.Entitlement__c = null;
+
                     for (HOT_Entitlement__c entitlement : entitlements) {
                         if (claim.Type__c == entitlement.Type__c && claim.Account__c == entitlement.Account__c) {
                             if (
-                                entitlement.FromDate__c <= earliestStartTime.date() &&
-                                entitlement.ToDate__c.addDays(1) >= latestEndTime
+                                entitlement.FromDate__c <= earliestStartTime &&
+                                entitlement.ToDate__c >= latestEndTime
                             ) {
                                 claim.Entitlement__c = entitlement.Id;
                                 break;
@@ -922,10 +923,7 @@ public without sharing class HOT_ClaimController {
             List<HOT_ClaimLineItem__c> claimLineItems = claimLineItemMap.get(claim.Id);
             if (claimLineItems != null && claim.Entitlement__c != null) {
                 for (HOT_ClaimLineItem__c cli : claimLineItems) {
-                    if (
-                        cli.StartTime__c < entitlement.FromDate__c ||
-                        cli.EndTime__c > entitlement.ToDate__c.addDays(1)
-                    ) {
+                    if (cli.StartTime__c < entitlement.FromDate__c || cli.EndTime__c > entitlement.ToDate__c) {
                         claim.addError(
                             'Du kan ikke legge på dette vedtaket. Tidene i kravet er utenfor dette vedtakets periode.'
                         );
