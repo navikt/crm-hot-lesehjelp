@@ -7,6 +7,7 @@ import approveClaim from '@salesforce/apex/HOT_ClaimController.approveClaim';
 import declineClaim from '@salesforce/apex/HOT_ClaimController.declineClaim';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
+import { formatTimeHoursMinutes } from 'c/hot_losHelperMethods';
 
 export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track showRecievedClaimslist = true;
@@ -96,10 +97,8 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     }
     @track unmappedClaimLineItems;
     @track claimLineItems;
-    @track recordName;
-    @track recordType;
-    @track recordClaimantName;
     @track isDeclineClaim = false;
+    @track totalHoursMinutes;
 
     @track record = {};
     @track commentValue = '';
@@ -125,10 +124,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
             }
 
             if (this.record) {
-                this.recordName = this.record.Name;
-                this.recordType = this.record.Type__c;
-                this.recordClaimantName = this.record.Claimant__r.Name;
-
+                this.record.totalHoursMinutes = formatTimeHoursMinutes(this.record.TotalHours__c);
                 getClaimLineItems({
                     recordId: claimId
                 })
