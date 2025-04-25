@@ -3,6 +3,7 @@ import { refreshApex } from '@salesforce/apex';
 import getEntitlements from '@salesforce/apex/HOT_EntitlementController.getEntitlements';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
+import { formatTimeHoursMinutes } from 'c/hot_losHelperMethods';
 
 export default class Hot_entitlementList extends LightningElement {
     @track showEntitlementlist = true;
@@ -54,7 +55,8 @@ export default class Hot_entitlementList extends LightningElement {
             this.entitlements = this.unmappedEntitlements.map((x) => ({
                 ...x,
                 period: this.formatDateTimePeriod(x.FromDate__c, x.ToDate__c),
-                isRecurring: this.checkIfRecurring(x.Is_recurring__c, x.HasBeenRecurred__c)
+                isRecurring: this.checkIfRecurring(x.Is_recurring__c, x.HasBeenRecurred__c),
+                totalHoursMinutesUsed: formatTimeHoursMinutes(x.EntitledHoursUsed__c)
             }));
             // this.entitlements.sort((a, b) => {
             //     if (b.CreatedDate === a.CreatedDate) {
