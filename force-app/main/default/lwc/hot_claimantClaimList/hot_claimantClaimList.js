@@ -55,6 +55,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.Name),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
@@ -81,6 +82,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -101,6 +103,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -121,6 +124,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -144,6 +148,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -269,6 +274,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.Name),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c),
@@ -297,6 +303,22 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             return 'Innsendt på vegne av arbeidsgiver';
         } else {
             return 'Innsendt av deg';
+        }
+    }
+
+    setMadeFor(username, accountName) {
+        console.log('Username:', username);
+        console.log('Account name:', accountName);
+        if (username && username.trim() !== '') {
+            return username;
+        } else if (accountName && accountName.trim() !== '') {
+            const initials = accountName
+                .split(' ')
+                .map((word) => word.charAt(0).toUpperCase())
+                .join('');
+            return initials;
+        } else {
+            return 'Ukjent mottaker';
         }
     }
 

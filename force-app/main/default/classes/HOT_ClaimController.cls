@@ -342,6 +342,7 @@ public without sharing class HOT_ClaimController {
                 CreatedDate,
                 ExternalStatus__c,
                 UserName__c,
+                Account__r.Name,
                 toLabel(Status__c),
                 OnEmployer__c,
                 Organization__r.Name,
