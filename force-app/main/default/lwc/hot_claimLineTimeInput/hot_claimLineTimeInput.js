@@ -468,6 +468,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].date = event.detail;
         this.times[index].dateMilliseconds = new Date(event.detail).getTime();
         this.setStartTime(index);
+        this.updateEndTimeBasedOnDate(index);
     }
     handleTaskChoiceMade(event) {
         const index = this.getTimesIndex(event.target.name);
@@ -514,24 +515,34 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.checkForOverlap();
     }
     setEndTimeBasedOnStartTime(index) {
-        if (this.times[index].endTimeString === null || this.times[index].startTime > this.times[index].endTime) {
-            let dateTime = new Date(this.times[index].startTime);
-            dateTime.setHours(dateTime.getHours() + 1);
-            let timeString = this.dateTimeToTimeString(dateTime, false);
+        const startTime = new Date(this.times[index].startTime);
+        const endTime = new Date(this.times[index].endTime);
+
+        const startDate = startTime.toDateString();
+        const endDate = endTime.toDateString();
+
+        // Hvis sluttid mangler, eller starttid er etter sluttid på samme dato → sett sluttid = start + 1t
+        if (this.times[index].endTimeString === null || (startTime > endTime && startDate === endDate)) {
+            let newEndTime = new Date(this.times[index].startTime);
+            newEndTime.setHours(newEndTime.getHours() + 1);
+            let timeString = this.dateTimeToTimeString(newEndTime, false);
             this.times[index].endTimeString = timeString;
-            this.times[index].endTime = dateTime.getTime();
+            this.times[index].endTime = newEndTime.getTime();
+
             let endTimeElements = this.template.querySelectorAll('[data-id="endTime"]');
             endTimeElements[index].setValue(this.times[index].endTimeString);
         }
+
         this.checkForOverlap();
     }
 
     updateEndTimeBasedOnDate(index) {
-        let combinedDateTime = this.combineDateTimes(
-            this.times[index].dateMilliseconds,
-            new Date(this.times[index].endTime)
-        );
-        this.times[index].endTime = combinedDateTime.getTime();
+        const date = new Date(this.times[index].dateMilliseconds);
+        const end = new Date(this.times[index].endTime);
+        date.setHours(end.getHours());
+        date.setMinutes(end.getMinutes());
+        this.times[index].endTime = date.getTime();
+        this.times[index].endTimeString = this.dateTimeToTimeString(date);
         this.checkForOverlap();
     }
 
