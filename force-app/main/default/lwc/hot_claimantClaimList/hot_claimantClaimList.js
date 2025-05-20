@@ -64,9 +64,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
         if (event.detail === 'inProgress') {
@@ -91,9 +90,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
         if (event.detail === 'paidOut') {
@@ -112,9 +110,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
         if (event.detail === 'withdrawn') {
@@ -133,9 +130,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
         if (event.detail === 'declined') {
@@ -157,9 +153,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
     }
@@ -237,7 +232,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     dialog.showModal();
                     dialog.focus();
                 })
-                .catch((error) => {});
+                .catch(() => {});
         }
     }
     closeModal() {
@@ -256,7 +251,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.wiredAllClaim = result;
         this.wiredClaimsResult = result.data;
         if (result.data) {
-            if (this.wiredClaimsResult.length != 0) {
+            if (this.wiredClaimsResult.length !== 0) {
                 this.noClaims = false;
             }
             this.unmappedClaims = [];
@@ -264,7 +259,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             result.data.forEach((element) => {
                 this.unmappedClaims.push(element);
             });
-            if (this.unmappedClaims.length != 0) {
+            if (this.unmappedClaims.length !== 0) {
                 this.noClaims = false;
             }
 
@@ -283,25 +278,22 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
                     return 0;
-                } else {
-                    return b.CreatedDate < a.CreatedDate ? -1 : 1;
                 }
+                return b.CreatedDate < a.CreatedDate ? -1 : 1;
             });
         }
     }
     checkAccountHasNoPhoneNumber(accountPhoneNumber) {
         if (accountPhoneNumber === null || accountPhoneNumber === '') {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
     setMadeBy(onEmployer) {
         if (onEmployer === true) {
             return 'Innsendt på vegne av arbeidsgiver';
-        } else {
-            return 'Innsendt av deg';
         }
+        return 'Innsendt av deg';
     }
 
     setMadeFor(username, accountName) {
@@ -315,9 +307,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 .map((word) => word.charAt(0).toUpperCase())
                 .join('');
             return initials;
-        } else {
-            return 'Ukjent mottaker';
         }
+        return 'Ukjent mottaker';
     }
 
     formatDateTime(date) {
@@ -340,16 +331,14 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     yesOrNoCalculator(string) {
         if (string === true) {
             return 'Ja';
-        } else {
-            return 'Nei';
         }
+        return 'Nei';
     }
     hasTravel(hasTravelTo, hasTravelFrom) {
         if (hasTravelTo || hasTravelFrom) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
     formatDateTimePeriod(dateFrom, dateTo) {
         let unformattedFrom = new Date(dateFrom);
@@ -406,7 +395,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.template.querySelector('c-alertdialog').showModal();
     }
     handleAlertDialogClick(event) {
-        if (event.detail === 'confirm' && this.confirmButtonLabel != 'OK') {
+        if (event.detail === 'confirm' && this.confirmButtonLabel !== 'OK') {
             this.actionText = 'Trekker kravet';
             this.spin = true;
             this.hideFormAndShowLoading();
@@ -438,10 +427,6 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         });
     }
     //SCREENS
-
-    modalHeader = '';
-    modalContent = '';
-    noCancelButton = true;
 
     hideFormAndShowLoading() {
         this.template.querySelector('.details').classList.add('hidden');
