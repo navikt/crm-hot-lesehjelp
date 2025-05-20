@@ -198,8 +198,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                             this.record.onEmployer = element.OnEmployer__c;
                             this.recordName = element.Name;
                             this.accountHasNoPhoneNumber = element.accountHasNoPhoneNumber;
-                            if (element.ExternalStatus__c) {
-                            }
+                            // if (element.ExternalStatus__c) {
+                            // }
                             if (element.ApprovedByNAV__c === true || element.ExternalStatus__c === 'Tilbaketrukket') {
                                 this.isCancelButtonDisabled = true;
                                 this.isEditButtonDisabled = true;
