@@ -9,7 +9,7 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
 
 export default class Hot_claimantClaimList extends NavigationMixin(LightningElement) {
-    warningicon = icons + '/warningicon.svg';
+    warningicon = `${icons}/warningicon.svg`;
     @track accountHasNoPhoneNumber;
     @track showClaimlist = true;
     @track noClaims = true;
@@ -55,7 +55,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
-                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.Name),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.FirstName),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
@@ -81,7 +81,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -101,7 +101,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -121,7 +121,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -144,7 +144,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.Name),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -267,7 +267,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
-                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.Name),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.FirstName),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c),
@@ -275,36 +275,21 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     x.Account__r.CRM_Person__r.INT_KrrMobilePhone__c
                 )
             }));
-            this.claims.sort((a, b) => {
-                if (b.CreatedDate === a.CreatedDate) {
-                    return 0;
-                }
-                return b.CreatedDate < a.CreatedDate ? -1 : 1;
-            });
+            this.claims.sort((a, b) => new Date(b.CreatedDate) - new Date(a.CreatedDate));
         }
     }
     checkAccountHasNoPhoneNumber(accountPhoneNumber) {
-        if (accountPhoneNumber === null || accountPhoneNumber === '') {
-            return true;
-        }
-        return false;
+        return !accountPhoneNumber;
     }
     setMadeBy(onEmployer) {
-        if (onEmployer === true) {
-            return 'Innsendt på vegne av arbeidsgiver';
-        }
-        return 'Innsendt av deg';
+        return onEmployer ? 'Innsendt på vegne av arbeidsgiver' : 'Innsendt av deg';
     }
 
     setMadeFor(username, accountName) {
         if (username && username.trim() !== '') {
             return username;
         } else if (accountName && accountName.trim() !== '') {
-            const initials = accountName
-                .split(' ')
-                .map((word) => word.charAt(0).toUpperCase())
-                .join('');
-            return initials;
+            return accountName;
         }
         return 'Ukjent mottaker';
     }
@@ -326,17 +311,11 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         return formattedTime;
     }
-    yesOrNoCalculator(string) {
-        if (string === true) {
-            return 'Ja';
-        }
-        return 'Nei';
+    yesOrNoCalculator(bool) {
+        return bool ? 'Ja' : 'Nei';
     }
     hasTravel(hasTravelTo, hasTravelFrom) {
-        if (hasTravelTo || hasTravelFrom) {
-            return true;
-        }
-        return false;
+        return hasTravelTo || hasTravelFrom;
     }
     formatDateTimePeriod(dateFrom, dateTo) {
         let unformattedFrom = new Date(dateFrom);
@@ -373,7 +352,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
 
     cancelClaim() {
         this.confirmButtonLabel = 'Ja';
-        this.modalContent = 'Er du sikker på at du vil trekke kravet ' + this.recordName + '?';
+        this.modalContent = `Er du sikker på at du vil trekke kravet ${this.recordName}?`;
         this.noCancelButton = false;
         this.showModal();
     }
@@ -455,7 +434,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         this.spin = false;
     }
     handleKeyDown(event) {
-        if (event.code === 'Escape') {
+        if (event.key === 'Escape') {
             this.closeModal();
         }
     }
