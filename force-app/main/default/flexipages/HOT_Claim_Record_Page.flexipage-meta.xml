@@ -137,6 +137,16 @@
                 <identifier>RecordSource_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.AutoApproved__c</fieldItem>
+                <identifier>RecordAutoApproved_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-f3bb207f-cc3e-4c81-9e89-ccc7fd5339e3</name>
         <type>Facet</type>
     </flexiPageRegions>

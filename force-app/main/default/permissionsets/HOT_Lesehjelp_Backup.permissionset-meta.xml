@@ -136,6 +136,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.AutoApproved__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.ClaimCreatedFromIdent__c</field>
         <readable>true</readable>
