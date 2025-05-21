@@ -468,6 +468,7 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].date = event.detail;
         this.times[index].dateMilliseconds = new Date(event.detail).getTime();
         this.setStartTime(index);
+        this.updateEndTimeBasedOnDate(index);
     }
     handleTaskChoiceMade(event) {
         const index = this.getTimesIndex(event.target.name);
@@ -514,24 +515,34 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.checkForOverlap();
     }
     setEndTimeBasedOnStartTime(index) {
-        if (this.times[index].endTimeString === null || this.times[index].startTime > this.times[index].endTime) {
-            let dateTime = new Date(this.times[index].startTime);
-            dateTime.setHours(dateTime.getHours() + 1);
-            let timeString = this.dateTimeToTimeString(dateTime, false);
+        const startTime = new Date(this.times[index].startTime);
+        const endTime = new Date(this.times[index].endTime);
+
+        const startDate = startTime.toDateString();
+        const endDate = endTime.toDateString();
+
+        // Hvis sluttid mangler, eller starttid er etter sluttid på samme dato → sett sluttid = start + 1t
+        if (this.times[index].endTimeString === null || (startTime > endTime && startDate === endDate)) {
+            let newEndTime = new Date(this.times[index].startTime);
+            newEndTime.setHours(newEndTime.getHours() + 1);
+            let timeString = this.dateTimeToTimeString(newEndTime, false);
             this.times[index].endTimeString = timeString;
-            this.times[index].endTime = dateTime.getTime();
+            this.times[index].endTime = newEndTime.getTime();
+
             let endTimeElements = this.template.querySelectorAll('[data-id="endTime"]');
             endTimeElements[index].setValue(this.times[index].endTimeString);
         }
+
         this.checkForOverlap();
     }
 
     updateEndTimeBasedOnDate(index) {
-        let combinedDateTime = this.combineDateTimes(
-            this.times[index].dateMilliseconds,
-            new Date(this.times[index].endTime)
-        );
-        this.times[index].endTime = combinedDateTime.getTime();
+        const date = new Date(this.times[index].dateMilliseconds);
+        const end = new Date(this.times[index].endTime);
+        date.setHours(end.getHours());
+        date.setMinutes(end.getMinutes());
+        this.times[index].endTime = date.getTime();
+        this.times[index].endTimeString = this.dateTimeToTimeString(date);
         this.checkForOverlap();
     }
 
@@ -980,8 +991,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].dateTravelTo = event.detail;
         this.times[index].dateTravelToMilliseconds = new Date(event.detail).getTime();
         this.setStartTimeTravelTo(index);
+        this.updateEndTimeTravelToBasedOnDate(index);
         this.checkForOverlap();
     }
+
     handleStartTimeTravelToChange(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].startTimeTravelToString = event.detail;
@@ -1020,27 +1033,40 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         }
     }
     setEndTimeTravelToBasedOnStartTime(index) {
-        if (
-            this.times[index].endTimeTravelToString === null ||
-            this.times[index].startTimeTravelTo > this.times[index].endTimeTravelTo
-        ) {
-            let dateTime = new Date(this.times[index].startTimeTravelTo);
-            dateTime.setHours(dateTime.getHours() + 1);
-            let timeString = this.dateTimeToTimeString(dateTime, false);
+        const start = new Date(this.times[index].startTimeTravelTo);
+        const end = new Date(this.times[index].endTimeTravelTo);
+
+        const endTimeMissing =
+            this.times[index].endTimeTravelToString === null || this.times[index].endTimeTravelToString === '';
+        const endBeforeStart = start > end || (start.toDateString() === end.toDateString() && start > end);
+
+        if (endTimeMissing || endBeforeStart) {
+            const newEnd = new Date(start);
+            newEnd.setHours(newEnd.getHours() + 1);
+            const timeString = this.dateTimeToTimeString(newEnd, false);
+            this.times[index].endTimeTravelTo = newEnd.getTime();
             this.times[index].endTimeTravelToString = timeString;
-            this.times[index].endTimeTravelTo = dateTime.getTime();
-            let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
-            endTimeElements[index].setValue(this.times[index].endTimeTravelToString);
+
+            const endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelTo"]');
+            endTimeElements[index].setValue(timeString);
         }
     }
 
     updateEndTimeTravelToBasedOnDate(index) {
-        let combinedDateTime = this.combineDateTimes(
-            this.times[index].dateTravelToMilliseconds,
-            new Date(this.times[index].endTimeTravelTo)
-        );
-        this.times[index].endTimeTravelTo = combinedDateTime.getTime();
+        const endTime = new Date(this.times[index].endTimeTravelTo);
+        const startTime = new Date(this.times[index].startTimeTravelTo);
+
+        const endDate = endTime.toDateString();
+        const startDate = startTime.toDateString();
+
+        if (endDate === startDate && startTime > endTime) {
+            this.setEndTimeTravelToBasedOnStartTime(index);
+        } else {
+            let combinedDateTime = this.combineDateTimes(this.times[index].dateTravelToMilliseconds, endTime);
+            this.times[index].endTimeTravelTo = combinedDateTime.getTime();
+        }
     }
+
     /* 
     HANDLING TRAVEL FROM DATE TIME INPUTS FIELDS
     */
@@ -1049,8 +1075,10 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         this.times[index].dateTravelFrom = event.detail;
         this.times[index].dateTravelFromMilliseconds = new Date(event.detail).getTime();
         this.setStartTimeTravelFrom(index);
+        this.updateEndTimeTravelFromBasedOnDate(index);
         this.checkForOverlap();
     }
+
     handleStartTimeTravelFromChange(event) {
         const index = this.getTimesIndex(event.target.name);
         this.times[index].startTimeTravelFromString = event.detail;
@@ -1089,26 +1117,40 @@ export default class Hot_claimLineTimeInput extends LightningElement {
         }
     }
     setEndTimeTravelFromBasedOnStartTime(index) {
-        if (
-            this.times[index].endTimeTravelFromString === null ||
-            this.times[index].startTimeTravelFrom > this.times[index].endTimeTravelFrom
-        ) {
-            let dateTime = new Date(this.times[index].startTimeTravelFrom);
-            dateTime.setHours(dateTime.getHours() + 1);
-            let timeString = this.dateTimeToTimeString(dateTime, false);
+        const start = new Date(this.times[index].startTimeTravelFrom);
+        const end = new Date(this.times[index].endTimeTravelFrom);
+
+        const endTimeMissing =
+            this.times[index].endTimeTravelFromString === null || this.times[index].endTimeTravelFromString === '';
+        const endBeforeStart = start > end || (start.toDateString() === end.toDateString() && start > end);
+
+        if (endTimeMissing || endBeforeStart) {
+            const newEnd = new Date(start);
+            newEnd.setHours(newEnd.getHours() + 1);
+            const timeString = this.dateTimeToTimeString(newEnd, false);
+            this.times[index].endTimeTravelFrom = newEnd.getTime();
             this.times[index].endTimeTravelFromString = timeString;
-            this.times[index].endTimeTravelFrom = dateTime.getTime();
-            let endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelFrom"]');
-            endTimeElements[index].setValue(this.times[index].endTimeTravelFromString);
+
+            const endTimeElements = this.template.querySelectorAll('[data-id="endTimeTravelFrom"]');
+            endTimeElements[index].setValue(timeString);
         }
     }
+
     updateEndTimeTravelFromBasedOnDate(index) {
-        let combinedDateTime = this.combineDateTimes(
-            this.times[index].dateTravelFromMilliseconds,
-            new Date(this.times[index].endTimeTravelFrom)
-        );
-        this.times[index].endTimeTravelFrom = combinedDateTime.getTime();
+        const endTime = new Date(this.times[index].endTimeTravelFrom);
+        const startTime = new Date(this.times[index].startTimeTravelFrom);
+
+        const endDate = endTime.toDateString();
+        const startDate = startTime.toDateString();
+
+        if (endDate === startDate && startTime > endTime) {
+            this.setEndTimeTravelFromBasedOnStartTime(index);
+        } else {
+            let combinedDateTime = this.combineDateTimes(this.times[index].dateTravelFromMilliseconds, endTime);
+            this.times[index].endTimeTravelFrom = combinedDateTime.getTime();
+        }
     }
+
     addTravelTime(event) {
         const index = this.getTimesIndex(event.target.name);
 
