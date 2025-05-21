@@ -297,8 +297,6 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     }
 
     setMadeFor(username, accountName) {
-        console.log('Username:', username);
-        console.log('Account name:', accountName);
         if (username && username.trim() !== '') {
             return username;
         } else if (accountName && accountName.trim() !== '') {
