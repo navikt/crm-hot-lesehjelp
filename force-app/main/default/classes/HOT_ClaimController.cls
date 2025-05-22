@@ -352,7 +352,8 @@ public without sharing class HOT_ClaimController {
                 EmployerExpensesPerHour__c,
                 OrganizationNumber__c,
                 EmployerName__c,
-                ApprovedByNAV__c
+                ApprovedByNAV__c,
+                Source__c
             FROM HOT_Claim__c
             WHERE Claimant__c = :currentUser.AccountId
         ];
