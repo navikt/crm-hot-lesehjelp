@@ -67,7 +67,7 @@
                                     <p tabindex="0">Sendt inn {claim.created}</p>
                                 </div>
 
-                                <p tabindex="0" style="padding-bottom: 0.5rem">Lesehjelp for {claim.UserName__c}</p>
+                                <p tabindex="0" style="padding-bottom: 0.5rem">Lesehjelp for {claim.madeFor}</p>
 
                                 <p if:true={claim.isYellowStatus} tabindex="0" class="status yellow">
                                     {claim.ExternalStatus__c}
@@ -133,7 +133,7 @@
                                 <strong>Utgifter per time: </strong>{record.EmployerExpensesPerHour__c}
                             </p>
                             <p tabindex="0"><strong>Innsendt dato:</strong> {record.created}</p>
-                            <p tabindex="0"><strong>Lesehjelp for:</strong> {record.UserName__c}</p>
+                            <p tabindex="0"><strong>Lesehjelp for:</strong> {record.madeFor}</p>
                             <p tabindex="0"><strong>Status:</strong> {record.ExternalStatus__c}</p>
                             <p tabindex="0" if:true={record.CommentFromNAV__c}>
                                 <strong>Kommentar fra saksebehandler:</strong>
