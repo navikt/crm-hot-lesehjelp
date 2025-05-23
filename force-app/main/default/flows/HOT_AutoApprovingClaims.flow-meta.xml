@@ -140,6 +140,20 @@
                 <stringValue></stringValue>
             </value>
         </filters>
+        <filters>
+            <field>AutoApproved__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved by user</stringValue>
+            </value>
+        </filters>
         <object>HOT_Claim__c</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
