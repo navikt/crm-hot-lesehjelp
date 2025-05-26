@@ -27,9 +27,8 @@ public without sharing class HOT_KRRAccountCalloutQueuable implements Queueable,
             }
             Map<String, KRRCalloutService.Person> krrResponseByPersonalNumber = new Map<String, KRRCalloutService.Person>();
             List<String> personNumbers = new List<String>(personIdByPersonalNumber.keySet());
-            List<KRRCalloutService.Person> personResponse = KrrCalloutService.doPersonOppslag2(
+            List<KRRCalloutService.Person> personResponse = KrrCalloutService.getPersons(
                 personNumbers,
-                null,
                 true
             );
 
