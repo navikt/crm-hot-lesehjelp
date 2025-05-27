@@ -22,40 +22,38 @@ public without sharing class HOT_KRRAccountCalloutQueuable implements Queueable,
         }
 
         try {
-            if (personIdByPersonalNumber.size() == 0) {
+            if (personIdByPersonalNumber.isEmpty()) {
                 throw new KRRException('(HOT) personIdByPersonalNumber was empty.');
             }
-            Map<String, KRRCalloutService.Person> krrResponseByPersonalNumber = new Map<String, KRRCalloutService.Person>();
+
             List<String> personNumbers = new List<String>(personIdByPersonalNumber.keySet());
-            List<KRRCalloutService.Person> personResponse = KrrCalloutService.getPersons(
-                personNumbers,
-                true
-            );
 
+            KrrCalloutService krrService = new KrrCalloutService();
+            KrrCalloutService.KrrResponse response = krrService.getPersons(personNumbers, true);
+
+            // Line #34 might be irrelevant after we switced to getPersons.
             // KrrCalloutService.doPersonOppslag() fails in 25% of cases. We are rerunning the Callout, to see if there are some irregularities with the integration
-            if (personResponse == null) {
-                throw new KRRException('(HOT) KrrCalloutService.doPersonOppslag return null.');
+            if (response == null || response.personer == null) {
+                throw new KRRException('(HOT) KrrCalloutService.getPersons returned null or empty.');
             }
 
-            for (KRRCalloutService.Person person : personResponse) {
-                krrResponseByPersonalNumber.put(person.personident, person);
-            }
+            Map<String, KrrCalloutService.Person> krrResponseByPersonalNumber = response.personer;
+
             List<Person__c> personsToUpdate = new List<Person__c>();
             for (String personalNumber : personIdByPersonalNumber.keySet()) {
-                KRRCalloutService.Person p = krrResponseByPersonalNumber.get(personalNumber);
+                KrrCalloutService.Person p = krrResponseByPersonalNumber.get(personalNumber);
                 if (p != null) {
-                    // Initialize related Person record and set audit fields
                     Person__c person = new Person__c();
                     person.Id = personIdByPersonalNumber.get(personalNumber);
                     person.INT_LastUpdatedFromKRR__c = System.now();
                     person.INT_KrrIntegrationStatus__c = 'Completed';
-
-                    // Map contact information fields if they were returned by krr
+                    person.HOT_KrrIntegrationErrorCounter__c = 0;
 
                     if (p.epostadresse != null)
                         person.INT_KrrEmail__c = p.epostadresse;
                     if (p.mobiltelefonnummer != null)
                         person.INT_KrrMobilePhone__c = p.mobiltelefonnummer;
+
                     personsToUpdate.add(person);
                 }
             }
