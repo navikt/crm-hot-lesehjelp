@@ -56,4 +56,39 @@ private class HOT_EntitlementControllerTest {
 
         Test.stopTest();
     }
+    @IsTest
+    static void preventChangingEntitlementPeriodIfApprovedClaimsTest() {
+        Account acc = new Account();
+        acc.Name = 'Kari Lesehjelp';
+        insert acc;
+        Account acc2 = new Account();
+        acc2.Name = 'Ola Bruker';
+        insert acc2;
+        HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
+        insert claim;
+
+        HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
+        entitlement.FromDate__c = Date.today().addDays(-40);
+        entitlement.ToDate__c = Date.today().addDays(40);
+        insert entitlement;
+
+        HOT_ClaimLineItem__c cli = HOT_LesehjelpTestDataFactory.createClaimLineItems(claim);
+        insert cli;
+
+        claim.ApprovedByUser__c = true;
+        claim.Status__c = 'Approved by user';
+        claim.ApprovedByNAV__c = true;
+        claim.Status__c = 'Approved by NAV';
+        update claim;
+
+        entitlement.ToDate__c = Date.today().addDays(3);
+
+        Test.startTest();
+        Database.SaveResult result = Database.update(entitlement, false);
+        Test.stopTest();
+        System.assert(
+            result.getErrors()[0].getMessage().contains('Du kan ikke endre tidene på dette vedtaket'),
+            'Expected error message about not allowed to change entitlement period when there already are approved claims.'
+        );
+    }
 }

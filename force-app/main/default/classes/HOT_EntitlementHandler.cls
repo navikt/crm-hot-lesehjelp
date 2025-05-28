@@ -35,4 +35,16 @@ public with sharing class HOT_EntitlementHandler extends MyTriggers {
             HOT_EntitlementController.recalculateUsedEntitlements(entitlementIds);
         }
     }
+    public override void onBeforeUpdate(Map<Id, sObject> triggerOldMap) {
+        List<HOT_Entitlement__c> updatedEntitlements = new List<HOT_Entitlement__c>();
+        for (HOT_Entitlement__c entitlement : (List<HOT_Entitlement__c>) records) {
+            if (
+                (triggerOldMap.get(entitlement.Id).get('FromDate__c') != entitlement.FromDate__c) ||
+                (triggerOldMap.get(entitlement.Id).get('ToDate__c') != entitlement.ToDate__c)
+            ) {
+                updatedEntitlements.add(entitlement);
+            }
+        }
+        HOT_EntitlementController.checkForAlreadyApprovedClaims(updatedEntitlements);
+    }
 }
