@@ -100,7 +100,7 @@ public without sharing class HOT_ClaimLineItemController {
             WHERE
                 Claim__r.Claimant__c = :currentUser.AccountId
                 AND Claim__r.Status__c != 'Withdrawn'
-                AND  Claim__r.Id != :recordId
+                AND Claim__r.Id != :recordId
         ];
         return claimLineItems;
     }
@@ -237,18 +237,24 @@ public without sharing class HOT_ClaimLineItemController {
             DateTime claimDateTime = claimLineItem.StartTime__c;
             Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
 
-            Integer travelMinutes = 0;
+            Integer travelToMinutes = 0;
+            Integer travelFromMinutes = 0;
             if (claimLineItem.HasTravelTo__c) {
-                travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+                travelToMinutes += calculateTravelMinutes(
+                    claimLineItem.TravelToStartTime__c,
+                    claimLineItem.TravelToEndTime__c
+                );
             }
             if (claimLineItem.HasTravelFrom__c) {
-                travelMinutes += calculateTravelMinutes(
+                travelFromMinutes += calculateTravelMinutes(
                     claimLineItem.TravelFromStartTime__c,
                     claimLineItem.TravelFromEndTime__c
                 );
             }
-            Integer roundedTravelMinutes = roundMinutes(travelMinutes);
-            Double travelHours = roundedTravelMinutes / 60.0;
+            Integer roundedTravelToMinutes = roundMinutes(travelToMinutes);
+            Integer roundedTravelFromMinutes = roundMinutes(travelFromMinutes);
+            Integer roundenTotalTravelMinutes = roundedTravelToMinutes + roundedTravelFromMinutes;
+            Double travelHours = roundenTotalTravelMinutes / 60.0;
             claimLineItem.TravelHours__c = travelHours;
 
             if (holidayDates.contains(claimDate) || isSunday) {

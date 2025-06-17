@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TotalTravelHours__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Inkluderer ventetid</inlineHelpText>
+    <inlineHelpText></inlineHelpText>
     <label>Total travel hours</label>
     <summarizedField>HOT_ClaimLineItem__c.TravelHours__c</summarizedField>
     <summaryForeignKey>HOT_ClaimLineItem__c.Claim__c</summaryForeignKey>
