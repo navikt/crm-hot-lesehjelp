@@ -100,7 +100,7 @@ public without sharing class HOT_ClaimLineItemController {
             WHERE
                 Claim__r.Claimant__c = :currentUser.AccountId
                 AND Claim__r.Status__c != 'Withdrawn'
-                AND  Claim__r.Id != :recordId
+                AND Claim__r.Id != :recordId
         ];
         return claimLineItems;
     }
@@ -239,7 +239,10 @@ public without sharing class HOT_ClaimLineItemController {
 
             Integer travelMinutes = 0;
             if (claimLineItem.HasTravelTo__c) {
-                travelMinutes += calculateTravelMinutes(claimLineItem.TravelToStartTime__c, claimLineItem.StartTime__c);
+                travelMinutes += calculateTravelMinutes(
+                    claimLineItem.TravelToStartTime__c,
+                    claimLineItem.TravelToEndTime__c
+                );
             }
             if (claimLineItem.HasTravelFrom__c) {
                 travelMinutes += calculateTravelMinutes(
