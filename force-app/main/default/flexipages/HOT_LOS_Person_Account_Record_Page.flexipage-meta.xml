@@ -85,6 +85,9 @@
                             <value>NAME</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Processed__c</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>CREATED_DATE</value>
                         </valueListItems>
                         <valueListItems>
@@ -153,6 +156,9 @@
                     <valueList>
                         <valueListItems>
                             <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Processed__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CREATED_DATE</value>
