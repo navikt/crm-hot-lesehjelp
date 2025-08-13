@@ -4,12 +4,12 @@
             "path": "force-app",
             "default": true,
             "package": "crm-hot-lesehjelp",
-            "versionNumber": "1.30.0.NEXT",
+            "versionNumber": "1.37.0.NEXT",
             "versionDescription": "",
             "dependencies": [
                 {
                     "package": "crm-platform-base",
-                    "versionNumber": "0.247.0.LATEST"
+                    "versionNumber": "0.270.0.LATEST"
                 },
                 {
                     "package": "crm-shared-flowComponents",
@@ -17,19 +17,19 @@
                 },
                 {
                     "package": "crm-henvendelse-base",
-                    "versionNumber": "0.27.0.LATEST"
+                    "versionNumber": "0.31.0.LATEST"
                 },
                 {
                     "package": "crm-platform-integration",
-                    "versionNumber": "0.142.0.LATEST"
+                    "versionNumber": "0.155.0.LATEST"
                 },
                 {
                     "package": "crm-platform-access-control",
-                    "versionNumber": "0.144.0.LATEST"
+                    "versionNumber": "0.160.0.LATEST"
                 },
                 {
                     "package": "crm-community-base",
-                    "versionNumber": "0.119.0.LATEST"
+                    "versionNumber": "0.121.0.LATEST"
                 }
             ]
         }
