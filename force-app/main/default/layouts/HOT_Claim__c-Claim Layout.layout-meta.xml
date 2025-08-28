@@ -50,6 +50,10 @@
                 <behavior>Edit</behavior>
                 <field>CommentFromUser__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Pay__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
