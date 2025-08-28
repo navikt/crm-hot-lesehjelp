@@ -500,6 +500,15 @@
         <object>HOT_Entitlement__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>HOT_Rate__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <tabSettings>
         <tab>HOT_ClaimLineItem__c</tab>
         <visibility>Visible</visibility>
