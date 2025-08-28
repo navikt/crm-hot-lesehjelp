@@ -206,6 +206,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.IsCalculated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.IsLos__c</field>
         <readable>true</readable>
@@ -213,6 +218,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.IsNotificationSent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.IsRecalculated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
