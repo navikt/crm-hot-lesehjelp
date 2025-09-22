@@ -38,6 +38,10 @@
                 <behavior>Required</behavior>
                 <field>TypeOfTask__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Amount__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

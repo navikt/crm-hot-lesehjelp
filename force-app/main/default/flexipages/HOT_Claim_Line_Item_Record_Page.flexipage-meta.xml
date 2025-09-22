@@ -96,6 +96,12 @@
                 <identifier>RecordNumberOfHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Amount__c</fieldItem>
+                <identifier>RecordAmount__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c5baebb1-c70d-43d2-912f-d6db51cdf9ef</name>
         <type>Facet</type>
     </flexiPageRegions>
