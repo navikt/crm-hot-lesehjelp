@@ -531,4 +531,8 @@
         <tab>HOT_Entitlement__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>HOT_Rate__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
