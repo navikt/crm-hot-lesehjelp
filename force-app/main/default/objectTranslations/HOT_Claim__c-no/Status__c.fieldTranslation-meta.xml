@@ -19,8 +19,20 @@
         <translation>Avvist av bruker</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Failed</masterLabel>
+        <translation>Noe feilet</translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Paid out</masterLabel>
         <translation>Utbetalt</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paid out after recalculation</masterLabel>
+        <translation>Utbetalt etter satsjustering</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recalculated</masterLabel>
+        <translation>Rekalkulert etter satsjustering</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Sent</masterLabel>

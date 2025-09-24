@@ -52,6 +52,21 @@
                 <default>false</default>
                 <label>Sent for payment</label>
             </value>
+            <value>
+                <fullName>Recalculated</fullName>
+                <default>false</default>
+                <label>Recalculated</label>
+            </value>
+            <value>
+                <fullName>Failed</fullName>
+                <default>false</default>
+                <label>Failed</label>
+            </value>
+            <value>
+                <fullName>Paid out after recalculation</fullName>
+                <default>false</default>
+                <label>Paid out after recalculation</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
