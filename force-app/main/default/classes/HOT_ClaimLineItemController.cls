@@ -251,10 +251,9 @@ public without sharing class HOT_ClaimLineItemController {
                     claimLineItem.TravelFromEndTime__c
                 );
             }
-            Integer roundedTravelToMinutes = roundMinutes(travelToMinutes);
-            Integer roundedTravelFromMinutes = roundMinutes(travelFromMinutes);
-            Integer roundenTotalTravelMinutes = roundedTravelToMinutes + roundedTravelFromMinutes;
-            Double travelHours = roundenTotalTravelMinutes / 60.0;
+            Integer totalTravelMinutes = travelToMinutes + travelFromMinutes;
+            Integer roundedTotalTravelMinutes = roundMinutes(totalTravelMinutes);
+            Double travelHours = roundedTotalTravelMinutes / 60.0;
             claimLineItem.TravelHours__c = travelHours;
 
             if (holidayDates.contains(claimDate) || isSunday) {
