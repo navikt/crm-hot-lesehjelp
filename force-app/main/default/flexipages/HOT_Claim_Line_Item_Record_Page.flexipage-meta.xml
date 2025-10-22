@@ -96,12 +96,6 @@
                 <identifier>RecordNumberOfHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Amount__c</fieldItem>
-                <identifier>RecordAmount__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-c5baebb1-c70d-43d2-912f-d6db51cdf9ef</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -403,6 +397,16 @@
                 <identifier>RecordEveningNightAndWeekendHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TravelHours__c</fieldItem>
+                <identifier>RecordTravelHours_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-cdd8483a-4073-4a80-a506-6f739eb0d2c4</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -413,8 +417,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TravelHours__c</fieldItem>
-                <identifier>RecordTravelHours_cField</identifier>
+                <fieldItem>Record.Amount__c</fieldItem>
+                <identifier>RecordAmount__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-2d2026e7-08c1-4e5b-a810-6896abf706bc</name>
