@@ -16,8 +16,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.Claimant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.DayHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -28,6 +38,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.EveningNightAndWeekendHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -98,6 +113,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.TravelFrom__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_ClaimLineItem__c.TravelHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -236,6 +256,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.ProcessedRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.Processed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.ReProcessedRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.Resource_number__c</field>
         <readable>true</readable>
@@ -262,6 +297,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>HOT_Claim__c.TotalDayHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalEveningNightAndWeekendHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>HOT_Claim__c.TotalExpensesParking__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -278,6 +323,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.TotalHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalTravelHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.TotalTravelKm__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -347,11 +402,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Rate__c.isActive__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>HOT_Rate__c.Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -368,6 +418,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Rate__c.ValidTo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Rate__c.isActive__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

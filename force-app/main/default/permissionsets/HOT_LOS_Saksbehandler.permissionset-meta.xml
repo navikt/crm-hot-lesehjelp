@@ -312,8 +312,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.ProcessedRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Processed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>HOT_Claim__c.ReProcessedRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -453,11 +463,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Rate__c.isActive__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>HOT_Rate__c.Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -474,6 +479,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Rate__c.ValidTo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Rate__c.isActive__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
