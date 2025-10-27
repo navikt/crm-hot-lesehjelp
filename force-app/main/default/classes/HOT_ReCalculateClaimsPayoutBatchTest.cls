@@ -22,7 +22,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 isActive__c = true
             ),
             new HOT_Rate__c(
-                Type__c = 'Reise',
+                Type__c = 'Reisetid',
                 Rate__c = 50,
                 ValidFrom__c = Date.today().addDays(-10),
                 ValidTo__c = Date.today().addDays(10),

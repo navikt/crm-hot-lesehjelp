@@ -106,7 +106,7 @@ public without sharing class HOT_RateController {
                     rates,
                     item.TravelFromStartTime__c.date(),
                     item.TravelFromEndTime__c.date(),
-                    'Reise'
+                    'Reisetid'
                 );
 
                 if (travelFromRate != null) {
@@ -121,7 +121,7 @@ public without sharing class HOT_RateController {
                     rates,
                     item.TravelToStartTime__c.date(),
                     item.TravelToEndTime__c.date(),
-                    'Reise'
+                    'Reisetid'
                 );
 
                 if (travelToRate != null) {
