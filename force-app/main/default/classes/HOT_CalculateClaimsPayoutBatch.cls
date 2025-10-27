@@ -8,34 +8,36 @@ public without sharing class HOT_CalculateClaimsPayoutBatch implements Database.
         return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<SObject> records) {
-        try {
-            Set<Id> claimIds = new Set<Id>();
-            for (SObject sObj : records) {
-                HOT_Claim__c claim = (HOT_Claim__c) sObj;
-                claimIds.add(claim.Id);
-            }
-            List<HOT_ClaimLineItem__c> claimLineItems = [
-                SELECT
-                    Id,
-                    Claim__c,
-                    StartTime__c,
-                    EndTime__c,
-                    TravelFromStartTime__c,
-                    TravelFromEndTime__c,
-                    TravelToStartTime__c,
-                    TravelToEndTime__c,
-                    DayHours__c,
-                    EveningNightAndWeekendHours__c,
-                    TravelHours__c,
-                    Amount__c,
-                    DeltaAfterAdjustment__c
-                FROM HOT_ClaimLineItem__c
-                WHERE Claim__c IN :claimIds
-            ];
+        if (!records.isEmpty()) {
+            try {
+                Set<Id> claimIds = new Set<Id>();
+                for (SObject sObj : records) {
+                    HOT_Claim__c claim = (HOT_Claim__c) sObj;
+                    claimIds.add(claim.Id);
+                }
+                List<HOT_ClaimLineItem__c> claimLineItems = [
+                    SELECT
+                        Id,
+                        Claim__c,
+                        StartTime__c,
+                        EndTime__c,
+                        TravelFromStartTime__c,
+                        TravelFromEndTime__c,
+                        TravelToStartTime__c,
+                        TravelToEndTime__c,
+                        DayHours__c,
+                        EveningNightAndWeekendHours__c,
+                        TravelHours__c,
+                        Amount__c,
+                        DeltaAfterAdjustment__c
+                    FROM HOT_ClaimLineItem__c
+                    WHERE Claim__c IN :claimIds
+                ];
 
-            HOT_RateController.calculateClaimByRates(claimLineItems, false);
-        } catch (Exception e) {
-            System.debug('Error processing batch: ' + e.getMessage());
+                HOT_RateController.calculateClaimByRates(claimLineItems, false);
+            } catch (Exception e) {
+                System.debug('Error processing batch: ' + e.getMessage());
+            }
         }
     }
 
