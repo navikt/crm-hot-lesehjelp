@@ -27,6 +27,13 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 ValidFrom__c = Date.today().addDays(-10),
                 ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
+            ),
+            new HOT_Rate__c(
+                Type__c = 'Kjøregodtgjørelse',
+                Rate__c = 3.5, // f.eks. 3,50 kr/km
+                ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
+                isActive__c = true
             )
         };
         insert rates;
@@ -115,21 +122,32 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
+        // Legg til 10 km reisegodtgjørelse
+        setupCli.TravelDistance__c = 10;
+        setupCli.TotalUndocumentedExpenses__c = 100;
+        update setupCli;
 
         Decimal actualCalculatedAmount =
             (setupCli.DayHours__c * 100) +
             (setupCli.EveningNightAndWeekendHours__c * 200) +
-            (setupCli.TravelHours__c * 50);
+            (setupCli.TravelHours__c * 50) +
+            (setupCli.TravelDistance__c * 3.5) +
+            100;
 
-        Decimal expectedDelta = actualCalculatedAmount - 300;
+        Decimal expectedDelta = actualCalculatedAmount - 300; // 300 = gammelt beløp
 
         Test.startTest();
         HOT_ReCalculateClaimsPayoutBatch schedulable = new HOT_ReCalculateClaimsPayoutBatch();
         schedulable.execute(null);
         Test.stopTest();
 
+        // Hent oppdatert krav og linje
         HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
-        HOT_ClaimLineItem__c updatedCli = [SELECT DeltaAfterAdjustment__c, Amount__c FROM HOT_ClaimLineItem__c LIMIT 1];
+        HOT_ClaimLineItem__c updatedCli = [
+            SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c
+            FROM HOT_ClaimLineItem__c
+            LIMIT 1
+        ];
 
         System.assertEquals(
             true,
@@ -140,7 +158,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         System.assertEquals(
             expectedDelta,
             updatedCli.DeltaAfterAdjustment__c,
-            'DeltaAfterAdjustment__c ble ikke beregnet korrekt.'
+            'DeltaAfterAdjustment__c ble ikke beregnet korrekt inkludert kjøregodtgjørelse.'
         );
     }
 

@@ -27,6 +27,13 @@ private class HOT_CalculateClaimsPayoutBatchTest {
                 ValidFrom__c = Date.today().addDays(-10),
                 ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
+            ),
+            new HOT_Rate__c(
+                Type__c = 'Kjøregodtgjørelse',
+                Rate__c = 3.5, // f.eks. 3,50 kr/km
+                ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
+                isActive__c = true
             )
         };
         insert rates;
@@ -110,11 +117,16 @@ private class HOT_CalculateClaimsPayoutBatchTest {
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
+        // Legg til 10 km kjøregodtgjørelse
+        setupCli.TravelDistance__c = 10;
+        setupCli.TotalUndocumentedExpenses__c=100;
+        update setupCli;
 
         Decimal expectedAmount =
             (setupCli.DayHours__c * 100) +
             (setupCli.EveningNightAndWeekendHours__c * 200) +
-            (setupCli.TravelHours__c * 50);
+            (setupCli.TravelHours__c * 50) +                 // 0.5 * 50 = 25
+            (setupCli.TravelDistance__c * 3.5) + 100;
 
         Test.startTest();
         String cron = '0 0 1 * * ?';
