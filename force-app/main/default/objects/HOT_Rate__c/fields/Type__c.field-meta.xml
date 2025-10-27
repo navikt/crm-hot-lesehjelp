@@ -22,9 +22,14 @@
                 <label>Kveld/helg</label>
             </value>
             <value>
-                <fullName>Reise</fullName>
+                <fullName>Reisetid</fullName>
                 <default>false</default>
-                <label>Reise</label>
+                <label>Reisetid</label>
+            </value>
+            <value>
+                <fullName>Kjøregodtgjørelse</fullName>
+                <default>false</default>
+                <label>Kjøregodtgjørelse</label>
             </value>
         </valueSetDefinition>
     </valueSet>
