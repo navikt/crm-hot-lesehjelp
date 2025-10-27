@@ -162,8 +162,8 @@ public without sharing class HOT_RateController {
                     missingRate = true;
                 }
             }
-            if (item.SumUndocumentedExpenses__c != null) {
-                totalExpenses = item.SumUndocumentedExpenses__c;
+            if (item.TotalUndocumentedExpenses__c != null) {
+                totalExpenses = item.TotalUndocumentedExpenses__c;
             }
             if (missingRate) {
                 LoggerUtility logger = new LoggerUtility();
