@@ -29,7 +29,9 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
                         EveningNightAndWeekendHours__c,
                         TravelHours__c,
                         Amount__c,
-                        DeltaAfterAdjustment__c
+                        DeltaAfterAdjustment__c,
+                        TravelDistance__c,
+                        TotalUndocumentedExpenses__c
                     FROM HOT_ClaimLineItem__c
                     WHERE Claim__c IN :claimIds
                 ];

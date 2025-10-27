@@ -52,7 +52,7 @@ public without sharing class HOT_RateController {
         List<HOT_Rate__c> rates = [
             SELECT Id, Type__c, Rate__c, ValidFrom__c, ValidTo__c, isActive__c
             FROM HOT_Rate__c
-            WHERE ValidTo__c >= :earliestStart AND ValidFrom__c <= :latestEnd AND isActive__c = TRUE
+            WHERE isActive__c = TRUE
         ];
 
         Set<Id> claimIds = new Set<Id>();
@@ -60,6 +60,7 @@ public without sharing class HOT_RateController {
         for (HOT_ClaimLineItem__c item : claimLineItems) {
             Decimal totalTravelPayout = 0;
             Decimal totalPayout = 0;
+            Decimal totalExpenses = 0;
             Boolean missingRate = false;
 
             // DAG SATS
@@ -115,6 +116,37 @@ public without sharing class HOT_RateController {
                     missingRate = true;
                 }
             }
+            //KILOMETERGODTGJØRELSE
+            Date travelStartDate;
+            Date travelEndDate;
+
+            if (item.TravelFromStartTime__c != null && item.TravelFromEndTime__c != null) {
+                travelStartDate = item.TravelFromStartTime__c.date();
+                travelEndDate = item.TravelFromEndTime__c.date();
+            } else if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
+                travelStartDate = item.TravelToStartTime__c.date();
+                travelEndDate = item.TravelToEndTime__c.date();
+            }
+
+            if (
+                travelStartDate != null &&
+                travelEndDate != null &&
+                item.TravelDistance__c != null &&
+                item.TravelDistance__c > 0
+            ) {
+                HOT_Rate__c travelDistanceRate = findRateForPeriod(
+                    rates,
+                    travelStartDate,
+                    travelEndDate,
+                    'Kjøregodtgjørelse'
+                );
+                if (travelDistanceRate != null) {
+                    totalPayout = item.TravelDistance__c * travelDistanceRate.Rate__c;
+                } else {
+                    missingRate = true;
+                }
+            }
+
             // REISE SATS TIL
             if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
                 HOT_Rate__c travelToRate = findRateForPeriod(
@@ -130,6 +162,9 @@ public without sharing class HOT_RateController {
                     missingRate = true;
                 }
             }
+            if (item.SumUndocumentedExpenses__c != null) {
+                totalExpenses = item.SumUndocumentedExpenses__c;
+            }
             if (missingRate) {
                 LoggerUtility logger = new LoggerUtility();
                 logger.error(
@@ -140,7 +175,7 @@ public without sharing class HOT_RateController {
                 logger.publish();
             }
             if (!missingRate && !isRecalculating) {
-                item.Amount__c = totalPayout + totalTravelPayout;
+                item.Amount__c = totalPayout + totalTravelPayout + totalExpenses;
                 claimIds.add(item.Claim__c);
             }
             if (!missingRate && isRecalculating) {
