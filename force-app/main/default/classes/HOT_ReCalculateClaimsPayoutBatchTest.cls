@@ -186,7 +186,8 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 TravelHours__c,
                 Amount__c,
                 DeltaAfterAdjustment__c,
-                TravelDistance__c
+                TravelDistance__c,
+                TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             WHERE Id = :cli.Id
         ];
