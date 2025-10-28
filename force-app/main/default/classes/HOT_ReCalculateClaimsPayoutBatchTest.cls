@@ -102,7 +102,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             HasTravelFrom__c = true,
             TravelFromStartTime__c = travelStartGmt,
             TravelFromEndTime__c = travelEndGmt,
-            Amount__c = 300,
+            Amount__c = 600,
             TravelDistance__c = 10,
             TotalUndocumentedExpenses__c = 100
         );
@@ -131,7 +131,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             (setupCli.TravelHours__c * 50) +
             (setupCli.TravelDistance__c * 3.5);
 
-        Decimal expectedDelta = actualCalculatedAmount - 300; // 300 = gammelt beløp
+        Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
         Test.startTest();
         HOT_ReCalculateClaimsPayoutBatch schedulable = new HOT_ReCalculateClaimsPayoutBatch();
@@ -208,6 +208,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             updatedCli.DeltaAfterAdjustment__c,
             'DeltaAfterAdjustment__c skulle IKKE vært beregnet når satser mangler.'
         );
-        System.assertEquals(300, updatedCli.Amount__c, 'Amount__c skulle IKKE vært endret når satser mangler.');
+        System.assertEquals(600, updatedCli.Amount__c, 'Amount__c skulle IKKE vært endret når satser mangler.');
     }
 }
