@@ -115,7 +115,7 @@ private class HOT_CalculateClaimsPayoutBatchTest {
     static void testSchedulableAndBatchExecution() {
         // Henter de FAKTISKE timene satt i setup (for å være robust mot tidssone-effekter)
         HOT_ClaimLineItem__c setupCli = [
-            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c
+            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
