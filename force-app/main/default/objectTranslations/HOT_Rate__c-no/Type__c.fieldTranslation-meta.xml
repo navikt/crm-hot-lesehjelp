@@ -11,7 +11,11 @@
         <translation><!-- Kveld/helg --></translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Reise</masterLabel>
+        <masterLabel>Reisetid</masterLabel>
+        <translation><!-- Reise --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kjøregodtgjørelse</masterLabel>
         <translation><!-- Reise --></translation>
     </picklistValues>
 </CustomFieldTranslation>
