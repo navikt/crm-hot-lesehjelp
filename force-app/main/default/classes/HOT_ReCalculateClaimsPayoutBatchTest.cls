@@ -186,7 +186,8 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 EveningNightAndWeekendHours__c,
                 TravelHours__c,
                 Amount__c,
-                DeltaAfterAdjustment__c
+                DeltaAfterAdjustment__c,
+                TravelDistance__c
             FROM HOT_ClaimLineItem__c
             WHERE Id = :cli.Id
         ];

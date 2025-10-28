@@ -141,7 +141,7 @@ public without sharing class HOT_RateController {
                     'Kjøregodtgjørelse'
                 );
                 if (travelDistanceRate != null) {
-                    totalPayout = item.TravelDistance__c * travelDistanceRate.Rate__c;
+                    totalPayout += item.TravelDistance__c * travelDistanceRate.Rate__c;
                 } else {
                     missingRate = true;
                 }
