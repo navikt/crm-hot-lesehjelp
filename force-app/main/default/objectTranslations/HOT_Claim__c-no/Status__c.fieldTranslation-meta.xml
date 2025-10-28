@@ -27,10 +27,6 @@
         <translation>Utbetalt</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Paid out after recalculation</masterLabel>
-        <translation>Utbetalt etter satsjustering</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>Recalculated</masterLabel>
         <translation>Rekalkulert etter satsjustering</translation>
     </picklistValues>
