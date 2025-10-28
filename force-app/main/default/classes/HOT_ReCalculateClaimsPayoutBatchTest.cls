@@ -129,8 +129,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             (setupCli.DayHours__c * 100) +
             (setupCli.EveningNightAndWeekendHours__c * 200) +
             (setupCli.TravelHours__c * 50) +
-            (setupCli.TravelDistance__c * 3.5) +
-            100;
+            (setupCli.TravelDistance__c * 3.5);
 
         Decimal expectedDelta = actualCalculatedAmount - 300; // 300 = gammelt beløp
 
@@ -142,7 +141,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         // Hent oppdatert krav og linje
         HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
         HOT_ClaimLineItem__c updatedCli = [
-            SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c
+            SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
