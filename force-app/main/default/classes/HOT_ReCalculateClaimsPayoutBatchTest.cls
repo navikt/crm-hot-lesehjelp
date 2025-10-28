@@ -167,7 +167,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         delete [SELECT Id FROM HOT_Rate__c];
 
         HOT_ClaimLineItem__c cli = [
-            SELECT Id, Claim__c, Amount__c, DeltaAfterAdjustment__c
+            SELECT Id, Claim__c, Amount__c, DeltaAfterAdjustment__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
