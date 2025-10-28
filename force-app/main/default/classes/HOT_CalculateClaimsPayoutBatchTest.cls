@@ -103,6 +103,8 @@ private class HOT_CalculateClaimsPayoutBatchTest {
             DayHours__c = 2.0, // Forventer 2.0 * 100 = 200
             EveningNightAndWeekendHours__c = 0.5, // Forventer 0.5 * 200 = 100
             TravelHours__c = 0.5, // Forventer 0.5 * 50 = 25
+            TravelDistance__c = 10,
+            TotalUndocumentedExpenses__c=100,
             Amount__c = null
         );
         insert testCli;
@@ -117,10 +119,6 @@ private class HOT_CalculateClaimsPayoutBatchTest {
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
-        // Legg til 10 km kjøregodtgjørelse
-        setupCli.TravelDistance__c = 10;
-        setupCli.TotalUndocumentedExpenses__c=100;
-        update setupCli;
 
         Decimal expectedAmount =
             (setupCli.DayHours__c * 100) +

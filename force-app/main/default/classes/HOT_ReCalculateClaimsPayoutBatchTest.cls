@@ -102,7 +102,9 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             HasTravelFrom__c = true,
             TravelFromStartTime__c = travelStartGmt,
             TravelFromEndTime__c = travelEndGmt,
-            Amount__c = 300 // Gammelt beløp som skal justeres
+            Amount__c = 300,
+            TravelDistance__c = 10,
+            TotalUndocumentedExpenses__c = 100
         );
 
         // Setter Days/Evening/TravelHours til 0.0 eksplisitt for å unngå forvirring,
@@ -122,10 +124,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
-        // Legg til 10 km reisegodtgjørelse
-        setupCli.TravelDistance__c = 10;
-        setupCli.TotalUndocumentedExpenses__c = 100;
-        update setupCli;
 
         Decimal actualCalculatedAmount =
             (setupCli.DayHours__c * 100) +
