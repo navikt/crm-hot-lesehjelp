@@ -120,7 +120,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
     @isTest
     static void testSchedulableAndBatchExecution() {
         HOT_ClaimLineItem__c setupCli = [
-            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c
+            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
