@@ -71,8 +71,15 @@ public without sharing class HOT_EntitlementController {
         }
         update entitlementList;
     }
-    public static void findClaimsOnNewEntitlement() {
-        List<HOT_Claim__c> claims = [SELECT Id FROM HOT_Claim__c WHERE Entitlement__c = NULL];
+    public static void findClaimsOnNewEntitlement(Set<Id> entitlementIds) {
+        if (entitlementIds == null) {
+            entitlementIds = new Set<Id>();
+        }
+        List<HOT_Claim__c> claims = [
+            SELECT Id
+            FROM HOT_Claim__c
+            WHERE Entitlement__c = NULL OR Entitlement__c IN :entitlementIds
+        ];
         Set<Id> claimIds = new Set<Id>();
         if (!claims.isEmpty()) {
             for (HOT_Claim__c claim : claims) {
