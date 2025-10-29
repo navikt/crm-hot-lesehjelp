@@ -39,6 +39,9 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
                 HOT_RateController.calculateClaimByRates(claimLineItems, true);
             } catch (Exception e) {
                 System.debug('Error processing batch: ' + e.getMessage());
+                LoggerUtility logger = new LoggerUtility();
+                logger.exception(e, CRM_ApplicationDomain.Domain.HOT);
+                logger.publishSynch();
             }
         }
     }
