@@ -181,7 +181,7 @@ private class HOT_CalculateClaimsPayoutBatchTest {
             Type__c = 'Dagligliv',
             ApprovedByNAV__c = true,
             ApprovedByUser__c = true, // <<-- LAGT TIL
-            Status__c = 'Paid Out',
+            Status__c = 'Paid out',
             ProcessedRate__c = false,
             ReProcessedRate__c = false
         );

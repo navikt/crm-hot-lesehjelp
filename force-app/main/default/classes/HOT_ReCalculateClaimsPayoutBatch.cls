@@ -4,7 +4,7 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
         Database.executeBatch(batchJob, 100);
     }
     public Database.QueryLocator start(Database.BatchableContext bc) {
-        String query = 'SELECT Id, ProcessedRate__c, ReProcessedRate__c, Status__c FROM HOT_Claim__c WHERE ProcessedRate__c = true AND ReProcessedRate__c = false AND ApprovedByNAV__c = true AND (Status__c = \'Paid Out\')';
+        String query = 'SELECT Id, ProcessedRate__c, ReProcessedRate__c, Status__c FROM HOT_Claim__c WHERE ProcessedRate__c = true AND ReProcessedRate__c = false AND ApprovedByNAV__c = true AND (Status__c = \'Paid out\')';
         return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<SObject> records) {

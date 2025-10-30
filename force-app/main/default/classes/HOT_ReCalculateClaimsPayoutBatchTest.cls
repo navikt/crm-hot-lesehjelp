@@ -55,7 +55,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             ProcessedRate__c = true,
             ReProcessedRate__c = false,
             ApprovedByNAV__c = true,
-            Status__c = 'Paid Out'
+            Status__c = 'Paid out'
         );
         insert testClaim;
 
