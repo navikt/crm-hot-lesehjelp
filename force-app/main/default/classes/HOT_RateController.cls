@@ -175,11 +175,13 @@ public without sharing class HOT_RateController {
                 logger.publish();
             }
             if (!missingRate && !isRecalculating) {
-                item.Amount__c = totalPayout + totalTravelPayout + totalExpenses;
+                Decimal totalAmount = totalPayout + totalTravelPayout + totalExpenses;
+                item.Amount__c = totalAmount.setScale(2);
                 claimIds.add(item.Claim__c);
             }
             if (!missingRate && isRecalculating) {
-                item.DeltaAfterAdjustment__c = (totalPayout + totalTravelPayout) - item.Amount__c;
+                Decimal delta = (totalPayout + totalTravelPayout) - (item.Amount__c != null ? item.Amount__c : 0);
+                item.DeltaAfterAdjustment__c = delta.setScale(2);
                 claimIds.add(item.Claim__c);
             }
         }
