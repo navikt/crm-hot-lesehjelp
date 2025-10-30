@@ -3,7 +3,7 @@
     <fullName>DeltaAfterAdjustment__c</fullName>
     <externalId>false</externalId>
     <label>Delta after rate adjustment</label>
-    <precision>5</precision>
+    <precision>7</precision>
     <required>false</required>
     <scale>2</scale>
     <trackHistory>false</trackHistory>
