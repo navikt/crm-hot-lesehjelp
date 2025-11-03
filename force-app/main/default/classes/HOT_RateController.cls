@@ -93,55 +93,58 @@ public without sharing class HOT_RateController {
                 }
             }
 
-            // REISE SATS FRA
+            // Utregning av reise
             /* MERKNAD: Ettersom det kun er mulig å ha reise på samme dag som oppdraget, at det 
             ikke er mulig å ha et oppdrag over flere dager, og travelhours allerede er rundet 
-            opp og oppsummert, blir det dermed kun 1 reisesats (=, ikke +=) */
-            if (item.TravelFromStartTime__c != null && item.TravelFromEndTime__c != null) {
-                HOT_Rate__c travelFromRate = findRateForPeriod(rates, item.TravelFromStartTime__c.date(), 'Reisetid');
-
-                if (travelFromRate != null) {
-                    totalTravelPayout += item.TravelHours__c * travelFromRate.Rate__c;
-                } else {
-                    missingRate = true;
-                }
-            }
-            //KILOMETERGODTGJØRELSE
-            Date travelStartDate;
-            Date travelEndDate;
-
-            if (item.TravelFromStartTime__c != null && item.TravelFromEndTime__c != null) {
-                travelStartDate = item.TravelFromStartTime__c.date();
-                travelEndDate = item.TravelFromEndTime__c.date();
-            } else if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
-                travelStartDate = item.TravelToStartTime__c.date();
-                travelEndDate = item.TravelToEndTime__c.date();
-            }
-
+            opp og oppsummert, blir det dermed kun 1 reisesats (=, ikke +=. 
+            
+            Edit: da tenker jeg det holder å se på èn av tidene for å hente sats, og regne ut alt som har med reise i ett*/
             if (
-                travelStartDate != null &&
-                travelEndDate != null &&
-                item.TravelDistance__c != null &&
-                item.TravelDistance__c > 0
+                item.TravelFromStartTime__c != null &&
+                item.TravelFromEndTime__c != null &&
+                item.TravelDistance__c != null
             ) {
-                HOT_Rate__c travelDistanceRate = findRateForPeriod(rates, travelStartDate, 'Kjøregodtgjørelse');
-                if (travelDistanceRate != null) {
-                    totalPayout += item.TravelDistance__c * travelDistanceRate.Rate__c;
+                HOT_Rate__c travelFromRate = findRateForPeriod(rates, item.TravelFromStartTime__c.date(), 'Reisetid');
+                HOT_Rate__c milageRate = findRateForPeriod(
+                    rates,
+                    item.TravelFromStartTime__c.date(),
+                    'Kjøregodtgjørelse'
+                );
+
+                if (travelFromRate != null && milageRate != null) {
+                    totalTravelPayout =
+                        item.TravelHours__c * travelFromRate.Rate__c +
+                        item.TravelDistance__c * milageRate.Rate__c;
                 } else {
                     missingRate = true;
                 }
             }
+            // //KILOMETERGODTGJØRELSE
+            // Date travelStartDate;
+            // Date travelEndDate;
 
-            // REISE SATS TIL
-            if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
-                HOT_Rate__c travelToRate = findRateForPeriod(rates, item.TravelToStartTime__c.date(), 'Reisetid');
+            // if (item.TravelFromStartTime__c != null && item.TravelFromEndTime__c != null) {
+            //     travelStartDate = item.TravelFromStartTime__c.date();
+            //     travelEndDate = item.TravelFromEndTime__c.date();
+            // } else if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
+            //     travelStartDate = item.TravelToStartTime__c.date();
+            //     travelEndDate = item.TravelToEndTime__c.date();
+            // }
 
-                if (travelToRate != null) {
-                    totalTravelPayout += item.TravelHours__c * travelToRate.Rate__c;
-                } else {
-                    missingRate = true;
-                }
-            }
+            // if (
+            //     travelStartDate != null &&
+            //     travelEndDate != null &&
+            //     item.TravelDistance__c != null &&
+            //     item.TravelDistance__c > 0
+            // ) {
+            //     HOT_Rate__c travelDistanceRate = findRateForPeriod(rates, travelStartDate, 'Kjøregodtgjørelse');
+            //     if (travelDistanceRate != null) {
+            //         totalPayout += item.TravelDistance__c * travelDistanceRate.Rate__c;
+            //     } else {
+            //         missingRate = true;
+            //     }
+            // }
+
             if (item.TotalUndocumentedExpenses__c != null) {
                 totalExpenses = item.TotalUndocumentedExpenses__c;
             }
