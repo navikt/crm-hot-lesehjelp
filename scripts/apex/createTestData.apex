@@ -1,3 +1,6 @@
+Date validFrom = Date.newInstance(2025, 5, 1);
+Date validTo = Date.newInstance(2025, 4, 30);
+
 Account account1 = new Account();
 account1.name = 'Jedi Order';
 account1.INT_OrganizationNumber__c = '101010101';
@@ -50,6 +53,11 @@ List<Account> accountClaimer = [SELECT Id FROM Account WHERE Name = 'Darth Vader
 List<Account> accountUser = [SELECT Id FROM Account WHERE Name = 'Luke Skywalker'];
 
 List<Account> allAccounts = [SELECT Name, LastName, FirstName, INT_PersonIdent__c FROM Account WHERE INT_PersonIdent__c != '' LIMIT 10];
+
+Map<String, Account> accountByLastName = new Map<String, Account>();
+for (Account acc : allAccounts) {
+    accountByLastName.put(acc.LastName, acc);
+}
 
 Person__c person1 = new Person__c();
 person1.Name = allAccounts[0].INT_PersonIdent__c;
@@ -112,6 +120,59 @@ person4.INT_LastName__c = allAccounts[3].LastName;
 person4.INT_FirstName__c = allAccounts[3].FirstName;
 person4.HOT_isLOS__c = true;
 insert person4;
+
+
+// Thou shall haveth entitlements
+List<HOT_Entitlement__c> entitlements = new List<HOT_Entitlement__c>{
+    new HOT_Entitlement__c(Account__c = accountByLastName.get('Skywalker').Id, Type__c = 'Dagligliv', EntitledHours__c = 120, FromDate__c = Date.today(), ToDate__c = Date.today().addMonths(5)),
+    new HOT_Entitlement__c(Account__c = accountByLastName.get('Vader').Id, Type__c = 'Dagligliv', EntitledHours__c = 120, FromDate__c = Date.today(), ToDate__c = Date.today().addMonths(5))
+};
+insert entitlements;
+
+// Rates for the people
+List<HOT_Rate__c> oldRates = new List<HOT_Rate__c>{
+    new HOT_Rate__c(Name = 'Dagsats - IKKE AKTIV', Type__c = 'Dag', Rate__c = 200.50 * 0.9,
+        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
+    new HOT_Rate__c(Name = 'Kveld/helgesats - IKKE AKTIV', Type__c = 'Kveld/helg', Rate__c = 450.50 * 0.9,
+        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
+    new HOT_Rate__c(Name = 'Reisetid - IKKE AKTIV', Type__c = 'Reisetid', Rate__c = 50.70 * 0.9,
+        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
+    new HOT_Rate__c(Name = 'Kjøregodtgjørelse - IKKE AKTIV', Type__c = 'Kjøregodtgjørelse', Rate__c = 5.00 * 0.9,
+        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false)
+        };
+
+List<HOT_Rate__c> activeRates = new List<HOT_Rate__c>{
+    new HOT_Rate__c(Name = 'Dagsats', Type__c = 'Dag', Rate__c = 200.50, ValidFrom__c = validFrom, isActive__c = true),
+    new HOT_Rate__c(Name = 'Kveld/helgesats', Type__c = 'Kveld/helg', Rate__c = 450.50, ValidFrom__c = validFrom, isActive__c = true),
+    new HOT_Rate__c(Name = 'Reisetid', Type__c = 'Reisetid', Rate__c = 50.70, ValidFrom__c = validFrom, isActive__c = true),
+    new HOT_Rate__c(Name = 'Kjøregodtgjørelse', Type__c = 'Kjøregodtgjørelse', Rate__c = 5.00, ValidFrom__c = validFrom, isActive__c = true)
+        };
+
+insert oldRates;
+insert activeRates;
+
+// Now we needeth thau claimeths
+List<HOT_Claim__c> claims = new List<HOT_Claim__c>{
+    new HOT_Claim__c(Claimant__c = accountByLastName.get('Solo').Id, Account__c = accountByLastName.get('Skywalker').Id, Entitlement__c = entitlements[0].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = true, Status__c = 'Approved by NAV'),
+    new HOT_Claim__c(Claimant__c = accountByLastName.get('Binks').Id, Account__c = accountByLastName.get('Vader').Id, Entitlement__c= entitlements[1].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = true, Status__c = 'Approved by NAV')
+        };
+insert claims;
+
+for(HOT_Claim__c claim : claims) {
+    HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c(
+    Claim__c = claim.Id,
+    StartTime__c = Datetime.now(),
+    EndTime__c = Datetime.now().addHours(1),
+    TravelToStartTime__c = Datetime.now().addHours(-1),
+    TravelToEndTime__c= Datetime.now(),
+    TravelFromStartTime__c = Datetime.now().addHours(1),
+    TravelFromEndTime__c = Datetime.now().addHours(2),
+    HasTravelTo__c = true,
+    HasTravelFrom__c = true,
+    TravelDistance__c = 10
+    );
+insert cli;
+}
 
 //Merge Person__c and Account. Same fix as found in crm-nks-base/dummy-data
 Map<String,List<Account>> accMap = new Map<String,List<Account>>();

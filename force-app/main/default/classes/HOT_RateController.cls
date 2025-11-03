@@ -70,7 +70,7 @@ public without sharing class HOT_RateController {
                 item.StartTime__c != null &&
                 item.EndTime__c != null
             ) {
-                HOT_Rate__c rate = findRateForPeriod(rates, item.StartTime__c.date(), item.EndTime__c.date(), 'Dag');
+                HOT_Rate__c rate = findRateForPeriod(rates, item.StartTime__c.date(), 'Dag');
                 if (rate != null) {
                     totalPayout += item.DayHours__c * rate.Rate__c;
                 } else {
@@ -85,12 +85,7 @@ public without sharing class HOT_RateController {
                 item.StartTime__c != null &&
                 item.EndTime__c != null
             ) {
-                HOT_Rate__c rate = findRateForPeriod(
-                    rates,
-                    item.StartTime__c.date(),
-                    item.EndTime__c.date(),
-                    'Kveld/helg'
-                );
+                HOT_Rate__c rate = findRateForPeriod(rates, item.StartTime__c.date(), 'Kveld/helg');
                 if (rate != null) {
                     totalPayout += item.EveningNightAndWeekendHours__c * rate.Rate__c;
                 } else {
@@ -103,15 +98,10 @@ public without sharing class HOT_RateController {
             ikke er mulig å ha et oppdrag over flere dager, og travelhours allerede er rundet 
             opp og oppsummert, blir det dermed kun 1 reisesats (=, ikke +=) */
             if (item.TravelFromStartTime__c != null && item.TravelFromEndTime__c != null) {
-                HOT_Rate__c travelFromRate = findRateForPeriod(
-                    rates,
-                    item.TravelFromStartTime__c.date(),
-                    item.TravelFromEndTime__c.date(),
-                    'Reisetid'
-                );
+                HOT_Rate__c travelFromRate = findRateForPeriod(rates, item.TravelFromStartTime__c.date(), 'Reisetid');
 
                 if (travelFromRate != null) {
-                    totalTravelPayout = item.TravelHours__c * travelFromRate.Rate__c;
+                    totalTravelPayout += item.TravelHours__c * travelFromRate.Rate__c;
                 } else {
                     missingRate = true;
                 }
@@ -134,12 +124,7 @@ public without sharing class HOT_RateController {
                 item.TravelDistance__c != null &&
                 item.TravelDistance__c > 0
             ) {
-                HOT_Rate__c travelDistanceRate = findRateForPeriod(
-                    rates,
-                    travelStartDate,
-                    travelEndDate,
-                    'Kjøregodtgjørelse'
-                );
+                HOT_Rate__c travelDistanceRate = findRateForPeriod(rates, travelStartDate, 'Kjøregodtgjørelse');
                 if (travelDistanceRate != null) {
                     totalPayout += item.TravelDistance__c * travelDistanceRate.Rate__c;
                 } else {
@@ -149,15 +134,10 @@ public without sharing class HOT_RateController {
 
             // REISE SATS TIL
             if (item.TravelToStartTime__c != null && item.TravelToEndTime__c != null) {
-                HOT_Rate__c travelToRate = findRateForPeriod(
-                    rates,
-                    item.TravelToStartTime__c.date(),
-                    item.TravelToEndTime__c.date(),
-                    'Reisetid'
-                );
+                HOT_Rate__c travelToRate = findRateForPeriod(rates, item.TravelToStartTime__c.date(), 'Reisetid');
 
                 if (travelToRate != null) {
-                    totalTravelPayout = item.TravelHours__c * travelToRate.Rate__c;
+                    totalTravelPayout += item.TravelHours__c * travelToRate.Rate__c;
                 } else {
                     missingRate = true;
                 }
@@ -168,7 +148,7 @@ public without sharing class HOT_RateController {
             if (missingRate) {
                 LoggerUtility logger = new LoggerUtility();
                 logger.error(
-                    'Kalkulering sats sum: Sats mangler for periodene til lesekravlinje ' + item,
+                    'Kalkulering sats sum: Sats mangler for periodene til lesekravlinje ' + item.Id,
                     null,
                     CRM_ApplicationDomain.Domain.HOT
                 );
@@ -206,20 +186,15 @@ public without sharing class HOT_RateController {
         update claimsToUpdate;
     }
 
-    private static HOT_Rate__c findRateForPeriod(
-        List<HOT_Rate__c> allRates,
-        Date startDate,
-        Date endDate,
-        String type
-    ) {
-        if (startDate == null || endDate == null) {
+    private static HOT_Rate__c findRateForPeriod(List<HOT_Rate__c> allRates, Date startDate, String type) {
+        if (startDate == null) {
             return null;
         }
 
         // Gå gjennom alle satser
         for (HOT_Rate__c rate : allRates) {
             // Sjekk om satsen har riktig type OG at dens gyldighetsperiode
-            if (rate.Type__c == type && rate.ValidFrom__c <= startDate && rate.ValidTo__c >= endDate) {
+            if (rate.Type__c == type && rate.ValidFrom__c <= startDate) {
                 return rate;
             }
         }
