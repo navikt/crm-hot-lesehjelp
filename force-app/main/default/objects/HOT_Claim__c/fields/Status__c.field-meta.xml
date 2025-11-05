@@ -57,6 +57,11 @@
                 <default>false</default>
                 <label>Failed</label>
             </value>
+            <value>
+                <fullName>Paid out after recalculation</fullName>
+                <default>false</default>
+                <label>Paid out after recalculation</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
