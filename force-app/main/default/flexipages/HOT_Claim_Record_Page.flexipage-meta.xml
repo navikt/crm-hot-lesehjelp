@@ -147,12 +147,6 @@
                 <identifier>RecordAutoApproved_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Pay__c</fieldItem>
-                <identifier>RecordPay__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-f3bb207f-cc3e-4c81-9e89-ccc7fd5339e3</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -356,10 +350,16 @@
                 <identifier>RecordTotalTravelHours_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-b3bda57d-63f0-449d-9cc0-17a6d92d6494</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TotalTravelKm__c</fieldItem>
+                <identifier>RecordTotalTravelKm_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -370,14 +370,38 @@
                 <identifier>RecordSumUndocumentedExpenses_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-b3bda57d-63f0-449d-9cc0-17a6d92d6494</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ProcessedRate__c</fieldItem>
+                <identifier>RecordProcessedRate_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ReProcessedRate__c</fieldItem>
+                <identifier>RecordReProcessedRate_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TotalTravelKm__c</fieldItem>
-                <identifier>RecordTotalTravelKm_cField</identifier>
+                <fieldItem>Record.Pay__c</fieldItem>
+                <identifier>RecordPay__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-03a6c13d-ae83-4fe1-81d1-57786fd00ec9</name>
