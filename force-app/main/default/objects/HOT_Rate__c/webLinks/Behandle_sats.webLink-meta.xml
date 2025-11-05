@@ -10,5 +10,5 @@
     <openType>noSidebar</openType>
     <protected>false</protected>
     <requireRowSelection>false</requireRowSelection>
-    <url>/flow/HOT_LOS_Manage_Rates</url>
+    <url>/flow/HOT_LOS_Manage_Rates?retURL=lightning/o/HOT_Rate__c/list?filterName=All</url>
 </WebLink>
