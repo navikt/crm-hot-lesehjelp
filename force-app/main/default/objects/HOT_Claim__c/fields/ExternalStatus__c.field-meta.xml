@@ -9,9 +9,6 @@
         ISPICKVAL(Status__c, &apos;Withdrawn&apos;),
         &apos;Tilbaketrukket&apos;,
         IF(
-        ISPICKVAL(Status__c, &apos;Recalculated&apos;),
-        &apos;Rekalkulert etter satsjustering&apos;,
-        IF(
         ISPICKVAL(Status__c, &apos;Approved by NAV&apos;),
         &apos;Godkjent av Nav&apos;,
         IF(
@@ -30,7 +27,6 @@
         ISPICKVAL(Status__c, &apos;Sent for payment&apos;),
         &apos;Sendt til utbetaling&apos;,
         NULL
-        )
         )
         )
         )

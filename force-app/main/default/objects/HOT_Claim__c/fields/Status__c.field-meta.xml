@@ -53,11 +53,6 @@
                 <label>Sent for payment</label>
             </value>
             <value>
-                <fullName>Recalculated</fullName>
-                <default>false</default>
-                <label>Recalculated</label>
-            </value>
-            <value>
                 <fullName>Failed</fullName>
                 <default>false</default>
                 <label>Failed</label>
