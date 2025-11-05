@@ -196,7 +196,7 @@
         <expression>{!loopRates.ValidFrom__c} - 1</expression>
     </formulas>
     <interviewLabel>HOT LOS Manage Rates {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>HOT LOS Manage Rates</label>
+    <label>Behandle satser for Lese- og sekretærhjelp</label>
     <loops>
         <name>counterLoop</name>
         <label>counterLoop</label>
@@ -418,6 +418,25 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>introScreen</name>
+        <label>introScreen</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>getActiveRates</targetReference>
+        </connector>
+        <fields>
+            <name>introScreenText</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Her kan du behandle satser relatert til Lese- og sekretærhjelp.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Dersom det ikke finnes  aktive satser for alle typene, vil du få mulighet til å opprette disse nå.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Alternativt, dersom det allerede eksisterer satser, vil du få mulighet til å opprette nye gjeldene satser og samtidig deaktivere utgående.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>newRateCreated</name>
         <label>newRateCreated</label>
         <locationX>0</locationX>
@@ -498,7 +517,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>getActiveRates</targetReference>
+            <targetReference>introScreen</targetReference>
         </connector>
     </start>
     <status>Active</status>
