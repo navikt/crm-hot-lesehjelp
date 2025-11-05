@@ -1,4 +1,12 @@
 public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.Batchable<SObject>, Schedulable {
+    @InvocableMethod(
+        label='Start recalculation of lesekrav'
+        description='Starts the HOT_ReCalculateClaimsPayoutBatch job'
+    )
+    public static void startBatchJob() {
+        HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
+        Database.executeBatch(batchJob, 10);
+    }
     public void execute(SchedulableContext sc) {
         HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
         Database.executeBatch(batchJob, 100);
