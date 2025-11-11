@@ -11,28 +11,24 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 Type__c = 'Dag',
                 Rate__c = 100,
                 ValidFrom__c = Date.today().addDays(-10),
-                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Kveld/helg',
                 Rate__c = 200,
                 ValidFrom__c = Date.today().addDays(-10),
-                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Reisetid',
                 Rate__c = 50,
                 ValidFrom__c = Date.today().addDays(-10),
-                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Kjøregodtgjørelse',
                 Rate__c = 3.5, // f.eks. 3,50 kr/km
                 ValidFrom__c = Date.today().addDays(-10),
-                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             )
         };
