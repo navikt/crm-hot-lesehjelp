@@ -93,9 +93,9 @@ public without sharing class HOT_ClaimFileGenerator {
                 '\n';
 
             if (claim.ReprocessedRate__c == true) {
-                claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment'));
-            } else {
                 claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment after recalculation'));
+            } else {
+                claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment'));
             }
         }
 
