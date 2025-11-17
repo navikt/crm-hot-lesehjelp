@@ -116,7 +116,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
     @isTest
     static void testSchedulableAndBatchExecution() {
         HOT_ClaimLineItem__c setupCli = [
-            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
+            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c, Claim__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
@@ -135,10 +135,11 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         Test.stopTest();
 
         // Hent oppdatert krav og linje
-        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
+        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c WHERE Id = :setupCli.Claim__c LIMIT 1];
         HOT_ClaimLineItem__c updatedCli = [
             SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
+            WHERE Id = :setupCli.Id
             LIMIT 1
         ];
 
