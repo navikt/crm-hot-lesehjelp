@@ -33,7 +33,7 @@ public with sharing class HOT_ClaimPayoutFileBatch implements Database.Batchable
             'OR (' +
             'ProcessedRate__c = TRUE ' +
             'AND ReProcessedRate__c = TRUE ' +
-            'AND Status__c = \'Paid out\' ' +
+            'AND Status__c = \'Recalculated\' ' +
             'AND DeltaAfterAdjustment__c != NULL' +
             ')' +
             ')';
