@@ -1,4 +1,4 @@
-public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.Batchable<SObject>, Schedulable {
+public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.Batchable<SObject>, Schedulable {
     @InvocableMethod(
         label='Start recalculation of lesekrav'
         description='Starts the HOT_ReCalculateClaimsPayoutBatch job'
@@ -16,6 +16,7 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
         return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<SObject> records) {
+        System.debug('records: ' + records);
         if (!records.isEmpty()) {
             try {
                 Set<Id> claimIds = new Set<Id>();
@@ -44,6 +45,7 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
                     WHERE Claim__c IN :claimIds
                 ];
 
+                System.debug('calculateClaimByRates: ' + claimLineItems);
                 HOT_RateController.calculateClaimByRates(claimLineItems, true);
             } catch (Exception e) {
                 System.debug('Error processing batch: ' + e.getMessage());
