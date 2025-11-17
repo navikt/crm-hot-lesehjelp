@@ -130,8 +130,8 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
         Test.startTest();
-        HOT_ReCalculateClaimsPayoutBatch schedulable = new HOT_ReCalculateClaimsPayoutBatch();
-        schedulable.execute(null);
+        HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
+        Database.executeBatch(batchJob, 10);
         Test.stopTest();
 
         // Hent oppdatert krav og linje
