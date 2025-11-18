@@ -16,7 +16,6 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
         return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<SObject> records) {
-        System.debug('records: ' + records);
         if (!records.isEmpty()) {
             try {
                 Set<Id> claimIds = new Set<Id>();
@@ -44,8 +43,6 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
                     FROM HOT_ClaimLineItem__c
                     WHERE Claim__c IN :claimIds
                 ];
-
-                System.debug('calculateClaimByRates: ' + claimLineItems);
                 HOT_RateController.calculateClaimByRates(claimLineItems, true);
             } catch (Exception e) {
                 System.debug('Error processing batch: ' + e.getMessage());
