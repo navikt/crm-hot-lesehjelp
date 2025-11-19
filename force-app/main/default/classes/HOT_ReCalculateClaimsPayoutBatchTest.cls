@@ -146,6 +146,8 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             LIMIT 1
         ];
 
+        System.assertEquals(true, updatedClaim.ReProcessedRate__c, 'Reprocessed not set to true');
+
         System.assertEquals(
             expectedDelta,
             updatedCli.DeltaAfterAdjustment__c,
