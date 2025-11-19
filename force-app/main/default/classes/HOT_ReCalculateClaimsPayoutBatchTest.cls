@@ -11,24 +11,28 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 Type__c = 'Dag',
                 Rate__c = 100,
                 ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Kveld/helg',
                 Rate__c = 200,
                 ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Reisetid',
                 Rate__c = 50,
                 ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             ),
             new HOT_Rate__c(
                 Type__c = 'Kjøregodtgjørelse',
                 Rate__c = 3.5, // f.eks. 3,50 kr/km
                 ValidFrom__c = Date.today().addDays(-10),
+                ValidTo__c = Date.today().addDays(10),
                 isActive__c = true
             )
         };
@@ -73,30 +77,31 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             0,
             0
         ); // 09:00
-        DateTime travelFromStartGmt = Datetime.newInstanceGmt(
+
+        DateTime travelStartGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
             Date.today().day(),
-            9,
-            0,
-            0
-        ); // 09:00
-        DateTime travelFromEndGmt = Datetime.newInstanceGmt(
-            Date.today().year(),
-            Date.today().month(),
-            Date.today().day(),
-            9,
+            6,
             30,
             0
-        ); // 09:30
+        ); // 06:30
+        DateTime travelEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            7,
+            0,
+            0
+        ); // 07:00
 
         HOT_ClaimLineItem__c testCli = new HOT_ClaimLineItem__c(
             Claim__c = testClaim.Id,
             StartTime__c = workStartGmt,
             EndTime__c = workEndGmt,
             HasTravelFrom__c = true,
-            TravelFromStartTime__c = travelFromStartGmt,
-            TravelFromEndTime__c = travelFromEndGmt,
+            TravelFromStartTime__c = travelStartGmt,
+            TravelFromEndTime__c = travelEndGmt,
             Amount__c = 600,
             TravelDistance__c = 10,
             TotalUndocumentedExpenses__c = 100
@@ -114,17 +119,17 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
     @isTest
     static void testSchedulableAndBatchExecution() {
-        HOT_ClaimLineItem__c testCli = [
+        HOT_ClaimLineItem__c setupCli = [
             SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
 
         Decimal actualCalculatedAmount =
-            (testCli.DayHours__c * 100) +
-            (testCli.EveningNightAndWeekendHours__c * 200) +
-            (testCli.TravelHours__c * 50) +
-            (testCli.TravelDistance__c * 3.5);
+            (setupCli.DayHours__c * 100) +
+            (setupCli.EveningNightAndWeekendHours__c * 200) +
+            (setupCli.TravelHours__c * 50) +
+            (setupCli.TravelDistance__c * 3.5);
 
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
@@ -134,20 +139,18 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         Test.stopTest();
 
         // Hent oppdatert krav og linje
-        HOT_Claim__c updatedClaim = [
-            SELECT ReProcessedRate__c, Status__c
-            FROM HOT_Claim__c
-            LIMIT 1
-        ];
-
+        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
         HOT_ClaimLineItem__c updatedCli = [
-            SELECT DeltaAfterAdjustment__c
+            SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
 
-        // System.assertEquals(true, updatedClaim.ReProcessedRate__c, 'Reprocessed not set to true');
-        System.assertEquals('Recalculated', updatedClaim.Status__c, 'Satus not set to recalculated');
+        System.assertEquals(
+            true,
+            updatedClaim.ReProcessedRate__c,
+            'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
+        );
 
         System.assertEquals(
             expectedDelta,
