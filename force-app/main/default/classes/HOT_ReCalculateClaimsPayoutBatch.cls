@@ -34,7 +34,6 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
                         TravelToStartTime__c,
                         TravelToEndTime__c,
                         DayHours__c,
-                        Status__c,
                         EveningNightAndWeekendHours__c,
                         TravelHours__c,
                         Amount__c,
