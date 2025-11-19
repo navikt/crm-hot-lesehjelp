@@ -172,7 +172,7 @@ public without sharing class HOT_RateController {
 
         // Oppdater Claims
         List<HOT_Claim__c> claimsToUpdate = [
-            SELECT Id, ProcessedRate__c, ReProcessedRate__c
+            SELECT Id, ProcessedRate__c, ReProcessedRate__c, Status__c
             FROM HOT_Claim__c
             WHERE Id IN :claimIds
         ];
@@ -182,7 +182,7 @@ public without sharing class HOT_RateController {
                 claim.ProcessedRate__c = true;
             } else {
                 claim.ReProcessedRate__c = true;
-                //claim.Status__c = 'Recalculated';
+                claim.Status__c = 'Recalculated';
             }
         }
 

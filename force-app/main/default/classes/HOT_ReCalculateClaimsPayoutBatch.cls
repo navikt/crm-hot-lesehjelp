@@ -16,15 +16,12 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
         return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<SObject> records) {
-        List<HOT_Claim__c> claims = new List<HOT_Claim__c>();
         if (!records.isEmpty()) {
             try {
                 Set<Id> claimIds = new Set<Id>();
                 for (SObject sObj : records) {
                     HOT_Claim__c claim = (HOT_Claim__c) sObj;
-                    claim.Status__c = 'Recalculated';
                     claimIds.add(claim.Id);
-                    claims.add(claim);
                 }
                 List<HOT_ClaimLineItem__c> claimLineItems = [
                     SELECT
@@ -37,6 +34,7 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
                         TravelToStartTime__c,
                         TravelToEndTime__c,
                         DayHours__c,
+                        Status__c,
                         EveningNightAndWeekendHours__c,
                         TravelHours__c,
                         Amount__c,
@@ -47,7 +45,6 @@ public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Databas
                     WHERE Claim__c IN :claimIds
                 ];
                 HOT_RateController.calculateClaimByRates(claimLineItems, true);
-                update claims;
             } catch (Exception e) {
                 System.debug('Error processing batch: ' + e.getMessage());
                 LoggerUtility logger = new LoggerUtility();
