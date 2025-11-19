@@ -73,23 +73,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             0,
             0
         ); // 09:00
-
-        DateTime travelToStartGmt = Datetime.newInstanceGmt(
-            Date.today().year(),
-            Date.today().month(),
-            Date.today().day(),
-            6,
-            30,
-            0
-        ); // 06:30
-        DateTime travelToEndGmt = Datetime.newInstanceGmt(
-            Date.today().year(),
-            Date.today().month(),
-            Date.today().day(),
-            7,
-            0,
-            0
-        ); // 07:00
         DateTime travelFromStartGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
@@ -111,8 +94,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             Claim__c = testClaim.Id,
             StartTime__c = workStartGmt,
             EndTime__c = workEndGmt,
-            TravelToStartTime__c = travelToStartGmt,
-            TravelToEndTime__c = travelToEndGmt,
             HasTravelFrom__c = true,
             TravelFromStartTime__c = travelFromStartGmt,
             TravelFromEndTime__c = travelFromEndGmt,
@@ -133,11 +114,39 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
     @isTest
     static void testSchedulableAndBatchExecution() {
+        DateTime travelToStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            6,
+            30,
+            0
+        ); // 06:30
+        DateTime travelToEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            7,
+            0,
+            0
+        ); // 0700
+
         HOT_ClaimLineItem__c setupCli = [
-            SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c, Claim__c
+            SELECT
+                DayHours__c,
+                EveningNightAndWeekendHours__c,
+                TravelToStartTime__c,
+                TravelToEndTime__c,
+                TravelHours__c,
+                TravelDistance__c,
+                Claim__c
             FROM HOT_ClaimLineItem__c
             LIMIT 1
         ];
+
+        setupCli.TravelToStartTime__c = travelToStartGmt;
+        setupCli.TravelToEndTime__c = travelToEndGmt;
+        update setupCli;
 
         Decimal actualCalculatedAmount =
             (setupCli.DayHours__c * 100) +
