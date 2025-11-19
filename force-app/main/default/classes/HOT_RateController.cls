@@ -182,7 +182,7 @@ public without sharing class HOT_RateController {
                 claim.ProcessedRate__c = true;
             } else {
                 claim.ReProcessedRate__c = true;
-                claim.Status__c = 'Recalculated';
+                //claim.Status__c = 'Recalculated';
             }
         }
 
