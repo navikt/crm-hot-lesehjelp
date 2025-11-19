@@ -114,6 +114,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
     @isTest
     static void testSchedulableAndBatchExecution() {
+        Test.startTest();
         DateTime workStartGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
@@ -225,7 +226,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
-        Test.startTest();
         HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
         Database.executeBatch(batchJob, 10);
         Test.stopTest();
