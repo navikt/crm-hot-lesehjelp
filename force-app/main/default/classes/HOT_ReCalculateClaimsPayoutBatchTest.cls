@@ -74,7 +74,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             0
         ); // 09:00
 
-        DateTime travelStartGmt = Datetime.newInstanceGmt(
+        DateTime travelToStartGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
             Date.today().day(),
@@ -82,7 +82,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             30,
             0
         ); // 06:30
-        DateTime travelEndGmt = Datetime.newInstanceGmt(
+        DateTime travelToEndGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
             Date.today().day(),
@@ -90,14 +90,32 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             0,
             0
         ); // 07:00
+        DateTime travelFromStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            0,
+            0
+        ); // 09:00
+        DateTime travelFromEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            30,
+            0
+        ); // 09:30
 
         HOT_ClaimLineItem__c testCli = new HOT_ClaimLineItem__c(
             Claim__c = testClaim.Id,
             StartTime__c = workStartGmt,
             EndTime__c = workEndGmt,
+            TravelToStartTime__c = travelToStartGmt,
+            TravelToEndTime__c = travelToEndGmt,
             HasTravelFrom__c = true,
-            TravelFromStartTime__c = travelStartGmt,
-            TravelFromEndTime__c = travelEndGmt,
+            TravelFromStartTime__c = travelFromStartGmt,
+            TravelFromEndTime__c = travelFromEndGmt,
             Amount__c = 600,
             TravelDistance__c = 10,
             TotalUndocumentedExpenses__c = 100
