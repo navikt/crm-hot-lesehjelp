@@ -114,6 +114,38 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
     @isTest
     static void testSchedulableAndBatchExecution() {
+        DateTime workStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            7,
+            0,
+            0
+        ); // 07:00
+        DateTime workEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            0,
+            0
+        ); // 09:00
+        DateTime travelFromStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            0,
+            0
+        ); // 09:00
+        DateTime travelFromEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            30,
+            0
+        ); // 09:30
         DateTime travelToStartGmt = Datetime.newInstanceGmt(
             Date.today().year(),
             Date.today().month(),
@@ -131,7 +163,48 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             0
         ); // 0700
 
-        HOT_ClaimLineItem__c setupCli = [
+        Account acc2 = new Account();
+        acc2.Name = 'Ola Bruker';
+        insert acc2;
+
+        HOT_Entitlement__c entitlement = new HOT_Entitlement__c(
+            Account__c = acc2.Id,
+            Type__c = 'Dagligliv',
+            EntitledHours__c = 120,
+            FromDate__c = Date.today().addDays(-1),
+            ToDate__c = Date.today().addDays(3)
+        );
+        insert entitlement;
+
+        HOT_Claim__c testClaim = new HOT_Claim__c(
+            Account__c = acc2.Id,
+            Entitlement__c = entitlement.Id,
+            Type__c = 'Dagligliv',
+            ApprovedByUser__c = true,
+            ProcessedRate__c = true,
+            ReProcessedRate__c = false,
+            ApprovedByNAV__c = true,
+            Status__c = 'Paid out'
+        );
+        insert testClaim;
+
+        HOT_ClaimLineItem__c testCli = new HOT_ClaimLineItem__c(
+            Claim__c = testClaim.Id,
+            StartTime__c = workStartGmt,
+            EndTime__c = workEndGmt,
+            HasTravelFrom__c = true,
+            TravelToStartTime__c = travelFromStartGmt,
+            TravelToEndTime__c = travelFromEndGmt,
+            TravelFromStartTime__c = travelFromStartGmt,
+            TravelFromEndTime__c = travelFromEndGmt,
+            Amount__c = 600,
+            TravelDistance__c = 10,
+            TotalUndocumentedExpenses__c = 100
+        );
+
+        insert testCli;
+
+        HOT_ClaimLineItem__c testCliWithHours = [
             SELECT
                 DayHours__c,
                 EveningNightAndWeekendHours__c,
@@ -141,18 +214,14 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
                 TravelDistance__c,
                 Claim__c
             FROM HOT_ClaimLineItem__c
-            LIMIT 1
+            WHERE Id = :testCli.Id
         ];
 
-        setupCli.TravelToStartTime__c = travelToStartGmt;
-        setupCli.TravelToEndTime__c = travelToEndGmt;
-        update setupCli;
-
         Decimal actualCalculatedAmount =
-            (setupCli.DayHours__c * 100) +
-            (setupCli.EveningNightAndWeekendHours__c * 200) +
-            (setupCli.TravelHours__c * 50) +
-            (setupCli.TravelDistance__c * 3.5);
+            (testCliWithHours.DayHours__c * 100) +
+            (testCliWithHours.EveningNightAndWeekendHours__c * 200) +
+            (testCliWithHours.TravelHours__c * 50) +
+            (testCliWithHours.TravelDistance__c * 3.5);
 
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
@@ -165,13 +234,13 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         HOT_Claim__c updatedClaim = [
             SELECT ReProcessedRate__c, Status__c
             FROM HOT_Claim__c
-            WHERE Id = :setupCli.Claim__c
+            WHERE Id = :testCli.Claim__c
         ];
 
         HOT_ClaimLineItem__c updatedCli = [
             SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
-            WHERE Id = :setupCli.Id
+            WHERE Id = :testCli.Id
         ];
 
         System.assertEquals(true, updatedClaim.ReProcessedRate__c, 'Reprocessed not set to true');
