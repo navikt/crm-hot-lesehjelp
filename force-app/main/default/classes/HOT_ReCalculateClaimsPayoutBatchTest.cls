@@ -185,6 +185,11 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         );
         insert cli;
 
+        cli.DayHours__c = 2;
+        cli.EveningNightAndWeekendHours__c = 0;
+        cli.TravelHours__c = 0;
+        update cli;
+
         // Hent oppdatert linje etter insert
         HOT_ClaimLineItem__c setupCli = [
             SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
