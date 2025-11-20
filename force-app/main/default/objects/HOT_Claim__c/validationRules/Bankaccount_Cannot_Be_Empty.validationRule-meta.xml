@@ -4,7 +4,7 @@
     <active>true</active>
     <errorConditionFormula>  AND(
         ApprovedByNAV__c = true,
-        ISBLANK(Account__r.CRM_Person__r.INT_BankAccountNumber__c)
+        ISBLANK(Claimant__r.CRM_Person__r.INT_BankAccountNumber__c)
     )</errorConditionFormula>
     <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
     <errorMessage>Kravet kan ikke godkjennes av Nav. Bankkontonummer på lesehjelp er tomt.</errorMessage>
