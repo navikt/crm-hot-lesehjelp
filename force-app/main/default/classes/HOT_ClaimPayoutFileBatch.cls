@@ -20,22 +20,22 @@ public with sharing class HOT_ClaimPayoutFileBatch implements Database.Batchable
             'Status__c, ' +
             'ProcessedRate__c ' +
             'FROM HOT_Claim__c ' +
-            'WHERE (' +
+            'WHERE ' +
+            'Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != NULL ' +
+            'AND Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != \'\' ' +
+            'AND ProcessedRate__c = TRUE ' +
+            'AND (' +
             '(' +
-            'ProcessedRate__c = TRUE ' +
-            'AND ReProcessedRate__c = FALSE ' +
+            'ReProcessedRate__c = FALSE ' +
             'AND ApprovedByNAV__c = TRUE ' +
             'AND Status__c = \'Approved by NAV\' ' +
             'AND Pay__c != NULL ' +
-            'AND Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != NULL ' +
-            'AND Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != \'\'' +
             ') ' +
             'OR (' +
-            'ProcessedRate__c = TRUE ' +
-            'AND ReProcessedRate__c = TRUE ' +
+            'ReProcessedRate__c = TRUE ' +
             'AND Status__c = \'Recalculated\' ' +
-            'AND DeltaAfterAdjustment__c != NULL' +
-            ')' +
+            'AND DeltaAfterAdjustment__c != NULL ' +
+            ') ' +
             ')';
         return Database.getQueryLocator(query);
     }
