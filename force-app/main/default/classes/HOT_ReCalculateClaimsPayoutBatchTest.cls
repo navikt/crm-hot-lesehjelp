@@ -151,11 +151,12 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             'DeltaAfterAdjustment__c ble ikke beregnet korrekt inkludert kjøregodtgjørelse.'
         );
 
-        // System.assertEquals(
-        //     true,
-        //     updatedClaim.ReProcessedRate__c,
-        //     'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
-        // );
+        System.assertEquals(
+            true,
+            updatedClaim.ReProcessedRate__c,
+            'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
+        );
+
         System.assertEquals(
             expectedDelta,
             updatedCli.DeltaAfterAdjustment__c,
