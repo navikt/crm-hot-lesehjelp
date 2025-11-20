@@ -2,12 +2,22 @@
 private class HOT_EntitlementControllerTest {
     @TestSetup
     static void setup() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
+        Account acc = TestDataFactory_Community.getPersonAccounts(1)[0];
+        acc.LastName = 'Ola Bruker';
         insert acc;
-        Account acc2 = new Account();
-        acc2.Name = 'Kari Bruker';
+        Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+        person.CRM_Account__c = acc.Id;
+        person.INT_BankAccountNumber__c = '12345678901';
+        insert person;
+
+        Account acc2 = TestDataFactory_Community.getPersonAccounts(1)[0];
+        acc2.LastName = 'Kari Bruker';
         insert acc2;
+        Person__c person2 = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+        person2.CRM_Account__c = acc2.Id;
+        person2.INT_BankAccountNumber__c = '12345678901';
+        insert person2;
+
         HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
         insert claim;
 
@@ -58,16 +68,11 @@ private class HOT_EntitlementControllerTest {
     }
     @IsTest
     static void preventChangingEntitlementPeriodIfApprovedClaimsTest() {
-        Account acc = new Account();
-        acc.Name = 'Kari Lesehjelp';
-        insert acc;
-        Account acc2 = new Account();
-        acc2.Name = 'Ola Bruker';
-        insert acc2;
-        HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
+        List<Account> accounts = [SELECT Id FROM Account LIMIT 2];
+        HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(accounts[0], accounts[1]);
         insert claim;
 
-        HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
+        HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(accounts[1]);
         entitlement.FromDate__c = Date.today().addDays(-40);
         entitlement.ToDate__c = Date.today().addDays(40);
         insert entitlement;
