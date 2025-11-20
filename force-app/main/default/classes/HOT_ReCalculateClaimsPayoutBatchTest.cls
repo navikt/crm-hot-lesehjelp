@@ -1,8 +1,5 @@
 @isTest
 private class HOT_ReCalculateClaimsPayoutBatchTest {
-    static Id testClaimId;
-    static Id testCliId;
-
     @testSetup
     static void setup() {
         Account acc2 = new Account();
@@ -111,17 +108,88 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         );
 
         insert testCli;
-
-        testClaimId = testClaim.Id;
-        testCliId = testCli.Id;
     }
 
     @isTest
     static void testSchedulableAndBatchExecution() {
+        Account acc = new Account(Name = 'Test Bruker');
+        insert acc;
+
+        // Opprett testentitlement
+        HOT_Entitlement__c entitlement = new HOT_Entitlement__c(
+            Account__c = acc.Id,
+            Type__c = 'Dagligliv',
+            EntitledHours__c = 120,
+            FromDate__c = Date.today().addDays(-1),
+            ToDate__c = Date.today().addDays(3)
+        );
+        insert entitlement;
+
+        // Opprett testclaim
+        HOT_Claim__c claim = new HOT_Claim__c(
+            Account__c = acc.Id,
+            Entitlement__c = entitlement.Id,
+            Type__c = 'Dagligliv',
+            ApprovedByUser__c = true,
+            ProcessedRate__c = true,
+            ReProcessedRate__c = false,
+            ApprovedByNAV__c = true,
+            Status__c = 'Paid out'
+        );
+        insert claim;
+
+        // Opprett testclaimlineitem
+        DateTime workStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            7,
+            0,
+            0
+        );
+        DateTime workEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            9,
+            0,
+            0
+        );
+        DateTime travelStartGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            6,
+            30,
+            0
+        );
+        DateTime travelEndGmt = Datetime.newInstanceGmt(
+            Date.today().year(),
+            Date.today().month(),
+            Date.today().day(),
+            7,
+            0,
+            0
+        );
+
+        HOT_ClaimLineItem__c cli = new HOT_ClaimLineItem__c(
+            Claim__c = claim.Id,
+            StartTime__c = workStartGmt,
+            EndTime__c = workEndGmt,
+            HasTravelFrom__c = true,
+            TravelFromStartTime__c = travelStartGmt,
+            TravelFromEndTime__c = travelEndGmt,
+            Amount__c = 600,
+            TravelDistance__c = 10,
+            TotalUndocumentedExpenses__c = 100
+        );
+        insert cli;
+
+        // Hent oppdatert linje etter insert
         HOT_ClaimLineItem__c setupCli = [
             SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
-            WHERE Id = :testCliId
+            WHERE Id = :cli.Id
         ];
 
         Decimal actualCalculatedAmount =
@@ -132,17 +200,18 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
+        // Kjør batch
         Test.startTest();
         HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
         Database.executeBatch(batchJob, 10);
         Test.stopTest();
 
-        // Hent oppdatert krav og linje
-        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c WHERE Id = :testClaimId];
+        // Hent oppdatert claim og linje
+        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c WHERE Id = :claim.Id];
         HOT_ClaimLineItem__c updatedCli = [
             SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
-            WHERE Id = :testCliId
+            WHERE Id = :cli.Id
         ];
 
         System.assertEquals(
@@ -150,7 +219,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             updatedClaim.ReProcessedRate__c,
             'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
         );
-
         System.assertEquals(
             expectedDelta,
             updatedCli.DeltaAfterAdjustment__c,
