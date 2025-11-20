@@ -2,9 +2,15 @@
 private class HOT_ReCalculateClaimsPayoutBatchTest {
     @testSetup
     static void setup() {
-        Account acc2 = new Account();
-        acc2.Name = 'Ola Bruker';
-        insert acc2;
+        Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
+        personAccount.LastName = 'Ola Bruker';
+        update personAccount;
+        Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+        person.CRM_Account__c = personAccount.Id;
+        person.INT_BankAccountNumber__c = '12345678901';
+        Set<Id> personAccountIds = new Set<Id>();
+        personAccountIds.add(personAccount.Id);
+        update person;
 
         List<HOT_Rate__c> rates = new List<HOT_Rate__c>{
             new HOT_Rate__c(
@@ -39,7 +45,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         insert rates;
 
         HOT_Entitlement__c entitlement = new HOT_Entitlement__c(
-            Account__c = acc2.Id,
+            Account__c = personAccount.Id,
             Type__c = 'Dagligliv',
             EntitledHours__c = 120,
             FromDate__c = Date.today().addDays(-1),
@@ -48,7 +54,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         insert entitlement;
 
         HOT_Claim__c testClaim = new HOT_Claim__c(
-            Account__c = acc2.Id,
+            Account__c = personAccount.Id,
             Entitlement__c = entitlement.Id,
             Type__c = 'Dagligliv',
             ApprovedByUser__c = true,

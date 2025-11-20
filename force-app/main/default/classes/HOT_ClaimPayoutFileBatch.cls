@@ -24,6 +24,7 @@ public with sharing class HOT_ClaimPayoutFileBatch implements Database.Batchable
             'Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != NULL ' +
             'AND Claimant__r.CRM_Person__r.INT_BankAccountNumber__c != \'\' ' +
             'AND ProcessedRate__c = TRUE ' +
+            'AND OnEmployer__c = FALSE ' +
             'AND (' +
             '(' +
             'ReProcessedRate__c = FALSE ' +
