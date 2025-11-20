@@ -2,15 +2,25 @@
 private class HOT_CalculateClaimsPayoutBatchTest {
     @testSetup
     static void setup() {
-        Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
-        personAccount.LastName = 'Ola Bruker';
-        update personAccount;
-        Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
-        person.CRM_Account__c = personAccount.Id;
-        person.INT_BankAccountNumber__c = '12345678901';
-        Set<Id> personAccountIds = new Set<Id>();
-        personAccountIds.add(personAccount.Id);
-        update person;
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
+        person.Name = '12015678999';
+        person.INT_BankAccountNumber__c = '122344556';
+        insert person;
+
+        Person__c person2 = HOT_LesehjelpTestDataFactory.createPerson();
+        person2.Name = '12015678993';
+        person2.INT_BankAccountNumber__c = '122344553';
+        insert person2;
+
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.INT_PersonIdent__c = '12015678993';
+        acc.CRM_Person__c = person.Id;
+        insert acc;
+
+        Account acc2 = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc2.INT_PersonIdent__c = '12015678999';
+        acc2.CRM_Person__c = person.Id;
+        insert acc2;
 
         List<HOT_Rate__c> rates = new List<HOT_Rate__c>{
             new HOT_Rate__c(
@@ -45,7 +55,7 @@ private class HOT_CalculateClaimsPayoutBatchTest {
         insert rates;
 
         HOT_Entitlement__c entitlement = new HOT_Entitlement__c(
-            Account__c = personAccount.Id,
+            Account__c = acc.Id,
             Type__c = 'Dagligliv',
             EntitledHours__c = 120,
             FromDate__c = Date.today().addDays(-1),
@@ -54,7 +64,8 @@ private class HOT_CalculateClaimsPayoutBatchTest {
         insert entitlement;
 
         HOT_Claim__c testClaim = new HOT_Claim__c(
-            Account__c = personAccount.Id,
+            Account__c = acc.Id,
+            Claimant__c = acc2.Id,
             Entitlement__c = entitlement.Id,
             Type__c = 'Dagligliv',
             ApprovedByUser__c = true,
@@ -119,7 +130,6 @@ private class HOT_CalculateClaimsPayoutBatchTest {
     //-------------------------------------------------------------------------
     @isTest
     static void testSchedulableAndBatchExecution() {
-        // Henter de FAKTISKE timene satt i setup (for å være robust mot tidssone-effekter)
         HOT_ClaimLineItem__c setupCli = [
             SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
@@ -177,13 +187,14 @@ private class HOT_CalculateClaimsPayoutBatchTest {
 
     @isTest
     static void testStartMethodQuery() {
-        Account acc = [SELECT Id FROM Account LIMIT 1];
-        HOT_Entitlement__c ent = [SELECT Id FROM HOT_Entitlement__c LIMIT 1];
+        HOT_Entitlement__c ent = [SELECT Id, Account__c FROM HOT_Entitlement__c LIMIT 1];
+        Account acc = [SELECT Id FROM Account WHERE Id = :ent.Account__c];
 
         // Claim 2: Feil status -> Skal ikke plukkes opp
         // LØSNING: Legg til ApprovedByUser__c = true
         insert new HOT_Claim__c(
             Account__c = acc.Id,
+            Claimant__c = acc.Id,
             Entitlement__c = ent.Id,
             Type__c = 'Dagligliv',
             ApprovedByNAV__c = true,
@@ -197,6 +208,7 @@ private class HOT_CalculateClaimsPayoutBatchTest {
         // LØSNING: Legg til ApprovedByUser__c = true
         insert new HOT_Claim__c(
             Account__c = acc.Id,
+            Claimant__c = acc.Id,
             Entitlement__c = ent.Id,
             Type__c = 'Dagligliv',
             ApprovedByNAV__c = true,
