@@ -138,6 +138,11 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             FROM HOT_ClaimLineItem__c
             WHERE Claim__c = :updatedClaim.Id
         ];
+        System.assertEquals(
+            expectedDelta,
+            updatedCli.DeltaAfterAdjustment__c,
+            'DeltaAfterAdjustment__c ble ikke beregnet korrekt inkludert kjøregodtgjørelse.'
+        );
 
         // System.assertEquals(
         //     true,
