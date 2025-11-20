@@ -1,5 +1,8 @@
 @isTest
 private class HOT_ReCalculateClaimsPayoutBatchTest {
+    static Id testClaimId;
+    static Id testCliId;
+
     @testSetup
     static void setup() {
         Account acc2 = new Account();
@@ -107,14 +110,10 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             TotalUndocumentedExpenses__c = 100
         );
 
-        // Setter Days/Evening/TravelHours til 0.0 eksplisitt for å unngå forvirring,
-        // da de overskrives av en trigger/automatisering i calculateHoursOnRates.
-
-        testCli.DayHours__c = 0.0;
-        testCli.EveningNightAndWeekendHours__c = 0.0;
-        testCli.TravelHours__c = 0.0;
-
         insert testCli;
+
+        testClaimId = testClaim.Id;
+        testCliId = testCli.Id;
     }
 
     @isTest
@@ -122,7 +121,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         HOT_ClaimLineItem__c setupCli = [
             SELECT DayHours__c, EveningNightAndWeekendHours__c, TravelHours__c, TravelDistance__c
             FROM HOT_ClaimLineItem__c
-            LIMIT 1
+            WHERE Id = :testCliId
         ];
 
         Decimal actualCalculatedAmount =
@@ -139,11 +138,11 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         Test.stopTest();
 
         // Hent oppdatert krav og linje
-        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
+        HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c WHERE Id = :testClaimId];
         HOT_ClaimLineItem__c updatedCli = [
             SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
-            LIMIT 1
+            WHERE Id = :testCliId
         ];
 
         System.assertEquals(
