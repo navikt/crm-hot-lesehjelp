@@ -13,7 +13,7 @@ public without sharing class HOT_LOS_ContentVersionHandler extends MyTriggers {
             }
         }
         if (salaryFileLOS.size() > 0) {
-            HOT_LOS_NotifyOnNewFile.HOT_LOS_NotifyOnNewFile(salaryFileLOS);
+            HOT_LOS_NotifyOnNewFile.notifyOnNewFile(salaryFileLOS);
         }
     }
 }
