@@ -30,7 +30,12 @@ export default class DecoratorHeader extends LightningElement {
     }
 
     fetchHeaderAndFooter() {
-        const URL = envLinks[this.env] + '?context=' + this.context?.toLowerCase();
+        const URL =
+envLinks[this.env] +
+'?context=' +
+this.context?.toLowerCase() +
+            '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
+        console.log(URL);
         // eslint-disable-next-line @locker/locker/distorted-window-fetch, compat/compat
         fetch(URL)
             .then((res) => {
@@ -69,14 +74,16 @@ export default class DecoratorHeader extends LightningElement {
                     const scriptGroupElement = document.createDocumentFragment();
                     for (let scripter of scriptElement) {
                         if (scripter.id === '__DECORATOR_DATA__') {
-                            window.__DECORATOR_DATA__ = JSON.parse(scripter.innerHTML ?? '');
+                            const decoratorData = JSON.parse(scripter.innerHTML ?? '');
+                            decoratorData.headAssets.pop();
+                            window.__DECORATOR_DATA__ = decoratorData;
                             continue;
                         }
                         if (scripter.type == null || scripter.type === '') continue;
                         const script = document.createElement('script');
                         this.setAttributeIfExists(script, scripter, 'type');
                         this.setAttributeIfExists(script, scripter, 'id');
-                        this.setAttributeIfExists(script, scripter, 'async');
+                        this.setBooleanAttribute(script, scripter, 'async');
                         this.setAttributeIfExists(script, scripter, 'src', true);
                         this.setAttributeIfExists(script, scripter, 'fetchpriority');
                         script.innerHTML = scripter.innerHTML;
@@ -91,10 +98,18 @@ export default class DecoratorHeader extends LightningElement {
         if (scripter[tag] != null && scripter[tag] !== '') {
             // eslint-disable-next-line @locker/locker/distorted-element-set-attribute
             let attribute = scripter[tag];
+/*
             if (forceRefetch) {
-                attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
+//                attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
+script.setAttribute('randomtag', crypto.randomUUID().toString());
             }
+*/
             script.setAttribute(tag, attribute);
+        }
+    }
+    setBooleanAttribute(script, scripter, tag) {
+        if (scripter[tag]) {
+            script.toggleAttribute(tag);
         }
     }
 }
