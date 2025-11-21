@@ -37,7 +37,7 @@ public with sharing class HOT_LOS_NotifyOnNewFile {
             context.recipients = new Set<String>{ (String) groupId };
 
             String title = 'Ny lønnsfil for Lese- og sekretærhjelp klar';
-            String body = 'Klikk her for å gå til fil';
+            String body = 'Klikk her for å laste ned filen';
 
             context.notification = HOT_LOS_NotificationHandler.prepareNotification(
                 title,
