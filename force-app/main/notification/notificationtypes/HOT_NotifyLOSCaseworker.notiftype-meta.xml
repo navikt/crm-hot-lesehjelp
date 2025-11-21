@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customNotifTypeName>HOT_LOS_NotifyLOS</customNotifTypeName>
+    <customNotifTypeName>HOT_NotifyLOSCaseworker</customNotifTypeName>
     <desktop>true</desktop>
-    <masterLabel>HOT_LOS_NotifyLOS</masterLabel>
+    <masterLabel>HOT_NotifyLOSCaseworker</masterLabel>
     <mobile>false</mobile>
 </CustomNotificationType>
