@@ -92,7 +92,11 @@ public without sharing class HOT_ClaimFileGenerator {
                 TRANSAKSJONSTYPE +
                 '\n';
 
-            claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment'));
+            if (claim.ReprocessedRate__c == true) {
+                claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment after recalculation'));
+            } else {
+                claimsToUpdate.add(new HOT_Claim__c(Id = claim.Id, Status__c = 'Sent for payment'));
+            }
         }
 
         if (fileContent == CSV_HEADER) {
@@ -118,7 +122,9 @@ public without sharing class HOT_ClaimFileGenerator {
             update claimsToUpdate;
         }
 
-        System.debug('Fil generert og ' + claimsToUpdate.size() + ' krav satt til "Sent for payment".');
+        System.debug(
+            'Fil generert og ' + claimsToUpdate.size() + ' krav satt til "Sent for payment (after recalculation)".'
+        );
     }
 
     public static Map<Id, Map<String, Datetime>> getClaimTimeStartEnds(Set<Id> claimIds) {

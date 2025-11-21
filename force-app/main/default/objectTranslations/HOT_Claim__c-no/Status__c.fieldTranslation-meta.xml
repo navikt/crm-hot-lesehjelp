@@ -43,6 +43,10 @@
         <translation>Sendt til utbetaling</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Sent for payment after recalculation</masterLabel>
+        <translation>Sendt til utbetaling etter satsjustering</translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Withdrawn</masterLabel>
         <translation>Tilbaketrukket</translation>
     </picklistValues>

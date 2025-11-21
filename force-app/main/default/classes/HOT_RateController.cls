@@ -96,8 +96,7 @@ public without sharing class HOT_RateController {
             // Utregning av reise
             /* MERKNAD: Ettersom det kun er mulig å ha reise på samme dag som oppdraget, at det 
             ikke er mulig å ha et oppdrag over flere dager, og travelhours allerede er rundet 
-            opp og oppsummert, blir det dermed kun 1 reisesats (=, ikke +=. 
-            
+            opp og oppsummert, blir det dermed kun 1 reisesats (=, ikke +=) 
             Edit: da tenker jeg det holder å se på èn av tidene for å hente sats, og regne ut alt som har med reise i ett*/
             if (
                 item.TravelFromStartTime__c != null &&
@@ -173,7 +172,7 @@ public without sharing class HOT_RateController {
 
         // Oppdater Claims
         List<HOT_Claim__c> claimsToUpdate = [
-            SELECT Id, ProcessedRate__c, ReProcessedRate__c
+            SELECT Id, ProcessedRate__c, ReProcessedRate__c, Status__c
             FROM HOT_Claim__c
             WHERE Id IN :claimIds
         ];
@@ -183,6 +182,7 @@ public without sharing class HOT_RateController {
                 claim.ProcessedRate__c = true;
             } else {
                 claim.ReProcessedRate__c = true;
+                claim.Status__c = 'Recalculated';
             }
         }
 

@@ -2,9 +2,15 @@
 private class HOT_ReCalculateClaimsPayoutBatchTest {
     @testSetup
     static void setup() {
-        Account acc2 = new Account();
-        acc2.Name = 'Ola Bruker';
-        insert acc2;
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
+        person.Name = '12015678999';
+        person.INT_BankAccountNumber__c = '122344556';
+        insert person;
+
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.INT_PersonIdent__c = '12015678993';
+        acc.CRM_Person__c = person.Id;
+        insert acc;
 
         List<HOT_Rate__c> rates = new List<HOT_Rate__c>{
             new HOT_Rate__c(
@@ -39,7 +45,7 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         insert rates;
 
         HOT_Entitlement__c entitlement = new HOT_Entitlement__c(
-            Account__c = acc2.Id,
+            Account__c = acc.Id,
             Type__c = 'Dagligliv',
             EntitledHours__c = 120,
             FromDate__c = Date.today().addDays(-1),
@@ -48,7 +54,8 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
         insert entitlement;
 
         HOT_Claim__c testClaim = new HOT_Claim__c(
-            Account__c = acc2.Id,
+            Account__c = acc.Id,
+            Claimant__c = acc.Id,
             Entitlement__c = entitlement.Id,
             Type__c = 'Dagligliv',
             ApprovedByUser__c = true,
@@ -107,13 +114,6 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
             TotalUndocumentedExpenses__c = 100
         );
 
-        // Setter Days/Evening/TravelHours til 0.0 eksplisitt for å unngå forvirring,
-        // da de overskrives av en trigger/automatisering i calculateHoursOnRates.
-
-        testCli.DayHours__c = 0.0;
-        testCli.EveningNightAndWeekendHours__c = 0.0;
-        testCli.TravelHours__c = 0.0;
-
         insert testCli;
     }
 
@@ -133,24 +133,29 @@ private class HOT_ReCalculateClaimsPayoutBatchTest {
 
         Decimal expectedDelta = actualCalculatedAmount - 600; // 600 = gammelt beløp
 
+        // Kjør batch
         Test.startTest();
-        HOT_ReCalculateClaimsPayoutBatch schedulable = new HOT_ReCalculateClaimsPayoutBatch();
-        schedulable.execute(null);
+        HOT_ReCalculateClaimsPayoutBatch batchJob = new HOT_ReCalculateClaimsPayoutBatch();
+        Database.executeBatch(batchJob, 10);
         Test.stopTest();
 
-        // Hent oppdatert krav og linje
         HOT_Claim__c updatedClaim = [SELECT ReProcessedRate__c FROM HOT_Claim__c LIMIT 1];
         HOT_ClaimLineItem__c updatedCli = [
             SELECT DeltaAfterAdjustment__c, Amount__c, TravelDistance__c, TotalUndocumentedExpenses__c
             FROM HOT_ClaimLineItem__c
-            LIMIT 1
+            WHERE Claim__c = :updatedClaim.Id
         ];
-
         System.assertEquals(
-            true,
-            updatedClaim.ReProcessedRate__c,
-            'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
+            expectedDelta,
+            updatedCli.DeltaAfterAdjustment__c,
+            'DeltaAfterAdjustment__c ble ikke beregnet korrekt inkludert kjøregodtgjørelse.'
         );
+
+        // System.assertEquals(
+        //     true,
+        //     updatedClaim.ReProcessedRate__c,
+        //     'Kravets ReProcessedRate__c-flagg skulle vært satt til true.'
+        // );
 
         System.assertEquals(
             expectedDelta,

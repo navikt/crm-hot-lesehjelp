@@ -1,4 +1,4 @@
-public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.Batchable<SObject>, Schedulable {
+public without sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.Batchable<SObject>, Schedulable {
     @InvocableMethod(
         label='Start recalculation of lesekrav'
         description='Starts the HOT_ReCalculateClaimsPayoutBatch job'
@@ -43,7 +43,6 @@ public with sharing class HOT_ReCalculateClaimsPayoutBatch implements Database.B
                     FROM HOT_ClaimLineItem__c
                     WHERE Claim__c IN :claimIds
                 ];
-
                 HOT_RateController.calculateClaimByRates(claimLineItems, true);
             } catch (Exception e) {
                 System.debug('Error processing batch: ' + e.getMessage());
