@@ -25,7 +25,7 @@ public with sharing class HOT_LOS_NotifyOnNewFile {
         CustomNotificationType notificationType = [
             SELECT Id, DeveloperName
             FROM CustomNotificationType
-            WHERE DeveloperName = 'HOT_NotifyLOSCaseworker'
+            WHERE DeveloperName = 'HOT_NotifyLOSSaksbehandler'
             LIMIT 1
         ];
 

@@ -24,7 +24,7 @@ private class HOT_LOS_NotifyOnNewFileTest {
     //         Set<String> recipients,
     //         SObject target
     //     ) {
-    //         notifications.add(notif);
+    //         notifications.«add(notif);
     //         recipientSets.add(recipients);
     //         attachedObjects.add(target);
     //     }
