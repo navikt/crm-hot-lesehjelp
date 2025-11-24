@@ -6,7 +6,8 @@ public with sharing class HOT_LOS_NotifyOnNewFile {
         public Messaging.CustomNotification notification;
     }
 
-    public static void notifyOnNewFile(List<ContentVersion> cvs) {
+    public static Integer notifyOnNewFile(List<ContentVersion> cvs) {
+        Integer sentNotifications = 0;
         List<NotificationContext> contexts = prepareContextsForFile(cvs);
 
         for (NotificationContext context : contexts) {
@@ -15,7 +16,9 @@ public with sharing class HOT_LOS_NotifyOnNewFile {
                 context.recipients,
                 (SObject) context.cv
             );
+            sentNotifications++;
         }
+        return sentNotifications;
     }
 
     @TestVisible
