@@ -30,11 +30,7 @@ export default class DecoratorHeader extends LightningElement {
     }
 
     fetchHeaderAndFooter() {
-        const URL =
-envLinks[this.env] +
-'?context=' +
-this.context?.toLowerCase() +
-            '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
+        const URL = envLinks[this.env] +'?context=' + this.context?.toLowerCase();// + '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
         console.log(URL);
         // eslint-disable-next-line @locker/locker/distorted-window-fetch, compat/compat
         fetch(URL)
