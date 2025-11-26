@@ -39,9 +39,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
     connectedCallback() {
         sessionStorage.clear(); // Clear session storage when on home
         window.scrollTo(0, 0);
-        let baseURLArray = window.location.pathname.split('/');
-        baseURLArray.pop();
-        let baseURL = baseURLArray.join('/');
+        let baseURL = window.location.origin + '/s';
         this.pageLinks = {
             newClaim: baseURL + '/nytt-krav',
             myClaimantClaims: baseURL + '/mine-krav',
