@@ -7,6 +7,10 @@ const envLinks = {
     Prod: 'https://www.nav.no/dekoratoren',
     Dev: 'https://dekoratoren.ekstern.dev.nav.no/'
 };
+const authPath = {
+    Prod: 'https://www.nav.no/dekoratoren/auth',
+    Dev: 'https://dekoratoren.ekstern.dev.nav.no/auth'
+};
 
 export default class DecoratorHeader extends LightningElement {
     static renderMode = 'light'; // the default is 'shadow'
@@ -27,6 +31,24 @@ export default class DecoratorHeader extends LightningElement {
             },
             window.location.origin
         );
+    }
+    checkAuthentication() {
+        fetch(authPath[this.env], {
+            signal: AbortSignal.timeout(60000),
+            credentials: 'include'
+        })
+            .then((res) => {
+                res.json()
+                    .then((authResponse) => {
+                        dispatchEvent(new CustomEvent('authupdated', { detail: authResponse }));
+                    })
+                    .catch((error) => {
+                        console.log('Error on parsing authResponse. ' + error);
+                    });
+            })
+            .catch((error) => {
+                console.log('Error fetching authdetails' + error);
+            });
     }
 
     fetchHeaderAndFooter() {
@@ -68,8 +90,9 @@ export default class DecoratorHeader extends LightningElement {
 
                     const scriptElement = scriptContainer.getElementsByTagName('script');
                     const scriptGroupElement = document.createDocumentFragment();
+                                const firstLoad = window.__DECORATOR_DATA__ === undefined;
                     for (let scripter of scriptElement) {
-                        if (scripter.id === '__DECORATOR_DATA__') {
+                                    if (firstLoad && scripter.id === '__DECORATOR_DATA__') {
                             const decoratorData = JSON.parse(scripter.innerHTML ?? '');
                             decoratorData.headAssets.pop();
                             window.__DECORATOR_DATA__ = decoratorData;
@@ -86,6 +109,9 @@ export default class DecoratorHeader extends LightningElement {
                         scriptGroupElement.appendChild(script);
                     }
                     scriptInjection.appendChild(scriptGroupElement);
+                                if (!firstLoad) {
+                                    this.checkAuthentication();
+                                }
                 }
             });
     }
