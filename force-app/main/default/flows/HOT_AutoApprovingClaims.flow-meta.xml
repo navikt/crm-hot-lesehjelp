@@ -2,9 +2,31 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>63.0</apiVersion>
     <decisions>
+        <name>Check_if_Claimant_has_bank_account</name>
+        <label>Check if Claimant has bank account</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>has_bank_accountnumber_filled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Claimant__r.CRM_Person__r.INT_BankAccountNumber__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_status</targetReference>
+            </connector>
+            <label>has bank accountnumber filled</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Has_available_hours</name>
         <label>Has available hours</label>
-        <locationX>182</locationX>
+        <locationX>336</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -18,7 +40,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_status</targetReference>
+                <targetReference>Check_if_Claimant_has_bank_account</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -56,7 +78,7 @@
         <name>Update_status</name>
         <label>Update status</label>
         <locationX>50</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>ApprovedByNAV__c</field>
             <value>
@@ -78,7 +100,7 @@
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
-        <locationX>56</locationX>
+        <locationX>210</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Has_available_hours</targetReference>
