@@ -4,7 +4,7 @@
     <assignments>
         <name>declineClaim</name>
         <label>declineClaim</label>
-        <locationX>1370</locationX>
+        <locationX>1634</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>getClaim.Status__c</assignToReference>
@@ -27,7 +27,7 @@
     <assignments>
         <name>updateClaim</name>
         <label>updateClaim</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>getClaim.Status__c</assignToReference>
@@ -66,7 +66,7 @@
     <decisions>
         <name>claimStatus</name>
         <label>claimStatus</label>
-        <locationX>644</locationX>
+        <locationX>776</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>ApproveOrDeclineScreen</targetReference>
@@ -153,11 +153,26 @@
             </connector>
             <label>No Entitlement</label>
         </rules>
+        <rules>
+            <name>no_claimant_bank_account_number</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>getClaim.Claimant__r.CRM_Person__r.INT_BankAccountNumber__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>noClaimantBankAccountScreen</targetReference>
+            </connector>
+            <label>no claimant bank account number</label>
+        </rules>
     </decisions>
     <decisions>
         <name>NAVApprovedOrDeclined</name>
         <label>NAVApprovedOrDeclined</label>
-        <locationX>1238</locationX>
+        <locationX>1502</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>declineClaim</targetReference>
@@ -204,7 +219,7 @@
     <recordLookups>
         <name>getClaim</name>
         <label>getClaim</label>
-        <locationX>644</locationX>
+        <locationX>776</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -225,14 +240,14 @@
     <recordUpdates>
         <name>approveUpdateClaim</name>
         <label>approveUpdateClaim</label>
-        <locationX>1106</locationX>
+        <locationX>1370</locationX>
         <locationY>674</locationY>
         <inputReference>getClaim</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>declineUpdateClaim</name>
         <label>declineUpdateClaim</label>
-        <locationX>1370</locationX>
+        <locationX>1634</locationX>
         <locationY>674</locationY>
         <inputReference>getClaim</inputReference>
     </recordUpdates>
@@ -255,7 +270,7 @@
     <screens>
         <name>ApproveOrDeclineScreen</name>
         <label>ApproveOrDeclineScreen</label>
-        <locationX>1238</locationX>
+        <locationX>1502</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -313,6 +328,22 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>noClaimantBankAccountScreen</name>
+        <label>noClaimantBankAccountScreen</label>
+        <locationX>1106</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>noClaimantBankAccountText</name>
+            <fieldText>&lt;p&gt;Kravet kan ikke godkjennes fordi lesehjelpen mangler kontonummer.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>noEntitlementScreen</name>
         <label>noEntitlementScreen</label>
         <locationX>842</locationX>
@@ -361,13 +392,13 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>518</locationX>
+        <locationX>650</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getClaim</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
