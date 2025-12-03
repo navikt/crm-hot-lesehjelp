@@ -18,35 +18,16 @@ export default class DecoratorHeader extends LightningElement {
     @api env;
     @api context;
 
-    navLogoImg = navLogo; 
-
-    isSalesforceApp = false; 
-
-    get userAgentTest() {
-        return navigator.userAgent;
-    }
+    navLogoImg = navLogo;
 
     connectedCallback() {
-        const ua = navigator.userAgent;
-        if (ua.includes('SalesforceMobile') || ua.includes('Salesforce1')) {
-            this.isSalesforceApp = true;
-        } else {
-            this.isSalesforceApp = false
-            this.fetchHeaderAndFooter();
-        }
+        this.fetchHeaderAndFooter();
     }
 
-    //Available parameter key value pairs can be viewed at https://github.com/navikt/nav-dekoratoren#parametere
-    changeParameter(key, value) {
-        window.postMessage(
-            {
-                source: 'decoratorClient',
-                event: 'params',
-                payload: { [key]: value }
-            },
-            window.location.origin
-        );
+    get isSalesforceApp() {
+        return navigator.userAgent.includes('SalesforceMobile') || navigator.userAgent.includes('Salesforce1');
     }
+
     checkAuthentication() {
         fetch(authPath[this.env], {
             signal: AbortSignal.timeout(60000),
@@ -67,7 +48,16 @@ export default class DecoratorHeader extends LightningElement {
     }
 
     fetchHeaderAndFooter() {
-        const URL = envLinks[this.env] + '?context=' + this.context?.toLowerCase();// + '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
+        let URL = envLinks[this.env] + '?context=' + this.context?.toLowerCase();
+        if (this.isSalesforceApp) {
+            URL =
+                URL +
+                '&simple=true' +
+                '&logoutWarning=false' +
+                '&chatbot=false' +
+                '&shareScreen=false' +
+                '&logoutWarning=false';
+        }
         console.log(URL);
         // eslint-disable-next-line @locker/locker/distorted-window-fetch, compat/compat
         fetch(URL)
@@ -77,6 +67,12 @@ export default class DecoratorHeader extends LightningElement {
             .then((html) => {
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(html, 'text/html');
+                if (this.isSalesforceApp) {
+                    const userMenu = doc.getElementsByTagName('user-menu');
+                    for (let elem of userMenu) {
+                        elem.remove();
+                    }
+                }
                 // Header
                 const headerInjection = document.querySelector('#header-injection');
                 if (headerInjection) {
@@ -109,9 +105,9 @@ export default class DecoratorHeader extends LightningElement {
                     for (let scripter of scriptElement) {
                         if (firstLoad && scripter.id === '__DECORATOR_DATA__') {
                             const decoratorData = JSON.parse(scripter.innerHTML ?? '');
-                                        decoratorData.headAssets = decoratorData.headAssets.filter((asset) => {
-                                            return asset.attribs.rel !== 'manifest';
-                                        });
+                            decoratorData.headAssets = decoratorData.headAssets.filter((asset) => {
+                                return asset.attribs.rel !== 'manifest';
+                            });
                             window.__DECORATOR_DATA__ = decoratorData;
                             continue;
                         }
@@ -120,29 +116,23 @@ export default class DecoratorHeader extends LightningElement {
                         this.setAttributeIfExists(script, scripter, 'type');
                         this.setAttributeIfExists(script, scripter, 'id');
                         this.setBooleanAttribute(script, scripter, 'async');
-                        this.setAttributeIfExists(script, scripter, 'src', true);
+                        this.setAttributeIfExists(script, scripter, 'src');
                         this.setAttributeIfExists(script, scripter, 'fetchpriority');
                         script.innerHTML = scripter.innerHTML;
                         scriptGroupElement.appendChild(script);
                     }
                     scriptInjection.appendChild(scriptGroupElement);
-                    if (!firstLoad) {
+                    if (!firstLoad && !this.isSalesforceApp) {
                         this.checkAuthentication();
                     }
                 }
             });
     }
 
-    setAttributeIfExists(script, scripter, tag, forceRefetch) {
+    setAttributeIfExists(script, scripter, tag) {
         if (scripter[tag] != null && scripter[tag] !== '') {
             // eslint-disable-next-line @locker/locker/distorted-element-set-attribute
             let attribute = scripter[tag];
-            /*
-                        if (forceRefetch) {
-            //                attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
-            script.setAttribute('randomtag', crypto.randomUUID().toString());
-                        }
-            */
             script.setAttribute(tag, attribute);
         }
     }
