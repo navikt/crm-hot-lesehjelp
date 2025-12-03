@@ -2,6 +2,7 @@
 /* eslint-disable @locker/locker/distorted-element-inner-html-setter */
 /* eslint-disable @lwc/lwc/no-document-query */
 import { LightningElement, api } from 'lwc';
+import navLogo from '@salesforce/resourceUrl/HOT_Decorator_Logo';
 
 const envLinks = {
     Prod: 'https://www.nav.no/dekoratoren',
@@ -17,8 +18,22 @@ export default class DecoratorHeader extends LightningElement {
     @api env;
     @api context;
 
+    navLogoImg = navLogo; 
+
+    isSalesforceApp = false; 
+
+    get userAgentTest() {
+        return navigator.userAgent;
+    }
+
     connectedCallback() {
-        this.fetchHeaderAndFooter();
+        const ua = navigator.userAgent;
+        if (ua.includes('SalesforceMobile') || ua.includes('Salesforce1')) {
+            this.isSalesforceApp = true;
+        } else {
+            this.isSalesforceApp = false
+            this.fetchHeaderAndFooter();
+        }
     }
 
     //Available parameter key value pairs can be viewed at https://github.com/navikt/nav-dekoratoren#parametere
@@ -52,7 +67,7 @@ export default class DecoratorHeader extends LightningElement {
     }
 
     fetchHeaderAndFooter() {
-        const URL = envLinks[this.env] +'?context=' + this.context?.toLowerCase();// + '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
+        const URL = envLinks[this.env] + '?context=' + this.context?.toLowerCase();// + '&logoutWarning=false'; /*&chatbot=false&shareScreen=false'*/
         console.log(URL);
         // eslint-disable-next-line @locker/locker/distorted-window-fetch, compat/compat
         fetch(URL)
@@ -90,9 +105,9 @@ export default class DecoratorHeader extends LightningElement {
 
                     const scriptElement = scriptContainer.getElementsByTagName('script');
                     const scriptGroupElement = document.createDocumentFragment();
-                                const firstLoad = window.__DECORATOR_DATA__ === undefined;
+                    const firstLoad = window.__DECORATOR_DATA__ === undefined;
                     for (let scripter of scriptElement) {
-                                    if (firstLoad && scripter.id === '__DECORATOR_DATA__') {
+                        if (firstLoad && scripter.id === '__DECORATOR_DATA__') {
                             const decoratorData = JSON.parse(scripter.innerHTML ?? '');
                                         decoratorData.headAssets = decoratorData.headAssets.filter((asset) => {
                                             return asset.attribs.rel !== 'manifest';
@@ -111,9 +126,9 @@ export default class DecoratorHeader extends LightningElement {
                         scriptGroupElement.appendChild(script);
                     }
                     scriptInjection.appendChild(scriptGroupElement);
-                                if (!firstLoad) {
-                                    this.checkAuthentication();
-                                }
+                    if (!firstLoad) {
+                        this.checkAuthentication();
+                    }
                 }
             });
     }
@@ -122,12 +137,12 @@ export default class DecoratorHeader extends LightningElement {
         if (scripter[tag] != null && scripter[tag] !== '') {
             // eslint-disable-next-line @locker/locker/distorted-element-set-attribute
             let attribute = scripter[tag];
-/*
-            if (forceRefetch) {
-//                attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
-script.setAttribute('randomtag', crypto.randomUUID().toString());
-            }
-*/
+            /*
+                        if (forceRefetch) {
+            //                attribute = attribute + '?fauxquery=' + crypto.randomUUID().toString();
+            script.setAttribute('randomtag', crypto.randomUUID().toString());
+                        }
+            */
             script.setAttribute(tag, attribute);
         }
     }

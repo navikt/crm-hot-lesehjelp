@@ -1,0 +1,19 @@
+.header-banner {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 2.5rem;
+    border-bottom: 0.5px solid #000000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+}
