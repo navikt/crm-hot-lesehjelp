@@ -29,10 +29,8 @@ export default class DecoratorHeader extends LightningElement {
     connectedCallback() {
         const ua = navigator.userAgent;
         if (ua.includes('SalesforceMobile') || ua.includes('Salesforce1')) {
-            console.log('Running inside Salesforce Mobile app. Skipping decorator injection.');
             this.isSalesforceApp = true;
         } else {
-            console.log('Device user agent: ' + ua);
             this.isSalesforceApp = false
             this.fetchHeaderAndFooter();
         }
