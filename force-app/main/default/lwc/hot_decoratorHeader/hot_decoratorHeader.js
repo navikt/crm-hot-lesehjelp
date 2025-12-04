@@ -72,6 +72,14 @@ export default class DecoratorHeader extends LightningElement {
                     for (let elem of userMenu) {
                         elem.remove();
                     }
+                    const footer = doc.getElementsByTagName('footer');
+                    for (let elem of footer) {
+                        elem.setAttribute('data-theme', 'dark');
+                        elem.setAttribute(
+                            'style',
+                            'background-color: var(--a-surface-alt-3-strong);color: var(--a-text-on-inverted);'
+                        );
+                    }
                 }
                 // Header
                 const headerInjection = document.querySelector('#header-injection');
