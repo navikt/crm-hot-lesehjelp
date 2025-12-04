@@ -2,13 +2,13 @@
     <template lwc:if={isSalesforceApp}>
         <div class="header-banner">
             <div class="logo-container">
-                <img src={navLogoImg} alt="Nav Logo" style="width:100px;height:auto;"/>
+                <img src={navLogoImg} alt="Nav Logo" style="width: 100px; height: auto" />
             </div>
         </div>
     </template>
     <template lwc:else>
         <div id="header-injection"></div>
-        <div id="style-injection"></div>
-        <div id="script-injection"></div>    
     </template>
+    <div id="style-injection"></div>
+    <div id="script-injection"></div>
 </template>
