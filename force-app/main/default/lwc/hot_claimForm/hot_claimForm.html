@@ -38,8 +38,9 @@
                     form="krav-skjema-input"
                     error-text="Arbeidsgiver må være utfylt"
                     placeholder="Feltet fylles automatisk."
+                    mobile-syle="padding-bottom: 1rem"
+                    desktop-syle="padding-bottom: 1rem"
                 ></c-input>
-                <br />
                 <c-input
                     if:true={employerClaim}
                     label="Organisasjonsnummer"
@@ -50,8 +51,9 @@
                     error-text="Arbeidsgiver må være utfylt"
                     ongetvalueonchange={handleOrgInput}
                     data-id="orgNumber"
+                    mobile-syle="padding-bottom: 1rem"
+                    desktop-syle="padding-bottom: 1rem"
                 ></c-input>
-                <br />
                 <c-input
                     data-id="orgExpenses"
                     if:true={employerClaim}
@@ -60,8 +62,9 @@
                     value={fieldValues.EmployerExpensesPerHour__c}
                     form="krav-skjema-input"
                     error-text="Lønnsutgifter må være utfylt"
+                    mobile-syle="padding-bottom: 1rem"
+                    desktop-syle="padding-bottom: 1rem"
                 ></c-input>
-                <br />
             </div>
         </div>
         <h2 class="typo-undertittel" tabindex="-1">

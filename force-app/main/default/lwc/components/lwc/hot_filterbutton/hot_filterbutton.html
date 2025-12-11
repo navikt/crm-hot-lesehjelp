@@ -1,5 +1,3 @@
-<!-- https://www.w3schools.com/tags/tag_button.asp -->
-
 <template>
     <button
         id={setDefaultId}
@@ -12,6 +10,8 @@
         title={title}
         style={setDefaultStyle}
         aria-label={ariaLabelValue}
+        role="radio"
+        aria-checked={isActive}
     >
         {buttonLabel}
     </button>
