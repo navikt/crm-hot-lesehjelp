@@ -42,7 +42,7 @@
     text-align: left;
     background-color: #efecf4;
     border: none;
-    padding: 1.1rem;
+    padding: 1.2rem;
     margin-top: 1rem;
     border-radius: 0.2rem;
     width: 90%;
@@ -50,6 +50,10 @@
 
 .claim-single:hover {
     background-color: #e0d8e9;
+}
+.claim-single:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #00347d;
 }
 
 .older {

@@ -5,30 +5,30 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content submitted-false">
-                <h1 tabindex="0" class="typo-overskrift">Min side</h1>
+                <h1 class="typo-overskrift">Min side</h1>
                 <div style="text-align: center; font-size: large">
                     <br />
                     <p><strong></strong></p>
                 </div>
                 <div class="personDetails">
-                    <div tabindex="0" class="personDetailBox">
+                    <div class="personDetailBox">
                         <p><Strong>Telefonnummer</Strong></p>
                         <p>{mobilenumber}</p>
                     </div>
-                    <div tabindex="0" class="personDetailBox">
+                    <div class="personDetailBox">
                         <p><Strong>Adresse</Strong></p>
                         <p>{address}</p>
                     </div>
-                    <div if:true={isLos} tabindex="0" class="personDetailBox">
+                    <div if:true={isLos} class="personDetailBox">
                         <p><Strong>Kontonummer</Strong></p>
                         <p>{banknumber}</p>
                     </div>
-                    <div tabindex="0" class="personDetailBox">
+                    <div class="personDetailBox">
                         <p><Strong>Epost</Strong></p>
                         <p>{email}</p>
                     </div>
                 </div>
-                <p tabindex="0" style="text-align: center">
+                <p style="text-align: center">
                     Kilde: Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no
                 </p>
                 <a
