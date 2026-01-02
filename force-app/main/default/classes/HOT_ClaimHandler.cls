@@ -51,19 +51,15 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             }
         }
         if (claimIds.size() > 0) {
-            System.debug('Går inn her 101');
             HOT_ClaimController.setEntitlementOnClaim(claimIds);
         }
         if (claimsToNotifyUserOnDeclinedStatus.size() > 0) {
-            System.debug('Går inn her 102');
             HOT_SMSService.notifyUserOnDeclinedClaim(claimsToNotifyUserOnDeclinedStatus);
         }
         if (claimsToNotifyUserOnDeclinedByNAVStatus.size() > 0) {
-            System.debug('Går inn her 102');
             HOT_SMSService.notifyUserOnDeclinedClaimByNAV(claimsToNotifyUserOnDeclinedByNAVStatus);
         }
         if (entitlements.size() > 0) {
-            System.debug('Går inn her 103');
             HOT_EntitlementController.recalculateUsedEntitlements(entitlements);
         }
     }
