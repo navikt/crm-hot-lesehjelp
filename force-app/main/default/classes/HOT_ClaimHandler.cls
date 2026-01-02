@@ -1,7 +1,6 @@
 public without sharing class HOT_ClaimHandler extends MyTriggers {
     public override void onAfterInsert() {
         List<Id> notifyNAVNotRegisteredReader = new List<Id>();
-
         Set<Id> accountIds = new Set<Id>();
         List<Id> claimIds = new List<Id>();
         for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
@@ -17,6 +16,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
             System.enqueueJob(krr);
         }
         if (!claimIds.isEmpty()) {
+            HOT_ClaimController.setKoststed(claimIds);
             HOT_ClaimNotificationService.NotifyNAVNoEntitlementOnUser(claimIds);
         }
         if (!notifyNAVNotRegisteredReader.isEmpty()) {

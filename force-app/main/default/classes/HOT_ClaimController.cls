@@ -940,4 +940,21 @@ public without sharing class HOT_ClaimController {
             }
         }
     }
+    public static void setKoststed(Set<Id> claimIds) {
+        List<HOT_Claim__c> claims = [
+            SELECT Claimant__c, Koststed__c
+            FROM HOT_Claim__c
+            WHERE Claimant__c.CRM_Person__c.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
+        ];
+
+        for (HOT_Claim__c claim : claims) {
+            claim.Koststed__c == null ? getKoststedFromPersonId(claim.Claimant__c) : '';
+        }
+
+        try {
+            update claims;
+        } catch (Exception e) {
+            handleExceptionAndGetMessage(e);
+        }
+    }
 }
