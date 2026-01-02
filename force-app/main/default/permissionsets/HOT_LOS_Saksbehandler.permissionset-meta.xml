@@ -288,6 +288,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>HOT_Claim__c.Koststed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>HOT_Claim__c.NumberOfClaimLineItems__c</field>
         <readable>true</readable>
     </fieldPermissions>
