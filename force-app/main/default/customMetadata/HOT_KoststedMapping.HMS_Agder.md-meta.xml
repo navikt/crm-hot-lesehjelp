@@ -3,6 +3,10 @@
     <label>HMS Agder, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">4201,4202,4203,4204,4205,4206,4207,4211,4212,4213,4214,4215,4216,4217,4218,4219,4220,4221,4222,4223,4224,4225,4226,4227,4228</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">241099</value>
     </values>

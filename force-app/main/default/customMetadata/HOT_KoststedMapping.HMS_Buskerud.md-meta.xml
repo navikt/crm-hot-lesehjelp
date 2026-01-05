@@ -3,6 +3,10 @@
     <label>HMS Buskerud, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">3301,3303,3305,3310,3312,3314,3316,3318,3320,3322,3324,3326,3328,3330,3332,3334,3336,3338</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">240699</value>
     </values>

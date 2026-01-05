@@ -3,6 +3,10 @@
     <label>HMS Østfold, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">3101,3103,3105,3107,3110,3112,3114,3116,3118,3120,3122,3124</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">240199</value>
     </values>

@@ -3,6 +3,10 @@
     <label>HMS Møre og Romsdal, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">1505,1506,1508,1511,1514,1515,1516,1517,1520,1525,1528,1531,1532,1535,1539,1547,1554,1557,1560,1563,1566,1573,1576,1577,1578,1579,1580</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">241599</value>
     </values>

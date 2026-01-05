@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MunicipalityNumbers__c</fullName>
-    <description>Contains the municipality number related to LOS</description>
+    <description>Contains the municipality numbers related to LOS</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Municipality numbers</label>
     <required>false</required>

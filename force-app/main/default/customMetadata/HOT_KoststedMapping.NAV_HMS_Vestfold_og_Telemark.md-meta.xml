@@ -3,6 +3,10 @@
     <label>NAV HMS Vestfold og Telemark, stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">3901,3903,3905,3907,3909,3911,4001,4003,4005,4010,4012,4014,4016,4018,4020,4022,4024,4026,4028,4030,4032,4034,4036</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">240799</value>
     </values>
