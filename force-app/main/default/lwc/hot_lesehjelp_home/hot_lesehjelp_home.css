@@ -88,6 +88,10 @@
     border: none;
     text-decoration: none;
 }
+.box:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #00347d;
+}
 .box-small {
     flex-grow: 1;
     margin: 0rem;
@@ -103,6 +107,10 @@
     cursor: pointer;
     transition: 0.3s;
     text-decoration: none;
+}
+.box-small:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #00347d;
 }
 .box-small img {
     width: 1.5em;
