@@ -15,6 +15,10 @@
     background-color: #99c3ff;
     border-color: #99c3ff;
 }
+.hot-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #00347d;
+}
 .active {
     background-color: #99c3ff;
     border-color: #99c3ff;

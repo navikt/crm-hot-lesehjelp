@@ -5,17 +5,14 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content submitted-false">
-                <h1 tabindex="0" class="typo-overskrift">Mine innsendte krav</h1>
+                <h1 class="typo-overskrift">Mine innsendte krav</h1>
                 <div if:true={showClaimlist}>
-                    <div if:true={noClaims} style="text-align: center">
-                        <br />
-                        <p tabindex="0">Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
+                    <div if:true={noClaims} style="text-align: center; margin-top: 1rem">
+                        <p>Listen er tom. Når du har sendt inn et krav vil de vises her.</p>
                     </div>
                     <div if:false={noClaims}>
-                        <p tabindex="0">
-                            Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.
-                        </p>
-                        <div class="filterContainer">
+                        <p>Her finner du alle krav du har sendt inn. Trykk på et krav for å se detaljene.</p>
+                        <div class="filterContainer" role="radiogroup" aria-label="Filtrer på status">
                             <c-hot_filterbutton
                                 button-label="Alle"
                                 button-styling="primary"
@@ -63,22 +60,15 @@
                         <template for:each={claims} for:item="claim">
                             <button key={claim.Id} class="claim-single" data-id={claim.Id} onclick={goToClaim}>
                                 <div class="container">
-                                    <p tabindex="0"><strong>{claim.Name} - {claim.madeBy}</strong></p>
-                                    <p tabindex="0">Sendt inn {claim.created}</p>
+                                    <p><strong>{claim.Name} - {claim.madeBy}</strong></p>
+                                    <p>Sendt inn {claim.created}</p>
                                 </div>
 
-                                <p tabindex="0" style="padding-bottom: 0.5rem">Lesehjelp for {claim.madeFor}</p>
+                                <p style="padding-bottom: 0.5rem">Lesehjelp for {claim.madeFor}</p>
 
-                                <p if:true={claim.isYellowStatus} tabindex="0" class="status yellow">
-                                    {claim.ExternalStatus__c}
-                                </p>
-                                <p if:true={claim.isGreenStatus} tabindex="0" class="status green">
-                                    {claim.ExternalStatus__c}
-                                </p>
-                                <p if:true={claim.isRedStatus} tabindex="0" class="status red">
-                                    {claim.ExternalStatus__c}
-                                </p>
-                                <br />
+                                <p if:true={claim.isYellowStatus} class="status yellow">{claim.ExternalStatus__c}</p>
+                                <p if:true={claim.isGreenStatus} class="status green">{claim.ExternalStatus__c}</p>
+                                <p if:true={claim.isRedStatus} class="status red">{claim.ExternalStatus__c}</p>
                             </button>
                         </template>
                     </div>
@@ -116,8 +106,7 @@
                         <div>
                             <h2 id="comment-header-id" class="typo-undertittel">Innholdet i {recordName}</h2>
                         </div>
-                        <div if:true={noClaimLineItems} style="text-align: center">
-                            <br />
+                        <div if:true={noClaimLineItems} style="text-align: center; margin-top: 1rem">
                             <p tabindex="0">Dette kravet hadde ingen linjer.</p>
                         </div>
                         <div if:false={noClaimLineItems}>
@@ -143,7 +132,6 @@
                                 <strong>Kommentar fra bruker:</strong>
                             </p>
                             <p tabindex="0" if:true={record.CommentFromUser__c}>{record.CommentFromUser__c}</p>
-                            <br />
 
                             <template for:each={claimLineItems} for:item="cli">
                                 <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
@@ -159,7 +147,6 @@
                                     <p tabindex="0" if:true={cli.HasTravelFrom__c}>
                                         <Strong>Reisen fra: </Strong>{cli.travelFromPeriode}
                                     </p>
-                                    <br />
                                     <div if:true={cli.TravelDistance__c} class="expensesSingle">
                                         <p if:true={cli.TravelDistance__c} tabindex="0">
                                             <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km
