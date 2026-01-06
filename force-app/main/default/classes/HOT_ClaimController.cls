@@ -948,7 +948,7 @@ public without sharing class HOT_ClaimController {
         ];
 
         for (HOT_Claim__c claim : claims) {
-            claim.Koststed__c == null ? getKoststedFromPersonId(claim.Claimant__c) : '';
+            claim.Koststed__c == null ? getKoststed(claim.Account__c) : '';
         }
 
         try {
@@ -956,5 +956,63 @@ public without sharing class HOT_ClaimController {
         } catch (Exception e) {
             handleExceptionAndGetMessage(e);
         }
+    }
+
+    public static HOT_KoststedMapping__mdt getKoststed(String recordId, string objectApiName) {
+        Person__c person;
+        try {
+            person = getPersonMunicipality(recordId, 'Account');
+        } catch (Exception e) {
+            System.debug('Error: ' + e.getMessage());
+            // Happens if there is no related person
+            return null;
+        }
+        String kommuneStr = person.INT_MunicipalityNumber__c;
+
+        if (String.isBlank(fylkeStr) && String.isNotBlank(kommuneStr) && kommuneStr.length() >= 2) {
+            fylkeStr = kommuneStr.substring(0, 2);
+        }
+
+        if (String.isBlank(fylkeStr)) {
+            return null;
+        }
+
+        Integer fylkeInt = Integer.valueOf(fylkeStr);
+
+        List<HOT_BilsenterMapping__mdt> bilsenterMapping = [
+            SELECT BilsenterNavn__c, BilsenterUrl__c, Fylkenummer__c, Kommunenummer__c
+            FROM HOT_BilsenterMapping__mdt
+            WHERE Fylkenummer__c = :fylkeInt
+        ];
+        if (bilsenterMapping.isEmpty()) {
+            return null;
+        }
+
+        if (splitRegionNumbers.contains(fylkeInt)) {
+            for (HOT_BilsenterMapping__mdt mapping : bilsenterMapping) {
+                if (String.isNotBlank(mapping.Kommunenummer__c)) {
+                    List<String> validKommuner = mapping.Kommunenummer__c.split(',');
+                    if (validKommuner.contains(kommuneStr)) {
+                        return mapping;
+                    }
+                }
+            }
+            return null;
+        } else {
+            return bilsenterMapping[0];
+        }
+    }
+
+    public static Person__c getPersonMunicipalityAndRegions(Id recordId, String objectApiName) {
+        Person__c person;
+        if (objectApiName == 'Account') {
+            person = [
+                SELECT Id, INT_RegionNumber__c, INT_MunicipalityNumber__c
+                FROM Person__c
+                WHERE Id IN (SELECT CRM_Person__c FROM Account WHERE Id = :recordId)
+            ];
+        }
+
+        return person;
     }
 }
