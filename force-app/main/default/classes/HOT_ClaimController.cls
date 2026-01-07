@@ -941,7 +941,7 @@ public without sharing class HOT_ClaimController {
         }
     }
 
-    public static void setKoststed(Set<Id> claimIds) {
+    public static void setKoststed(List<Id> claimIds) {
         List<HOT_Claim__c> claims = [
             SELECT Account__c, Koststed__c, Account__r.CRM_Person__r.INT_MunicipalityNumber__c
             FROM HOT_Claim__c
