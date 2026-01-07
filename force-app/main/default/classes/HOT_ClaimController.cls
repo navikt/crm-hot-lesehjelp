@@ -940,15 +940,48 @@ public without sharing class HOT_ClaimController {
             }
         }
     }
+
     public static void setKoststed(Set<Id> claimIds) {
         List<HOT_Claim__c> claims = [
-            SELECT Claimant__c, Koststed__c
+            SELECT Account__c, Koststed__c, Account__r.CRM_Person__r.INT_MunicipalityNumber__c
             FROM HOT_Claim__c
-            WHERE Claimant__c.CRM_Person__c.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
+            WHERE Account__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
         ];
 
+        if (claims.isEmpty())
+            return;
+
+        Map<Id, Person__c> accountIdToPerson = new Map<Id, Person__c>();
         for (HOT_Claim__c claim : claims) {
-            claim.Koststed__c == null ? getKoststed(claim.Account__c) : '';
+            if (claim.Account__c != null && claim.Account__r.CRM_Person__c != null) {
+                accountIdToPerson.put(claim.Account__c, claim.Account__r.CRM_Person__r);
+            }
+        }
+
+        List<HOT_KoststedMapping__mdt> koststedMappings = [
+            SELECT Number__c, MunicipalityNumbers__c
+            FROM HOT_KoststedMapping__mdt
+        ];
+
+        Map<String, String> municilalityToKoststed = new Map<String, String>();
+        for (HOT_KoststedMapping__mdt mapping : koststedMappings) {
+            for (String validMunicipality : mapping.MunicipalityNumbers__c.split(',')) {
+                municilalityToKoststed.put(validMunicipality.trim(), mapping.Number__c);
+            }
+        }
+
+        for (HOT_Claim__c claim : claims) {
+            if (claim.Koststed__c != null)
+                continue;
+
+            Person__c person = accountIdToPerson.get(claim.Account__c);
+            if (person == null)
+                continue;
+
+            String municipality = person.INT_MunicipalityNumber__c;
+            if (String.isNotBlank(municipality)) {
+                claim.Koststed__c = municilalityToKoststed.get(municipality);
+            }
         }
 
         try {
@@ -956,63 +989,5 @@ public without sharing class HOT_ClaimController {
         } catch (Exception e) {
             handleExceptionAndGetMessage(e);
         }
-    }
-
-    public static HOT_KoststedMapping__mdt getKoststed(String recordId, string objectApiName) {
-        Person__c person;
-        try {
-            person = getPersonMunicipality(recordId, 'Account');
-        } catch (Exception e) {
-            System.debug('Error: ' + e.getMessage());
-            // Happens if there is no related person
-            return null;
-        }
-        String kommuneStr = person.INT_MunicipalityNumber__c;
-
-        if (String.isBlank(fylkeStr) && String.isNotBlank(kommuneStr) && kommuneStr.length() >= 2) {
-            fylkeStr = kommuneStr.substring(0, 2);
-        }
-
-        if (String.isBlank(fylkeStr)) {
-            return null;
-        }
-
-        Integer fylkeInt = Integer.valueOf(fylkeStr);
-
-        List<HOT_BilsenterMapping__mdt> bilsenterMapping = [
-            SELECT BilsenterNavn__c, BilsenterUrl__c, Fylkenummer__c, Kommunenummer__c
-            FROM HOT_BilsenterMapping__mdt
-            WHERE Fylkenummer__c = :fylkeInt
-        ];
-        if (bilsenterMapping.isEmpty()) {
-            return null;
-        }
-
-        if (splitRegionNumbers.contains(fylkeInt)) {
-            for (HOT_BilsenterMapping__mdt mapping : bilsenterMapping) {
-                if (String.isNotBlank(mapping.Kommunenummer__c)) {
-                    List<String> validKommuner = mapping.Kommunenummer__c.split(',');
-                    if (validKommuner.contains(kommuneStr)) {
-                        return mapping;
-                    }
-                }
-            }
-            return null;
-        } else {
-            return bilsenterMapping[0];
-        }
-    }
-
-    public static Person__c getPersonMunicipalityAndRegions(Id recordId, String objectApiName) {
-        Person__c person;
-        if (objectApiName == 'Account') {
-            person = [
-                SELECT Id, INT_RegionNumber__c, INT_MunicipalityNumber__c
-                FROM Person__c
-                WHERE Id IN (SELECT CRM_Person__c FROM Account WHERE Id = :recordId)
-            ];
-        }
-
-        return person;
     }
 }
