@@ -942,10 +942,16 @@ public without sharing class HOT_ClaimController {
     }
 
     public static void setKoststed(List<Id> claimIds) {
+        /**
+         * We base Koststed on the municipality number of the Account (see KoststedMapping) IF Claimant is not Nav employee.
+         * If the claimant is a NAV employee, we do not set Koststed. Koststed is attached to the resource number regardless in Unit4.
+         * This koststed is in the case of no Nav employment on behalf of claimant the same as account. Else, it is based on the workplace (HMS) of Claimant
+         * Koststed for an Nav employee is thus the workplace of the claimant.
+         */
         List<HOT_Claim__c> claims = [
             SELECT Account__c, Koststed__c, Account__r.CRM_Person__r.INT_MunicipalityNumber__c
             FROM HOT_Claim__c
-            WHERE Account__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
+            WHERE Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
         ];
 
         if (claims.isEmpty())
