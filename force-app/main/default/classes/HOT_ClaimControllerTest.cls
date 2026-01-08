@@ -23,12 +23,17 @@ public class HOT_ClaimControllerTest {
             HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
             insert entitlement;
 
+            Person__c personAcc2 = HOT_LesehjelpTestDataFactory.createPerson('12345678912');
+            personAcc2.CRM_Account__c = acc2;
+            update personAcc2;
+
             // Oppsett portalbruker
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
             personAccount.LastName = 'PortalBruker';
             update personAccount;
-            Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+            Person__c person = [SELECT INT_LastName__c, INT_MunicipalityNumber__c, CRM_Account__c FROM Person__c];
             person.CRM_Account__c = personAccount.Id;
+            person.INT_MunicipalityNumber__c = '4601';
             Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);
             update person;
@@ -74,6 +79,7 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertNotEquals(null, claimResult.Entitlement__c);
     }
+
     @IsTest
     static void wantErrorWhenWrongTimePeriodOnEntitlementVSClaimTest() {
         HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
@@ -678,5 +684,17 @@ public class HOT_ClaimControllerTest {
         List<HOT_Claim__c> myClaims = HOT_ClaimController.getClaimsToApprove();
         Test.stopTest();
         System.assertEquals(0, myClaims.size());
+    }
+
+    static void testSetKoststed_Municipality() {
+        List<Id> claimIds = new Set<Id>();
+        HOT_Claim__c claim = [SELECT Id, Claimant__c, Account__c FROM HOT_Claim__c];
+
+        Test.startTest();
+        HOT_ClaimController.setKoststed(claimIds);
+        Test.stopTest();
+
+        HOT_Claim__c claimAfterUpdate = [SELECT Id, Koststed__c, Claimant__c, Account__c FROM HOT_Claim__c];
+        System.assertEquals('241299', claimAfterUpdate.Koststed__c, 'Koststed not set correctly');
     }
 }
