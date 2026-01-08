@@ -2,7 +2,6 @@
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup() {
-        myTriggers.disable(PersonAccessHandler.class);
         User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
         System.runAs(navEmployee) {
             Account acc = new Account();
@@ -39,7 +38,6 @@ public class HOT_ClaimControllerTest {
                 LIMIT 1
             ];
             person.CRM_Account__c = personAccount.Id;
-            person.INT_MunicipalityNumber__c = '4601';
             Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);
             update person;
@@ -693,6 +691,15 @@ public class HOT_ClaimControllerTest {
     }
 
     static void testSetKoststed_Municipality() {
+        myTiggers.disable(PersonAccessHandler.class);
+        Person__c person = [
+            SELECT INT_MunicipalityNumber__c
+            FROM Person__c
+            WHERE CRM_Account__r.INT_PersonIdent__c = '01010101010'
+        ];
+        person.INT_MunicipalityNumber__c = '4601';
+        update person;
+
         List<Id> claimIds = new List<Id>();
         HOT_Claim__c claim = [
             SELECT Id
