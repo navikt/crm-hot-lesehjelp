@@ -692,6 +692,7 @@ public class HOT_ClaimControllerTest {
     }
 
     static void testSetKoststed_Municipality() {
+        myTriggers.disable(PersonAccessHandler.class);
         List<Id> claimIds = new List<Id>();
         HOT_Claim__c claim = [
             SELECT Id
