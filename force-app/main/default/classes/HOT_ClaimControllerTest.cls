@@ -687,11 +687,11 @@ public class HOT_ClaimControllerTest {
     }
 
     static void testSetKoststed_Municipality() {
-        List<Id> claimIds = new Set<Id>();
+        List<Id> claimIds = new List<Id>();
         HOT_Claim__c claim = [
             SELECT Id
             FROM HOT_Claim__c
-            WHERE Claimant__r.CRM_Person__c.INT_IsNavEmployee__c = FALSE
+            WHERE Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
             LIMIT 1
         ];
 
