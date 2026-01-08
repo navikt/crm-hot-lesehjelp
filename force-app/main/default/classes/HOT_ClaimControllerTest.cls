@@ -691,7 +691,7 @@ public class HOT_ClaimControllerTest {
     }
 
     static void testSetKoststed_Municipality() {
-        myTiggers.disable(PersonAccessHandler.class);
+        myTriggers.disable(PersonAccessHandler.class);
         Person__c person = [
             SELECT INT_MunicipalityNumber__c
             FROM Person__c
