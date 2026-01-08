@@ -23,20 +23,11 @@ public class HOT_ClaimControllerTest {
             HOT_Entitlement__c entitlement = HOT_LesehjelpTestDataFactory.createEntitlement(acc2);
             insert entitlement;
 
-            Person__c personAcc2 = HOT_LesehjelpTestDataFactory.createPerson('12345678912');
-            personAcc2.CRM_Account__c = acc2.Id;
-            insert personAcc2;
-
             // Oppsett portalbruker
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
             personAccount.LastName = 'PortalBruker';
             update personAccount;
-            Person__c person = [
-                SELECT INT_LastName__c, INT_MunicipalityNumber__c, CRM_Account__c
-                FROM Person__c
-                WHERE Id != :personAcc2.Id
-                LIMIT 1
-            ];
+            Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
             person.CRM_Account__c = personAccount.Id;
             Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);
@@ -692,12 +683,8 @@ public class HOT_ClaimControllerTest {
 
     static void testSetKoststed_Municipality() {
         myTriggers.disable(PersonAccessHandler.class);
-        Person__c person = [
-            SELECT INT_MunicipalityNumber__c
-            FROM Person__c
-            WHERE CRM_Account__r.INT_PersonIdent__c = '01010101010'
-        ];
-        person.INT_MunicipalityNumber__c = '4601';
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
+        person.CRM_Account__c = [SELECT Id FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1].Id;
         update person;
 
         List<Id> claimIds = new List<Id>();
