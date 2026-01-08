@@ -12,16 +12,15 @@ export default class hot_filterbutton extends LightningElement {
     @api ariaLabel;
     @api desktopStyle;
     @api mobileStyle;
+    @api buttonStyling;
+
     isActive = false;
 
     get buttonClass() {
-        let buttonStyle;
-        if (this.isActive == true) {
-            return 'hot-button ' + buttonStyle + ' active';
-        } else {
-            return 'hot-button ' + buttonStyle;
-        }
+        let style = this.buttonStyling ? this.buttonStyling : '';
+        return this.isActive ? `hot-button ${style} active` : `hot-button ${style}`;
     }
+
     @api setActive() {
         this.isActive = true;
     }
@@ -41,23 +40,18 @@ export default class hot_filterbutton extends LightningElement {
     get setDefaultId() {
         return setDefaultValue(this.id, 'button');
     }
-
     get setDefaultName() {
         return setDefaultValue(this.name, 'button');
     }
-
     get setDefaultAutofocus() {
         return convertStringToBoolean(this.autofocus);
     }
-
     get setDefaultDisabled() {
         return convertStringToBoolean(this.disabled);
     }
-
     get setDefaultValue() {
         return setDefaultValue(this.value, 'defaultValue');
     }
-
     get setDefaultStyle() {
         let style = this.desktopStyle;
         if (window.screen.width < 576) {
