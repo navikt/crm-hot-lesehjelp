@@ -25,7 +25,7 @@ public class HOT_ClaimControllerTest {
 
             Person__c personAcc2 = HOT_LesehjelpTestDataFactory.createPerson('12345678912');
             personAcc2.CRM_Account__c = acc2.Id;
-            update personAcc2;
+            insert personAcc2;
 
             // Oppsett portalbruker
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
