@@ -24,7 +24,7 @@ public class HOT_ClaimControllerTest {
             insert entitlement;
 
             Person__c personAcc2 = HOT_LesehjelpTestDataFactory.createPerson('12345678912');
-            personAcc2.CRM_Account__c = acc2;
+            personAcc2.CRM_Account__c = acc2.Id;
             update personAcc2;
 
             // Oppsett portalbruker
