@@ -31,7 +31,12 @@ public class HOT_ClaimControllerTest {
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
             personAccount.LastName = 'PortalBruker';
             update personAccount;
-            Person__c person = [SELECT INT_LastName__c, INT_MunicipalityNumber__c, CRM_Account__c FROM Person__c];
+            Person__c person = [
+                SELECT INT_LastName__c, INT_MunicipalityNumber__c, CRM_Account__c
+                FROM Person__c
+                WHERE Id != :personAcc2.Id
+                LIMIT 1
+            ];
             person.CRM_Account__c = personAccount.Id;
             person.INT_MunicipalityNumber__c = '4601';
             Set<Id> personAccountIds = new Set<Id>();
