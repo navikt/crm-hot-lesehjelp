@@ -688,13 +688,20 @@ public class HOT_ClaimControllerTest {
 
     static void testSetKoststed_Municipality() {
         List<Id> claimIds = new Set<Id>();
-        HOT_Claim__c claim = [SELECT Id, Claimant__c, Account__c FROM HOT_Claim__c];
+        HOT_Claim__c claim = [
+            SELECT Id
+            FROM HOT_Claim__c
+            WHERE Claimant__r.CRM_Person__c.INT_IsNavEmployee__c = FALSE
+            LIMIT 1
+        ];
+
+        claimIds.add(claim.Id);
 
         Test.startTest();
         HOT_ClaimController.setKoststed(claimIds);
         Test.stopTest();
 
-        HOT_Claim__c claimAfterUpdate = [SELECT Id, Koststed__c, Claimant__c, Account__c FROM HOT_Claim__c];
+        HOT_Claim__c claimAfterUpdate = [SELECT Koststed__c FROM HOT_Claim__c WHERE Id = :claim.Id];
         System.assertEquals('241299', claimAfterUpdate.Koststed__c, 'Koststed not set correctly');
     }
 }
