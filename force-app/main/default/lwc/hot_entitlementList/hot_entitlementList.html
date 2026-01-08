@@ -5,28 +5,34 @@
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
             <main class="main-content">
-                <h1 tabindex="0" class="typo-overskrift">Mine vedtak</h1>
+                <h1 class="typo-overskrift">Mine vedtak</h1>
                 <div if:true={showEntitlementlist}>
                     <div if:true={noEntitlements} style="text-align: center">
                         <br />
-                        <p tabindex="0">Du har ingen vedtak.</p>
+                        <p>Du har ingen vedtak.</p>
                     </div>
                     <div if:false={noEntitlements}>
-                        <p tabindex="0">Her finner du alle vedtakene du har og har hatt.</p>
-                        <template for:each={entitlements} for:item="entitlement">
-                            <div tabindex="0" key={entitlement.Id} class="entitlement-single" data-id={entitlement.Id}>
-                                <div class="container">
-                                    <p><strong>{entitlement.Type__c}</strong></p>
-                                    <p>Periode: {entitlement.period}</p>
-                                </div>
-                                <p>Vedtaket har {entitlement.EntitledHours__c} timer.</p>
-                                <p>Total tid allerede utbetalt av Nav: {entitlement.totalHoursMinutesUsed}.</p>
-                                <br />
-                                <p class="status yellow" if:true={entitlement.isRecurring}>
-                                    Vedtaket vil bli fornyet hvert år etter perioden er over.
-                                </p>
-                            </div>
-                        </template>
+                        <p>Her finner du alle vedtakene du har og har hatt.</p>
+                        <ul class="entitlement-list" role="list">
+                            <template for:each={entitlements} for:item="entitlement">
+                                <li
+                                    key={entitlement.Id}
+                                    class="entitlement-single"
+                                    data-id={entitlement.Id}
+                                    role="listitem"
+                                >
+                                    <div role="presentation">
+                                        <p><strong>{entitlement.Type__c}</strong></p>
+                                        <p>Periode: {entitlement.period}</p>
+                                        <p>Vedtaket har {entitlement.EntitledHours__c} timer.</p>
+                                        <p>Total tid allerede utbetalt av Nav: {entitlement.totalHoursMinutesUsed}.</p>
+                                        <p class="status yellow" if:true={entitlement.isRecurring}>
+                                            Vedtaket vil bli fornyet hvert år etter perioden er over.
+                                        </p>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
                     </div>
                 </div>
             </main>

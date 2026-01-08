@@ -75,7 +75,9 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                         claim.ExternalStatus__c === 'Innsendt' ||
                         claim.ExternalStatus__c === 'Godkjent av bruker' ||
                         claim.ExternalStatus__c === 'Godkjent av Nav' ||
-                        claim.ExternalStatus__c === 'Sendt til utbetaling'
+                        claim.ExternalStatus__c === 'Sendt til utbetaling' ||
+                        claim.ExternalStatus__c === 'Sendt til utbetaling etter satsjustering' ||
+                        claim.ExternalStatus__c === 'Rekalkulert etter satsjustering'
                 )
                 .map((claim) => ({
                     ...claim,
@@ -96,7 +98,11 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
         }
         if (event.detail === 'paidOut') {
             this.claims = this.unmappedClaims
-                .filter((claim) => claim.ExternalStatus__c === 'Utbetalt')
+                .filter(
+                    (claim) =>
+                        claim.ExternalStatus__c === 'Utbetalt' ||
+                        claim.ExternalStatus__c === 'Utbetalt etter satsjustering'
+                )
                 .map((claim) => ({
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
@@ -106,6 +112,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
                 }));
+
             this.noFilterResults = this.claims.length === 0 ? true : false;
             this.claims.sort((a, b) => {
                 if (b.CreatedDate === a.CreatedDate) {
@@ -163,14 +170,16 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
             status === 'Innsendt' ||
             status === 'Godkjent av bruker' ||
             status === 'Godkjent av Nav' ||
-            status === 'Sendt til utbetaling'
+            status === 'Sendt til utbetaling' ||
+            status === 'Sendt til utbetaling etter satsjustering' ||
+            status === 'Rekalkulert etter satsjustering'
         ) {
             return true;
         }
         return false;
     }
     checkGreenStatus(status) {
-        if (status === 'Utbetalt') {
+        if (status === 'Utbetalt' || status === 'Utbetalt etter satsjustering') {
             return true;
         }
         return false;
