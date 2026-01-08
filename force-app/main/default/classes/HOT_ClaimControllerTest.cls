@@ -2,6 +2,7 @@
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup() {
+        myTriggers.disable(PersonAccessHandler.class);
         User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
         System.runAs(navEmployee) {
             Account acc = new Account();
@@ -692,7 +693,6 @@ public class HOT_ClaimControllerTest {
     }
 
     static void testSetKoststed_Municipality() {
-        myTriggers.disable(PersonAccessHandler.class);
         List<Id> claimIds = new List<Id>();
         HOT_Claim__c claim = [
             SELECT Id
