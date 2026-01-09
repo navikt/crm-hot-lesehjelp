@@ -51,7 +51,6 @@ public class HOT_LesehjelpTestDataFactory {
     public static Person__c createPerson(String ident) {
         Person__c person = new Person__c();
         person.INT_Confidential__c = 'UGRADERT';
-        person.INT_MunicipalityNumber__c = '4601';
         person.Name = ident;
         person.INT_LastName__c = 'Last';
         person.INT_FirstName__c = 'First';

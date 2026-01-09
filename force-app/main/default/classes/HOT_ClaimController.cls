@@ -953,7 +953,7 @@ public without sharing class HOT_ClaimController {
             FROM HOT_Claim__c
             WHERE
                 Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
-                AND Account__r.CRM_Person__r.INT_MunicipalityNumber__c = NULL
+                AND Account__r.CRM_Person__r.INT_MunicipalityNumber__c != NULL
                 AND Id IN :claimIds
         ];
 
