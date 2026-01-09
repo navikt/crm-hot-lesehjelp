@@ -940,4 +940,63 @@ public without sharing class HOT_ClaimController {
             }
         }
     }
+
+    public static void setKoststed(List<Id> claimIds) {
+        /**
+         * We base Koststed on the municipality number of the Account (see KoststedMapping) IF Claimant is not Nav employee.
+         * If the claimant is a NAV employee, we do not set Koststed. Koststed is attached to the resource number regardless in Unit4.
+         * This koststed is in the case of no Nav employment on behalf of claimant the same as account. Else, it is based on the workplace (HMS) of Claimant
+         * Koststed for an Nav employee is thus the workplace of the claimant.
+         */
+        List<HOT_Claim__c> claims = [
+            SELECT Account__c, Koststed__c, Account__r.CRM_Person__r.INT_MunicipalityNumber__c
+            FROM HOT_Claim__c
+            WHERE
+                Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
+                AND Account__r.CRM_Person__r.INT_MunicipalityNumber__c != NULL
+                AND Id IN :claimIds
+        ];
+
+        if (claims.isEmpty())
+            return;
+
+        Map<Id, Person__c> accountIdToPerson = new Map<Id, Person__c>();
+        for (HOT_Claim__c claim : claims) {
+            if (claim.Account__c != null && claim.Account__r.CRM_Person__c != null) {
+                accountIdToPerson.put(claim.Account__c, claim.Account__r.CRM_Person__r);
+            }
+        }
+
+        List<HOT_KoststedMapping__mdt> koststedMappings = [
+            SELECT Number__c, MunicipalityNumbers__c
+            FROM HOT_KoststedMapping__mdt
+        ];
+
+        Map<String, String> municilalityToKoststed = new Map<String, String>();
+        for (HOT_KoststedMapping__mdt mapping : koststedMappings) {
+            for (String validMunicipality : mapping.MunicipalityNumbers__c.split(',')) {
+                municilalityToKoststed.put(validMunicipality.trim(), mapping.Number__c);
+            }
+        }
+
+        for (HOT_Claim__c claim : claims) {
+            if (claim.Koststed__c != null)
+                continue;
+
+            Person__c person = accountIdToPerson.get(claim.Account__c);
+            if (person == null)
+                continue;
+
+            String municipality = person.INT_MunicipalityNumber__c;
+            if (String.isNotBlank(municipality)) {
+                claim.Koststed__c = municilalityToKoststed.get(municipality);
+            }
+        }
+
+        try {
+            update claims;
+        } catch (Exception e) {
+            handleExceptionAndGetMessage(e);
+        }
+    }
 }

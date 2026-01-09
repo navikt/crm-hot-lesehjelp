@@ -3,6 +3,10 @@
     <label>HMS Rogaland, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">1101,1103,1106,1108,1111,1112,1114,1119,1120,1121,1122,1124,1127,1130,1133,1134,1135,1144,1145,1146,1149,1151,1160</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">241199</value>
     </values>

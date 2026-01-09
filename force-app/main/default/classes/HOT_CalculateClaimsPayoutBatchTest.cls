@@ -2,6 +2,7 @@
 private class HOT_CalculateClaimsPayoutBatchTest {
     @testSetup
     static void setup() {
+        myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
         person.Name = '12015678999';
         person.INT_BankAccountNumber__c = '122344556';

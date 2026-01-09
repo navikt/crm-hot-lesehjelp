@@ -3,6 +3,10 @@
     <label>HMS Troms, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">5501,5503,5510,5512,5514,5516,5518,5520,5522,5524,5526,5528,5530,5532,5534,5536,5538,5540,5542,5544,5546</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">241999</value>
     </values>

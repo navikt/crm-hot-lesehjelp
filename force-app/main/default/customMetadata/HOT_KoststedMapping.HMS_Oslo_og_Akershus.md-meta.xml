@@ -3,6 +3,10 @@
     <label>HMS Oslo og Akershus Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">0301,3201,3203,3205,3207,3209,3212,3214,3216,3218,3220,3222,3224,3226,3228,3230,3232,3234,3236,3238,3240,3242</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">243299</value>
     </values>

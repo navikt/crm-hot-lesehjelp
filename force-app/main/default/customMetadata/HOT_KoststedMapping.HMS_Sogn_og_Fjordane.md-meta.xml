@@ -3,6 +3,10 @@
     <label>HMS Sogn og Fjordane, Stønad</label>
     <protected>false</protected>
     <values>
+        <field>MunicipalityNumbers__c</field>
+        <value xsi:type="xsd:string">4635,4636,4637,4638,4639,4641,4642,4643,4644,4645,4646,4648,4650,4651</value>
+    </values>
+    <values>
         <field>Number__c</field>
         <value xsi:type="xsd:string">241499</value>
     </values>

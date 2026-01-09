@@ -3,7 +3,7 @@ public without sharing class HOT_ClaimFileGenerator {
     public static final String STILLINGSID = '2224';
     public static final String LONNSART = 'L2510';
     public static final String TRANSAKSJONSTYPE = 'LS';
-    public static final String CSV_HEADER = 'Firmakode;Ressurs-ID;Stillings-ID;lønnsart;Konto;Dato fra;Dato til;Nummer;Beløp;Fakturanr;Transaksjonstype\n';
+    public static final String CSV_HEADER = 'Firmakode;Ressurs-ID;Stillings-ID;lønnsart;Koststed;Konto;Dato fra;Dato til;Nummer;Beløp;Fakturanr;Transaksjonstype\n';
 
     public static void generateFile(List<HOT_Claim__c> claims) {
         if (claims.isEmpty()) {
@@ -50,6 +50,8 @@ public without sharing class HOT_ClaimFileGenerator {
                 ? claim.Claimant__r.CRM_Person__r.INT_BankAccountNumber__c
                 : '';
 
+            String koststed = (claim.Koststed__c != null) ? claim.Koststed__c : '';
+
             Decimal payAmount;
             if (claim.ReProcessedRate__c == true) {
                 payAmount = claim.DeltaAfterAdjustment__c;
@@ -76,6 +78,8 @@ public without sharing class HOT_ClaimFileGenerator {
                 STILLINGSID +
                 ';' +
                 LONNSART +
+                ';' +
+                koststed +
                 ';' +
                 bankAccount +
                 ';' +

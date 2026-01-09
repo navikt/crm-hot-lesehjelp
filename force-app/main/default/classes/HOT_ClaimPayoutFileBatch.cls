@@ -17,6 +17,7 @@ public with sharing class HOT_ClaimPayoutFileBatch implements Database.Batchable
             'Claimant__r.CRM_Person__r.INT_BankAccountNumber__c, ' +
             'ReProcessedRate__c, ' +
             'ApprovedByNAV__c, ' +
+            'Koststed__c, ' +
             'Status__c, ' +
             'ProcessedRate__c ' +
             'FROM HOT_Claim__c ' +
