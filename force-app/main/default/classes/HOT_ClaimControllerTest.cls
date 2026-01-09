@@ -684,10 +684,14 @@ public class HOT_ClaimControllerTest {
     static void testSetKoststed_Municipality() {
         myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
-        person.CRM_Account__c = [SELECT Id FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1].Id;
+        Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
+        person.CRM_Account__c = account.Id;
         person.INT_MunicipalityNumber__c = '4601';
         person.INT_IsNavEmployee__c = false;
         insert person;
+
+        account.CRM_Person__c = person.Id;
+        update account;
 
         List<Id> claimIds = new List<Id>();
         List<HOT_Claim__c> claims = [
