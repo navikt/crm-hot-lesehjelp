@@ -951,7 +951,10 @@ public without sharing class HOT_ClaimController {
         List<HOT_Claim__c> claims = [
             SELECT Account__c, Koststed__c, Account__r.CRM_Person__r.INT_MunicipalityNumber__c
             FROM HOT_Claim__c
-            WHERE Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE AND Id IN :claimIds
+            WHERE
+                Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
+                AND Account__r.CRM_Person__r.INT_MunicipalityNumber__c = NULL
+                AND Id IN :claimIds
         ];
 
         if (claims.isEmpty())
