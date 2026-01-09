@@ -10,6 +10,8 @@ import Index from '@salesforce/resourceUrl/index';
 import { formatTimeHoursMinutes } from 'c/hot_losHelperMethods';
 
 export default class Hot_claimList extends NavigationMixin(LightningElement) {
+    descriptionTextarea = 'Her kan du skrive en kommentar til lese- og sekretærhjelpen som er relevant for denne regningen. Det du skriver her blir synlig for lese- og sekretærhjelpen og for NAV-ansatt som behandler kravet.';
+
     @track showRecievedClaimslist = true;
     @track noRecievedClaims = true;
     @track noOlderClaims = true;
@@ -116,7 +118,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
 
             if (foundClaim) {
                 this.record = foundClaim;
-                this.template.querySelector('c-hot_textarea').setTextValue('');
+                this.template.querySelector('c-textarea').setTextValue('');
                 this.template.querySelector('c-checkbox').clearCheckboxValue();
             }
             if (foundOlderClaim) {
@@ -254,7 +256,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     @track submitSuccessMessage = '';
 
     approveClaim() {
-        this.fieldValues.CommentFromUser__c = this.template.querySelector('c-hot_textarea').getValue();
+        this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
         this.actionText = 'Godkjenner kravet...';
         this.spin = true;
         this.hideFormAndShowLoading();
@@ -283,7 +285,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
         if (this.handleValidation()) {
             return;
         } else {
-            this.fieldValues.CommentFromUser__c = this.template.querySelector('c-hot_textarea').getValue();
+            this.fieldValues.CommentFromUser__c = this.template.querySelector('c-textarea').getValue();
             this.actionText = 'Avviser kravet...';
             this.spin = true;
             this.hideFormAndShowLoading();
@@ -358,7 +360,7 @@ export default class Hot_claimList extends NavigationMixin(LightningElement) {
     handleValidation() {
         let hasErrors = false;
         if (this.declineClaim) {
-            this.template.querySelectorAll('c-hot_textarea').forEach((input) => {
+            this.template.querySelectorAll('c-textarea').forEach((input) => {
                 hasErrors += input.validationHandler();
             });
         }
