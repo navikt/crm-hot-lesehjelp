@@ -972,10 +972,10 @@ public without sharing class HOT_ClaimController {
             FROM HOT_KoststedMapping__mdt
         ];
 
-        Map<String, String> municilalityToKoststed = new Map<String, String>();
+        Map<String, String> municipalityToKoststed = new Map<String, String>();
         for (HOT_KoststedMapping__mdt mapping : koststedMappings) {
             for (String validMunicipality : mapping.MunicipalityNumbers__c.split(',')) {
-                municilalityToKoststed.put(validMunicipality.trim(), mapping.Number__c);
+                municipalityToKoststed.put(validMunicipality.trim(), mapping.Number__c);
             }
         }
 
@@ -989,7 +989,7 @@ public without sharing class HOT_ClaimController {
 
             String municipality = person.INT_MunicipalityNumber__c;
             if (String.isNotBlank(municipality)) {
-                claim.Koststed__c = municilalityToKoststed.get(municipality);
+                claim.Koststed__c = municipalityToKoststed.get(municipality);
             }
         }
 
