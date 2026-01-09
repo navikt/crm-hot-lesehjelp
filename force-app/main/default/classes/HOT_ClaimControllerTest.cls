@@ -74,7 +74,6 @@ public class HOT_ClaimControllerTest {
         Test.stopTest();
         System.assertNotEquals(null, claimResult.Entitlement__c);
     }
-
     @IsTest
     static void wantErrorWhenWrongTimePeriodOnEntitlementVSClaimTest() {
         HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
@@ -679,29 +678,5 @@ public class HOT_ClaimControllerTest {
         List<HOT_Claim__c> myClaims = HOT_ClaimController.getClaimsToApprove();
         Test.stopTest();
         System.assertEquals(0, myClaims.size());
-    }
-
-    static void testSetKoststed_Municipality() {
-        myTriggers.disable(PersonAccessHandler.class);
-        Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
-        person.CRM_Account__c = [SELECT Id FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1].Id;
-        update person;
-
-        List<Id> claimIds = new List<Id>();
-        HOT_Claim__c claim = [
-            SELECT Id
-            FROM HOT_Claim__c
-            WHERE Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
-            LIMIT 1
-        ];
-
-        claimIds.add(claim.Id);
-
-        Test.startTest();
-        HOT_ClaimController.setKoststed(claimIds);
-        Test.stopTest();
-
-        HOT_Claim__c claimAfterUpdate = [SELECT Koststed__c FROM HOT_Claim__c WHERE Id = :claim.Id];
-        System.assertEquals('241299', claimAfterUpdate.Koststed__c, 'Koststed not set correctly');
     }
 }
