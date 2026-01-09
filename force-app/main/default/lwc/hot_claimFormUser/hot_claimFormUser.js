@@ -81,7 +81,7 @@ export default class Hot_claimFormUser extends LightningElement {
                         this.fieldValues.UserPhoneNumber__c = '';
                         this.fieldValues.UserName__c = element.UserName__c;
                         this.isPersonNumber = true;
-                        this.template.querySelector('.details').classList.add('hidden');
+                        this.closeModal();
                     } else {
                         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[0].checked = false;
                         this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons[1].checked = true;
@@ -89,7 +89,7 @@ export default class Hot_claimFormUser extends LightningElement {
                         this.fieldValues.UserPhoneNumber__c = element.UserPhoneNumber__c;
                         this.fieldValues.UserName__c = element.UserName__c;
                         this.isPersonNumber = false;
-                        this.template.querySelector('.details').classList.add('hidden');
+                        this.closeModal();
                     }
                 }
             });
@@ -97,11 +97,9 @@ export default class Hot_claimFormUser extends LightningElement {
     }
 
     handlePreviousUsersBtn() {
-        this.template.querySelector('.details').classList.remove('hidden');
-        this.template.querySelector('.details').focus();
-    }
-    closeModal() {
-        this.template.querySelector('.details').classList.add('hidden');
+        const dialog = this.template.querySelector('.previous-users-dialog');
+        dialog.showModal();
+        dialog.focus();
     }
 
     handlePhoneNumberogPersonNumberRadioButtons(event) {
@@ -149,6 +147,15 @@ export default class Hot_claimFormUser extends LightningElement {
     }
     @api getComponentValues() {
         return this.componentValues;
+    }
+    handleKeyDown(event) {
+        if (event.key === 'Escape') {
+            this.closeModal();
+        }
+    }
+    closeModal() {
+        const dialog = this.template.querySelector('.previous-users-dialog');
+        dialog.close();
     }
 
     connectedCallback() {

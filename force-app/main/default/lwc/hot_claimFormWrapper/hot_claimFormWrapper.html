@@ -56,7 +56,7 @@
                         <div class="button-container">
                             <c-button
                                 button-label="Forrige"
-                                button-styling="tertiary"
+                                button-styling="secondary"
                                 onbuttonclick={handleBackButtonClicked}
                                 desktop-style="width: 8rem; justify-content: center"
                                 mobile-style="width: 8rem; justify-content: center"
@@ -66,8 +66,8 @@
                                 button-styling="primary"
                                 if:false={claimTypeResult.claimForm}
                                 onbuttonclick={handleNextButtonClicked}
-                                desktop-style="width: 8rem; justify-content: center"
-                                mobile-style="width: 8rem; justify-content: center"
+                                desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
+                                mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 style="padding-bottom: 1em"
                             ></c-button>
                             <c-button
@@ -77,8 +77,8 @@
                                 data-id="saveButton"
                                 if:true={claimTypeResult.claimForm}
                                 onbuttonclick={handleSendButtonClicked}
-                                desktop-style="width: 8rem; justify-content: center"
-                                mobile-style="width: 8rem; justify-content: center"
+                                desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
+                                mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 style="padding-bottom: 1em"
                             ></c-button>
                         </div>
