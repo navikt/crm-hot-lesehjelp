@@ -681,7 +681,7 @@ public class HOT_ClaimControllerTest {
     }
 
     @isTest
-    static void testSetKoststed_Municipality() {
+    static void testSetKoststedOnMunicipality() {
         myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
         Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
@@ -712,5 +712,38 @@ public class HOT_ClaimControllerTest {
 
         HOT_Claim__c claimAfterUpdate = [SELECT Koststed__c FROM HOT_Claim__c LIMIT 1];
         System.assertEquals('241299', claimAfterUpdate.Koststed__c, 'Koststed not set correctly');
+    }
+
+    @isTest
+    static void testSetKoststedWhereMunicipalityIsNullAndThusKoststedIsNull() {
+        myTriggers.disable(PersonAccessHandler.class);
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
+        Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
+        person.CRM_Account__c = account.Id;
+        person.INT_IsNavEmployee__c = false;
+        insert person;
+
+        account.CRM_Person__c = person.Id;
+        update account;
+
+        List<Id> claimIds = new List<Id>();
+        List<HOT_Claim__c> claims = [
+            SELECT Id, Account__c
+            FROM HOT_Claim__c
+            WHERE Claimant__r.CRM_Person__r.INT_IsNavEmployee__c = FALSE
+            LIMIT 1
+        ];
+
+        System.assertEquals(1, claims.size(), 'No claims retrived!');
+        System.assertEquals(person.CRM_Account__c, claims[0].Account__c, 'Account dont match as they should!');
+
+        claimIds.add(claims[0].Id);
+
+        Test.startTest();
+        HOT_ClaimController.setKoststed(claimIds);
+        Test.stopTest();
+
+        HOT_Claim__c claimAfterUpdate = [SELECT Koststed__c FROM HOT_Claim__c LIMIT 1];
+        System.assertEquals(null, claimAfterUpdate.Koststed__c, 'Koststed should not be set');
     }
 }
