@@ -681,7 +681,7 @@ public class HOT_ClaimControllerTest {
     }
 
     @isTest
-    static void testSetKoststed_Municipality() {
+    static void testSetKoststedOnMunicipality() {
         myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
         Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
@@ -715,7 +715,7 @@ public class HOT_ClaimControllerTest {
     }
 
     @isTest
-    static void testSetKoststed_MunicipalityWhereKoststedIsNull() {
+    static void testSetKoststedWhereMunicipalityIsNullAndThusKoststedIsNull() {
         myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
         Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
