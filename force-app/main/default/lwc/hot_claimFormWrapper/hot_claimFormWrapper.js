@@ -99,6 +99,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleBackButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
+        this.dontShowFormSummary = true;
         if (this.currentPage === 'userInfo') {
             this.claimTypeChosen = false;
         } else {
@@ -237,6 +238,69 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 }
             });
         }
+    }
+
+    timeInputValues = [];
+    dontShowFormSummary = true;
+    handleNextFormSummary () {
+        this.getComponentValues();
+        this.getFieldValuesFromSubForms();
+        let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
+        // FOR DEBUGGING. HENTER UT ALLE FELTENE
+        console.log('Antall kravlinjer:' + timeInput.length);
+        console.log('Type: ' + this.fieldValues.ClaimType__c);
+        console.log('Brukers navn: ' + this.fieldValues.UserName__c);
+        const selectedValue = this.componentValues.userPhoneNumberOrUserPersonNumberRadioButtons.find(
+            (option) => option.checked
+        );
+        console.log('Personnummer eller telefonnummer: ' + selectedValue.value);
+        console.log('Brukers personnummer: ' + this.fieldValues.UserPersonNumber__c);
+        console.log('Brukers telefonnummer: ' + this.fieldValues.UserPhoneNumber__c);
+        const selectedValueOnEmployer = this.componentValues.onEmployerRadioButtons.find((option) => option.checked);
+        console.log('Sender kravet på vegne av arbeidsgiver?' + selectedValueOnEmployer.value);
+        console.log('Arbeidsgiver snavn: ' + this.fieldValues.EmployerName__c);
+        console.log('Organisasjonsummer: ' + this.fieldValues.EmployerNumber__c);
+        console.log('Organisasjon utgifter per time: ' + this.fieldValues.EmployerExpensesPerHour__c);
+
+        for (let i = 0; i < timeInput.length; i++) {
+            console.log('Id/Nr: ' + timeInput[i].id);
+            console.log('Dato: ' + timeInput[i].date);
+            console.log('Starttidspunkt: ' + timeInput[i].startTimeString);
+            console.log('Starttidspunkt: ' + timeInput[i].startTime);
+            console.log('Slutttidspunkt: ' + timeInput[i].endTimeString);
+            console.log('Oppgave: ' + timeInput[i].task);
+            console.log('Har Tillegginformasjon: ' + timeInput[i].hasAdditionalInformation);
+            console.log('Tillegginformasjon: ' + timeInput[i].additionalInformation);
+            console.log('Reisetid til oppdrag?: ' + timeInput[i].hasTravelTo);
+            console.log('Reisetid til oppdrag dato: ' + timeInput[i].dateTravelTo);
+            console.log('Reisetid til oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelToString);
+            console.log('Reisetid til oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelToString);
+            console.log('</br>');
+            console.log('Reisetid fra oppdrag?: ' + timeInput[i].hasTravelFrom);
+            console.log('Reisetid fra oppdrag dato: ' + timeInput[i].dateTravelFrom);
+            console.log('Reisetid fra oppdrag fra klokkeslett: ' + timeInput[i].startTimeTravelFromString);
+            console.log('Reisetid fra oppdrag til klokkeslett: ' + timeInput[i].endTimeTravelFromString);
+            console.log('Utgift tbane: ' + timeInput[i].expensesPublicTransport);
+            console.log('Utgift tbane: ' + timeInput[i].expensesParking);
+            console.log('-------------------------------------------------');
+        }
+        if (
+            selectedValueOnEmployer.value == 'false' ||
+            selectedValueOnEmployer.value == 'null' ||
+            selectedValueOnEmployer.value == null
+        ) {
+            this.fieldValues.OnEmployer__c = 'false';
+        } else {
+            this.fieldValues.OnEmployer__c = selectedValueOnEmployer.value;
+        }
+
+        const claimLineItems = timeInput.map((item) => {
+            return { ...item };
+        });
+        console.log('Button Next Form Summary clicked');
+        this.timeInputValues = timeInput;
+        this.dontShowFormSummary = false;
+        console.log('DontShowFormSummary value: ' + this.dontShowFormSummary);
     }
 
     submitForm() {

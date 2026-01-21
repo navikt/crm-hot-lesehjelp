@@ -1,3 +1,17 @@
-.container {
+.form-container {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+}
 
+.form-body {
+    font-size: 1.125rem;
+}
+
+.header {
+    font-size: 1.25rem;
+}
+
+.claim-section {
+    border: 3px solid #cce1ff;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }

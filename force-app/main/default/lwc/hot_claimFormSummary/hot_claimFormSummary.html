@@ -1,3 +1,41 @@
 <template>
-    
+    <div class="form-container">
+
+        <!-- Header -->
+        <div class="header">
+            <h2>Oppsummering</h2>
+        </div>
+        <br>
+
+        <!-- Body -->
+        <div class="form-body">
+            <!-- Show work claim type -->
+            <template lwc:if={isClaimTypeWork}>
+                <p><strong>Type lesehjelp:</strong> {fieldValues.claimType}</p>
+                <p><strong>Organisasjon:</strong> {fieldValues.employerName}</p>
+                <p><strong>Org nr:</strong> {fieldValues.organizationNumber}</p>
+                <p><strong>Utgifter per time:</strong> {fieldValues.employerExpensesPerHour}</p>
+                <p><strong>Innsendt dato:</strong> {currentDate}</p>
+                <p><strong>Lesehjelp for:</strong> {fieldValues.userName}</p>
+                
+            </template>
+            <template lwc:else>
+                <p><strong>Type kravet:</strong> {fieldValues.claimType}</p>
+                <p><strong>Innsendt dato:</strong> {currentDate}</p>
+                <p><strong>Krav for:</strong> {fieldValues.userName}</p>
+            </template>
+            <!-- multiple dates for claims-->
+            <br />
+            <div>
+                <template for:each={timeInputValues} for:item="time">
+                    <div class="claim-section" key={time.id}>
+                        <p><strong>Periode:</strong> {time.date} , Kl {time.startTimeString} - {time.endTimeString}</p>
+                        <p><strong>Reisen til: </strong></p>
+                        <p><strong>Reisen Fra</strong></p>
+                        
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
 </template>
