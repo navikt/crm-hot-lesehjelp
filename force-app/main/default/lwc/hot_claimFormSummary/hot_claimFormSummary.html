@@ -9,21 +9,19 @@
 
         <!-- Body -->
         <div class="form-body">
+
+            <p><strong>Type lesehjelp:</strong> {fieldValues.claimType}</p>
+
             <!-- Show work claim type -->
             <template lwc:if={isClaimTypeWork}>
-                <p><strong>Type lesehjelp:</strong> {fieldValues.claimType}</p>
                 <p><strong>Organisasjon:</strong> {fieldValues.employerName}</p>
                 <p><strong>Org nr:</strong> {fieldValues.organizationNumber}</p>
                 <p><strong>Utgifter per time:</strong> {fieldValues.employerExpensesPerHour}</p>
-                <p><strong>Innsendt dato:</strong> {currentDate}</p>
-                <p><strong>Lesehjelp for:</strong> {fieldValues.userName}</p>
-                
             </template>
-            <template lwc:else>
-                <p><strong>Type kravet:</strong> {fieldValues.claimType}</p>
-                <p><strong>Innsendt dato:</strong> {currentDate}</p>
-                <p><strong>Krav for:</strong> {fieldValues.userName}</p>
-            </template>
+
+            <p><strong>Innsending dato:</strong> {currentDate}</p>
+            <p><strong>Lesehjelp for:</strong> {fieldValues.userName}</p>
+
             <!-- multiple dates for claims-->
             <br />
             <div>
@@ -32,7 +30,7 @@
                         <p><strong>Periode:</strong> {time.date} , Kl {time.startTimeString} - {time.endTimeString}</p>
                         <p><strong>Reisen til: </strong></p>
                         <p><strong>Reisen Fra</strong></p>
-                        
+
                     </div>
                 </template>
             </div>

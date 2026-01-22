@@ -240,6 +240,12 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         }
     }
 
+    handleBackButtonClickedFormSummary() {
+        this.getComponentValues();
+        this.getFieldValuesFromSubForms();
+        this.dontShowFormSummary = true;
+    }
+
     timeInputValues = [];
     dontShowFormSummary = true;
     handleNextFormSummary () {
