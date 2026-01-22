@@ -25,12 +25,18 @@
             <!-- multiple dates for claims-->
             <br />
             <div>
-                <template for:each={timeInputValues} for:item="time">
-                    <div class="claim-section" key={time.id}>
-                        <p><strong>Periode:</strong> {time.date} , Kl {time.startTimeString} - {time.endTimeString}</p>
-                        <p><strong>Reisen til: </strong></p>
-                        <p><strong>Reisen Fra</strong></p>
+                <template for:each={timeInputValues} for:item="cli">
+                    <div class="claim-line-section" key={cli.id}>
+                        <p><strong>Ukedag: </strong>{cli.weekday}</p>
+                        <p><strong>Periode:</strong> {cli.date}, Kl {cli.startTimeString} - {cli.endTimeString}</p>
 
+                        <template lwc:if={cli.hasTravelTo}>
+                            <p><strong>Reisen til: </strong>{cli.dateTravelTo}, Kl {cli.startTimeTravelToString} - {cli.endTimeTravelToString}</p>
+                        </template>
+                        <template lwc:if={cli.hasTravelFrom}>
+                            <p><strong>Reisen fra: </strong>{cli.dateTravelFrom}, Kl {cli.startTimeTravelFromString} - {cli.endTimeTravelFromString}</p>
+                        </template>
+                        <br />
                     </div>
                 </template>
             </div>

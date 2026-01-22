@@ -45,6 +45,16 @@
                                 is-los={isLos}
                                 ></c-hot_claim-form>
 
+                                <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
+                                    <c-checkbox
+                                    class="checkbox"
+                                    label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                    oncheckboxclick={signingClaim}
+                                    name="confirmationCheckbox"
+                                    aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                    error-text="Denne må hukes av."
+                                    ></c-checkbox>
+                                </div>
                             </template>
                             <template lwc:else>
                                 <!-- Testing new LOS Form START -->
@@ -56,16 +66,6 @@
                                     claim={claim} is-los={isLos}></c-hot_claim-form-summary>
                                 <!-- Testing new LOS Form END -->
                                 
-                                <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
-                                    <c-checkbox
-                                    class="checkbox"
-                                    label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                    oncheckboxclick={signingClaim}
-                                    name="confirmationCheckbox"
-                                    aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                    error-text="Denne må hukes av."
-                                    ></c-checkbox>
-                                </div>
                             </template>
 
                         <div class="button-container">

@@ -3,63 +3,65 @@ import { LightningElement, api } from 'lwc';
 export default class Hot_claimFormSummary extends LightningElement {
     @api parentFieldValues;
     @api parentClaimComponentValues;
-    @api timeInput; 
+    @api timeInput;
     @api claim;
     @api isLos;
-    
+
     timeInputValues = [];
-    currentDate; 
+    currentDate;
     isClaimTypeWork = false;
 
     fieldValues = {
         userName: '',
-        userPersonNumber: '', 
-        userPhoneNumber: '', 
+        userPersonNumber: '',
+        userPhoneNumber: '',
         claimType: '',
         employerName: '',
-        organizationNumber: '', 
+        organizationNumber: '',
         employerExpensesPerHour: ''
     }
 
 
-    connectedCallback() { 
+    connectedCallback() {
         this.handleFieldValueChange();
     }
 
     handleFieldValueChange() {
-        
-        console.log('field values username ' + this.parentFieldValues.UserName__c); 
+
         // User info
         this.fieldValues.userName = this.parentFieldValues.UserName__c;
         this.fieldValues.userPersonNumber = this.parentFieldValues.UserPersonNumber__c;
-        this.fieldValues.userPhoneNumber = this.parentFieldValues.UserPhoneNumber__c; 
+        this.fieldValues.userPhoneNumber = this.parentFieldValues.UserPhoneNumber__c;
 
         // Claim info
-        this.fieldValues.claimType = this.parentFieldValues.ClaimType__c; 
-        console.log('claim type ' + this.fieldValues.claimType);
-        console.log('phone number ' + this.fieldValues.userPhoneNumber);
-        
+        this.fieldValues.claimType = this.parentFieldValues.ClaimType__c;
+
         // Employer info
         this.fieldValues.employerName = this.parentFieldValues.EmployerName__c;
         this.fieldValues.organizationNumber = this.parentFieldValues.EmployerNumber__c;
-        console.log('organization number ' + this.parentFieldValues.EmployerNumber__c);
         this.fieldValues.employerExpensesPerHour = this.parentFieldValues.EmployerExpensesPerHour__c;
         this.checkClaimTypeForWork();
-        console.log('isClaimTypeWork: ' + this.isClaimTypeWork);
-        console.log('employer checkbox' + this.parentFieldValues.OnEmployer__c);
-        console.log('ClaimType value:', this.parentFieldValues.ClaimType__c, 'Type:', typeof this.parentFieldValues.ClaimType__c);
-        console.log('OnEmployer__c value:', this.parentFieldValues.OnEmployer__c, 'Type:', typeof this.parentFieldValues.OnEmployer__c);
 
-
-        // Date info
+        // Time input / Date info
         if (Array.isArray(this.timeInput)) {
             this.timeInputValues = this.timeInput.map(item => ({ ...item }));
+
+            this.timeInputValues.forEach(item => {
+                item.hasTravelTo = item.hasTravelTo === true;
+                item.hasTravelFrom = item.hasTravelFrom === true;
+            });
         }
+
+        this.formatTimeInputDates();
+
+        this.addWeekdayToTimeInputValues();
+
         console.log('timeInputValues: ' + this.timeInputValues[0].date);
+        console.log('hasTravelTo: ' + this.timeInputValues[0].hasTravelTo);
+        console.log('hasTravelFrom: ' + this.timeInputValues[0].hasTravelFrom);
+
         console.log('timeInputValues:', JSON.stringify(this.timeInputValues));
         this.currentDate = this.getTodayFormatted();
-        console.log('Today is:', this.currentDate);
-
     }
 
     getTodayFormatted() {
@@ -73,10 +75,54 @@ export default class Hot_claimFormSummary extends LightningElement {
     }
 
     checkClaimTypeForWork() {
-        if(this.fieldValues.claimType === 'Arbeidsliv' && this.parentFieldValues.OnEmployer__c === 'true') {
+        if (this.fieldValues.claimType === 'Arbeidsliv' && this.parentFieldValues.OnEmployer__c === 'true') {
             this.isClaimTypeWork = true;
         }
     }
+
+    formatTimeInputDates() {
+        if (!Array.isArray(this.timeInputValues)) return;
+
+        this.timeInputValues = this.timeInputValues.map(item => {
+            if (item.date) {
+                const [year, month, day] = item.date.split('-');
+                item.date = `${day}.${month}.${year}`;
+            }
+
+            if (item.dateTravelTo) {
+                const [yearT, monthT, dayT] = item.dateTravelTo.split('-');
+                item.dateTravelTo = `${dayT}.${monthT}.${yearT}`;
+            }
+            if (item.dateTravelFrom) {
+                const [yearF, monthF, dayF] = item.dateTravelFrom.split('-');
+                item.dateTravelFrom = `${dayF}.${monthF}.${yearF}`;
+            }
+
+            return item;
+        });
+        console.log('Formatted timeInputValues:', JSON.stringify(this.timeInputValues));
+    }
+
+
+    addWeekdayToTimeInputValues() {
+        if (!Array.isArray(this.timeInputValues)) return;
+
+        this.timeInputValues = this.timeInputValues.map(item => {
+            if (item.date) {
+                const [day, month, year] = item.date.split('.');
+                const dateObj = new Date(`${year}-${month}-${day}`);
+                let weekday = dateObj.toLocaleDateString('no-NO', { weekday: 'long' });
+
+                item.weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+            } else {
+                item.weekday = null;
+            }
+            return item;
+        });
+
+        console.log('timeInputValues weekday: ', this.timeInputValues);
+    }
+
 
     @api getComponentValues() {
         return this.componentValues;
