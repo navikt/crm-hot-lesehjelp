@@ -1,17 +1,41 @@
 .form-container {
     font-family: 'Source Sans Pro', Arial, sans-serif;
-}
-
-.form-body {
-    font-size: 1.125rem;
+    border: 1px solid #00163030;
+    border-radius: 0.5rem;
 }
 
 .header {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 650;
+    padding: 1rem;
+    background-color: #ecedef;
+    border-bottom: 1px solid #00163030;
+    letter-spacing: -.002em;
+    line-height: 2rem;
 }
 
-.claim-section {
-    border: 3px solid #cce1ff;
+.summary-body {
+    font-size: 1.125rem;
+    padding: 1rem 1.25rem 1.25rem 1.25rem;
+    margin: 0;
+    letter-spacing: 0;
+    line-height: 1.5rem;
+}
+
+.main-content {
+    border-bottom: 1px solid #00163030;
+    padding-top: 0.5rem;
+    padding-bottom: 0.2rem;
+}
+
+.claim-line-header {
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+}
+
+.claim-line-item {
+    border: 1px solid #005a923f;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #006eb71c;
+    padding: 1rem;
 }

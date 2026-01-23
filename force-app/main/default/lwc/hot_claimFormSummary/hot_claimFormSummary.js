@@ -44,7 +44,9 @@ export default class Hot_claimFormSummary extends LightningElement {
 
         // Time input / Date info
         if (Array.isArray(this.timeInput)) {
-            this.timeInputValues = this.timeInput.map(item => ({ ...item }));
+            this.timeInputValues = this.timeInput.map(item => ({ 
+                ...item
+            }));
 
             this.timeInputValues.forEach(item => {
                 item.hasTravelTo = item.hasTravelTo === true;
