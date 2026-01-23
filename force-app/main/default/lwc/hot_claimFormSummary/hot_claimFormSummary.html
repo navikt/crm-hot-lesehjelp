@@ -37,6 +37,20 @@
                             <p><strong>Reisen fra: </strong>{cli.dateTravelFrom}, Kl {cli.startTimeTravelFromString} - {cli.endTimeTravelFromString}</p>
                         </template>
                         <br />
+                        <template lwc:if={cli.travelDistance}>
+                            <p><strong>Reisevei egen bil: </strong> {cli.travelDistance} km</p>
+                            <p>{cli.travelToFromAddresses}</p>
+                        </template>
+
+                        <template lwc:if={cli.expensesParking}>
+                            <p><strong>Utlegg for p-avgift: </strong> {cli.expensesParking} kr</p>
+                            <p>{cli.parkingAddress}</p>
+                        </template>
+
+                        <template lwc:if={cli.expensesToll}>
+                            <p><strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>{cli.expensesPublicTransport} kr</p>
+                            <p>{cli.publicTransportRoute}</p>
+                        </template>
                     </div>
                 </template>
             </div>
