@@ -251,6 +251,9 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleNextFormSummary () {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
+        if (this.handleValidation()) {
+            return;
+        }
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
         // FOR DEBUGGING. HENTER UT ALLE FELTENE
         console.log('Antall kravlinjer:' + timeInput.length);

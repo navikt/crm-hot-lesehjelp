@@ -11,23 +11,23 @@
 
             <div class="main-content">
 
-                <p><strong>Type lesehjelp:</strong></p>
-                <p>{fieldValues.claimType}</p>
-                
+                <p><strong>Type lesehjelp</strong></p>
+                <p class="hr-line">{fieldValues.claimType}</p>
+
                 <!-- Show work claim type -->
                 <template lwc:if={isClaimTypeWork}>
-                    <p><strong>Organisasjon:</strong></p>
-                    <p>{fieldValues.employerName}</p>
-                    <p><strong>Org nr:</strong></p>
-                    <p>{fieldValues.organizationNumber}</p>
-                    <p><strong>Utgifter per time:</strong></p>
-                    <p>{fieldValues.employerExpensesPerHour}</p>
+                    <p><strong>Organisasjon</strong></p>
+                    <p class="hr-line">{fieldValues.employerName}</p>
+                    <p><strong>Org nr</strong></p>
+                    <p class="hr-line">{fieldValues.organizationNumber}</p>
+                    <p><strong>Utgifter per time</strong></p>
+                    <p class="hr-line">{fieldValues.employerExpensesPerHour}</p>
                 </template>
-                
-                <p><strong>Innsending dato:</strong></p>
-                <p>{currentDate}</p>
-                <p><strong>Lesehjelp for:</strong></p>
-                <p>{fieldValues.userName}</p>
+
+                <p><strong>Innsending dato</strong></p>
+                <p class="hr-line">{currentDate}</p>
+                <p><strong>Lesehjelp for</strong></p>
+                <p class="hr-line-last">{fieldValues.userName}</p>
                 <br />
             </div>
             <!-- multiple dates for claims-->
@@ -36,37 +36,60 @@
                     <div key={cli.id}>
                         <div class="claim-line-item">
 
-                        <p><strong>Ukedag: </strong></p>
-                        <p>{cli.weekday}</p>
-                        <p><strong>Periode:</strong></p>
-                        <p>{cli.date}, Kl {cli.startTimeString} - {cli.endTimeString}</p>
+                            <div class="row">
+                                <p><strong>Ukedag </strong></p>
+                                <p>{cli.weekday}</p>
+                            </div>
 
-                        <template lwc:if={cli.hasTravelTo}>
-                            <p><strong>Reisen til: </strong></p>
-                            <p>{cli.dateTravelTo}, Kl {cli.startTimeTravelToString} - {cli.endTimeTravelToString}</p>
-                        </template>
-                        <template lwc:if={cli.hasTravelFrom}>
-                            <p><strong>Reisen fra: </strong></p>
-                            <p>{cli.dateTravelFrom}, Kl {cli.startTimeTravelFromString} - {cli.endTimeTravelFromString}</p>
-                        </template>
-                        <template lwc:if={cli.travelDistance}>
-                            <p><strong>Reisevei egen bil: </strong></p>
-                            <p>{cli.travelDistance} km</p>
-                            <p>{cli.travelToFromAddresses}</p>
-                        </template>
+                            <div class="row">
+                                <p><strong>Periode</strong></p>
+                                <p>{cli.date}, Kl {cli.startTimeString} - {cli.endTimeString}</p>
+                            </div>
 
-                        <template lwc:if={cli.expensesParking}>
-                            <p><strong>Utlegg for p-avgift: </strong></p>
-                            <p>{cli.expensesParking} kr</p>
-                            <p>{cli.parkingAddress}</p>
-                        </template>
+                            <template lwc:if={cli.hasTravelTo}>
+                                <div class="row">
+                                    <p><strong>Reisen til </strong></p>
+                                    <p>{cli.dateTravelTo}, Kl {cli.startTimeTravelToString} - {cli.endTimeTravelToString}</p>
+                                </div>
+                            </template>
+                            <template lwc:if={cli.hasTravelFrom}>
+                                <div class="row">
 
-                        <template lwc:if={cli.expensesToll}>
-                            <p><strong>Utlegg for Buss, Trikk, Tbane- innland: </strong></p>
-                            <p>{cli.expensesPublicTransport} kr</p>
-                            <p>{cli.publicTransportRoute}</p>
-                        </template>
+                                    <p><strong>Reisen fra </strong></p>
+                                    <p>{cli.dateTravelFrom}, Kl {cli.startTimeTravelFromString} -
+                                        {cli.endTimeTravelFromString}</p>
+                                </div>
+                            </template>
+                            <template lwc:if={cli.travelDistance}>
+                                <div class="row">
+
+                                    <p><strong>Reisevei egen bil </strong></p>
+                                    <p>{cli.travelDistance} km, {cli.travelToFromAddresses} </p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={cli.expensesParking}>
+                                <div class="row">
+                                    <p><strong>Utlegg for p-avgift </strong></p>
+                                    <p>{cli.expensesParking} kr, {cli.parkingAddress}</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={cli.expensesToll}>
+                                <div class="row">
+                                    <p><strong>Utlegg for bompenger</strong></p>
+                                    <p>{cli.expensesToll} kr</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={cli.expensesPublicTransport}>
+                                <div class="row">
+                                    <p><strong>Utlegg for Buss, Trikk, Tbane- innland </strong></p>
+                                    <p>{cli.expensesPublicTransport} kr, {cli.publicTransportRoute}</p>
+                                </div>
+                            </template>
                         </div>
+
                     </div>
                 </template>
             </div>

@@ -23,7 +23,7 @@
 }
 
 .main-content {
-    border-bottom: 1px solid #00163030;
+    /* border-bottom: 1px solid #00163030; */
     padding-top: 0.5rem;
     padding-bottom: 0.2rem;
 }
@@ -38,4 +38,37 @@
     margin-top: 0.5rem;
     background-color: #006eb71c;
     padding: 1rem;
+}
+
+.hr-line {
+    border-bottom: 1px solid #00163030;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+.hr-line-last {
+    border-bottom: 1px solid #00163030;
+    margin-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.row {
+    border-bottom: 1px solid #00163030;
+    padding-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.row p {
+    padding-top: 0.5rem;
+}
+
+.row :first-of-type {
+    padding-top: 0rem;
+}
+
+.row:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0rem;
+    margin-bottom: 0;
 }
