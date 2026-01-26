@@ -4,116 +4,85 @@
             <div class="hot" if:false={noAccess}>
                 <c-breadcrumbs url-list={breadcrumbs} class="lightning-breadcrumbs"></c-breadcrumbs>
             </div>
-            <c-alertdialog
-                header={modalHeader}
-                content={modalContent}
+            <c-alertdialog header={modalHeader} content={modalContent}
                 desktop-style="text-align: center; white-space: pre-line; min-width: 50%; top: 40%;"
                 mobile-style="text-align: center; white-space: pre-line; max-width: 100%; min-width: 100%; top: 40%;"
-                center-buttons="true"
-                no-cancel-button={noCancelButton}
-                onbuttonclick={handleAlertDialogClick}
-            >
+                center-buttons="true" no-cancel-button={noCancelButton} onbuttonclick={handleAlertDialogClick}>
             </c-alertdialog>
             <main if:false={noAccess} class="main-content submitted-false">
                 <div class="skjema">
-                    <c-hot_claim-form-type
-                        if:false={claimTypeChosen}
-                        onclaimformtyperesult={handleClaimType}
-                        claim={claim}
-                        is-edit={isEdit}
-                        previous-page={previousPage}
-                        parent-claim-component-values={componentValues}
-                    ></c-hot_claim-form-type>
+                    <c-hot_claim-form-type if:false={claimTypeChosen} onclaimformtyperesult={handleClaimType}
+                        claim={claim} is-edit={isEdit} previous-page={previousPage}
+                        parent-claim-component-values={componentValues}></c-hot_claim-form-type>
                     <div if:true={claimTypeChosen} class="actual-form">
-                        <c-hot_claim-form-user
-                            parent-field-values={fieldValues}
-                            if:false={claimTypeResult.claimForm}
-                            class="subform"
-                            claim={claim}
-                            is-edit={isEdit}
-                            parent-claim-component-values={componentValues}
-                        ></c-hot_claim-form-user>
-                        <template lwc:if={dontShowFormSummary}>
-                             <c-hot_claim-form
-                                class="subform"
-                                if:true={claimTypeResult.claimForm}
-                                parent-field-values={fieldValues}
-                                claim-type={fieldValues.ClaimType__c}
-                                parent-claim-component-values={componentValues}
-                                claim={claim}
-                                is-edit={isEdit}
-                                is-los={isLos}
-                                ></c-hot_claim-form>
+                        <c-hot_claim-form-user parent-field-values={fieldValues} if:false={claimTypeResult.claimForm}
+                            class="subform" claim={claim} is-edit={isEdit}
+                            parent-claim-component-values={componentValues}></c-hot_claim-form-user>
+                        <c-hot_claim-form class="subform" if:true={claimTypeResult.claimForm}
+                            parent-field-values={fieldValues} claim-type={fieldValues.ClaimType__c}
+                            parent-claim-component-values={componentValues} claim={claim} is-edit={isEdit}
+                            is-los={isLos}></c-hot_claim-form>
 
-                                <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
-                                    <c-checkbox
-                                    class="checkbox"
-                                    label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                    oncheckboxclick={signingClaim}
-                                    name="confirmationCheckbox"
-                                    aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                    error-text="Denne må hukes av."
-                                    ></c-checkbox>
+                        <!-- Create modal for form summary start -->
+                        <div>
+                            <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
+                                <div class="modal-header">
+                                    <h2>Oppsummering av krav</h2>
+                                    <button class="close-btn" onclick={closeFormSummaryModal} aria-label="Lukk">
+                                        <img src={exitCrossIcon} alt="" aria-hidden="true" />
+                                    </button>
                                 </div>
-                            </template>
-                            <template lwc:else>
-                                <!-- Testing new LOS Form START -->
+                                <div class="modal-body">
+                                    <template lwc:if={showForm}>
 
-                                <c-hot_claim-form-summary 
-                                    parent-field-values={fieldValues} 
-                                    parent-claim-component-values={componentValues} 
-                                    time-input={timeInputValues} 
-                                    claim={claim} is-los={isLos}></c-hot_claim-form-summary>
-                                <!-- Testing new LOS Form END -->
-                                
-                            </template>
+                                        <c-hot_claim-form-summary parent-field-values={fieldValues}
+                                            parent-claim-component-values={componentValues} time-input={timeInputValues}
+                                            claim={claim} is-los={isLos}></c-hot_claim-form-summary>
+
+                                        <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
+                                            <c-checkbox class="checkbox"
+                                                label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                                oncheckboxclick={signingClaim} name="confirmationCheckbox"
+                                                aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                                error-text="Denne må hukes av."></c-checkbox>
+                                        </div>
+
+                                        <c-button button-label={submitButtonLabel} button-styling="primary"
+                                            type="submit" data-id="saveButton" if:true={claimTypeResult.claimForm}
+                                            onbuttonclick={handleSendButtonClicked}
+                                            desktop-style="width: 8rem; justify-content: center; margin-left: 1rem; margin-top: 0.5rem"
+                                            mobile-style="width: 8rem; justify-content: center; margin-left: 1rem; margin-top: 0.5rem"
+                                            style="padding-bottom: 1em"></c-button>
+
+                                    </template>
+                                </div>
+                            </dialog>
+                        </div>
 
                         <div class="button-container">
-                            <c-button
-                                button-label="Forrige"
-                                button-styling="secondary"
+                            <c-button button-label="Forrige" button-styling="secondary"
                                 onbuttonclick={handleBackButtonClicked}
                                 desktop-style="width: 8rem; justify-content: center"
-                                mobile-style="width: 8rem; justify-content: center"
-                            ></c-button>
-                            <!-- Buttons for form summary test -->
-                            <c-button
-                                button-label="Forrige 2"
-                                button-styling="secondary"
-                                onbuttonclick={handleBackButtonClickedFormSummary}
-                                desktop-style="width: 8rem; justify-content: center"
-                                mobile-style="width: 8rem; justify-content: center"
-                                ></c-button>
-                            <c-button
-                                button-label="Neste"
-                                button-styling="primary"
-                                if:false={claimTypeResult.claimForm}
+                                mobile-style="width: 8rem; justify-content: center"></c-button>
+                            <c-button button-label="Neste" button-styling="primary" if:false={claimTypeResult.claimForm}
                                 onbuttonclick={handleNextButtonClicked}
                                 desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"
-                                ></c-button>
-                                <c-button
-                                button-label="Neste 2"
-                                button-styling="primary"
-                                if:true={claimTypeResult.claimForm}
-                                onbuttonclick={handleNextFormSummary}
+                                style="padding-bottom: 1em"></c-button>
+
+                            <!-- Temporary button -->
+                            <c-button button-label="Neste 2" button-styling="primary"
+                                if:true={claimTypeResult.claimForm} onbuttonclick={handleNextFormSummary}
                                 desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"
-                                ></c-button>
-                                <!-- Buttons for form summary test 2 -->
-                            <c-button
-                                button-label={submitButtonLabel}
-                                button-styling="primary"
-                                type="submit"
-                                data-id="saveButton"
-                                if:true={claimTypeResult.claimForm}
+                                style="padding-bottom: 1em"></c-button>
+
+                            <!-- <c-button button-label={submitButtonLabel} button-styling="primary" type="submit"
+                                data-id="saveButton" if:true={claimTypeResult.claimForm}
                                 onbuttonclick={handleSendButtonClicked}
                                 desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"
-                            ></c-button>
+                                style="padding-bottom: 1em"></c-button> -->
                         </div>
                     </div>
                 </div>
@@ -126,45 +95,24 @@
             </main>
             <div class="main-content hidden submitted-true">
                 <div class="main-content dialog-boks skjema-max-width">
-                    <lightning-icon
-                        icon-name="utility:success"
-                        alternative-text="Suksess"
-                        title="Suksess"
-                        variant="success"
-                        size="large"
-                    >
+                    <lightning-icon icon-name="utility:success" alternative-text="Suksess" title="Suksess"
+                        variant="success" size="large">
                     </lightning-icon>
                     <br />
-                    <h2
-                        class="typo-undertittel h2-successMessage"
-                        id="successMessage"
-                        tabindex="-1"
-                        role="alert"
-                        aria-live="polite"
-                        aria-label={submitSuccessMessage}
-                    >
+                    <h2 class="typo-undertittel h2-successMessage" id="successMessage" tabindex="-1" role="alert"
+                        aria-live="polite" aria-label={submitSuccessMessage}>
                         {submitSuccessMessage}
                     </h2>
                     <br />
-                    <c-button
-                        button-label="Gå til mine krav"
-                        button-styling="primary"
-                        onbuttonclick={goToMyClaims}
+                    <c-button button-label="Gå til mine krav" button-styling="primary" onbuttonclick={goToMyClaims}
                         desktop-style="width: 16rem; justify-content: center"
-                        mobile-style="width: 16rem; justify-content: center"
-                    ></c-button>
+                        mobile-style="width: 16rem; justify-content: center"></c-button>
                 </div>
             </div>
             <div class="main-content hidden submitted-loading">
                 <div class="main-content dialog-boks skjema-max-width">
-                    <h2
-                        class="typo-undertittel h2-loadingMessage"
-                        id="loadingMessage"
-                        tabindex="-1"
-                        role="alert"
-                        aria-live="polite"
-                        aria-label="Sender inn kravet..."
-                    >
+                    <h2 class="typo-undertittel h2-loadingMessage" id="loadingMessage" tabindex="-1" role="alert"
+                        aria-live="polite" aria-label="Sender inn kravet...">
                         Sender inn kravet...
                     </h2>
                     <br />

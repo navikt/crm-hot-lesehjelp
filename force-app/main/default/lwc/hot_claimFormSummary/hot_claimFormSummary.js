@@ -1,9 +1,9 @@
 import { LightningElement, api } from 'lwc';
 
 export default class Hot_claimFormSummary extends LightningElement {
-    @api parentFieldValues;
     @api parentClaimComponentValues;
-    @api timeInput;
+    @api parentFieldValues;
+    // @api timeInput;
     @api claim;
     @api isLos;
 
@@ -23,8 +23,19 @@ export default class Hot_claimFormSummary extends LightningElement {
 
 
     connectedCallback() {
+        console.log('parentFieldValues:', JSON.stringify(this.parentFieldValues));
+        console.log('timeInput:', JSON.stringify(this.timeInput));
+
+        const isParentFieldValuesEmpty = !this.parentFieldValues || Object.keys(this.parentFieldValues).length === 0;
+        const isTimeInputEmpty = !Array.isArray(this.timeInput) || this.timeInput.length === 0;
+
+        if (isParentFieldValuesEmpty || isTimeInputEmpty) {
+            return;
+        }
+
         this.handleFieldValueChange();
     }
+
 
     handleFieldValueChange() {
 
@@ -44,7 +55,7 @@ export default class Hot_claimFormSummary extends LightningElement {
 
         // Time input / Date info
         if (Array.isArray(this.timeInput)) {
-            this.timeInputValues = this.timeInput.map(item => ({ 
+            this.timeInputValues = this.timeInput.map(item => ({
                 ...item
             }));
 
@@ -147,4 +158,17 @@ export default class Hot_claimFormSummary extends LightningElement {
     getNewLOSInput() {
         return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
     }
+
+    _timeInput;
+@api
+set timeInput(value) {
+    this._timeInput = value;
+    if (value && Array.isArray(value) && value.length > 0) {
+        this.handleFieldValueChange(); // recompute everything when parent sends new timeInput
+    }
+}
+get timeInput() {
+    return this._timeInput;
+}
+
 }
