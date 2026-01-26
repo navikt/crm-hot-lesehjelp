@@ -27,7 +27,7 @@
                         <div>
                             <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
                                 <div class="modal-header">
-                                    <h2>Oppsummering av krav</h2>
+                                    <!-- <h2>Oppsummering av krav</h2> -->
                                     <button class="close-btn" onclick={closeFormSummaryModal} aria-label="Lukk">
                                         <img src={exitCrossIcon} alt="" aria-hidden="true" />
                                     </button>
@@ -50,8 +50,8 @@
                                         <c-button button-label={submitButtonLabel} button-styling="primary"
                                             type="submit" data-id="saveButton" if:true={claimTypeResult.claimForm}
                                             onbuttonclick={handleSendButtonClicked}
-                                            desktop-style="width: 8rem; justify-content: center; margin-left: 1rem; margin-top: 0.5rem"
-                                            mobile-style="width: 8rem; justify-content: center; margin-left: 1rem; margin-top: 0.5rem"
+                                            desktop-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
+                                            mobile-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
                                             style="padding-bottom: 1em"></c-button>
 
                                     </template>

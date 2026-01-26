@@ -9,11 +9,14 @@
     animation: spin 1s linear infinite;
 }
 .confirmationCheckbox {
-    background-color: #cce1ff;
+    background-color: #FFE8C0;
     margin: auto;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     width: 100%;
     text-align: left;
-    padding: 2rem;
+    padding: 1rem;
+    border: 1px solid #C34600;
     border-radius: 5px;
 }
 
@@ -46,9 +49,9 @@ dialog[open].modal-container {
 }
 dialog.modal-container .modal-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     font-size: 1.5rem;
 }
 dialog.modal-container .modal-body {
