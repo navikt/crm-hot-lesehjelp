@@ -27,7 +27,6 @@
                         <div>
                             <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
                                 <div class="modal-header">
-                                    <!-- <h2>Oppsummering av krav</h2> -->
                                     <button class="close-btn" onclick={closeFormSummaryModal} aria-label="Lukk">
                                         <img src={exitCrossIcon} alt="" aria-hidden="true" />
                                     </button>
@@ -70,19 +69,11 @@
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 style="padding-bottom: 1em"></c-button>
 
-                            <!-- Temporary button -->
-                            <c-button button-label="Neste 2" button-styling="primary"
+                            <c-button button-label="Neste" button-styling="primary"
                                 if:true={claimTypeResult.claimForm} onbuttonclick={handleNextFormSummary}
                                 desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
                                 style="padding-bottom: 1em"></c-button>
-
-                            <!-- <c-button button-label={submitButtonLabel} button-styling="primary" type="submit"
-                                data-id="saveButton" if:true={claimTypeResult.claimForm}
-                                onbuttonclick={handleSendButtonClicked}
-                                desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"></c-button> -->
                         </div>
                     </div>
                 </div>
