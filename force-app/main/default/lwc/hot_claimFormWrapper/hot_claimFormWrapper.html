@@ -23,7 +23,7 @@
                             parent-claim-component-values={componentValues} claim={claim} is-edit={isEdit}
                             is-los={isLos}></c-hot_claim-form>
 
-                        <!-- Create modal for form summary start -->
+                        <!-- Form summary modal -->
                         <div>
                             <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
                                 <div class="modal-header">
@@ -38,20 +38,22 @@
                                             parent-claim-component-values={componentValues} 
                                             time-input={timeInputValues}></c-hot_claim-form-summary>
 
-                                        <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
+                                    <template lwc:if={claimTypeResult.claimForm}>
+                                        <div class="confirmationCheckbox">
                                             <c-checkbox class="checkbox"
                                                 label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                                                 oncheckboxclick={signingClaim} name="confirmationCheckbox"
                                                 aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
                                                 error-text="Denne må hukes av."></c-checkbox>
                                         </div>
-
-                                        <c-button button-label={submitButtonLabel} button-styling="primary"
-                                            type="submit" data-id="saveButton" if:true={claimTypeResult.claimForm}
+                                        
+                                            <c-button button-label={submitButtonLabel} button-styling="primary"
+                                            type="submit" data-id="saveButton" 
                                             onbuttonclick={handleSendButtonClicked}
                                             desktop-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
                                             mobile-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
                                             style="padding-bottom: 1em"></c-button>
+                                        </template>
 
                                     </template>
                                 </div>

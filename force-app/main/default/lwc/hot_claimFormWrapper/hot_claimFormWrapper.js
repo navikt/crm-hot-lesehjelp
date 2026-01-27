@@ -101,7 +101,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleBackButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        this.dontShowFormSummary = true;
         if (this.currentPage === 'userInfo') {
             this.claimTypeChosen = false;
         } else {
@@ -244,14 +243,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         }
     }
 
-    handleBackButtonClickedFormSummary() {
-        this.getComponentValues();
-        this.getFieldValuesFromSubForms();
-        this.dontShowFormSummary = true;
-    }
-
-    timeInputValues = [];
-
     showFormSummaryModal() {
         const dialog = this.template.querySelector('.modal-form-summary');
         dialog.showModal();
@@ -271,50 +262,9 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.showForm = false;
     }
 
-
+    timeInputValues = [];
     showForm = false;
-
-    // handleNextFormSummary() {
-    //     this.getComponentValues();
-    //     this.getFieldValuesFromSubForms();
-
-    //     const hasErrors = this.handleValidation();
-    //     if (hasErrors) {
-    //         console.warn('Validation failed, cannot proceed');
-    //         return;
-    //     }
-
-    //     const reqForm = this.template.querySelector('c-hot_claim-form');
-    //     if (!reqForm) {
-    //         console.warn('No claim form found');
-    //         return;
-    //     }
-
-    //     const timeInput = reqForm.getTimeInput() || [];
-    //     if (timeInput.length === 0) {
-    //         console.warn('No time input data');
-    //         return;
-    //     }
-
-    //     const selectedValueOnEmployer = this.componentValues.onEmployerRadioButtons?.find(
-    //         (option) => option.checked
-    //     ) || { value: 'false' };
-
-    //     this.fieldValues.OnEmployer__c =
-    //         selectedValueOnEmployer.value === 'false' || selectedValueOnEmployer.value === 'null'
-    //             ? 'false'
-    //             : selectedValueOnEmployer.value;
-
-    //     this.timeInputValues = timeInput.map(item => ({ ...item }));
-    //     this.fieldValues = { ...this.fieldValues };
-
-    //     this.showForm = true;
-    //     this.showFormSummaryModal();
-
-    //     console.log('timeInputValues:', JSON.stringify(this.timeInputValues));
-    //     console.log('parentFieldValues:', JSON.stringify(this.fieldValues));
-    // }
-
+    
     handleNextFormSummary() {
     this.getComponentValues();
     this.getFieldValuesFromSubForms();
@@ -371,12 +321,8 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
 
     this.timeInputValues = timeInput;
     this.fieldValues = { ...this.fieldValues };
-
     this.showForm = true;
     this.showFormSummaryModal();
-
-    console.log('timeInputValues:', JSON.stringify(this.timeInputValues));
-    console.log('parentFieldValues:', JSON.stringify(this.fieldValues));
 }
 
 
