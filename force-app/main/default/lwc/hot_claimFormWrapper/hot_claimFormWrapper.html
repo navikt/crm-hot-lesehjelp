@@ -33,10 +33,10 @@
                                 </div>
                                 <div class="modal-body">
                                     <template lwc:if={showForm}>
-
-                                        <c-hot_claim-form-summary parent-field-values={fieldValues}
-                                            parent-claim-component-values={componentValues} time-input={timeInputValues}
-                                            claim={claim} is-los={isLos}></c-hot_claim-form-summary>
+                                        <c-hot_claim-form-summary 
+                                            parent-field-values={fieldValues}
+                                            parent-claim-component-values={componentValues} 
+                                            time-input={timeInputValues}></c-hot_claim-form-summary>
 
                                         <div class="confirmationCheckbox" if:true={claimTypeResult.claimForm}>
                                             <c-checkbox class="checkbox"

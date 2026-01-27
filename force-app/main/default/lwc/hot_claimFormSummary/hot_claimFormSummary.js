@@ -3,11 +3,8 @@ import { LightningElement, api } from 'lwc';
 export default class Hot_claimFormSummary extends LightningElement {
     @api parentClaimComponentValues;
     @api parentFieldValues;
-    @api claim;
-    @api isLos;
 
     timeInputValues = [];
-    currentDate;
     isClaimTypeWork = false;
 
     fieldValues = {
@@ -34,9 +31,6 @@ export default class Hot_claimFormSummary extends LightningElement {
 
 
     connectedCallback() {
-        console.log('parentFieldValues:', JSON.stringify(this.parentFieldValues));
-        console.log('timeInput:', JSON.stringify(this.timeInput));
-
         const isParentFieldValuesEmpty = !this.parentFieldValues || Object.keys(this.parentFieldValues).length === 0;
         const isTimeInputEmpty = !Array.isArray(this.timeInput) || this.timeInput.length === 0;
 
@@ -55,7 +49,7 @@ export default class Hot_claimFormSummary extends LightningElement {
         this.fieldValues.userPersonNumber = this.parentFieldValues.UserPersonNumber__c;
         this.fieldValues.userPhoneNumber = this.parentFieldValues.UserPhoneNumber__c;
 
-        // Claim info
+        // Claim type
         this.fieldValues.claimType = this.parentFieldValues.ClaimType__c;
 
         // Employer info
@@ -77,25 +71,7 @@ export default class Hot_claimFormSummary extends LightningElement {
         }
 
         this.formatTimeInputDates();
-
         this.addWeekdayToTimeInputValues();
-
-        console.log('timeInputValues: ' + this.timeInputValues[0].date);
-        console.log('hasTravelTo: ' + this.timeInputValues[0].hasTravelTo);
-        console.log('hasTravelFrom: ' + this.timeInputValues[0].hasTravelFrom);
-
-        console.log('timeInputValues:', JSON.stringify(this.timeInputValues));
-        this.currentDate = this.getTodayFormatted();
-    }
-
-    getTodayFormatted() {
-        const today = new Date();
-
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const year = today.getFullYear();
-
-        return `${day}.${month}.${year}`;
     }
 
     checkClaimTypeForWork() {
@@ -124,7 +100,6 @@ export default class Hot_claimFormSummary extends LightningElement {
 
             return item;
         });
-        console.log('Formatted timeInputValues:', JSON.stringify(this.timeInputValues));
     }
 
 
@@ -143,14 +118,8 @@ export default class Hot_claimFormSummary extends LightningElement {
             }
             return item;
         });
-
-        console.log('timeInputValues weekday: ', this.timeInputValues);
     }
 
-
-    @api getComponentValues() {
-        return this.componentValues;
-    }
     @api
     setFieldValues() {
         this.template.querySelectorAll('c-input').forEach((element) => {
@@ -160,14 +129,6 @@ export default class Hot_claimFormSummary extends LightningElement {
     @api
     getFieldValues() {
         return this.fieldValues;
-    }
-    @api
-    getTimeInput() {
-        return this.template.querySelector('c-hot_claim-line-time-input').getTimeInput();
-    }
-    @api
-    getNewLOSInput() {
-        return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
     }
 
 }

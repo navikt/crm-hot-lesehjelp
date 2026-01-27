@@ -14,7 +14,7 @@
                 <p><strong>Type lesehjelp</strong></p>
                 <p class="hr-line">{fieldValues.claimType}</p>
 
-                <!-- Show work claim type -->
+                <!-- Show Employer claim type -->
                 <template lwc:if={isClaimTypeWork}>
                     <p><strong>Organisasjon</strong></p>
                     <p class="hr-line">{fieldValues.employerName}</p>
@@ -24,13 +24,12 @@
                     <p class="hr-line">{fieldValues.employerExpensesPerHour}</p>
                 </template>
 
-                <p><strong>Innsending dato</strong></p>
-                <p class="hr-line">{currentDate}</p>
                 <p><strong>Lesehjelp for</strong></p>
                 <p class="hr-line-last">{fieldValues.userName}</p>
                 <br />
             </div>
-            <!-- multiple dates for claims-->
+
+            <!-- Claim lines -->
             <div class="claim-line-container">
                 <template for:each={timeInputValues} for:item="cli">
                     <div key={cli.id}>
