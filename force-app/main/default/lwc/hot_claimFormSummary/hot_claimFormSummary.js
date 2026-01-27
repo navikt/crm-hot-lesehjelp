@@ -3,7 +3,6 @@ import { LightningElement, api } from 'lwc';
 export default class Hot_claimFormSummary extends LightningElement {
     @api parentClaimComponentValues;
     @api parentFieldValues;
-    // @api timeInput;
     @api claim;
     @api isLos;
 
@@ -19,6 +18,18 @@ export default class Hot_claimFormSummary extends LightningElement {
         employerName: '',
         organizationNumber: '',
         employerExpensesPerHour: ''
+    }
+
+    _timeInput;
+    @api
+    set timeInput(value) {
+        this._timeInput = value;
+        if (value && Array.isArray(value) && value.length > 0) {
+            this.handleFieldValueChange();
+        }
+    }
+    get timeInput() {
+        return this._timeInput;
     }
 
 
@@ -158,17 +169,5 @@ export default class Hot_claimFormSummary extends LightningElement {
     getNewLOSInput() {
         return this.template.querySelector('c-hot_new-l-o-s-form').getNewLOSInput();
     }
-
-    _timeInput;
-@api
-set timeInput(value) {
-    this._timeInput = value;
-    if (value && Array.isArray(value) && value.length > 0) {
-        this.handleFieldValueChange(); // recompute everything when parent sends new timeInput
-    }
-}
-get timeInput() {
-    return this._timeInput;
-}
 
 }
