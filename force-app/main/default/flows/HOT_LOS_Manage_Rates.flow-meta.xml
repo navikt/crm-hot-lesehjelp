@@ -10,6 +10,16 @@
         <flowTransactionModel>Automatic</flowTransactionModel>
         <nameSegment>HOT_ReCalculateClaimsPayoutBatch</nameSegment>
     </actionCalls>
+    <actionCalls>
+        <name>recalculateLesekravAfterNewTravelRate</name>
+        <label>recalculateLesekravAfterNewTravelRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>HOT_ReCalculateClaimsPayoutBatch</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <nameSegment>HOT_ReCalculateClaimsPayoutBatch</nameSegment>
+    </actionCalls>
     <apiVersion>65.0</apiVersion>
     <assignments>
         <name>addInactiveToList</name>
@@ -24,7 +34,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>updateInactive</targetReference>
+            <targetReference>updateExistingRatesLoop</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -40,7 +50,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>loopRates</targetReference>
+            <targetReference>setValidTo</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -83,15 +93,82 @@
                 <elementReference>loopRates.Name</elementReference>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>addRateToCollection</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assignTravelRateValues</name>
+        <label>assignTravelRateValues</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>validTo</assignToReference>
+            <assignToReference>rate.Rate__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>validToFormula</elementReference>
+                <elementReference>getExisitingTravelRate.Rate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rate.isActive__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rate.Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>getExisitingTravelRate.Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rate.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>getExisitingTravelRate.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rate.ValidFrom__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>getExisitingTravelRate.ValidFrom__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>addRateToCollection</targetReference>
+            <targetReference>createNewTravelRate</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assignValuesToExistingRate</name>
+        <label>assignValuesToExistingRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>getExisitingTravelRate.isActive__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getExisitingTravelRate.ValidTo__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>validToFormulaSingle</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getExisitingTravelRate.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>{!getExisitingTravelRate.Name} - INAKTIV</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>UpdateExistingTravelRate</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -112,7 +189,7 @@
     </assignments>
     <assignments>
         <name>setExistingToInactive</name>
-        <label>setExistingToInactive</label>
+        <label>setExistingToInactive&apos;</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
@@ -149,13 +226,37 @@
             <assignToReference>validTo</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>rate.ValidFrom__c</elementReference>
+                <elementReference>validToFormula</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>finishScreen</targetReference>
+            <targetReference>loopRates</targetReference>
         </connector>
     </assignments>
+    <choices>
+        <name>Alle</name>
+        <choiceText>Alle</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Alle</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Kj_regodtgj_relse</name>
+        <choiceText>Kjøregodtgjørelse</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Kjøregodtgjørelse</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>vrige_satser</name>
+        <choiceText>Øvrige satser</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Øvrige satser</stringValue>
+        </value>
+    </choices>
     <decisions>
         <name>Are_there_existing_rates</name>
         <label>Are there existing rates?</label>
@@ -172,13 +273,38 @@
                 <leftValueReference>sizeOfActiveRates</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <numberValue>4.0</numberValue>
+                    <numberValue>3.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>updateOthersOrTravelScreen</targetReference>
+            </connector>
+            <label>Active rates found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>UpdateRatesOrTravelRates</name>
+        <label>UpdateRatesOrTravelRates</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>getExisitingTravelRate</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Travel rate</defaultConnectorLabel>
+        <rules>
+            <name>Other_rates</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>updateOthersOrTravelPicklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>vrige_satser</elementReference>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>loopRates</targetReference>
             </connector>
-            <label>Active rates found</label>
+            <label>Other rates</label>
         </rules>
     </decisions>
     <dynamicChoiceSets>
@@ -194,6 +320,11 @@
         <name>validToFormula</name>
         <dataType>Date</dataType>
         <expression>{!loopRates.ValidFrom__c} - 1</expression>
+    </formulas>
+    <formulas>
+        <name>validToFormulaSingle</name>
+        <dataType>Date</dataType>
+        <expression>{!getExisitingTravelRate.ValidFrom__c} -1</expression>
     </formulas>
     <interviewLabel>HOT LOS Manage Rates {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Behandle satser for Lese- og sekretærhjelp</label>
@@ -236,7 +367,7 @@
             <targetReference>setExistingToInactive</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>recalculateLesekrav</targetReference>
+            <targetReference>updateInactive</targetReference>
         </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
@@ -277,12 +408,22 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>setValidTo</targetReference>
+            <targetReference>finishScreen</targetReference>
         </connector>
         <faultConnector>
             <targetReference>errorScreen</targetReference>
         </faultConnector>
         <inputReference>newRates</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>createNewTravelRate</name>
+        <label>createNewTravelRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>assignValuesToExistingRate</targetReference>
+        </connector>
+        <inputReference>rate</inputReference>
     </recordCreates>
     <recordLookups>
         <name>getActiveRates</name>
@@ -301,17 +442,62 @@
                 <booleanValue>true</booleanValue>
             </value>
         </filters>
+        <filters>
+            <field>Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Kjøregodtgjørelse</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>HOT_Rate__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>getExisitingTravelRate</name>
+        <label>getExisitingTravelRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>updateTravelRateScreen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Kjøregodtgjørelse</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>isActive__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>HOT_Rate__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>UpdateExistingTravelRate</name>
+        <label>UpdateExistingTravelRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>finishScreenTravelRate</targetReference>
+        </connector>
+        <inputReference>getExisitingTravelRate</inputReference>
+    </recordUpdates>
     <recordUpdates>
         <name>updateInactive</name>
         <label>updateInactive</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>updateExistingRatesLoop</targetReference>
+            <targetReference>recalculateLesekrav</targetReference>
         </connector>
         <inputReference>inactiveRate</inputReference>
     </recordUpdates>
@@ -418,6 +604,25 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>finishScreenTravelRate</name>
+        <label>finishScreenTravelRate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>recalculateLesekravAfterNewTravelRate</targetReference>
+        </connector>
+        <fields>
+            <name>finishTravelRateScreenText</name>
+            <fieldText>&lt;p&gt;Ny satser er lagt til og aktivert. Den &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;eksisterende &lt;/span&gt;kjøregodtgjørelsesatsen er satt til &lt;strong&gt;inaktiv&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Lesekrav med dato etter nytt virkningstidspunkt vil bli rekalkulert og sendt til utbetaling.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>introScreen</name>
         <label>introScreen</label>
         <locationX>0</locationX>
@@ -513,6 +718,65 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
+    <screens>
+        <name>updateOthersOrTravelScreen</name>
+        <label>updateOthersOrTravelScreen</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>UpdateRatesOrTravelRates</targetReference>
+        </connector>
+        <fields>
+            <name>updateOthersOrTravelText</name>
+            <fieldText>&lt;p&gt;Vil du oppdatere kjøregodtgjørelse eller øvrige satser?&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>updateOthersOrTravelPicklist</name>
+            <choiceReferences>vrige_satser</choiceReferences>
+            <choiceReferences>Kj_regodtgj_relse</choiceReferences>
+            <dataType>String</dataType>
+            <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>updateTravelRateScreen</name>
+        <label>updateTravelRateScreen</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>assignTravelRateValues</targetReference>
+        </connector>
+        <fields>
+            <name>updateTravelRate</name>
+            <fieldText>&lt;p&gt;Oppdater &lt;strong&gt;{!getExisitingTravelRate.Name}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <fieldType>ObjectProvided</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <objectFieldReference>getExisitingTravelRate.Rate__c</objectFieldReference>
+        </fields>
+        <fields>
+            <fieldType>ObjectProvided</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <objectFieldReference>getExisitingTravelRate.ValidFrom__c</objectFieldReference>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -520,7 +784,7 @@
             <targetReference>introScreen</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>inactiveRate</name>
         <dataType>SObject</dataType>
