@@ -147,6 +147,12 @@
                 <identifier>RecordAutoApproved_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Saksbehandlermerknad__c</fieldItem>
+                <identifier>RecordLOS_Saksbehandlesmerknad__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-f3bb207f-cc3e-4c81-9e89-ccc7fd5339e3</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -402,6 +408,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pay__c</fieldItem>
                 <identifier>RecordPay__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DeltaAfterAdjustment__c</fieldItem>
+                <identifier>RecordDeltaAfterAdjustment_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-03a6c13d-ae83-4fe1-81d1-57786fd00ec9</name>

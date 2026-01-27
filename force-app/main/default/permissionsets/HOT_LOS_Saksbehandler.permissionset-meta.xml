@@ -338,6 +338,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.Saksbehandlermerknad__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Claim__c.Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
