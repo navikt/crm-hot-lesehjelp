@@ -9,8 +9,10 @@ import { getParametersFromURL } from 'c/hot_lesehjelpURIDecoder';
 import icons from '@salesforce/resourceUrl/icons';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
+import icons2 from '@salesforce/resourceUrl/ikoner';
 
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
+    exitCrossIcon = icons2 + '/Close/Close.svg';
     erroricon = icons + '/erroricon.svg';
     @track claimTypeChosen = false;
     @track fieldValues = {};
@@ -146,6 +148,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             this.spin = true;
             this.template.querySelector('[data-id="saveButton"]').disabled = true;
             this.hideFormAndShowLoading();
+            this.closeFormSummaryModal();
             this.submitForm();
         }
     }
@@ -153,13 +156,14 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     handleValidation() {
         let hasErrors = false;
         this.template.querySelectorAll('.subform').forEach((subForm) => {
-            hasErrors += subForm.validateFields();
+            hasErrors = hasErrors || subForm.validateFields();
         });
         this.template.querySelectorAll('.checkbox').forEach((checkbox) => {
-            hasErrors += checkbox.validationHandler();
+            hasErrors = hasErrors || checkbox.validationHandler();
         });
         return hasErrors;
     }
+
 
     getFieldValuesFromSubForms() {
         this.template.querySelectorAll('.subform').forEach((subForm) => {
@@ -238,6 +242,90 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             });
         }
     }
+
+    showFormSummaryModal() {
+        const dialog = this.template.querySelector('.modal-form-summary');
+        dialog.showModal();
+        dialog.focus();
+    }
+
+    closeFormSummaryModal() {
+        const dialog = this.template.querySelector('.modal-form-summary');
+        dialog.close();
+    }
+
+    closeFormSummaryModal() {
+        const dialog = this.template.querySelector('.modal-form-summary');
+        if (dialog) dialog.close();
+
+        this.timeInputValues = [];
+        this.showForm = false;
+    }
+
+    timeInputValues = [];
+    showForm = false;
+    
+    handleNextFormSummary() {
+    this.getComponentValues();
+    this.getFieldValuesFromSubForms();
+
+    const hasErrors = this.handleValidation();
+    if (hasErrors) {
+        console.warn('Validation failed, cannot proceed');
+        return;
+    }
+
+    const reqForm = this.template.querySelector('c-hot_claim-form');
+    if (!reqForm) {
+        console.warn('No claim form found');
+        return;
+    }
+
+    let timeInput = reqForm.getTimeInput() || [];
+    if (timeInput.length === 0) {
+        console.warn('No time input data');
+        return;
+    }
+
+    const selectedValueOnEmployer = this.componentValues.onEmployerRadioButtons?.find(
+        (option) => option.checked
+    ) || { value: 'false' };
+
+    this.fieldValues.OnEmployer__c =
+        selectedValueOnEmployer.value === 'false' || selectedValueOnEmployer.value === 'null'
+            ? 'false'
+            : selectedValueOnEmployer.value;
+
+
+    timeInput = timeInput.map(item => {
+        const newItem = { ...item };
+
+        if (!newItem.hasTravelTo && !newItem.hasTravelFrom) {
+            newItem.dateTravelTo = null;
+            newItem.startTimeTravelToString = null;
+            newItem.endTimeTravelToString = null;
+            newItem.dateTravelFrom = null;
+            newItem.startTimeTravelFromString = null;
+            newItem.endTimeTravelFromString = null;
+            newItem.travelDistance = null;
+            newItem.travelToFromAddresses = null;
+            newItem.expensesParking = null;
+            newItem.parkingAddress = null;
+            newItem.expensesToll = null;
+            newItem.expensesPublicTransport = null;
+            newItem.publicTransportRoute = null;
+        }
+
+        return newItem;
+    });
+
+    this.timeInputValues = timeInput;
+    this.fieldValues = { ...this.fieldValues };
+    this.showForm = true;
+    this.showFormSummaryModal();
+}
+
+
 
     submitForm() {
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
@@ -339,7 +427,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             }
         }
     }
-    signingClaim() {}
+    signingClaim() { }
 
     goToMyClaims() {
         this[NavigationMixin.Navigate]({
