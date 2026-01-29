@@ -234,7 +234,8 @@ public without sharing class HOT_ClaimLineItemController {
         ];
 
         for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
-            Date claimDate = claimLineItem.StartTime__c.date();
+            // Bruk lokal dato (unngår timezone-feil rundt midnatt)
+            Date claimDate = Date.valueOf(claimLineItem.StartTime__c.format('yyyy-MM-dd'));
             DateTime claimDateTime = claimLineItem.StartTime__c;
 
             Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
@@ -263,22 +264,25 @@ public without sharing class HOT_ClaimLineItemController {
             Boolean isHoliday = false;
             Boolean isDayBeforeHoliday = false;
 
+            // Brukes for day-before-sjekk (håndterer måned/år automatisk)
+            Date nextDay = claimDate.addDays(1);
+
             for (Holiday holiday : holidayList) {
                 Date holidayDate = holiday.ActivityDate;
 
                 if (holiday.RecurrenceType == 'RecursYearly') {
-                    // Samme dag + måned
+                    // Holiday: samme dag + måned (Ignorer år)
                     if (holidayDate.month() == claimDate.month() && holidayDate.day() == claimDate.day()) {
                         isHoliday = true;
                     }
 
-                    // Dagen før recurring holiday
-                    Date recurringThisYear = Date.newInstance(claimDate.year(), holidayDate.month(), holidayDate.day());
-                    if (recurringThisYear.addDays(-1) == claimDate) {
+                    // Day before holiday:
+                    // claimDate + 1 dag har samme måned + dag som holiday
+                    if (holidayDate.month() == nextDay.month() && holidayDate.day() == nextDay.day()) {
                         isDayBeforeHoliday = true;
                     }
                 } else {
-                    // Ikke-recurring holiday
+                    // Ikke-recurring holiday (må matche eksakt dato)
                     if (holidayDate == claimDate) {
                         isHoliday = true;
                     }
