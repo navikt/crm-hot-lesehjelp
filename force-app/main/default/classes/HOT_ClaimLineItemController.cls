@@ -227,18 +227,23 @@ public without sharing class HOT_ClaimLineItemController {
         return claimLineItemsToReturn;
     }
     public static void calculateHoursOnRates(List<HOT_ClaimLineItem__c> claimLineItems) {
-        List<Holiday> holidayList = [SELECT ActivityDate, RecurrenceType FROM Holiday];
-        Set<Date> holidayDates = new Set<Date>();
-        for (Holiday holiday : holidayList) {
-            holidayDates.add(holiday.ActivityDate);
-        }
+        // Hent alle holidays
+        List<Holiday> holidayList = [
+            SELECT ActivityDate, RecurrenceType
+            FROM Holiday
+        ];
+
         for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
-            Date claimDate = claimLineItem.StartTime__c.date();
+            // Bruk lokal dato (unngår timezone-feil rundt midnatt)
+            Date claimDate = Date.valueOf(claimLineItem.StartTime__c.format('yyyy-MM-dd'));
             DateTime claimDateTime = claimLineItem.StartTime__c;
+
             Boolean isSunday = (claimDateTime.format('EEEE') == 'Sunday');
+            Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
 
             Integer travelToMinutes = 0;
             Integer travelFromMinutes = 0;
+
             if (claimLineItem.HasTravelTo__c) {
                 travelToMinutes += calculateTravelMinutes(
                     claimLineItem.TravelToStartTime__c,
@@ -251,22 +256,47 @@ public without sharing class HOT_ClaimLineItemController {
                     claimLineItem.TravelFromEndTime__c
                 );
             }
+
             Integer totalTravelMinutes = travelToMinutes + travelFromMinutes;
             Integer roundedTotalTravelMinutes = roundMinutes(totalTravelMinutes);
-            Double travelHours = roundedTotalTravelMinutes / 60.0;
-            claimLineItem.TravelHours__c = travelHours;
+            claimLineItem.TravelHours__c = roundedTotalTravelMinutes / 60.0;
 
-            if (holidayDates.contains(claimDate) || isSunday) {
-                calculateHours(claimLineItem, true, false);
-            } else {
-                Boolean isSaturday = (claimDateTime.format('EEEE') == 'Saturday');
-                Boolean isDayBeforeHoliday = holidayDates.contains(claimDate.addDays(1));
+            Boolean isHoliday = false;
+            Boolean isDayBeforeHoliday = false;
 
-                if (isSaturday || isDayBeforeHoliday) {
-                    calculateHours(claimLineItem, false, true);
+            // Brukes for day-before-sjekk (håndterer måned/år automatisk)
+            Date nextDay = claimDate.addDays(1);
+
+            for (Holiday holiday : holidayList) {
+                Date holidayDate = holiday.ActivityDate;
+
+                if (holiday.RecurrenceType == 'RecursYearly') {
+                    // Holiday: samme dag + måned (Ignorer år)
+                    if (holidayDate.month() == claimDate.month() && holidayDate.day() == claimDate.day()) {
+                        isHoliday = true;
+                    }
+
+                    // Day before holiday:
+                    // claimDate + 1 dag har samme måned + dag som holiday
+                    if (holidayDate.month() == nextDay.month() && holidayDate.day() == nextDay.day()) {
+                        isDayBeforeHoliday = true;
+                    }
                 } else {
-                    calculateHours(claimLineItem, false, false);
+                    // Ikke-recurring holiday (må matche eksakt dato)
+                    if (holidayDate == claimDate) {
+                        isHoliday = true;
+                    }
+                    if (holidayDate.addDays(-1) == claimDate) {
+                        isDayBeforeHoliday = true;
+                    }
                 }
+            }
+            if (isHoliday || isSunday) {
+                calculateHours(claimLineItem, true, false);
+            } else if (isSaturday || isDayBeforeHoliday) {
+                calculateHours(claimLineItem, false, true);
+            } else {
+                calculateHours(claimLineItem, false, false);
             }
         }
     }
