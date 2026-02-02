@@ -19,8 +19,8 @@ call sf package install --package 04tKB000000Y9AdYAK --no-prompt --installation-
 echo "Installer crm-platform-integration ver. 0.155"
 call sf package install --package 04tQC000000lBhZYAU --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installer crm-hot-felles ver. 0.4"
-call sf package install --package 04tQC0000012rKbYAI --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installer crm-hot-felles ver. 0.6"
+call sf package install --package 04tQC0000013ks9YAA --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Dytter kildekoden til scratch org'en"
 call sf project deploy start
