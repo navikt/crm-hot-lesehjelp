@@ -770,6 +770,14 @@ public without sharing class HOT_ClaimController {
         }
     }
 
+    private static DateTime toLocalNorwegianTime(DateTime utcDateTime) {
+        if (utcDateTime == null)
+            return null;
+        // Formatter i norsk tidssone og parse tilbake til DateTime-objekt
+        String oslo = utcDateTime.format('yyyy-MM-dd HH:mm:ss', 'Europe/Oslo');
+        return DateTime.valueOfGmt(oslo);
+    }
+
     public static void setEntitlementOnClaim(Set<Id> claimIds) {
         List<HOT_Claim__c> claims = [
             SELECT Id, Account__c, Type__c, Entitlement__c
@@ -804,11 +812,15 @@ public without sharing class HOT_ClaimController {
                     // Find earliest start time and latest end time for claim
                     for (HOT_ClaimLineItem__c claimLineItem : claimLineItems) {
                         if (claimLineItem.Claim__c == claim.Id) {
-                            if (earliestStartTime == null || claimLineItem.StartTime__c < earliestStartTime) {
-                                earliestStartTime = claimLineItem.StartTime__c;
+                            // Konverter til norsk tid før vi finner min/max
+                            DateTime startNo = toLocalNorwegianTime(claimLineItem.StartTime__c);
+                            DateTime endNo = toLocalNorwegianTime(claimLineItem.EndTime__c);
+
+                            if (earliestStartTime == null || startNo < earliestStartTime) {
+                                earliestStartTime = startNo;
                             }
-                            if (latestEndTime == null || claimLineItem.EndTime__c > latestEndTime) {
-                                latestEndTime = claimLineItem.EndTime__c;
+                            if (latestEndTime == null || endNo > latestEndTime) {
+                                latestEndTime = endNo;
                             }
                         }
                     }
@@ -921,16 +933,18 @@ public without sharing class HOT_ClaimController {
         ]) {
             entitlementMap.put(entitlement.Id, entitlement);
         }
+
         // Validate claim line items against entitlement periods
         for (HOT_Claim__c claim : updatedClaims) {
             HOT_Entitlement__c entitlement = entitlementMap.get(claim.Entitlement__c);
             List<HOT_ClaimLineItem__c> claimLineItems = claimLineItemMap.get(claim.Id);
             if (claimLineItems != null && claim.Entitlement__c != null) {
                 for (HOT_ClaimLineItem__c cli : claimLineItems) {
-                    if (
-                        cli.StartTime__c < entitlement.FromDate__c ||
-                        cli.EndTime__c > entitlement.ToDate__c.addDays(1)
-                    ) {
+                    // Konverter til norsk tid før sjekk
+                    DateTime startNo = toLocalNorwegianTime(cli.StartTime__c);
+                    DateTime endNo = toLocalNorwegianTime(cli.EndTime__c);
+
+                    if (startNo < entitlement.FromDate__c || endNo > entitlement.ToDate__c.addDays(1)) {
                         claim.addError(
                             'Du kan ikke legge på dette vedtaket. Tidene i kravet er utenfor dette vedtakets periode.'
                         );
