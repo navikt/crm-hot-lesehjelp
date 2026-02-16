@@ -4,7 +4,7 @@
             "path": "force-app",
             "default": true,
             "package": "crm-hot-lesehjelp",
-            "versionNumber": "1.49.0.NEXT",
+            "versionNumber": "1.50.0.NEXT",
             "versionDescription": "",
             "dependencies": [
                 {
@@ -33,7 +33,7 @@
                 },
                 {
                     "package": "crm-hot-felles",
-                    "versionNumber": "0.4.0.LATEST"
+                    "versionNumber": "0.6.0.LATEST"
                 }
             ]
         }
