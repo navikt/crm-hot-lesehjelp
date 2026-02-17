@@ -168,6 +168,7 @@
         <object>Person__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>errorScreen</name>
         <label>errorScreen</label>
