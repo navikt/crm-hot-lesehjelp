@@ -11,5 +11,5 @@
         )</errorConditionFormula>
     <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
     <errorMessage>Du må fjerne haken for &apos;Godkjent av Nav&apos; når status endres fra godkjent
-        til ikke godkjent.</errorMessage>
+        til avslått av Nav.</errorMessage>
 </ValidationRule>
