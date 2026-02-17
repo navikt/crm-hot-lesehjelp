@@ -303,3 +303,4 @@ force-app/main/default/classes/CommunitiesLoginControllerTest.cls-meta.xml
 force-app/main/default/classes/CommunitiesLoginControllerTest.cls
 force-app/main/default/classes/CommunitiesLoginController.cls-meta.xml
 force-app/main/default/classes/CommunitiesLoginController.cls
+manifest/package.xml

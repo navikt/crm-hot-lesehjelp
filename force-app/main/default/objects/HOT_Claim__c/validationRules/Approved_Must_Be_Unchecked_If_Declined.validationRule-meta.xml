@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Must_Be_Unchecked_If_Declined</fullName>
+    <active>true</active>
+    <description>Approved by Nav må være unchecked om status endres til avslått av nav</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(Status__c),
+    ISPICKVAL(PRIORVALUE(Status__c), &quot;Approved by NAV&quot;),
+    ISPICKVAL(Status__c, &quot;Declined by NAV&quot;),
+    ApprovedByNAV__c = TRUE
+)</errorConditionFormula>
+    <errorDisplayField>ApprovedByNAV__c</errorDisplayField>
+    <errorMessage>Du må fjerne haken for &apos;Approved by NAV&apos; når status endres fra godkjent til ikke godkjent.</errorMessage>
+</ValidationRule>

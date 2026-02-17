@@ -20,6 +20,13 @@
                 <elementReference>DeclineClaimReason</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getClaim.ApprovedByNAV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>declineUpdateClaim</targetReference>
         </connector>
@@ -398,7 +405,7 @@
             <targetReference>getClaim</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
