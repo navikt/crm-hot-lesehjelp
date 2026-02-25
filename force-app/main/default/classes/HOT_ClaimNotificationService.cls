@@ -28,6 +28,8 @@ public without sharing class HOT_ClaimNotificationService {
             WHERE Id IN (SELECT userorgroupid FROM groupmember WHERE group.name = 'HOT LOS Saksbehandler')
         ];
 
+        Id notificationTypeId = getCustomNotificationType('HOT_ClaimNotification').Id;
+
         for (Id accountId : accountIds) {
             if (!entitledAccountIds.contains(accountId)) {
                 HOT_Claim__c claim = claimMap.get(accountId);
@@ -38,7 +40,7 @@ public without sharing class HOT_ClaimNotificationService {
                         Messaging.CustomNotification notification = new Messaging.CustomNotification();
                         notification.setTitle('Lesehjelp har sendt inn krav på en bruker som ikke har noen vedtak');
                         notification.setBody('Legg på vedtak på brukeren');
-                        notification.setNotificationTypeId(getCustomNotificationType('HOT_ClaimNotification').Id);
+                        notification.setNotificationTypeId(notificationTypeId);
                         notification.setTargetId(claim.Id);
                         sendNotification(notification, recipients, (SObject) claim);
                     }
@@ -60,6 +62,8 @@ public without sharing class HOT_ClaimNotificationService {
             WHERE Id IN (SELECT userorgroupid FROM groupmember WHERE group.name = 'HOT LOS Saksbehandler')
         ];
 
+        Id notificationTypeId = getCustomNotificationType('HOT_ClaimNotification').Id;
+
         for (HOT_Claim__c claim : claims) {
             for (User user : navUsers) {
                 Set<String> recipients = new Set<String>();
@@ -67,7 +71,7 @@ public without sharing class HOT_ClaimNotificationService {
                 Messaging.CustomNotification notification = new Messaging.CustomNotification();
                 notification.setTitle('Lesehjelp uten ressursnummer');
                 notification.setBody('Lesehjelp uten ressursnummer har sendt inn et nytt krav');
-                notification.setNotificationTypeId(getCustomNotificationType('HOT_ClaimNotification').Id);
+                notification.setNotificationTypeId(notificationTypeId);
                 notification.setTargetId(claim.Id);
                 sendNotification(notification, recipients, (SObject) claim);
             }
