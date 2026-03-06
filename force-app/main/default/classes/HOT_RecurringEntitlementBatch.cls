@@ -120,6 +120,8 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
             FROM User
             WHERE Id IN (SELECT userorgroupid FROM groupmember WHERE group.name = 'HOT LOS Saksbehandler')
         ];
+        CustomNotificationType notificationType = getCustomNotificationType('HOT_RecurringEntitlementJob');
+
         for (User user : navUsers) {
             Set<String> recipients = new Set<String>();
             recipients.add(user.Id);
@@ -135,7 +137,7 @@ public class HOT_RecurringEntitlementBatch implements Database.Batchable<sObject
                     '\nAntall vedtak ikke opprettet pga overlappende tider: ' +
                     notCreatedDueToOverlapCount
             );
-            notification.setNotificationTypeId(getCustomNotificationType('HOT_RecurringEntitlementJob').Id);
+            notification.setNotificationTypeId(notificationType.Id);
             String landingpage =
                 '{' +
                 '  "type": "standard__objectPage", ' +
