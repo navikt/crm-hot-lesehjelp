@@ -26,7 +26,7 @@ public with sharing class HOT_LOS_NotifyOnNewFile {
         List<NotificationContext> contextList = new List<NotificationContext>();
 
         CustomNotificationType notificationType = [
-            SELECT Id, DeveloperName
+            SELECT Id
             FROM CustomNotificationType
             WHERE DeveloperName = 'HOT_NotifyLOSSaksbehandler'
             LIMIT 1
