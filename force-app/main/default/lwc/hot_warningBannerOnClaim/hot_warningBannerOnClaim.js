@@ -25,7 +25,7 @@ export default class Hot_warningBannerOnClaim extends LightningElement {
                     ? this.record.Entitlement__r.EntitledHoursUsed__c
                     : null;
                 this.remainingTimeSum = entitledHours - entitledHoursUsed;
-                if (this.record.TotalHours__c >= this.remainingTimeSum) {
+                if (this.record.TotalHours__c > this.remainingTimeSum) {
                     this.exceedsEntitlementHours = true;
                 } else {
                     this.exceedsEntitlementHours = false;
