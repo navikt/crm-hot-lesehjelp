@@ -8,6 +8,21 @@
             "versionDescription": "",
             "dependencies": [
                 {
+                    "package": "platform-data-model",
+                    "versionNumber": "0.1.33.LATEST",
+                    "branch": ""
+                },
+                {
+                    "package": "custom-metadata-dao",
+                    "versionNumber": "0.1.33.LATEST",
+                    "branch": ""
+                },
+                {
+                    "package": "custom-permission-helper",
+                    "versionNumber": "0.1.33.LATEST",
+                    "branch": ""
+                },
+                {
                     "package": "crm-platform-base",
                     "versionNumber": "0.270.0.LATEST"
                 },
@@ -18,6 +33,18 @@
                 {
                     "package": "crm-henvendelse-base",
                     "versionNumber": "0.31.0.LATEST"
+                },
+                         {
+                    "package": "platform-data-model",
+                    "versionNumber": "0.1.2.LATEST"
+                },
+                {
+                    "package": "custom-metadata-dao",
+                    "versionNumber": "0.1.2.LATEST"
+                },
+                {
+                    "package": "custom-permission-helper",
+                    "versionNumber": "0.1.2.LATEST"
                 },
                 {
                     "package": "crm-platform-integration",
@@ -43,6 +70,9 @@
     "sourceApiVersion": "59.0",
     "packageAliases": {
         "crm-hot-lesehjelp": "0Ho7U0000004CApSAM",
+        "platform-data-model": "0HoKB00000000010AA",
+        "custom-metadata-dao": "0HoKB000000000B0AQ",
+        "custom-permission-helper": "0HoKB000000000f0AA",
         "crm-platform-base": "0Ho2o0000008ORmCAM",
         "crm-community-base": "0Ho2o0000008OSzCAM",
         "crm-platform-access-control": "0Ho2o0000008OR3CAM",
@@ -50,5 +80,10 @@
         "crm-henvendelse-base": "0Ho7U000000000kSAA",
         "crm-shared-flowComponents": "0Ho2o000000fxYJCAY",
         "crm-hot-felles": "0HoQC00000005qv0AA"
+    },
+       "packageKeyConfig": {
+        "platform-data-model": false,
+        "custom-metadata-dao": false,
+        "custom-permission-helper": false
     }
 }
