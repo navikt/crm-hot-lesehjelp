@@ -12,6 +12,9 @@ sf package install --package 04tQC000001C7bRYAS --no-prompt --wait 30 --publish-
 # Installer custom-permission-helper ver. 0.1.47
 sf package install --package 04tQC000001C7d3YAC --no-prompt --wait 30 --publish-wait 30
 
+# Installer feature-toggle ver. 0.1.48
+sf package install --package 04tQC000001C7jVYAS --no-prompt --wait 30 --publish-wait 30
+
 # Installer crm-platform-base ver. 0.305
 sf package install --package 04tQC000001JMgzYAG --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 

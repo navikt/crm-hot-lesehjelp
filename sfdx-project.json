@@ -23,6 +23,11 @@
                     "branch": ""
                 },
                 {
+                    "package": "feature-toggle",
+                    "versionNumber": "0.1.48.LATEST",
+                    "branch": ""
+                },
+                {
                     "package": "crm-platform-base",
                     "versionNumber": "0.305.0.LATEST"
                 },
@@ -58,6 +63,7 @@
     "sourceApiVersion": "59.0",
     "packageAliases": {
         "crm-hot-lesehjelp": "0Ho7U0000004CApSAM",
+        "feature-toggle": "0HoKB000000000V0AQ",
         "platform-data-model": "0HoKB00000000010AA",
         "custom-metadata-dao": "0HoKB000000000B0AQ",
         "custom-permission-helper": "0HoKB000000000f0AA",
@@ -72,6 +78,7 @@
     "packageKeyConfig": {
         "platform-data-model": false,
         "custom-metadata-dao": false,
-        "custom-permission-helper": false
+        "custom-permission-helper": false,
+        "feature-toggle": false
     }
 }
