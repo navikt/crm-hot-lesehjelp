@@ -2,13 +2,6 @@
     <div class="content">
         <div class="info-container">
             <div class="welcomeName"><c-hot_welcome-name></c-hot_welcome-name></div>
-            <div class="welcomeAlerts">
-                <div class="alerts">
-                    <a if:true={waitingClaims} href="" class="alert"
-                        ><c-alert-banner type="Warning" message="Du har krav som må godkjennes."></c-alert-banner
-                    ></a>
-                </div>
-            </div>
         </div>
         <div class="color-container" if:false={hasDecisions}>
             <div class="undertittel">
