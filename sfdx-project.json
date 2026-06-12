@@ -29,11 +29,11 @@
                 },
                 {
                     "package": "crm-community-base",
-                    "versionNumber": "0.121.0.LATEST"
+                    "versionNumber": "0.145.0.LATEST"
                 },
                 {
                     "package": "crm-hot-felles",
-                    "versionNumber": "0.6.0.LATEST"
+                    "versionNumber": "0.15.0.LATEST"
                 }
             ]
         }
