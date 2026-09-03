@@ -384,40 +384,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ProcessedRate__c</fieldItem>
-                <identifier>RecordProcessedRate_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ReProcessedRate__c</fieldItem>
-                <identifier>RecordReProcessedRate_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pay__c</fieldItem>
                 <identifier>RecordPay__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.DeltaAfterAdjustment__c</fieldItem>
-                <identifier>RecordDeltaAfterAdjustment_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-03a6c13d-ae83-4fe1-81d1-57786fd00ec9</name>
