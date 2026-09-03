@@ -47,11 +47,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.DeltaAfterAdjustment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.EndTime__c</field>
         <readable>true</readable>
@@ -212,11 +207,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_Claim__c.DeltaAfterAdjustment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.EmployerExpensesPerHour__c</field>
         <readable>true</readable>
@@ -283,17 +273,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Claim__c.ProcessedRate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>HOT_Claim__c.Processed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Claim__c.ReProcessedRate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -304,6 +284,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Saksbehandlermerknad__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.SentForPayementDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -438,31 +423,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>HOT_Rate__c.Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Rate__c.Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Rate__c.ValidFrom__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Rate__c.ValidTo__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>HOT_Rate__c.isActive__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Person__c.HOT_LOS_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -545,15 +505,6 @@
         <object>HOT_Entitlement__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>HOT_Rate__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
     <tabSettings>
         <tab>HOT_ClaimLineItem__c</tab>
         <visibility>Visible</visibility>
@@ -564,10 +515,6 @@
     </tabSettings>
     <tabSettings>
         <tab>HOT_Entitlement__c</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
-    <tabSettings>
-        <tab>HOT_Rate__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
