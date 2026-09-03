@@ -129,28 +129,6 @@ List<HOT_Entitlement__c> entitlements = new List<HOT_Entitlement__c>{
 };
 insert entitlements;
 
-// Rates for the people
-List<HOT_Rate__c> oldRates = new List<HOT_Rate__c>{
-    new HOT_Rate__c(Name = 'Dagsats - IKKE AKTIV', Type__c = 'Dag', Rate__c = 200.50 * 0.9,
-        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
-    new HOT_Rate__c(Name = 'Kveld/helgesats - IKKE AKTIV', Type__c = 'Kveld/helg', Rate__c = 450.50 * 0.9,
-        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
-    new HOT_Rate__c(Name = 'Reisetid - IKKE AKTIV', Type__c = 'Reisetid', Rate__c = 50.70 * 0.9,
-        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false),
-    new HOT_Rate__c(Name = 'Kjøregodtgjørelse - IKKE AKTIV', Type__c = 'Kjøregodtgjørelse', Rate__c = 5.00 * 0.9,
-        ValidFrom__c = validFrom.addYears(-1), ValidTo__c = validTo, isActive__c = false)
-        };
-
-List<HOT_Rate__c> activeRates = new List<HOT_Rate__c>{
-    new HOT_Rate__c(Name = 'Dagsats', Type__c = 'Dag', Rate__c = 200.50, ValidFrom__c = validFrom, isActive__c = true),
-    new HOT_Rate__c(Name = 'Kveld/helgesats', Type__c = 'Kveld/helg', Rate__c = 450.50, ValidFrom__c = validFrom, isActive__c = true),
-    new HOT_Rate__c(Name = 'Reisetid', Type__c = 'Reisetid', Rate__c = 50.70, ValidFrom__c = validFrom, isActive__c = true),
-    new HOT_Rate__c(Name = 'Kjøregodtgjørelse', Type__c = 'Kjøregodtgjørelse', Rate__c = 5.00, ValidFrom__c = validFrom, isActive__c = true)
-        };
-
-insert oldRates;
-insert activeRates;
-
 // Now we needeth thau claimeths
 List<HOT_Claim__c> claims = new List<HOT_Claim__c>{
     new HOT_Claim__c(Claimant__c = accountByLastName.get('Solo').Id, Account__c = accountByLastName.get('Skywalker').Id, Entitlement__c = entitlements[0].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = true, Status__c = 'Approved by NAV'),
