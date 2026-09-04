@@ -67,21 +67,21 @@
                                 <p style="padding-bottom: 0.5rem">Lesehjelp for {claim.madeFor}</p>
                                 <c-hot_tag
                                     variant="moderate"
-                                    if:true={claim.isYellowStatus}
+                                    lwc:if={claim.isYellowStatus}
                                     label={claim.ExternalStatus__c}
                                     color="warning"
                                 >
                                 </c-hot_tag>
                                 <c-hot_tag
                                     variant="moderate"
-                                    if:true={claim.isGreenStatus}
+                                    lwc:if={claim.isGreenStatus}
                                     label={claim.ExternalStatus__c}
                                     color="success"
                                 >
                                 </c-hot_tag>
                                 <c-hot_tag
                                     variant="moderate"
-                                    if:true={claim.isRedStatus}
+                                    lwc:if={claim.isRedStatus}
                                     label={claim.ExternalStatus__c}
                                     color="danger"
                                 >

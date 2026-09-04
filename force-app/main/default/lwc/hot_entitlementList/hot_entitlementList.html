@@ -28,7 +28,7 @@
                                         <p>Total tid allerede utbetalt av Nav: {entitlement.totalHoursMinutesUsed}.</p>
                                         <c-hot_tag
                                             variant="moderate"
-                                            if:true={entitlement.isRecurring}
+                                            lwc:if={entitlement.isRecurring}
                                             label="Vedtaket vil bli fornyet hvert år etter perioden er over"
                                             color="info"
                                         >
