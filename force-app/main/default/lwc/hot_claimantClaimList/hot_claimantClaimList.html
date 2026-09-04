@@ -65,10 +65,27 @@
                                 </div>
 
                                 <p style="padding-bottom: 0.5rem">Lesehjelp for {claim.madeFor}</p>
-
-                                <p if:true={claim.isYellowStatus} class="status yellow">{claim.ExternalStatus__c}</p>
-                                <p if:true={claim.isGreenStatus} class="status green">{claim.ExternalStatus__c}</p>
-                                <p if:true={claim.isRedStatus} class="status red">{claim.ExternalStatus__c}</p>
+                                <c-hot_tag
+                                    variant="moderate"
+                                    if:true={claim.isYellowStatus}
+                                    label={claim.ExternalStatus__c}
+                                    color="warning"
+                                >
+                                </c-hot_tag>
+                                <c-hot_tag
+                                    variant="moderate"
+                                    if:true={claim.isGreenStatus}
+                                    label={claim.ExternalStatus__c}
+                                    color="success"
+                                >
+                                </c-hot_tag>
+                                <c-hot_tag
+                                    variant="moderate"
+                                    if:true={claim.isRedStatus}
+                                    label={claim.ExternalStatus__c}
+                                    color="danger"
+                                >
+                                </c-hot_tag>
                             </button>
                         </template>
                     </div>
@@ -93,16 +110,12 @@
                     >
                     </c-alertdialog>
                     <section>
-                        <div
+                        <c-hot_local-alert
                             if:true={accountHasNoPhoneNumber}
-                            class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
-                        >
-                            <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-                            <div class="alertstripe__tekst">
-                                Vi mangler kontaktinformasjon til personen du har vært lesehjelp for, som da ikke har
-                                fått SMS om at du har sendt inn et nytt krav.
-                            </div>
-                        </div>
+                            type="warning"
+                            title="Mangler kontaktinformasjon"
+                            content="Vi mangler kontaktinformasjon til personen du har vært lesehjelp for, som da ikke har fått SMS om at du har sendt inn et nytt krav."
+                        ></c-hot_local-alert>
                         <div>
                             <h2 id="comment-header-id" class="typo-undertittel">Innholdet i {recordName}</h2>
                         </div>
