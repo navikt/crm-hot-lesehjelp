@@ -55,7 +55,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
-                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.FirstName),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r?.FirstName),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c)
@@ -83,7 +83,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r?.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -107,7 +107,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r?.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -128,7 +128,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r?.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -151,7 +151,7 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                     ...claim,
                     created: this.formatDateTime(claim.CreatedDate),
                     madeBy: this.setMadeBy(claim.OnEmployer__c),
-                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r.FirstName),
+                    madeFor: this.setMadeFor(claim.UserName__c, claim.Account__r?.FirstName),
                     isYellowStatus: this.checkYellowStatus(claim.ExternalStatus__c),
                     isGreenStatus: this.checkGreenStatus(claim.ExternalStatus__c),
                     isRedStatus: this.checkRedStatus(claim.ExternalStatus__c)
@@ -278,12 +278,12 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                 ...x,
                 created: this.formatDateTime(x.CreatedDate),
                 madeBy: this.setMadeBy(x.OnEmployer__c),
-                madeFor: this.setMadeFor(x.UserName__c, x.Account__r.FirstName),
+                madeFor: this.setMadeFor(x.UserName__c, x.Account__r?.FirstName),
                 isYellowStatus: this.checkYellowStatus(x.ExternalStatus__c),
                 isGreenStatus: this.checkGreenStatus(x.ExternalStatus__c),
                 isRedStatus: this.checkRedStatus(x.ExternalStatus__c),
                 accountHasNoPhoneNumber: this.checkAccountHasNoPhoneNumber(
-                    x.Account__r.CRM_Person__r.INT_KrrMobilePhone__c
+                    x.Account__r?.CRM_Person__r?.INT_KrrMobilePhone__c
                 )
             }));
             this.claims.sort((a, b) => new Date(b.CreatedDate) - new Date(a.CreatedDate));
