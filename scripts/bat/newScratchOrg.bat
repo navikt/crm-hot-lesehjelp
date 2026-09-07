@@ -7,8 +7,8 @@ call sf package install --package 04tQC000001UGhtYAG --no-prompt --installation-
 echo "Installerer crm-shared-flowComponents ver. 0.4"
 call sf package install --package 04t7U0000008qz4QAA --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installer crm-platform-access-control ver. 0.160"
-call sf package install --package 04tKB000000YBLfYAO --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installer crm-platform-access-control ver. 0.178"
+call sf package install --package 04tQC000001WWfJYAW --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Installer crm-community-base ver. 0.121"
 call sf package install --package 04tQC000000ieEfYAI --no-prompt --installation-key %3 --wait 30 --publish-wait 30
