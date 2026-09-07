@@ -15,10 +15,10 @@ sf package install --package 04tQC0000017QejYAE --no-prompt --wait 30 --publish-
 # Installer feature-toggle ver. 0.1.48
 sf package install --package 04tQC000001C7jVYAS --no-prompt --wait 30 --publish-wait 30
 
-# Installer crm-platform-base ver. 0.305
-sf package install --package 04tQC000001JMgzYAG --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installer crm-platform-base ver. 0.308
+sf package install --package 04tQC000001UGhtYAG --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installer crm-thread-view ver. 0.9
+# Installer crm-thread-view ver. 0.8
 sf package install --package 04tQC0000011athYAA --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
 # Installer crm-journal-utilities ver. 0.55
@@ -32,17 +32,26 @@ sf package install --package 04tQC000001WtgjYAC --no-prompt --installation-key $
 # Installer crm-shared-flowComponents ver. 0.4
 sf package install --package 04t7U0000008qz4QAA --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installer crm-platform-access-control ver. 0.177
-sf package install --package 04tQC000001AGR7YAO --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installer crm-platform-access-control ver. 0.178
+sf package install --package 04tQC000001WWfJYAW --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
 # Installer crm-community-base ver. 0.145
 sf package install --package 04tQC000001MXeHYAW --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installerer crm-henvendelse-base ver. 0.31
-sf package install --package 04tKB000000Y9AdYAK --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installer crm-henvendelse ver. 0.207
+sf package install --package 04tQC000001TjKXYA0 --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
-# Installer crm-platform-integration ver. 0.155
-sf package install --package 04tQC000000lBhZYAU --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+# Installerer crm-henvendelse-base ver. 0.38
+sf package install --package 04tQC000001So7lYAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+
+# Installer crm-platform-integration ver. 0.173
+sf package install --package 04tQC000001Ms4PYAS --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+
+# Installerer crm-shared-user-notification ver. 0.27 
+sf package install --package 04tQC0000012h6jYAA --no-prompt --installation-key $3 --wait 30 --publish-wait 30
+
+# Installerer crm-platform-oppgave ver. 0.84
+sf package install --package 04tQC000001UvwLYAS --no-prompt --installation-key $3 --wait 30 --publish-wait 30
 
 # Installer crm-hot-felles ver. 0.20
 sf package install --package 04tQC000001Y1txYAC --no-prompt --installation-key $3 --wait 30 --publish-wait 30
