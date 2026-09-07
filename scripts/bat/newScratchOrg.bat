@@ -13,14 +13,14 @@ call sf package install --package 04tKB000000YBLfYAO --no-prompt --installation-
 echo "Installer crm-community-base ver. 0.121"
 call sf package install --package 04tQC000000ieEfYAI --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
-echo "Installer crm-henvendelse-base ver. 0.31"
-call sf package install --package 04tKB000000Y9AdYAK --no-prompt --installation-key %3 
+echo "Installer crm-henvendelse-base ver. 0.38"
+call sf package install --package 04tQC000001So7lYAC --no-prompt --installation-key %3 
 
 echo "Installer crm-henvendelse- ver. 0.207"
 call sf package install --package 04tQC000001TjKXYA0 --no-prompt --installation-key %3--wait 30 --publish-wait 30
 
-echo "Installer crm-platform-integration ver. 0.155"
-call sf package install --package 04tQC000000lBhZYAU --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installer crm-platform-integration ver. 0.173"
+call sf package install --package 04tQC000001Ms4PYAS --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Installer crm-hot-felles ver. 0.20"
 call sf package install --package 04tQC000001Y1txYAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
