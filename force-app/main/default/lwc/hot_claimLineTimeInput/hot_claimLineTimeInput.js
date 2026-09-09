@@ -1,7 +1,6 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import getTimes from '@salesforce/apex/HOT_ClaimController.getTimes';
 import getMyClaimLineItems from '@salesforce/apex/HOT_ClaimLineItemController.getMyClaimLineItems';
-import icons from '@salesforce/resourceUrl/icons';
 
 import {
     requireInput,
@@ -15,7 +14,6 @@ import {
 } from './hot_claimLineTimeInput_validationRules';
 
 export default class Hot_claimLineTimeInput extends LightningElement {
-    warningicon = icons + '/warningicon.svg';
     @track times = [];
     @track isOnlyOneTime = true;
     uniqueIdCounter = 0;
