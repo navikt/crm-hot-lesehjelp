@@ -17,25 +17,21 @@
                     </div>
                 </div> -->
                 <!-- <div if:false={it.value.doOverLapBoth}> -->
-                <div
+                <c-hot_info-card
                     if:true={it.value.doOverlapOnNewCLI}
-                    class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                    show-icon
+                    type="warning"
+                    title="Tidpspunkter overlapper med andre tider i dette kravet."
                     style="margin-bottom: 1rem; width: 100%"
-                >
-                    <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-                    <div class="alertstripe__tekst">Tidpspunkter overlapper med andre tider i dette kravet.</div>
-                </div>
+                ></c-hot_info-card>
                 <br if:true={it.value.doOverlapExistingCLI} />
-                <div
+                <c-hot_info-card
                     if:true={it.value.doOverlapExistingCLI}
-                    class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel"
+                    show-icon
+                    type="warning"
+                    title="Du har tidspunkter som overlapper med tider i tidligere innsendte krav."
                     style="margin-bottom: 1rem; width: 100%"
-                >
-                    <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-                    <div class="alertstripe__tekst">
-                        Du har tidspunkter som overlapper med tider i tidligere innsendte krav.
-                    </div>
-                </div>
+                ></c-hot_info-card>
                 <!-- </div> -->
                 <c-input
                     label="Dato"
