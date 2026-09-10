@@ -14,7 +14,7 @@
                 name="OnEmployer__c"
             ></c-radiobuttons>
             <br />
-            <template if:true={employerClaim}>
+            <template lwc:if={employerClaim}>
             <c-hot_info-card
                 show-icon
                 type="warning"
