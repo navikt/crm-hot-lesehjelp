@@ -1,19 +1,16 @@
 <template>
     <section class="bruker-info-skjema sub-form">
         <div style="flex-direction: row; display: flex">
-            <h2 class="header" tabindex="-1">Ny lesehjelp</h2>
-            <c-helptext
-                text="For å kunne registrere deg som ny lesehjelp trenger vi litt informasjon om deg. Vennligst se at all informasjon vi har om deg er korrekt"
-                hover-text="Hjelpeknapp for informasjon til ny lesehjelp."
-            ></c-helptext>
+            <h2 class="header" tabindex="-1">Utbetaling av lønnskrav</h2>
+            <br />
         </div>
         <div class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
             <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
             <div class="typo-normal alertstripe__tekst">
-                Det ser ikke ut som du er registrert som lesehjelp. Når du nå sender inn ditt første krav, vennligst se
-                at all informasjon vi har om deg er korrekt. Informasjonen kommer fra Kontakt- og reservasjonsregisteret
-                og opplysninger hentet fra mine sider på nav.no. Du kan trykke på lenken under for å redigere
-                opplysningene. Det kan ta opptil en time før endringene er synlig, men du kan sende inn kravet nå.
+                Når du nå sender inn ditt krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen
+                kommer fra Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no. Du kan
+                trykke på lenken under for å redigere opplysningene. Vent med å sende inn kravet til du ser at at
+                informasjonen er korrekt. Det kan ta noe tid før endringen er synlig her.
             </div>
         </div>
         <br />
@@ -24,10 +21,6 @@
         >
             <p><img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på nav.no mine sider</p>
         </a>
-        <div if:true={isKrrQueued} class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
-            <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-            <div class="typo-normal alertstripe__tekst">Oppdatert informasjon vil bli synlig innen en time.</div>
-        </div>
         <c-input
             label="Adresse"
             name="Address__c"
