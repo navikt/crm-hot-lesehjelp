@@ -10,7 +10,7 @@
             title="Sjekk informasjonen din"
             content="Når du nå sender inn ditt krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen
                 kommer fra Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no. Du kan
-                trykke på lenken under for å redigere opplysningene. Vent med å sende inn kravet til du ser at at
+                trykke på lenken under for å redigere opplysningene. Vent med å sende inn kravet til du ser at
                 informasjonen er korrekt. Det kan ta noe tid før endringen er synlig her."
         ></c-hot_info-card>
         <br />
@@ -22,7 +22,7 @@
             <p><img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på nav.no mine sider</p>
         </a>
         <c-hot_info-card
-            if:true={isKrrQueued}
+            lwc:if={isKrrQueued}
             show-icon
             type="warning"
             title="Oppdatert informasjon vil bli synlig innen en time."
