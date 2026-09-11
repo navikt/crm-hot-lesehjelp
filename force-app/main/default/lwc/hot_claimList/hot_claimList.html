@@ -87,7 +87,7 @@
                         <p tabindex="0"><strong>Total varighet: </strong>{record.totalHoursMinutes}</p>
                     </div>
                     <br />
-                    <c-hot_textarea
+                    <c-textarea
                         if:false={record.isOldClaim}
                         name="CommentFromUser__c"
                         label="Kommentar til regningen: "
@@ -97,7 +97,7 @@
                         maxlength=255
                         aria-label="Her kan du skrive inn en kommentar. Om du skal avvise kravet må du skrive inn årsaken."
                         desktop-style="gap: 0rem;"
-                    ></c-hot_textarea>
+                    ></c-textarea>
                     <div class="confirmationCheckbox" if:false={record.isOldClaim}>
                         <c-checkbox
                             label="Jeg bekrefter at jeg har lest all informasjon i kravet."
