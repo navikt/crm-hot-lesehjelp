@@ -26,9 +26,13 @@
                                         <p>Periode: {entitlement.period}</p>
                                         <p>Vedtaket har {entitlement.EntitledHours__c} timer.</p>
                                         <p>Total tid allerede utbetalt av Nav: {entitlement.totalHoursMinutesUsed}.</p>
-                                        <p class="status yellow" if:true={entitlement.isRecurring}>
-                                            Vedtaket vil bli fornyet hvert år etter perioden er over.
-                                        </p>
+                                        <c-hot_tag
+                                            variant="moderate"
+                                            lwc:if={entitlement.isRecurring}
+                                            label="Vedtaket vil bli fornyet hvert år etter perioden er over"
+                                            color="info"
+                                        >
+                                        </c-hot_tag>
                                     </div>
                                 </li>
                             </template>

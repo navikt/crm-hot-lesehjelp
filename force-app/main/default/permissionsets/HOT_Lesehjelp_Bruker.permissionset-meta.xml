@@ -9,7 +9,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>HOT_DataSynchController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HOT_EntitlementController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HOT_KrrInformationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -29,11 +37,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_ClaimLineItem__c.AdditionalInformation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -254,11 +257,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Organization__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_Claim__c.Pay__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -30,7 +30,6 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
     @track email;
     @track banknumber;
     @track address;
-    @track isKrrQueued = false;
     @track isLos;
 
     wiredResultData;
@@ -53,7 +52,6 @@ export default class Hot_lesehjelpUserInformation extends LightningElement {
                 this.personResult.INT_ResidentialZipCode__c +
                 ' ' +
                 this.personResult.INT_ResidentialPlace__c;
-            this.isKrrQueued = this.personResult.INT_KrrIntegrationStatus__c == 'Queued' ? true : false;
             this.isLos = this.personResult.HOT_isLOS__c;
         } else {
             this.mobilenumber = '';
