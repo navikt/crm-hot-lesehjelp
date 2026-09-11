@@ -1,28 +1,13 @@
 <template>
     <template for:each={claimLineItems} for:item="cli">
         <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
-            <div
-                if:true={cli.hasOverlap}
-                class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
-                role="alert"
-                style="display: block"
-            >
-                <span class="slds-assistive-text">Advarsel</span>
-                <lightning-icon
-                    icon-name="utility:warning"
-                    size="x-small"
-                    class="slds-m-right--x-small"
-                    variant="inverse"
-                ></lightning-icon>
-                <div style="display: inline-flex">
-                    <div style="display: block">
-                        Tidene på denne kravlinjen overlapper med:
-                        <p key={cli.Id} for:each={cli.overlappingLinks} for:item="overlap">
-                            <a href={overlap.link} key={overlap.id}>{overlap.name}</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <c-hot_universal-alert-banner 
+                lwc:if={cli.hasOverlap}
+                show-icon
+                type="error"
+                message="Tiden på denne kravlinjen overlapper med:"
+                items={cli.alertBannerItems}
+            ></c-hot_universal-alert-banner>
             <div class="content-container">
                 <div class="left-content">
                     <a href={cli.link}>{cli.Name}</a>
