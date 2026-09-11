@@ -227,6 +227,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>HOT_Claim__c.IsLos__c</field>
         <readable>true</readable>
@@ -263,6 +268,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>HOT_Claim__c.PaymentStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>HOT_Claim__c.Processed__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -274,6 +284,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Saksbehandlermerknad__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>HOT_Claim__c.SentForPayementDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
