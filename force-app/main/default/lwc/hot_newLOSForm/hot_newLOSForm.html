@@ -1,18 +1,18 @@
 <template>
     <section class="bruker-info-skjema sub-form">
         <div style="flex-direction: row; display: flex">
-            <h2 class="header" tabindex="-1">Utbetaling av lønnskrav</h2>
+            <h2 class="header" tabindex="-1" style="margin-bottom: 0.8rem">Utbetaling av lønnskrav</h2>
             <br />
         </div>
-        <div class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
-            <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-            <div class="typo-normal alertstripe__tekst">
-                Når du nå sender inn ditt krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen
+        <c-hot_info-card
+            show-icon
+            type="warning"
+            title="Sjekk informasjonen din"
+            content="Når du nå sender inn ditt krav, vennligst se at all informasjon vi har om deg er korrekt. Informasjonen
                 kommer fra Kontakt- og reservasjonsregisteret og opplysninger hentet fra mine sider på nav.no. Du kan
-                trykke på lenken under for å redigere opplysningene. Vent med å sende inn kravet til du ser at at
-                informasjonen er korrekt. Det kan ta noe tid før endringen er synlig her.
-            </div>
-        </div>
+                trykke på lenken under for å redigere opplysningene. Vent med å sende inn kravet til du ser at
+                informasjonen er korrekt. Det kan ta noe tid før endringen er synlig her."
+        ></c-hot_info-card>
         <br />
         <a
             href="https://www.nav.no/person/personopplysninger/nb/"
@@ -21,6 +21,12 @@
         >
             <p><img style="width: 1rem" src={LinkImg} alt="" />Endre dine opplysninger på nav.no mine sider</p>
         </a>
+        <c-hot_info-card
+            lwc:if={isKrrQueued}
+            show-icon
+            type="warning"
+            title="Oppdatert informasjon vil bli synlig innen en time."
+        ></c-hot_info-card>
         <c-input
             label="Adresse"
             name="Address__c"

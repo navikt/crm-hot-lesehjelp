@@ -14,18 +14,16 @@
                 name="OnEmployer__c"
             ></c-radiobuttons>
             <br />
-            <div if:true={employerClaim} class="navno-dekorator alertstripe navno-dekorator alertstripe--advarsel">
-                <img class="navno-dekorator alertstripe__ikon" src={warningicon} alt="advarsel-ikon" />
-                <div class="typo-normal alertstripe__tekst">
-                    For utbetaling av timer til lese- og sekretærhjelp til arbeidsplassen må det brukes elektronisk
-                    faktura: <br /><br />
-                    <a href="https://www.nav.no/no/nav-og-samfunn/om-nav/slik-gjor-du-det/send-faktura-til-nav"
-                        >For utbetaling til arbeidsplassen brukes elektronisk faktura</a
-                    ><br /><br />
-                    Benytt org.nr. 889640782, referanse T109322, henvis til aktuelle kravnummer fra denne løsningen og
-                    vi ber også om at bekreftelse av lønn/timeliste følger vedlagt.
-                </div>
-            </div>
+            <template lwc:if={employerClaim}>
+            <c-hot_info-card
+                show-icon
+                type="warning"
+                title="Fakturainformasjon for utbetaling av timer"
+                content="For utbetaling av timer til lese- og sekretærhjelp til arbeidsplassen må det brukes elektronisk faktura. Benytt org.nr. 889640782, referanse T109322, henvis til aktuelle kravnummer fra denne løsningen og vi ber også om at bekreftelse av lønn/timeliste følger vedlagt."
+                url="https://www.nav.no/no/nav-og-samfunn/om-nav/slik-gjor-du-det/send-faktura-til-nav"
+                url-text="Se veiledning på hvordan du sender elektronisk faktura til NAV"
+            ></c-hot_info-card>
+            </template>
             <div if:true={employerClaim}><br /></div>
             <div if:true={employerClaim}>
                 <c-input
@@ -67,7 +65,7 @@
                 ></c-input>
             </div>
         </div>
-        <h2 class="typo-undertittel" tabindex="-1">
+        <h2 class="typo-undertittel" tabindex="-1" style="margin-top: 1rem">
             Legg inn alle tidspunkter og oppgavetyper som dette kravet skal inneholde
         </h2>
         <p>

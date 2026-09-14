@@ -34,6 +34,10 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>10</value>
                 </componentInstanceProperties>
@@ -411,16 +415,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Amount__c</fieldItem>
-                <identifier>RecordAmount__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-2d2026e7-08c1-4e5b-a810-6896abf706bc</name>
         <type>Facet</type>
     </flexiPageRegions>

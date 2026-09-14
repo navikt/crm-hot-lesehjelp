@@ -40,6 +40,10 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>10</value>
                 </componentInstanceProperties>
@@ -149,6 +153,10 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Saksbehandlermerknad__c</fieldItem>
                 <identifier>RecordLOS_Saksbehandlesmerknad__cField</identifier>
             </fieldInstance>
@@ -380,16 +388,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Pay__c</fieldItem>
-                <identifier>RecordPay__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-03a6c13d-ae83-4fe1-81d1-57786fd00ec9</name>
         <type>Facet</type>
     </flexiPageRegions>

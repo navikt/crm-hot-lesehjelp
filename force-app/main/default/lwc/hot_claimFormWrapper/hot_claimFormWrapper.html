@@ -81,10 +81,11 @@
                 </div>
             </main>
             <main if:true={noAccess} class="main-content submitted-false">
-                <div class="navno-dekorator warningstripe navno-dekorator warningstripe--advarsel">
-                    <img class="navno-dekorator warningstripe__ikon" src={erroricon} alt="feilmelding-ikon" />
-                    <div class="alertstripe__tekst">Kunne ikke finne kravet.</div>
-                </div>
+                <c-hot_info-card
+                    show-icon
+                    type = "warning"
+                    title = "Kunne ikke finne kravet."
+                ></c-hot_info-card>
             </main>
             <div class="main-content hidden submitted-true">
                 <div class="main-content dialog-boks skjema-max-width">

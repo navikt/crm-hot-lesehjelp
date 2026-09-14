@@ -131,8 +131,8 @@ insert entitlements;
 
 // Now we needeth thau claimeths
 List<HOT_Claim__c> claims = new List<HOT_Claim__c>{
-    new HOT_Claim__c(Claimant__c = accountByLastName.get('Solo').Id, Account__c = accountByLastName.get('Skywalker').Id, Entitlement__c = entitlements[0].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = true, Status__c = 'Approved by NAV'),
-    new HOT_Claim__c(Claimant__c = accountByLastName.get('Binks').Id, Account__c = accountByLastName.get('Vader').Id, Entitlement__c= entitlements[1].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = true, Status__c = 'Approved by NAV')
+    new HOT_Claim__c(Claimant__c = accountByLastName.get('Solo').Id, Account__c = accountByLastName.get('Skywalker').Id, Entitlement__c = entitlements[0].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = false, Status__c = 'Approved by user'),
+    new HOT_Claim__c(Claimant__c = accountByLastName.get('Binks').Id, Account__c = accountByLastName.get('Vader').Id, Entitlement__c= entitlements[1].Id, Type__c = 'Dagligliv', ApprovedByUser__c = true, ApprovedByNAV__c = false, Status__c = 'Approved by user')
         };
 insert claims;
 

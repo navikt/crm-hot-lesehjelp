@@ -41,11 +41,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>HOT_ClaimLineItem__c.Amount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>HOT_ClaimLineItem__c.Claimant__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -262,11 +257,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>HOT_Claim__c.Organization__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>HOT_Claim__c.Pay__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
