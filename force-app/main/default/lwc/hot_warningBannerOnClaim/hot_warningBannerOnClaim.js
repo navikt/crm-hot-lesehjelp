@@ -33,4 +33,8 @@ export default class Hot_warningBannerOnClaim extends LightningElement {
             }
         }
     }
+
+    get exceedsEntitlementMessage() {
+    return `Dette kravet har for mange timer og kommer til å gå utover vedtaket om det blir godkjent. Gjenstående timer på vedtaket er ${this.remainingTimeSum} timer.`;
+    }
 }

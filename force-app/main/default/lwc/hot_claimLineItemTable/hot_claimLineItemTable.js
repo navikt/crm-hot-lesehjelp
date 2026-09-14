@@ -28,15 +28,20 @@ export default class Hot_claimLineItemTable extends LightningElement {
                     this.noClaimLineItems = true;
                 }
 
-                this.claimLineItems = this.unmappedClaimLineItems.map((x) => ({
+                this.claimLineItems = this.unmappedClaimLineItems.map((x) => {
+                    const overlappingLinks = this.parseOverlappingIds(x.OverlappingClaimLineItemsIds__c);
+
+                    return {
                     ...x,
                     period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
                     travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
                     travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
                     link: this.createLink(x.Id),
                     hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
-                    overlappingLinks: this.parseOverlappingIds(x.OverlappingClaimLineItemsIds__c)
-                }));
+                    overlappingLinks: overlappingLinks,
+                    alertBannerItems: this.claimLineItemToAlertBanner(overlappingLinks)
+                    };
+                });
             })
             .catch((error) => {
                 this.error = true;
@@ -99,5 +104,14 @@ export default class Hot_claimLineItemTable extends LightningElement {
         } else {
             return false;
         }
+    }
+
+    claimLineItemToAlertBanner(overlappingLinks = []) {
+        return overlappingLinks.map((overlap) => ({
+            key: overlap.id,
+            url: overlap.link,
+            label: overlap.name,
+            description: ''
+        }));
     }
 }
