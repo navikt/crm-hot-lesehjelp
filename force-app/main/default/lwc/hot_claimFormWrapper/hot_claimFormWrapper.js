@@ -434,8 +434,9 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         });
     }
     checkTimeZone() {
-        const osloTime = new Date().toLocaleString('no-NB', { timeZone: 'Europe/Oslo' });
-        const userTime = new Date().toLocaleString('no-NB');
-        this.isNotUserInNorwegianTimeZone = osloTime == userTime;
+        const currentDate = new Date();
+        const osloTime = currentDate.toLocaleString('no-NB', { timeZone: 'Europe/Oslo' });
+        const userTime = currentDate.toLocaleString('no-NB');
+        this.isNotUserInNorwegianTimeZone = osloTime === userTime;
     }
 }
