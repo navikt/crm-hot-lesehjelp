@@ -37,6 +37,9 @@
     max-width: 1000px;
     padding-bottom: 2rem;
 }
+.info-container.alert {
+    padding-bottom: 5rem;
+}
 .welcomeName {
     flex-grow: 3;
 }
