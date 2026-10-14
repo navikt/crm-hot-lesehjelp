@@ -21,7 +21,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
     @track pageLinks = {};
     @track waitingClaims = false;
     @track hasDecisions = false;
-    isNotUserInNorwegianTimeZone = false;
+    isUserInNorwegianTimeZone = false;
 
     wiredEntitlementsResult;
     @wire(getEntitlements)
@@ -55,8 +55,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
         };
     }
     checkTimeZone() {
-        const osloTime = new Date().toLocaleString('no-NB', { timeZone: 'Europe/Oslo' });
-        const userTime = new Date().toLocaleString('no-NB');
-        this.isNotUserInNorwegianTimeZone = osloTime !== userTime;
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        this.isUserInNorwegianTimeZone = userTimeZone === 'Europe/Oslo';
     }
 }

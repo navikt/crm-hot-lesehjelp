@@ -24,7 +24,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track currentPage = '';
     @track submitSuccessMessage = '';
     @track noAccess = false;
-    isUserInNorwegianTimeZone = true;
+    isUserInNorwegianTimeZone = false;
 
     renderedCallback() {
         loadStyle(this, Index);
@@ -434,9 +434,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         });
     }
     checkTimeZone() {
-        const currentDate = new Date();
-        const osloTime = currentDate.toLocaleString('no-NB', { timeZone: 'Europe/Oslo' });
-        const userTime = currentDate.toLocaleString('no-NB');
-        this.isNotUserInNorwegianTimeZone = osloTime === userTime;
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        this.isUserInNorwegianTimeZone = userTimeZone === 'Europe/Oslo';
     }
 }

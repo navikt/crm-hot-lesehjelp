@@ -1,22 +1,10 @@
 <template>
     <c-hot_data-syncer></c-hot_data-syncer>
     <div class="content">
-        <template lwc:if={isNotUserInNorwegianTimeZone}>
-            <div class="info-container">
-                <div class="welcomeName"><c-hot_welcome-name></c-hot_welcome-name></div>
-            </div>
-            <div class="info-container alert">
-                <c-hot_local-alert
-                    type="error"
-                    title="Obs!"
-                    content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke benytte deg av løsningen når du befinner deg utenfor norsk tidssone!"
-                ></c-hot_local-alert>
-            </div>
-        </template>
-        <template lwc:else>
-            <div class="info-container">
-                <div class="welcomeName"><c-hot_welcome-name></c-hot_welcome-name></div>
-            </div>
+        <div class="info-container">
+            <div class="welcomeName"><c-hot_welcome-name></c-hot_welcome-name></div>
+        </div>
+        <template lwc:if={isUserInNorwegianTimeZone}>
             <div class="color-container" if:false={hasDecisions}>
                 <div class="undertittel">
                     <h2>For deg som er lese og sekretærhjelp</h2>
@@ -92,6 +80,15 @@
                         </div>
                     </a>
                 </main>
+            </div>
+        </template>
+        <template lwc:else>
+            <div class="info-container alert">
+                <c-hot_local-alert
+                    type="error"
+                    title="Obs!"
+                    content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke benytte deg av løsningen når du befinner deg utenfor norsk tidssone!"
+                ></c-hot_local-alert>
             </div>
         </template>
     </div>

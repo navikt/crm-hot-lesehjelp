@@ -62,13 +62,6 @@
 
                                         <template lwc:if={claimTypeResult.claimForm}>
                                             <template lwc:if={isUserInNorwegianTimeZone}>
-                                                <c-hot_local-alert
-                                                    type="error"
-                                                    title="Obs!"
-                                                    content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke sende inn eller redigere krav når du befinner deg utenfor norsk tidssone!"
-                                                ></c-hot_local-alert>
-                                            </template>
-                                            <template lwc:else>
                                                 <div class="confirmationCheckbox">
                                                     <c-checkbox
                                                         class="checkbox"
@@ -89,6 +82,13 @@
                                                     mobile-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
                                                     style="padding-bottom: 1em"
                                                 ></c-button>
+                                            </template>
+                                            <template lwc:else>
+                                                <c-hot_local-alert
+                                                    type="error"
+                                                    title="Obs!"
+                                                    content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke sende inn eller redigere krav når du befinner deg utenfor norsk tidssone!"
+                                                ></c-hot_local-alert>
                                             </template>
                                         </template>
                                     </template>
