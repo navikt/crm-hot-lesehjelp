@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
+        <name>Publish_Platform_Event_with_Callback_Action_1</name>
+        <label>Publish Platform Event with Callback Action 1</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>HOT_PlatformEventPublisher</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>updateClaim</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__eventRecord</typeName>
+            <typeValue>HOT_LOS_PaymentClaim__e</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>eventRecord</name>
+            <value>
+                <elementReference>Event</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>HOT_PlatformEventPublisher</nameSegment>
+    </actionCalls>
+    <actionCalls>
         <name>SerializeClaimLineItems</name>
         <label>Serialize Claim Line Items</label>
         <locationX>0</locationX>
@@ -79,7 +102,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>CreateEvent</targetReference>
+            <targetReference>Publish_Platform_Event_with_Callback_Action_1</targetReference>
         </connector>
     </assignments>
     <environments>Default</environments>
@@ -114,16 +137,6 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordCreates>
-        <name>CreateEvent</name>
-        <label>Create Event</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>updateClaim</targetReference>
-        </connector>
-        <inputReference>Event</inputReference>
-    </recordCreates>
     <recordLookups>
         <name>GetClaimLineItems</name>
         <label>Get Claim Line Items</label>
