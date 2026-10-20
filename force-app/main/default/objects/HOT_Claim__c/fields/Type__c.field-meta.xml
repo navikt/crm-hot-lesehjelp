@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
@@ -21,12 +22,12 @@
                 <label>Dagligliv</label>
             </value>
             <value>
-                <fullName>Organisasjonsvirksomhet, politisk eller sosialt arbeid</fullName>
+                <fullName>Organisasjon</fullName>
                 <default>false</default>
                 <label>Organisasjonsvirksomhet, politisk eller sosialt arbeid</label>
             </value>
             <value>
-                <fullName>Utdanning, opplæring eller arbeidstrening</fullName>
+                <fullName>Utdanning</fullName>
                 <default>false</default>
                 <label>Utdanning, opplæring eller arbeidstrening</label>
             </value>
