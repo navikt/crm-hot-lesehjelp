@@ -19,8 +19,8 @@ call sf package install --package 04tQC000001So7lYAC --no-prompt --installation-
 echo "Installer crm-henvendelse- ver. 0.207"
 call sf package install --package 04tQC000001TjKXYA0 --no-prompt --installation-key %3--wait 30 --publish-wait 30
 
-echo "Installer crm-platform-integration ver. 0.173"
-call sf package install --package 04tQC000001Ms4PYAS --no-prompt --installation-key %3 --wait 30 --publish-wait 30
+echo "Installer crm-platform-integration ver. 0.176"
+call sf package install --package 04tQC000001e3HxYAI --no-prompt --installation-key %3 --wait 30 --publish-wait 30
 
 echo "Installer crm-hot-felles ver. 0.20"
 call sf package install --package 04tQC000001Y1txYAC --no-prompt --installation-key %3 --wait 30 --publish-wait 30
