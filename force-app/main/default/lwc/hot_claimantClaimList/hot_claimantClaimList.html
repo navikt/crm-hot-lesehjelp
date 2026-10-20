@@ -137,15 +137,22 @@
                             <p tabindex="0"><strong>Innsendt dato:</strong> {record.created}</p>
                             <p tabindex="0"><strong>Lesehjelp for:</strong> {record.madeFor}</p>
                             <p tabindex="0"><strong>Status:</strong> {record.ExternalStatus__c}</p>
-                            <p tabindex="0" if:true={record.CommentFromNAV__c}>
-                                <strong>Kommentar fra saksebehandler:</strong>
-                            </p>
-                            <p tabindex="0" if:true={record.CommentFromNAV__c}>{record.CommentFromNAV__c}</p>
-                            <p tabindex="0" if:true={record.CommentFromUser__c}>
-                                <strong>Kommentar fra bruker:</strong>
-                            </p>
-                            <p tabindex="0" if:true={record.CommentFromUser__c}>{record.CommentFromUser__c}</p>
-
+                            <div class="comment-cards">
+                                <c-hot_info-card
+                                    lwc:if={record.CommentFromNAV__c}
+                                    show-icon
+                                    type="warning"
+                                    title="Kommentar fra saksbehandler:"
+                                    content={record.CommentFromNAV__c}
+                                ></c-hot_info-card>
+                                <c-hot_info-card
+                                    lwc:if={record.CommentFromUser__c}
+                                    show-icon
+                                    type="info"
+                                    title="Kommentar fra bruker:"
+                                    content={record.CommentFromUser__c}
+                                ></c-hot_info-card>
+                            </div>
                             <template for:each={claimLineItems} for:item="cli">
                                 <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
                                     <p tabindex="0"><Strong>Ukedag: </Strong>{cli.Weekday__c}</p>

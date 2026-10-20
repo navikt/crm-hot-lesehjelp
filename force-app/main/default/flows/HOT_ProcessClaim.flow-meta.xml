@@ -4,7 +4,7 @@
     <assignments>
         <name>declineClaim</name>
         <label>declineClaim</label>
-        <locationX>1634</locationX>
+        <locationX>1898</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>getClaim.Status__c</assignToReference>
@@ -29,6 +29,36 @@
         </assignmentItems>
         <connector>
             <targetReference>declineUpdateClaim</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>requestChangesAssign</name>
+        <label>Request Changes</label>
+        <locationX>1634</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>getClaim.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Changes Requested</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getClaim.CommentFromNAV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>requestChangesReason</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getClaim.ApprovedByNAV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>requestChangesUpdateClaim</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -70,10 +100,15 @@
             <stringValue>decline</stringValue>
         </value>
     </choices>
+    <choices>
+        <name>requestChanges</name>
+        <choiceText>Etterspør endring</choiceText>
+        <dataType>String</dataType>
+    </choices>
     <decisions>
         <name>claimStatus</name>
         <label>claimStatus</label>
-        <locationX>776</locationX>
+        <locationX>842</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>ApproveOrDeclineScreen</targetReference>
@@ -179,7 +214,7 @@
     <decisions>
         <name>NAVApprovedOrDeclined</name>
         <label>NAVApprovedOrDeclined</label>
-        <locationX>1502</locationX>
+        <locationX>1634</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>declineClaim</targetReference>
@@ -199,6 +234,21 @@
                 <targetReference>updateClaim</targetReference>
             </connector>
             <label>Approved</label>
+        </rules>
+        <rules>
+            <name>RequestedChanges</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ApproveOrDeclineRadioBtns</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>requestChanges</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>requestChangesAssign</targetReference>
+            </connector>
+            <label>Requested Changes</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -226,7 +276,7 @@
     <recordLookups>
         <name>getClaim</name>
         <label>getClaim</label>
-        <locationX>776</locationX>
+        <locationX>842</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -254,6 +304,13 @@
     <recordUpdates>
         <name>declineUpdateClaim</name>
         <label>declineUpdateClaim</label>
+        <locationX>1898</locationX>
+        <locationY>674</locationY>
+        <inputReference>getClaim</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>requestChangesUpdateClaim</name>
+        <label>requestChangesUpdateClaim</label>
         <locationX>1634</locationX>
         <locationY>674</locationY>
         <inputReference>getClaim</inputReference>
@@ -277,7 +334,7 @@
     <screens>
         <name>ApproveOrDeclineScreen</name>
         <label>ApproveOrDeclineScreen</label>
-        <locationX>1502</locationX>
+        <locationX>1634</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -295,6 +352,7 @@
                     <name>ApproveOrDeclineRadioBtns</name>
                     <choiceReferences>decline</choiceReferences>
                     <choiceReferences>approve</choiceReferences>
+                    <choiceReferences>requestChanges</choiceReferences>
                     <dataType>String</dataType>
                     <defaultSelectedChoiceReference>approve</defaultSelectedChoiceReference>
                     <fieldText>Behandle kravet</fieldText>
@@ -305,7 +363,7 @@
                 <fields>
                     <name>DeclineClaimReason</name>
                     <dataType>String</dataType>
-                    <fieldText>Oppgi en kommentar til hvorfor NAV avslår kravet</fieldText>
+                    <fieldText>Oppgi en kommentar til hvorfor NAV avslår kravet:</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
@@ -316,6 +374,24 @@
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <elementReference>decline</elementReference>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>requestChangesReason</name>
+                    <dataType>String</dataType>
+                    <fieldText>Oppgi en kommentar til hvorfor Nav mener kravet må endres:</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>ApproveOrDeclineRadioBtns</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <elementReference>requestChanges</elementReference>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -399,7 +475,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>650</locationX>
+        <locationX>716</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getClaim</targetReference>
