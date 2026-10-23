@@ -21,6 +21,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
     @track pageLinks = {};
     @track waitingClaims = false;
     @track hasDecisions = false;
+    isUserInNorwegianTimeZone = false;
 
     wiredEntitlementsResult;
     @wire(getEntitlements)
@@ -37,6 +38,7 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
     }
 
     connectedCallback() {
+        this.checkTimeZone();
         sessionStorage.clear(); // Clear session storage when on home
         window.scrollTo(0, 0);
         let baseURLArray = window.location.pathname.split('/');
@@ -51,5 +53,9 @@ export default class hot_lesehjelp_home extends NavigationMixin(LightningElement
             veiledningLesehjelp: 'https://www.nav.no/samarbeidspartner/lese-og-sekretarhjelp',
             veiledningBruker: baseURL + '/veiledning-til-innbyggere-med-vedtak'
         };
+    }
+    checkTimeZone() {
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        this.isUserInNorwegianTimeZone = userTimeZone === 'Europe/Oslo';
     }
 }

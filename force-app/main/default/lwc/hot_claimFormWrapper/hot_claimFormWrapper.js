@@ -24,6 +24,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track currentPage = '';
     @track submitSuccessMessage = '';
     @track noAccess = false;
+    isUserInNorwegianTimeZone = false;
 
     renderedCallback() {
         loadStyle(this, Index);
@@ -41,6 +42,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     ];
 
     connectedCallback() {
+        this.checkTimeZone();
         let parsed_params = getParametersFromURL();
         if (parsed_params != null) {
             if (parsed_params.edit === 'true') {
@@ -162,7 +164,6 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         return hasErrors;
     }
 
-
     getFieldValuesFromSubForms() {
         this.template.querySelectorAll('.subform').forEach((subForm) => {
             subForm.setFieldValues();
@@ -262,68 +263,65 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
 
     timeInputValues = [];
     showForm = false;
-    
+
     handleNextFormSummary() {
-    this.getComponentValues();
-    this.getFieldValuesFromSubForms();
+        this.getComponentValues();
+        this.getFieldValuesFromSubForms();
 
-    const hasErrors = this.handleValidation();
-    if (hasErrors) {
-        console.warn('Validation failed, cannot proceed');
-        return;
-    }
-
-    const reqForm = this.template.querySelector('c-hot_claim-form');
-    if (!reqForm) {
-        console.warn('No claim form found');
-        return;
-    }
-
-    let timeInput = reqForm.getTimeInput() || [];
-    if (timeInput.length === 0) {
-        console.warn('No time input data');
-        return;
-    }
-
-    const selectedValueOnEmployer = this.componentValues.onEmployerRadioButtons?.find(
-        (option) => option.checked
-    ) || { value: 'false' };
-
-    this.fieldValues.OnEmployer__c =
-        selectedValueOnEmployer.value === 'false' || selectedValueOnEmployer.value === 'null'
-            ? 'false'
-            : selectedValueOnEmployer.value;
-
-
-    timeInput = timeInput.map(item => {
-        const newItem = { ...item };
-
-        if (!newItem.hasTravelTo && !newItem.hasTravelFrom) {
-            newItem.dateTravelTo = null;
-            newItem.startTimeTravelToString = null;
-            newItem.endTimeTravelToString = null;
-            newItem.dateTravelFrom = null;
-            newItem.startTimeTravelFromString = null;
-            newItem.endTimeTravelFromString = null;
-            newItem.travelDistance = null;
-            newItem.travelToFromAddresses = null;
-            newItem.expensesParking = null;
-            newItem.parkingAddress = null;
-            newItem.expensesToll = null;
-            newItem.expensesPublicTransport = null;
-            newItem.publicTransportRoute = null;
+        const hasErrors = this.handleValidation();
+        if (hasErrors) {
+            console.warn('Validation failed, cannot proceed');
+            return;
         }
 
-        return newItem;
-    });
+        const reqForm = this.template.querySelector('c-hot_claim-form');
+        if (!reqForm) {
+            console.warn('No claim form found');
+            return;
+        }
 
-    this.timeInputValues = timeInput;
-    this.fieldValues = { ...this.fieldValues };
-    this.showForm = true;
-    this.showFormSummaryModal();
-}
+        let timeInput = reqForm.getTimeInput() || [];
+        if (timeInput.length === 0) {
+            console.warn('No time input data');
+            return;
+        }
 
+        const selectedValueOnEmployer = this.componentValues.onEmployerRadioButtons?.find(
+            (option) => option.checked
+        ) || { value: 'false' };
 
+        this.fieldValues.OnEmployer__c =
+            selectedValueOnEmployer.value === 'false' || selectedValueOnEmployer.value === 'null'
+                ? 'false'
+                : selectedValueOnEmployer.value;
+
+        timeInput = timeInput.map((item) => {
+            const newItem = { ...item };
+
+            if (!newItem.hasTravelTo && !newItem.hasTravelFrom) {
+                newItem.dateTravelTo = null;
+                newItem.startTimeTravelToString = null;
+                newItem.endTimeTravelToString = null;
+                newItem.dateTravelFrom = null;
+                newItem.startTimeTravelFromString = null;
+                newItem.endTimeTravelFromString = null;
+                newItem.travelDistance = null;
+                newItem.travelToFromAddresses = null;
+                newItem.expensesParking = null;
+                newItem.parkingAddress = null;
+                newItem.expensesToll = null;
+                newItem.expensesPublicTransport = null;
+                newItem.publicTransportRoute = null;
+            }
+
+            return newItem;
+        });
+
+        this.timeInputValues = timeInput;
+        this.fieldValues = { ...this.fieldValues };
+        this.showForm = true;
+        this.showFormSummaryModal();
+    }
 
     submitForm() {
         let timeInput = this.template.querySelector('c-hot_claim-form').getTimeInput();
@@ -425,7 +423,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
             }
         }
     }
-    signingClaim() { }
+    signingClaim() {}
 
     goToMyClaims() {
         this[NavigationMixin.Navigate]({
@@ -434,5 +432,9 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 pageName: 'mine-krav'
             }
         });
+    }
+    checkTimeZone() {
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        this.isUserInNorwegianTimeZone = userTimeZone === 'Europe/Oslo';
     }
 }

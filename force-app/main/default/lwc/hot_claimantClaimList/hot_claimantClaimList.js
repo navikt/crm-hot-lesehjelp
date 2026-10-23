@@ -75,7 +75,8 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
                         claim.ExternalStatus__c === 'Godkjent av Nav' ||
                         claim.ExternalStatus__c === 'Sendt til utbetaling' ||
                         claim.ExternalStatus__c === 'Sendt til utbetaling etter satsjustering' ||
-                        claim.ExternalStatus__c === 'Rekalkulert etter satsjustering'
+                        claim.ExternalStatus__c === 'Rekalkulert etter satsjustering' ||
+                        claim.ExternalStatus__c === 'Endringer forespurt' 
                 )
                 .map((claim) => ({
                     ...claim,
@@ -184,7 +185,12 @@ export default class Hot_claimantClaimList extends NavigationMixin(LightningElem
     }
 
     checkRedStatus(status) {
-        if (status === 'Avslått av Nav' || status === 'Avvist av bruker' || status === 'Tilbaketrukket') {
+        if (
+            status === 'Avslått av Nav' ||
+            status === 'Avvist av bruker' ||
+            status === 'Tilbaketrukket' ||
+            status === 'Endringer forespurt'
+        ) {
             return true;
         }
         return false;

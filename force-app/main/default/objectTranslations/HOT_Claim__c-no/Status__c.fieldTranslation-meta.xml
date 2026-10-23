@@ -11,6 +11,10 @@
         <translation>Godkjent av bruker</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Changes Requested</masterLabel>
+        <translation>Endringer forespurt</translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Declined by NAV</masterLabel>
         <translation>Avslått av Nav</translation>
     </picklistValues>
