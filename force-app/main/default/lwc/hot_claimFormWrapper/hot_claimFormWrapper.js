@@ -10,9 +10,16 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import Index from '@salesforce/resourceUrl/index';
 import icons2 from '@salesforce/resourceUrl/ikoner';
 
+const STEPS = {
+    LOS: 'los',
+    CLAIM_TYPE: 'claimType',
+    USER_INFO: 'userInfo',
+    CLAIM_FORM: 'claimForm'
+};
+
 export default class Hot_claimFormWrapper extends NavigationMixin(LightningElement) {
     exitCrossIcon = icons2 + '/Close/Close.svg';
-    @track claimTypeChosen = false;
+    currentStep = STEPS.LOS;
     @track fieldValues = {};
     @track componentValues = {};
     @track recordId = null;
@@ -20,11 +27,63 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
     @track isLos = true;
     @track previousPage = 'home';
     @track submitButtonLabel = 'Send inn';
-    @track claimTypeResult = {};
-    @track currentPage = '';
     @track submitSuccessMessage = '';
     @track noAccess = false;
     isUserInNorwegianTimeZone = false;
+
+    get showLosForm() {
+        return this.currentStep === STEPS.LOS;
+    }
+
+    get showClaimFormType() {
+        return this.currentStep === STEPS.CLAIM_TYPE;
+    }
+
+    get showUserInfo() {
+        return this.currentStep === STEPS.USER_INFO;
+    }
+
+    get showClaimForm() {
+        return this.currentStep === STEPS.CLAIM_FORM;
+    }
+
+    get previousStepLabel() {
+        return this.showLosForm ? 'Avbryt' : 'Forrige';
+    }
+
+    handlePreviousStep() {
+        switch (this.currentStep) {
+            case STEPS.LOS:
+                this.handleCancelLosForm();
+                break;
+            case STEPS.CLAIM_TYPE:
+                window.scrollTo(0, 0);
+                this.getComponentValues();
+                this.currentStep = STEPS.LOS;
+                break;
+            default:
+                this.handleBackButtonClicked();
+        }
+    }
+
+    handleNextStep() {
+        switch (this.currentStep) {
+            case STEPS.LOS:
+                this.handleNextLosForm();
+                break;
+            case STEPS.CLAIM_TYPE:
+                this.template.querySelector('c-hot_claim-form-type').sendResult();
+                break;
+            case STEPS.USER_INFO:
+                this.handleNextButtonClicked();
+                break;
+            case STEPS.CLAIM_FORM:
+                this.handleNextFormSummary();
+                break;
+            default:
+                break;
+        }
+    }
 
     renderedCallback() {
         loadStyle(this, Index);
@@ -90,23 +149,31 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.isLos = result.data;
     }
 
+    handleNextLosForm() {
+        const losForm = this.template.querySelector('c-hot_new-l-o-s-form');
+        if (losForm.validateFields()) return;
+        this.currentStep = STEPS.CLAIM_TYPE;
+    }
+
+    handleCancelLosForm() {
+        window.scrollTo(0, 0);
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                pageName: this.previousPage
+            }
+        });
+    }
+
     handleClaimType(event) {
-        this.claimTypeResult = event.detail;
-        this.claimTypeChosen = true;
-        this.fieldValues.ClaimType__c = this.claimTypeResult.type;
-        this.currentPage = 'userInfo';
         this.getComponentValues();
-        console.log('ny verdi ' + this.claimTypeResult.type);
+        this.fieldValues.ClaimType__c = event.detail.type;
+        this.currentStep = STEPS.USER_INFO;
     }
     handleBackButtonClicked() {
         this.getComponentValues();
         this.getFieldValuesFromSubForms();
-        if (this.currentPage === 'userInfo') {
-            this.claimTypeChosen = false;
-        } else {
-            this.claimTypeResult.claimForm = false;
-            this.currentPage = 'userInfo';
-        }
+        this.currentStep = this.showUserInfo ? STEPS.CLAIM_TYPE : STEPS.USER_INFO;
         for (let f in this.fieldValues) {
             console.log(this.fieldValues[f]);
         }
@@ -125,8 +192,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
                 }).then((result) => {
                     console.log('resultat: ' + result);
                     if (result == true) {
-                        this.currentPage = 'claimForm';
-                        this.claimTypeResult.claimForm = true;
+                        this.currentStep = STEPS.CLAIM_FORM;
                     } else {
                         let error =
                             'Kunne ikke finne person basert på det du skrev inn. Om du valgte telefonnummer kan det være fordi flere personer har samme telefonnummer. Prøv fødselsnummer i stedet.';
@@ -231,8 +297,7 @@ export default class Hot_claimFormWrapper extends NavigationMixin(LightningEleme
         this.spin = false;
     }
     handleAlertDialogClick() {
-        if (this.currentPage != 'claimForm') {
-        } else {
+        if (this.showClaimForm) {
             this[NavigationMixin.Navigate]({
                 type: 'comm__namedPage',
                 attributes: {

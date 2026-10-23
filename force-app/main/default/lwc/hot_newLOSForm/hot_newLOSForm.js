@@ -15,6 +15,23 @@ export default class Hot_newLOSForm extends LightningElement {
     };
     personResult;
 
+    @api validateFields() {
+        let hasErrors = false;
+        const fields = [
+            { name: 'BankAccount__c', label: 'Kontonummer' },
+            { name: 'EmailAdress__c', label: 'Epost' }
+        ];
+        fields.forEach((field) => {
+            const input = this.template.querySelector(`c-input[data-name="${field.name}"]`);
+            if (!input) return;
+            const value = input.value;
+            const isMissing = typeof value !== 'string' || value.trim() === '';
+            input.sendErrorMessage(isMissing ? `${field.label} må fylles ut.` : '');
+            hasErrors = hasErrors || isMissing;
+        });
+        return hasErrors;
+    }
+
     @wire(getPersonDetails)
     wiredResult(result) {
         if (result.data) {
@@ -49,13 +66,14 @@ export default class Hot_newLOSForm extends LightningElement {
         }
     }
     setKrrIntegrationStatusToQueued() {
-        var personCloned = JSON.parse(JSON.stringify(this.personResult));
-        try {
-            personCloned.INT_KrrIntegrationStatus__c = 'Queued';
-            updateKrrStatus({ person: personCloned });
-            this.isKrrQueued = true;
-        } catch (error) {
-            console.log(error);
-        }
+        if (!this.personResult) return;
+        const personCloned = { ...this.personResult, INT_KrrIntegrationStatus__c: 'Queued' };
+        updateKrrStatus({ person: personCloned })
+            .then(() => {
+                this.isKrrQueued = true;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 }
