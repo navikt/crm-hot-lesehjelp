@@ -244,6 +244,7 @@
             <name>Message</name>
             <defaultValue>
                 <stringValue>{!choosenQuickTextValue}
+
 {!endMessageText}</stringValue>
             </defaultValue>
             <fieldText>Melding</fieldText>
