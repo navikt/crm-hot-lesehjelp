@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
@@ -22,44 +23,14 @@
                 <label>Dagligliv</label>
             </value>
             <value>
-                <fullName>Organisasjonsvirksomhet, politisk eller sosialt arbeid</fullName>
+                <fullName>Organisasjon</fullName>
                 <default>false</default>
                 <label>Organisasjonsvirksomhet, politisk eller sosialt arbeid</label>
             </value>
             <value>
-                <fullName>Utdanning, opplæring eller arbeidstrening</fullName>
-                <default>false</default>
-                <label>Utdanning, opplæring eller arbeidstrening</label>
-            </value>
-            <value>
-                <fullName>Dagliglivet</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Dagliglivet</label>
-            </value>
-            <value>
-                <fullName>Org.virksomhet/politisk/sos.arb</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Org.virksomhet/politisk/sos.arb</label>
-            </value>
-            <value>
-                <fullName>Organisasjon/Politikk/Sosial</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Organisasjon/Politikk/Sosial</label>
-            </value>
-            <value>
-                <fullName>Organisasjon/Politikk/Sosialt arbeid</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Organisasjon/Politikk/Sosialt arbeid</label>
-            </value>
-            <value>
                 <fullName>Utdanning</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>Utdanning</label>
+                <label>Utdanning, opplæring eller arbeidstrening</label>
             </value>
         </valueSetDefinition>
     </valueSet>
