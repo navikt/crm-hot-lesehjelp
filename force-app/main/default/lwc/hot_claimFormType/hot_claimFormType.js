@@ -10,10 +10,10 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
         radiobuttons: [
             { label: 'Dagligliv', value: 'Dagligliv', checked: true },
             { label: 'Arbeidsliv', value: 'Arbeidsliv' },
-            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning, opplæring eller arbeidstrening' },
+            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning' },
             {
                 label: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid',
-                value: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid'
+                value: 'Organisasjon'
             }
         ],
         isOptionalFields: false
