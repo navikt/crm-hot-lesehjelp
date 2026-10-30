@@ -244,6 +244,7 @@
             <name>Message</name>
             <defaultValue>
                 <stringValue>{!choosenQuickTextValue}
+
 {!endMessageText}</stringValue>
             </defaultValue>
             <fieldText>Melding</fieldText>
@@ -271,7 +272,7 @@ Mvh Nav</text>
     <textTemplates>
         <name>quickText1</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>TEKST 1</text>
+        <text>Påminnelse: Lese- og sekretærhjelpen din har meldt inn regningskrav som du må behandle før vi kan utbetale lønn for timene. Logg inn på lesehjelp.nav.no. for å behandle regningskravene.</text>
     </textTemplates>
     <variables>
         <name>choosenQuickTextValue</name>
