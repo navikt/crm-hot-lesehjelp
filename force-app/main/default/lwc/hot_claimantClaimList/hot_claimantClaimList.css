@@ -68,6 +68,15 @@
     background-color: #e6f0ff;
     padding: 1rem;
 }
+.comment-cards {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+.comment-cards:empty {
+    display: none;
+}
 .dialog {
     padding: 0;
     border: none;

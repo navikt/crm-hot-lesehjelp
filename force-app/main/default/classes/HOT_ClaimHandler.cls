@@ -33,6 +33,7 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
     public override void onAfterUpdate(Map<Id, sObject> triggerOldMap) {
         List<HOT_Claim__c> claimsToNotifyUserOnDeclinedStatus = new List<HOT_Claim__c>();
         List<HOT_Claim__c> claimsToNotifyUserOnDeclinedByNAVStatus = new List<HOT_Claim__c>();
+        List<HOT_Claim__c> claimsToNotifyUserOnChangesRequestedStatus = new List<HOT_Claim__c>();
         Set<Id> entitlements = new Set<Id>();
         Set<Id> claimIds = new Set<Id>();
 
@@ -48,6 +49,12 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
                 (claim.Status__c == 'Declined by NAV'))
             ) {
                 claimsToNotifyUserOnDeclinedByNAVStatus.add(claim);
+            }
+            if (
+                (triggerOldMap.get(claim.Id).get('Status__c') != 'Changes Requested') &&
+                (claim.Status__c == 'Changes Requested')
+            ) {
+                claimsToNotifyUserOnChangesRequestedStatus.add(claim);
             }
 
             Id oldEntitlementId = (Id) triggerOldMap.get(claim.Id).get('Entitlement__c');
@@ -67,6 +74,9 @@ public without sharing class HOT_ClaimHandler extends MyTriggers {
         }
         if (claimsToNotifyUserOnDeclinedByNAVStatus.size() > 0) {
             HOT_SMSService.notifyUserOnDeclinedClaimByNAV(claimsToNotifyUserOnDeclinedByNAVStatus);
+        }
+        if (claimsToNotifyUserOnChangesRequestedStatus.size() > 0) {
+            HOT_SMSService.notifyUserOnChangesRequestedClaim(claimsToNotifyUserOnChangesRequestedStatus);
         }
         if (entitlements.size() > 0) {
             HOT_EntitlementController.recalculateUsedEntitlements(entitlements);

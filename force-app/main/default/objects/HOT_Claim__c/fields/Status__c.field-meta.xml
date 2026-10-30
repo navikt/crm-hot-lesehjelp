@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
+    <deprecated>false</deprecated>
     <description>Status about the claim</description>
     <externalId>false</externalId>
     <label>Status</label>
@@ -71,6 +72,11 @@
                 <fullName>Paid out after recalculation</fullName>
                 <default>false</default>
                 <label>Paid out after recalculation</label>
+            </value>
+            <value>
+                <fullName>Changes Requested</fullName>
+                <default>false</default>
+                <label>Changes Requested</label>
             </value>
         </valueSetDefinition>
     </valueSet>

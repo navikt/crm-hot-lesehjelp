@@ -4,7 +4,7 @@
         <div style="flex-direction: row; display: flex"></div>
         <br />
         <div if:true={isWorkClaimType}>
-            <c-radiobuttons
+            <!-- <c-radiobuttons
                 helptext-content="Velg ja om det er arbeidsgiver som skal få refusjon."
                 radiobuttons={componentValues.onEmployerRadioButtons}
                 onradiobuttonsclick={handleOnEmployerRadioButtons}
@@ -23,7 +23,7 @@
                 url="https://www.nav.no/no/nav-og-samfunn/om-nav/slik-gjor-du-det/send-faktura-til-nav"
                 url-text="Se veiledning på hvordan du sender elektronisk faktura til NAV"
             ></c-hot_info-card>
-            </template>
+            </template> -->
             <div if:true={employerClaim}><br /></div>
             <div if:true={employerClaim}>
                 <c-input
