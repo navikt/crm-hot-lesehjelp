@@ -1,28 +1,12 @@
-.cli-container {
-    background-color: white;
-    padding: 1rem;
-    margin-bottom: 1rem;
+:host {
+    display: block;
 }
 
-.content-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.claim-line-card {
+    display: block;
+    margin-bottom: var(--lwc-spacingMedium, 1rem);
 }
 
-.left-content {
-    flex: 1;
-    margin-right: 1rem;
-    background-color: #e6f1f8;
-    padding: 0.5rem;
-}
-
-.right-content {
-    background-color: #efecf4;
-    width: fit-content;
-    padding: 0.5rem;
-}
-
-p {
-    padding: 0.2rem;
+.slds-form-element__static {
+    overflow-wrap: anywhere;
 }
