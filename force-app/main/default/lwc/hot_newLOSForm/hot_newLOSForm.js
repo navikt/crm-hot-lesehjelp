@@ -19,14 +19,14 @@ export default class Hot_newLOSForm extends LightningElement {
         let hasErrors = false;
         const fields = [
             { name: 'BankAccount__c', label: 'Kontonummer' },
-            { name: 'EmailAdress__c', label: 'Epost' }
+            { name: 'PhoneNumber__c', label: 'Mobilnr' }
         ];
         fields.forEach((field) => {
             const input = this.template.querySelector(`c-input[data-name="${field.name}"]`);
             if (!input) return;
             const value = input.value;
             const isMissing = typeof value !== 'string' || value.trim() === '';
-            input.sendErrorMessage(isMissing ? `${field.label} må fylles ut.` : '');
+            input.sendErrorMessage(isMissing ? `${field.label} mangler.` : '');
             hasErrors = hasErrors || isMissing;
         });
         return hasErrors;
