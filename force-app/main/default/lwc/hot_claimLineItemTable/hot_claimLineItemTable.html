@@ -1,45 +1,89 @@
 <template>
     <template for:each={claimLineItems} for:item="cli">
-        <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
-            <c-hot_universal-alert-banner 
-                lwc:if={cli.hasOverlap}
-                show-icon
-                type="error"
-                message="Tiden på denne kravlinjen overlapper med:"
-                items={cli.alertBannerItems}
-            ></c-hot_universal-alert-banner>
-            <div class="content-container">
-                <div class="left-content">
-                    <a href={cli.link}>{cli.Name}</a>
-                    <p><strong>Periode: </strong>{cli.Weekday__c} {cli.period}</p>
-                    <p if:true={cli.HasTravelTo__c}><strong>Reisen til: </strong>{cli.travelToPeriode}</p>
-                    <p if:true={cli.HasTravelFrom__c}><strong>Reisen fra: </strong>{cli.travelFromPeriode}</p>
-                    <p if:true={cli.TravelDistance__c}>
-                        <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})
-                    </p>
-                    <p if:true={cli.ExpensesParking__c}>
-                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})
-                    </p>
-                    <p if:true={cli.ExpensesToll__c}>
-                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
-                    </p>
-                    <p if:true={cli.ExpensesPublicTransport__c}>
-                        <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
-                        {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
-                    </p>
+        <lightning-card icon-name="standard:record" class="claim-line-card" key={cli.Id}>
+            <h2 slot="title">
+                <a href={cli.link}>{cli.Name}</a>
+            </h2>
+            <div class="slds-p-horizontal_medium slds-p-bottom_small">
+                <div lwc:if={cli.hasOverlap} class="slds-m-bottom_medium">
+                    <c-hot_universal-alert-banner
+                        show-icon
+                        type="error"
+                        message="Tiden på denne kravlinjen overlapper med:"
+                        items={cli.alertBannerItems}
+                    ></c-hot_universal-alert-banner>
                 </div>
-                <div class="right-content satser">
-                    <p><strong>Timer med dagsats: </strong>{cli.DayHours__c}</p>
-                    <p><strong>Timer med kveld/natt/helgesats: </strong>{cli.EveningNightAndWeekendHours__c}</p>
-                    <p><strong>Timer med reise: </strong>{cli.TravelHours__c}</p>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <dl class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Periode</dt>
+                            <dd class="slds-form-element__static">{cli.Weekday__c} {cli.period}</dd>
+                        </div>
+                        <div lwc:if={cli.HasTravelTo__c} class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Reisen til</dt>
+                            <dd class="slds-form-element__static">{cli.travelToPeriode}</dd>
+                        </div>
+                        <div lwc:if={cli.HasTravelFrom__c} class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Reisen fra</dt>
+                            <dd class="slds-form-element__static">{cli.travelFromPeriode}</dd>
+                        </div>
+                        <div lwc:if={cli.TravelDistance__c} class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Reisevei egen bil</dt>
+                            <dd class="slds-form-element__static">
+                                {cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})
+                            </dd>
+                        </div>
+                        <div lwc:if={cli.ExpensesParking__c} class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Utlegg for p-avgift</dt>
+                            <dd class="slds-form-element__static">
+                                {cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})
+                            </dd>
+                        </div>
+                        <div lwc:if={cli.ExpensesToll__c} class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Utlegg for bompenger</dt>
+                            <dd class="slds-form-element__static">{cli.ExpensesToll__c} kr</dd>
+                        </div>
+                        <div
+                            lwc:if={cli.ExpensesPublicTransport__c}
+                            class="slds-form-element slds-form-element_readonly"
+                        >
+                            <dt class="slds-form-element__label">Utlegg for Buss, Trikk, Tbane- innland</dt>
+                            <dd class="slds-form-element__static">
+                                {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
+                            </dd>
+                        </div>
+                    </dl>
+                    <dl class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Timer med dagsats</dt>
+                            <dd class="slds-form-element__static">{cli.DayHours__c}</dd>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Timer med kveld/natt/helgesats</dt>
+                            <dd class="slds-form-element__static">{cli.EveningNightAndWeekendHours__c}</dd>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <dt class="slds-form-element__label">Timer med reise</dt>
+                            <dd class="slds-form-element__static">{cli.TravelHours__c}</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
-        </div>
+        </lightning-card>
     </template>
-    <div if:true={noClaimLineItems} class="cli-container">
-        <p>Dette kravet har ingen kravlinjer</p>
-    </div>
-    <div if:true={error} class="cli-container">
+    <lightning-card lwc:if={noClaimLineItems} title="Kravlinjer" icon-name="standard:record" class="claim-line-card">
+        <p class="slds-p-horizontal_medium slds-p-bottom_small slds-text-color_weak">
+            Dette kravet har ingen kravlinjer
+        </p>
+    </lightning-card>
+    <div lwc:if={error} class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+        <lightning-icon
+            icon-name="utility:error"
+            variant="inverse"
+            size="x-small"
+            alternative-text="Feil"
+            class="slds-m-right_small"
+        ></lightning-icon>
         <p>{errorMessage}</p>
     </div>
 </template>
