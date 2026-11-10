@@ -41,6 +41,27 @@
                 <elementReference>$Record.Claimant__r.CRM_Person__r.INT_KrrEmail__c</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newResourceRecord.FirstName__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Claimant__r.FirstName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newResourceRecord.LastName__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Claimant__r.LastName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newResourceRecord.MiddleName__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Claimant__r.MiddleName</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>createEvent</targetReference>
         </connector>
@@ -95,7 +116,7 @@
             </value>
         </filters>
         <filters>
-            <field>Resource_number__c</field>
+            <field>ResourceNumber__c</field>
             <operator>IsNull</operator>
             <value>
                 <booleanValue>true</booleanValue>
@@ -105,7 +126,7 @@
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>newResourceRecord</name>
         <dataType>SObject</dataType>

@@ -8,12 +8,16 @@
         <actionName>HOT_PlatformEventPublisher</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>updateClaim</targetReference>
+            <targetReference>publishOutcome</targetReference>
         </connector>
         <dataTypeMappings>
             <typeName>T__eventRecord</typeName>
             <typeValue>HOT_LOS_PaymentClaim__e</typeValue>
         </dataTypeMappings>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Error</targetReference>
+        </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>eventRecord</name>
@@ -22,6 +26,14 @@
             </value>
         </inputParameters>
         <nameSegment>HOT_PlatformEventPublisher</nameSegment>
+        <outputParameters>
+            <assignToReference>publishErrors</assignToReference>
+            <name>errors</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>publishSucceeded</assignToReference>
+            <name>isSuccess</name>
+        </outputParameters>
     </actionCalls>
     <actionCalls>
         <name>SerializeClaimLineItems</name>
@@ -101,10 +113,52 @@
                 <elementReference>$Record.External_Id__c</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Event.Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Type__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Publish_Platform_Event_with_Callback_Action_1</targetReference>
         </connector>
     </assignments>
+    <customErrors>
+        <name>Error</name>
+        <label>Error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Kravet kunne ikke sendes til utbetaling:{!publishErrors}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>publishOutcome</name>
+        <label>Publish Outcome</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Failed</defaultConnectorLabel>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>publishSucceeded</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>updateClaim</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>now</name>
@@ -226,6 +280,20 @@
     <variables>
         <name>PayloadJSON</name>
         <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>publishErrors</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>publishSucceeded</name>
+        <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>

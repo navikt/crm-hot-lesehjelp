@@ -4,5 +4,5 @@
     <eventType>HighVolume</eventType>
     <label>Payment Claim</label>
     <pluralLabel>Payment Claims</pluralLabel>
-    <publishBehavior>PublishImmediately</publishBehavior>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
 </CustomObject>
