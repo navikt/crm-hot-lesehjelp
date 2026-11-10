@@ -32,14 +32,20 @@ export default class Hot_claimLineItemTable extends LightningElement {
                     const overlappingLinks = this.parseOverlappingIds(x.OverlappingClaimLineItemsIds__c);
 
                     return {
-                    ...x,
-                    period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
-                    travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
-                    travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
-                    link: this.createLink(x.Id),
-                    hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
-                    overlappingLinks: overlappingLinks,
-                    alertBannerItems: this.claimLineItemToAlertBanner(overlappingLinks)
+                        ...x,
+                        period: this.formatDateTimePeriod(x.StartTime__c, x.EndTime__c),
+                        travelToPeriode: this.formatDateTimePeriod(x.TravelToStartTime__c, x.TravelToEndTime__c),
+                        travelFromPeriode: this.formatDateTimePeriod(x.TravelFromStartTime__c, x.TravelFromEndTime__c),
+                        link: this.createLink(x.Id),
+                        hasTravelDetails: Boolean(
+                            x.TravelDistance__c ||
+                                x.ExpensesParking__c ||
+                                x.ExpensesToll__c ||
+                                x.ExpensesPublicTransport__c
+                        ),
+                        hasOverlap: this.checkHasOverlap(x.OverlappingClaimLineItemsIds__c),
+                        overlappingLinks: overlappingLinks,
+                        alertBannerItems: this.claimLineItemToAlertBanner(overlappingLinks)
                     };
                 });
             })
