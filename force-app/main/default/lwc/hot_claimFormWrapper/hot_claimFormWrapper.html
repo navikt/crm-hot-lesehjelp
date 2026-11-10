@@ -16,114 +16,102 @@
             </c-alertdialog>
             <main if:false={noAccess} class="main-content submitted-false">
                 <div class="skjema">
+                    <c-hot_new-l-o-s-form 
+                        lwc:if={showLosForm}
+                    ></c-hot_new-l-o-s-form>
                     <c-hot_claim-form-type
-                        if:false={claimTypeChosen}
+                        lwc:elseif={showClaimFormType}
                         onclaimformtyperesult={handleClaimType}
                         claim={claim}
                         is-edit={isEdit}
-                        previous-page={previousPage}
                         parent-claim-component-values={componentValues}
                     ></c-hot_claim-form-type>
-                    <div if:true={claimTypeChosen} class="actual-form">
-                        <c-hot_claim-form-user
-                            parent-field-values={fieldValues}
-                            if:false={claimTypeResult.claimForm}
-                            class="subform"
-                            claim={claim}
-                            is-edit={isEdit}
-                            parent-claim-component-values={componentValues}
-                        ></c-hot_claim-form-user>
-                        <c-hot_claim-form
-                            class="subform"
-                            if:true={claimTypeResult.claimForm}
-                            parent-field-values={fieldValues}
-                            claim-type={fieldValues.ClaimType__c}
-                            parent-claim-component-values={componentValues}
-                            claim={claim}
-                            is-edit={isEdit}
-                            is-los={isLos}
-                        ></c-hot_claim-form>
+                    <c-hot_claim-form-user
+                        parent-field-values={fieldValues}
+                        lwc:elseif={showUserInfo}
+                        class="subform"
+                        claim={claim}
+                        is-edit={isEdit}
+                        parent-claim-component-values={componentValues}
+                    ></c-hot_claim-form-user>
+                    <c-hot_claim-form
+                        class="subform"
+                        lwc:elseif={showClaimForm}
+                        parent-field-values={fieldValues}
+                        claim-type={fieldValues.ClaimType__c}
+                        parent-claim-component-values={componentValues}
+                        claim={claim}
+                        is-edit={isEdit}
+                        is-los={isLos}
+                    ></c-hot_claim-form>
 
-                        <!-- Form summary modal -->
-                        <div>
-                            <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
-                                <div class="modal-header">
-                                    <button class="close-btn" onclick={closeFormSummaryModal} aria-label="Lukk">
-                                        <img src={exitCrossIcon} alt="" aria-hidden="true" />
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <template lwc:if={showForm}>
-                                        <c-hot_claim-form-summary
-                                            parent-field-values={fieldValues}
-                                            parent-claim-component-values={componentValues}
-                                            time-input={timeInputValues}
-                                        ></c-hot_claim-form-summary>
+                    <!-- Form summary modal -->
+                    <div lwc:if={showClaimForm}>
+                        <dialog class="modal-form-summary modal-container" onclose={closeFormSummaryModal}>
+                            <div class="modal-header">
+                                <button class="close-btn" onclick={closeFormSummaryModal} aria-label="Lukk">
+                                    <img src={exitCrossIcon} alt="" aria-hidden="true" />
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <template lwc:if={showForm}>
+                                    <c-hot_claim-form-summary
+                                        parent-field-values={fieldValues}
+                                        parent-claim-component-values={componentValues}
+                                        time-input={timeInputValues}
+                                    ></c-hot_claim-form-summary>
 
-                                        <template lwc:if={claimTypeResult.claimForm}>
-                                            <template lwc:if={isUserInNorwegianTimeZone}>
-                                                <div class="confirmationCheckbox">
-                                                    <c-checkbox
-                                                        class="checkbox"
-                                                        label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                                        oncheckboxclick={signingClaim}
-                                                        name="confirmationCheckbox"
-                                                        aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
-                                                        error-text="Denne må hukes av."
-                                                    ></c-checkbox>
-                                                </div>
-                                                <c-button
-                                                    button-label={submitButtonLabel}
-                                                    button-styling="primary"
-                                                    type="submit"
-                                                    data-id="saveButton"
-                                                    onbuttonclick={handleSendButtonClicked}
-                                                    desktop-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
-                                                    mobile-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
-                                                    style="padding-bottom: 1em"
-                                                ></c-button>
-                                            </template>
-                                            <template lwc:else>
-                                                <c-hot_local-alert
-                                                    type="error"
-                                                    title="Obs!"
-                                                    content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke sende inn eller redigere krav når du befinner deg utenfor norsk tidssone!"
-                                                ></c-hot_local-alert>
-                                            </template>
+                                    <template lwc:if={showClaimForm}>
+                                        <template lwc:if={isUserInNorwegianTimeZone}>
+                                            <div class="confirmationCheckbox">
+                                                <c-checkbox
+                                                    class="checkbox"
+                                                    label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                                    oncheckboxclick={signingClaim}
+                                                    name="confirmationCheckbox"
+                                                    aria-label="Jeg bekrefter at kravet inneholder korrekt informasjon."
+                                                    error-text="Denne må hukes av."
+                                                ></c-checkbox>
+                                            </div>
+                                            <c-button
+                                                button-label={submitButtonLabel}
+                                                button-styling="primary"
+                                                type="submit"
+                                                data-id="saveButton"
+                                                onbuttonclick={handleSendButtonClicked}
+                                                desktop-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
+                                                mobile-style="width: 8rem; justify-content: center; margin-top: 0.5rem"
+                                                style="padding-bottom: 1em"
+                                            ></c-button>
+                                        </template>
+                                        <template lwc:else>
+                                            <c-hot_local-alert
+                                                type="error"
+                                                title="Obs!"
+                                                content="Det ser ut som du er i en annen tidssone. Du kan desverre ikke sende inn eller redigere krav når du befinner deg utenfor norsk tidssone!"
+                                            ></c-hot_local-alert>
                                         </template>
                                     </template>
-                                </div>
-                            </dialog>
-                        </div>
-
-                        <div class="button-container">
-                            <c-button
-                                button-label="Forrige"
-                                button-styling="secondary"
-                                onbuttonclick={handleBackButtonClicked}
-                                desktop-style="width: 8rem; justify-content: center"
-                                mobile-style="width: 8rem; justify-content: center"
-                            ></c-button>
-                            <c-button
-                                button-label="Neste"
-                                button-styling="primary"
-                                if:false={claimTypeResult.claimForm}
-                                onbuttonclick={handleNextButtonClicked}
-                                desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"
-                            ></c-button>
-
-                            <c-button
-                                button-label="Neste"
-                                button-styling="primary"
-                                if:true={claimTypeResult.claimForm}
-                                onbuttonclick={handleNextFormSummary}
-                                desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
-                                style="padding-bottom: 1em"
-                            ></c-button>
-                        </div>
+                                </template>
+                            </div>
+                        </dialog>
+                    </div>
+                    <div class="button-container">
+                        <c-button
+                            button-label={previousStepLabel}
+                            button-styling="secondary"
+                            onbuttonclick={handlePreviousStep}
+                            desktop-style="width: 8rem; justify-content: center"
+                            mobile-style="width: 8rem; justify-content: center"
+                        ></c-button>
+                        <c-button
+                            button-label="Neste"
+                            button-styling="primary"
+                            onbuttonclick={handleNextStep}
+                            desktop-style="width: 8rem; justify-content: center; margin-left: 1rem"
+                            mobile-style="width: 8rem; justify-content: center; margin-left: 1rem"
+                            style="padding-bottom: 1em"
+                        ></c-button>
                     </div>
                 </div>
             </main>

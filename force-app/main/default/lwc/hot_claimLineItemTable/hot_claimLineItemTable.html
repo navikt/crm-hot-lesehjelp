@@ -1,45 +1,83 @@
 <template>
-    <template for:each={claimLineItems} for:item="cli">
-        <div aria-label="Nytt tidspunkt" class="cli-container" key={cli.Id}>
-            <c-hot_universal-alert-banner 
-                lwc:if={cli.hasOverlap}
-                show-icon
-                type="error"
-                message="Tiden på denne kravlinjen overlapper med:"
-                items={cli.alertBannerItems}
-            ></c-hot_universal-alert-banner>
-            <div class="content-container">
-                <div class="left-content">
-                    <a href={cli.link}>{cli.Name}</a>
-                    <p><strong>Periode: </strong>{cli.Weekday__c} {cli.period}</p>
-                    <p if:true={cli.HasTravelTo__c}><strong>Reisen til: </strong>{cli.travelToPeriode}</p>
-                    <p if:true={cli.HasTravelFrom__c}><strong>Reisen fra: </strong>{cli.travelFromPeriode}</p>
-                    <p if:true={cli.TravelDistance__c}>
-                        <strong>Reisevei egen bil: </strong> {cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})
+    <section class="detail-section">
+        <h2 class="detail-heading">Kravlinjer</h2>
+        <ul class="line-items">
+            <template for:each={claimLineItems} for:item="cli">
+                <li class="line-item" key={cli.Id}>
+                    <div class="line-header">
+                        <h3 class="line-period">{cli.Weekday__c} {cli.period}</h3>
+                        <a class="line-link" href={cli.link}>{cli.Name}</a>
+                    </div>
+                    <div lwc:if={cli.hasOverlap} class="slds-m-bottom_small">
+                        <c-hot_universal-alert-banner
+                            show-icon
+                            type="error"
+                            message="Tiden på denne kravlinjen overlapper med:"
+                            items={cli.alertBannerItems}
+                        ></c-hot_universal-alert-banner>
+                    </div>
+                    <p lwc:if={cli.HasTravelTo__c} class="travel-period">
+                        <strong>Reise til:</strong> {cli.travelToPeriode}
                     </p>
-                    <p if:true={cli.ExpensesParking__c}>
-                        <strong>Utlegg for p-avgift: </strong> {cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})
+                    <p lwc:if={cli.HasTravelFrom__c} class="travel-period">
+                        <strong>Reise fra:</strong> {cli.travelFromPeriode}
                     </p>
-                    <p if:true={cli.ExpensesToll__c}>
-                        <strong>Utlegg for bompenger: </strong> {cli.ExpensesToll__c} kr
-                    </p>
-                    <p if:true={cli.ExpensesPublicTransport__c}>
-                        <strong>Utlegg for Buss, Trikk, Tbane- innland: </strong>
-                        {cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})
-                    </p>
-                </div>
-                <div class="right-content satser">
-                    <p><strong>Timer med dagsats: </strong>{cli.DayHours__c}</p>
-                    <p><strong>Timer med kveld/natt/helgesats: </strong>{cli.EveningNightAndWeekendHours__c}</p>
-                    <p><strong>Timer med reise: </strong>{cli.TravelHours__c}</p>
-                </div>
-            </div>
-        </div>
-    </template>
-    <div if:true={noClaimLineItems} class="cli-container">
-        <p>Dette kravet har ingen kravlinjer</p>
-    </div>
-    <div if:true={error} class="cli-container">
+                    <div lwc:if={cli.hasTravelDetails} class="line-group">
+                        <h4 class="line-group-heading">Reise</h4>
+                        <dl class="detail-grid">
+                            <div lwc:if={cli.TravelDistance__c} class="detail-field">
+                                <dt>Reisevei egen bil</dt>
+                                <dd>{cli.TravelDistance__c} km ({cli.TravelToFromAddresses__c})</dd>
+                            </div>
+                            <div lwc:if={cli.ExpensesParking__c} class="detail-field">
+                                <dt>Utlegg for p-avgift</dt>
+                                <dd>{cli.ExpensesParking__c} kr ({cli.ParkingAddress__c})</dd>
+                            </div>
+                            <div lwc:if={cli.ExpensesToll__c} class="detail-field">
+                                <dt>Utlegg for bompenger</dt>
+                                <dd>{cli.ExpensesToll__c} kr</dd>
+                            </div>
+                            <div lwc:if={cli.ExpensesPublicTransport__c} class="detail-field">
+                                <dt>Utlegg for Buss, Trikk, Tbane- innland</dt>
+                                <dd>{cli.ExpensesPublicTransport__c} kr ({cli.PublicTransportRoute__c})</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="line-group">
+                        <h4 class="line-group-heading">
+                            Beregninger
+                            <lightning-helptext
+                                content="Alle tidene er opprundet for satsberegning."
+                            ></lightning-helptext>
+                        </h4>
+                        <dl class="detail-grid">
+                            <div class="detail-field">
+                                <dt>Timer med dagsats</dt>
+                                <dd>{cli.DayHours__c}</dd>
+                            </div>
+                            <div class="detail-field">
+                                <dt>Timer med kveld/natt/helgesats</dt>
+                                <dd>{cli.EveningNightAndWeekendHours__c}</dd>
+                            </div>
+                            <div class="detail-field">
+                                <dt>Timer med reise</dt>
+                                <dd>{cli.TravelHours__c}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </li>
+            </template>
+        </ul>
+        <p lwc:if={noClaimLineItems} class="slds-text-color_weak">Dette kravet har ingen kravlinjer</p>
+    </section>
+    <div lwc:if={error} class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+        <lightning-icon
+            icon-name="utility:error"
+            variant="inverse"
+            size="x-small"
+            alternative-text="Feil"
+            class="slds-m-right_small"
+        ></lightning-icon>
         <p>{errorMessage}</p>
     </div>
 </template>

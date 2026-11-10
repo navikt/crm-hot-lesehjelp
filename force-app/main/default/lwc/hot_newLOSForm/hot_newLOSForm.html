@@ -1,6 +1,6 @@
 <template>
     <section class="bruker-info-skjema sub-form">
-        <div style="flex-direction: row; display: flex">
+        <div class="header-container">
             <h2 class="header" tabindex="-1" style="margin-bottom: 0.8rem">Utbetaling av lønnskrav</h2>
             <br />
         </div>
@@ -24,37 +24,41 @@
         <c-input
             label="Adresse"
             name="Address__c"
+            data-name="Address__c"
             disabled="true"
             value={fieldValues.Address__c}
             form="krav-skjema-input"
-            error-text="Adresse må fylles ut."
+            error-text="Adresse mangler"
         ></c-input>
         <br />
         <c-input
             label="Kontonummer"
             name="BankAccount__c"
+            data-name="BankAccount__c"
             disabled="true"
             value={fieldValues.BankAccount__c}
             form="krav-skjema-input"
-            error-text="Kontonummer må fylles ut."
+            error-text="Kontonummer mangler."
         ></c-input>
         <br />
         <c-input
             label="Mobilnr"
             name="PhoneNumber__c"
+            data-name="PhoneNumber__c"
             disabled="true"
             value={fieldValues.PhoneNumber__c}
             form="krav-skjema-input"
-            error-text="Mobilnr må fylles ut."
+            error-text="Mobilnr mangler."
         ></c-input>
         <br />
         <c-input
             label="Epost"
             name="EmailAdress__c"
+            data-name="EmailAdress__c"
             disabled="true"
             value={fieldValues.EmailAdress__c}
             form="krav-skjema-input"
-            error-text="Epost må fylles ut."
+            error-text="Epost mangler."
         ></c-input>
         <br />
     </section>

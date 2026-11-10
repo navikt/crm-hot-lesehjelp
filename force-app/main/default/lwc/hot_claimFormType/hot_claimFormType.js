@@ -1,8 +1,6 @@
 import { LightningElement, track, api } from 'lwc';
-import { NavigationMixin } from 'lightning/navigation';
 
-export default class Hot_claimFormType extends NavigationMixin(LightningElement) {
-    @api previousPage = 'home';
+export default class Hot_claimFormType extends LightningElement {
     @track currentClaimType = 'Dagligliv';
     @track hasChanges = false;
 
@@ -10,10 +8,10 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
         radiobuttons: [
             { label: 'Dagligliv', value: 'Dagligliv', checked: true },
             { label: 'Arbeidsliv', value: 'Arbeidsliv' },
-            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning, opplæring eller arbeidstrening' },
+            { label: 'Utdanning, opplæring eller arbeidstrening', value: 'Utdanning' },
             {
                 label: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid',
-                value: 'Organisasjonsvirksomhet, politisk eller sosialt arbeid'
+                value: 'Organisasjon'
             }
         ],
         isOptionalFields: false
@@ -43,17 +41,7 @@ export default class Hot_claimFormType extends NavigationMixin(LightningElement)
         this.hasChanges = true;
     }
 
-    goToPreviousPage() {
-        window.scrollTo(0, 0);
-        this[NavigationMixin.Navigate]({
-            type: 'comm__namedPage',
-            attributes: {
-                pageName: this.previousPage
-            }
-        });
-    }
-
-    sendResult() {
+    @api sendResult() {
         this.componentValues.radiobuttons.forEach((element) => {
             if (element.checked) {
                 this.currentClaimType = element.value;
