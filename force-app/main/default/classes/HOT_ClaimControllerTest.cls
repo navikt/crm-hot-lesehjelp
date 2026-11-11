@@ -4,8 +4,11 @@ public class HOT_ClaimControllerTest {
     static void setup() {
         User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
         System.runAs(navEmployee) {
-            Account acc = new Account();
-            acc.Name = 'Ola Lesehjelp';
+            Person__c personLesehjelp = HOT_LesehjelpTestDataFactory.createPerson();
+            insert personLesehjelp;
+
+            Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+            acc.CRM_Person__c = personLesehjelp.Id;
             insert acc;
             Account acc2 = new Account();
             acc2.INT_PersonIdent__c = '01010101010';
@@ -27,7 +30,10 @@ public class HOT_ClaimControllerTest {
             Account personAccount = TestDataFactory_Community.getPersonAccounts(1)[0];
             personAccount.LastName = 'PortalBruker';
             update personAccount;
-            Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c];
+            Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c WHERE Id = :personAccount.CRM_Person__c];
+            person.INT_BankAccountNumber__c = '12345678903';
+            person.INT_KrrEmail__c = 'portal@example.com';
+            person.INT_MunicipalityNumber__c = '4601';
             person.CRM_Account__c = personAccount.Id;
             Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);
@@ -226,14 +232,7 @@ public class HOT_ClaimControllerTest {
         GroupMember gm = new GroupMember(GroupId = group1.Id, UserOrGroupId = navEmployee.Id);
         insert gm;
         System.runAs(navEmployee) {
-            Account acc = new Account();
-            acc.Name = 'Ola Lesehjelp';
-            insert acc;
-            Account acc2 = new Account();
-            acc2.Name = 'Kari Bruker';
-            insert acc2;
-            HOT_Claim__c claim = HOT_LesehjelpTestDataFactory.createClaim(acc2, acc);
-            insert claim;
+            HOT_Claim__c claim = [SELECT Id FROM HOT_Claim__c];
             List<HOT_Claim__c> result = HOT_ClaimController.getClaim(claim.Id);
             Test.stopTest();
             System.assertEquals(1, result.size());
@@ -718,6 +717,7 @@ public class HOT_ClaimControllerTest {
     static void testSetKoststedWhereMunicipalityIsNullAndThusKoststedIsNull() {
         myTriggers.disable(PersonAccessHandler.class);
         Person__c person = HOT_LesehjelpTestDataFactory.createPerson('1010101010');
+        person.INT_MunicipalityNumber__c = null;
         Account account = [SELECT Id, CRM_Person__c FROM Account WHERE INT_PersonIdent__c = '01010101010' LIMIT 1];
         person.CRM_Account__c = account.Id;
         person.INT_IsNavEmployee__c = false;

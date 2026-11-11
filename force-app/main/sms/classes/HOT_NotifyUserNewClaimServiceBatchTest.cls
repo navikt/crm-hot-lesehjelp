@@ -2,8 +2,10 @@
 private class HOT_NotifyUserNewClaimServiceBatchTest {
     @TestSetup
     static void setup() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
+        Person__c personLesehjelp = HOT_LesehjelpTestDataFactory.createPerson();
+        insert personLesehjelp;
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.CRM_Person__c = personLesehjelp.Id;
         insert acc;
         Person__c person = new Person__c();
         person.Name = '12015678995';

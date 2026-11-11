@@ -9,12 +9,21 @@ private class HOT_SMSServiceTest {
         Person__c claimantWithoutPhone = HOT_LesehjelpTestDataFactory.createPerson('12015678903');
         insert new List<Person__c>{ claimantPerson, userPerson, claimantWithoutPhone };
 
-        Account claimant = new Account(Name = 'SMS claimant', CRM_Person__c = claimantPerson.Id);
-        Account claimUser = new Account(Name = 'SMS user', CRM_Person__c = userPerson.Id);
-        Account claimantNoPhone = new Account(
-            Name = 'SMS claimant without phone',
-            CRM_Person__c = claimantWithoutPhone.Id
-        );
+        Account claimant = HOT_LesehjelpTestDataFactory.createAccount(true);
+        claimant.FirstName = 'SMS';
+        claimant.LastName = 'claimant';
+        claimant.CRM_Person__c = claimantPerson.Id;
+
+        Account claimUser = HOT_LesehjelpTestDataFactory.createAccount(true);
+        claimUser.FirstName = 'SMS';
+        claimUser.LastName = 'user';
+        claimUser.CRM_Person__c = userPerson.Id;
+
+        Account claimantNoPhone = HOT_LesehjelpTestDataFactory.createAccount(true);
+        claimantNoPhone.FirstName = 'SMS';
+        claimantNoPhone.LastName = 'claimant without phone';
+        claimantNoPhone.CRM_Person__c = claimantWithoutPhone.Id;
+        
         insert new List<Account>{ claimant, claimUser, claimantNoPhone };
 
         List<HOT_Claim__c> claims = new List<HOT_Claim__c>{
