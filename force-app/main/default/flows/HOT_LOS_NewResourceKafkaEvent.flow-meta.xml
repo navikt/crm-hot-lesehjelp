@@ -116,7 +116,7 @@
             </value>
         </filters>
         <filters>
-            <field>ResourceNumber__c</field>
+            <field>Resource_number__c</field>
             <operator>IsNull</operator>
             <value>
                 <booleanValue>true</booleanValue>
