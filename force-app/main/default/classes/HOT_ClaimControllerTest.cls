@@ -33,7 +33,7 @@ public class HOT_ClaimControllerTest {
             Person__c person = [SELECT INT_LastName__c, CRM_Account__c FROM Person__c WHERE Id = :personAccount.CRM_Person__c];
             person.INT_BankAccountNumber__c = '12345678903';
             person.INT_KrrEmail__c = 'portal@example.com';
-            person.INT_MunicipalityNumber__c = '4601';
+            person.INT_MunicipalityNumber__c = '9901';
             person.CRM_Account__c = personAccount.Id;
             Set<Id> personAccountIds = new Set<Id>();
             personAccountIds.add(personAccount.Id);

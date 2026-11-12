@@ -56,7 +56,7 @@ public class HOT_LesehjelpTestDataFactory {
         person.INT_FirstName__c = 'First';
         person.INT_BankAccountNumber__c = '12345678903';
         person.INT_KrrEmail__c = 'person@test.no';
-        person.INT_MunicipalityNumber__c = '4601';
+        person.INT_MunicipalityNumber__c = '9901';
 
         return person;
     }
