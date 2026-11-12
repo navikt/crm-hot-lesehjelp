@@ -2,6 +2,7 @@
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup() {
+        Test.startTest();
         User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', false, true)[0];
         UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'Default' LIMIT 1];
         navEmployee.UserRoleId = role.Id;
@@ -47,6 +48,7 @@ public class HOT_ClaimControllerTest {
                 true
             );
         }
+        Test.stopTest();
     }
     @IsTest
     static void checkAccessTest() {
