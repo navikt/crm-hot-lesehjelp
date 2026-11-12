@@ -2,7 +2,10 @@
 public class HOT_ClaimControllerTest {
     @TestSetup
     static void setup() {
-        User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', true, true)[0];
+        User navEmployee = TestDataFactory_Community.getUsers(1, 'System Administrator', false, true)[0];
+        UserRole role = [SELECT Id FROM UserRole WHERE DeveloperName = 'Default' LIMIT 1];
+        navEmployee.UserRoleId = role.Id;
+        update navEmployee;
         System.runAs(navEmployee) {
             Person__c personLesehjelp = HOT_LesehjelpTestDataFactory.createPerson();
             insert personLesehjelp;
@@ -40,7 +43,7 @@ public class HOT_ClaimControllerTest {
             update person;
             List<User> users = TestDataFactory_Community.getEmployerCommunityUser(
                 personAccountIds,
-                'Trial Customer Portal User',
+                'Customer Community Plus User',
                 true
             );
         }
@@ -247,6 +250,7 @@ public class HOT_ClaimControllerTest {
     }
     @IsTest
     static void CreateNewClaimFromCommunityPersonNumberTest() {
+        User portalBruker = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
         String userName = 'Test User';
         String userPersonNumber = '01010101010';
         String userPhoneNumber = '';
@@ -280,22 +284,26 @@ public class HOT_ClaimControllerTest {
         claimLineItems.add(claimLineItem);
 
         Test.startTest();
-        String result = HOT_ClaimController.createNewClaimFromCommunity(
-            userName,
-            userPersonNumber,
-            userPhoneNumber,
-            claimType,
-            onEmployer,
-            employerName,
-            organizationNumber,
-            employerExpensesPerHour,
-            claimLineItems
-        );
+        String result;
+        System.runAs(portalBruker) {
+            result = HOT_ClaimController.createNewClaimFromCommunity(
+                userName,
+                userPersonNumber,
+                userPhoneNumber,
+                claimType,
+                onEmployer,
+                employerName,
+                organizationNumber,
+                employerExpensesPerHour,
+                claimLineItems
+            );
+        }
         Test.stopTest();
-        System.assertEquals('ok', result, 'Claim creation should be successful');
+        Assert.areEqual('ok', result, 'Claim creation should be successful');
     }
     @IsTest
     static void CreateNewClaimFromCommunityMobileNumberTest() {
+        User portalBruker = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
         String userName = 'Test User';
         String userPersonNumber = '';
         String userPhoneNumber = '12345678';
@@ -329,22 +337,26 @@ public class HOT_ClaimControllerTest {
         claimLineItems.add(claimLineItem);
 
         Test.startTest();
-        String result = HOT_ClaimController.createNewClaimFromCommunity(
-            userName,
-            userPersonNumber,
-            userPhoneNumber,
-            claimType,
-            onEmployer,
-            employerName,
-            organizationNumber,
-            employerExpensesPerHour,
-            claimLineItems
-        );
+        String result;
+        System.runAs(portalBruker) {
+            result = HOT_ClaimController.createNewClaimFromCommunity(
+                userName,
+                userPersonNumber,
+                userPhoneNumber,
+                claimType,
+                onEmployer,
+                employerName,
+                organizationNumber,
+                employerExpensesPerHour,
+                claimLineItems
+            );
+        }
         Test.stopTest();
-        System.assertEquals('ok', result, 'Claim creation should be successful');
+        Assert.areEqual('ok', result, 'Claim creation should be successful');
     }
     @IsTest
     static void CreateNewClaimFromCommunityMobileNumberOnEmployerTest() {
+        User portalBruker = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
         String userName = 'Test User';
         String userPersonNumber = '';
         String userPhoneNumber = '12345678';
@@ -378,19 +390,22 @@ public class HOT_ClaimControllerTest {
         claimLineItems.add(claimLineItem);
 
         Test.startTest();
-        String result = HOT_ClaimController.createNewClaimFromCommunity(
-            userName,
-            userPersonNumber,
-            userPhoneNumber,
-            claimType,
-            onEmployer,
-            employerName,
-            organizationNumber,
-            employerExpensesPerHour,
-            claimLineItems
-        );
+        String result;
+        System.runAs(portalBruker) {
+            result = HOT_ClaimController.createNewClaimFromCommunity(
+                userName,
+                userPersonNumber,
+                userPhoneNumber,
+                claimType,
+                onEmployer,
+                employerName,
+                organizationNumber,
+                employerExpensesPerHour,
+                claimLineItems
+            );
+        }
         Test.stopTest();
-        System.assertEquals('ok', result, 'Claim creation should be successful');
+        Assert.areEqual('ok', result, 'Claim creation should be successful');
     }
     @IsTest
     static void CreateNewClaimFromCommunityMobileNumberOnEmployerNoEmployerTest() {
@@ -570,6 +585,7 @@ public class HOT_ClaimControllerTest {
 
     @IsTest
     static void CreateNewClaimFromCommunityAndThenUpdateItTest() {
+        User portalBruker = [SELECT Id, AccountId FROM User WHERE LastName = 'PortalBruker'];
         String userName = 'Test User';
         String userPersonNumber = '01010101010';
         String userPhoneNumber = '';
@@ -603,18 +619,29 @@ public class HOT_ClaimControllerTest {
         claimLineItems.add(claimLineItem);
 
         Test.startTest();
-        String result = HOT_ClaimController.createNewClaimFromCommunity(
-            userName,
-            userPersonNumber,
-            userPhoneNumber,
-            claimType,
-            onEmployer,
-            employerName,
-            organizationNumber,
-            employerExpensesPerHour,
-            claimLineItems
-        );
-        HOT_Claim__c claimToUpdate = [SELECT Id FROM HOT_Claim__c WHERE Type__c = 'Dagligliv' LIMIT 1];
+        String result;
+        System.runAs(portalBruker) {
+            result = HOT_ClaimController.createNewClaimFromCommunity(
+                userName,
+                userPersonNumber,
+                userPhoneNumber,
+                claimType,
+                onEmployer,
+                employerName,
+                organizationNumber,
+                employerExpensesPerHour,
+                claimLineItems
+            );
+        }
+        Assert.areEqual('ok', result, 'Claim creation should be successful');
+        HOT_Claim__c claimToUpdate = [
+            SELECT Id
+            FROM HOT_Claim__c
+            WHERE
+                UserPersonNumber__c = :userPersonNumber
+                AND Claimant__c = :portalBruker.AccountId
+                AND Source__c = 'Community'
+        ];
         List<HOT_ClaimLineItem__c> claimLineItemsList = [
             SELECT Id
             FROM HOT_ClaimLineItem__c
@@ -647,15 +674,18 @@ public class HOT_ClaimControllerTest {
             };
             claimLineItemsUpdated.add(claimLineItemUpdated);
         }
-        String resultString = HOT_ClaimController.updateClaim(
-            claimToUpdate.Id,
-            'Arbeidsliv',
-            '',
-            'false',
-            claimLineItemsUpdated
-        );
+        String resultString;
+        System.runAs(portalBruker) {
+            resultString = HOT_ClaimController.updateClaim(
+                claimToUpdate.Id,
+                'Arbeidsliv',
+                '',
+                'false',
+                claimLineItemsUpdated
+            );
+        }
         Test.stopTest();
-        System.assertEquals('ok', resultString, 'Claim should have been updated');
+        Assert.areEqual('ok', resultString, 'Claim should have been updated');
     }
 
     @IsTest
