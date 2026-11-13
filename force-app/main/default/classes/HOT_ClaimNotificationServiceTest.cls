@@ -5,8 +5,11 @@ public class HOT_ClaimNotificationServiceTest {
     }
     @isTest
     static void notifyNAVonNotRegisteredClaimantTest() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
+        insert person;
+        
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.CRM_Person__c = person.Id;
         insert acc;
 
         Account acc2 = new Account();
@@ -45,8 +48,11 @@ public class HOT_ClaimNotificationServiceTest {
     }
     @isTest
     static void notifyNAVonNotRegisteredClaimant2Test() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
+        insert person;
+        
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.CRM_Person__c = person.Id;
         insert acc;
 
         Account acc2 = new Account();

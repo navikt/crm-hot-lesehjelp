@@ -1,4 +1,11 @@
 public without sharing class HOT_ClaimHandler extends MyTriggers {
+    public override void onBeforeInsert() {
+        for (HOT_Claim__c claim : (List<HOT_Claim__c>) records) {
+            if (String.isBlank(claim.External_Id__c)) {
+                claim.External_Id__c = System.UUID.randomUUID().toString();
+            }
+        }
+    }
     public override void onAfterInsert() {
         List<Id> notifyNAVNotRegisteredReader = new List<Id>();
         Set<Id> accountIds = new Set<Id>();
