@@ -75,6 +75,8 @@
 }
 
 .line-group-heading lightning-helptext {
+    --slds-g-spacing-1: 0;
+    --lwc-spacingXxSmall: 0;
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
