@@ -2,8 +2,11 @@
 private class HOT_LosUriEventServiceTest {
     @TestSetup
     static void makeData() {
-        Account acc = new Account();
-        acc.Name = 'Ola Lesehjelp';
+        Person__c person = HOT_LesehjelpTestDataFactory.createPerson();
+        insert person;
+
+        Account acc = HOT_LesehjelpTestDataFactory.createAccount(true);
+        acc.CRM_Person__c = person.Id;
         insert acc;
         Account acc2 = new Account();
         acc2.INT_PersonIdent__c = '01010101010';
