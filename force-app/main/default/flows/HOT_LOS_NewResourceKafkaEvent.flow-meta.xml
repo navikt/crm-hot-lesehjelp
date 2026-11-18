@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Publish_event_with_callback</name>
+        <label>Publish event with callback</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>HOT_PlatformEventPublisher</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Publish</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__eventRecord</typeName>
+            <typeValue>HOT_LOS_NewResource__e</typeValue>
+        </dataTypeMappings>
+        <faultConnector>
+            <targetReference>Unexpected_error</targetReference>
+        </faultConnector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>eventRecord</name>
+            <value>
+                <elementReference>newResourceRecord</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>HOT_PlatformEventPublisher</nameSegment>
+        <outputParameters>
+            <assignToReference>errorMessages</assignToReference>
+            <name>errors</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>publishSucceeded</assignToReference>
+            <name>isSuccess</name>
+        </outputParameters>
+    </actionCalls>
     <apiVersion>65.0</apiVersion>
     <assignments>
         <name>assignNewEvent</name>
@@ -63,9 +97,51 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>createEvent</targetReference>
+            <targetReference>Publish_event_with_callback</targetReference>
         </connector>
     </assignments>
+    <customErrors>
+        <name>Error</name>
+        <label>Error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>{!errorMessages}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Unexpected_error</name>
+        <label>Unexpected error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Kravet kunne ikke opprettes på grunn av en teknisk feil. Prøv igjen senere.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Publish</name>
+        <label>Published Outcome</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Failed</defaultConnectorLabel>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>publishSucceeded</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Success</label>
+        </rules>
+    </decisions>
     <description>Oppretter event i salesforce som senere blir omgjort til kafka og sendt til PLIS for opprettelse av ny ressurs</description>
     <environments>Default</environments>
     <formulas>
@@ -94,13 +170,6 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordCreates>
-        <name>createEvent</name>
-        <label>createEvent</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <inputReference>newResourceRecord</inputReference>
-    </recordCreates>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -128,11 +197,25 @@
     </start>
     <status>Active</status>
     <variables>
+        <name>errorMessages</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>newResourceRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>HOT_LOS_NewResource__e</objectType>
+    </variables>
+    <variables>
+        <name>publishSucceeded</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
 </Flow>

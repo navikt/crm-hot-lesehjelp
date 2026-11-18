@@ -2,7 +2,7 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Publish_Platform_Event_with_Callback_Action_1</name>
-        <label>Publish Platform Event with Callback Action 1</label>
+        <label>Publish Platform Event with Callback Action</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <actionName>HOT_PlatformEventPublisher</actionName>
@@ -15,8 +15,7 @@
             <typeValue>HOT_LOS_PaymentClaim__e</typeValue>
         </dataTypeMappings>
         <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Error</targetReference>
+            <targetReference>Unexpected_Error</targetReference>
         </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -131,6 +130,16 @@
         <locationY>0</locationY>
         <customErrorMessages>
             <errorMessage>Kravet kunne ikke sendes til utbetaling:{!publishErrors}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Unexpected_Error</name>
+        <label>Unexpected Error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Kravet kunne ikke sendes til utbetaling på grunn av en teknisk feil. Prøv igjen senere.</errorMessage>
             <isFieldError>false</isFieldError>
         </customErrorMessages>
     </customErrors>
