@@ -100,6 +100,8 @@ public without sharing class HOT_ClaimLineItemController {
             WHERE
                 Claim__r.Claimant__c = :currentUser.AccountId
                 AND Claim__r.Status__c != 'Withdrawn'
+                AND Claim__r.Status__c != 'Declined by NAV'
+                AND Claim__r.Status__c != 'Declined by user'
                 AND Claim__r.Id != :recordId
         ];
         return claimLineItems;
@@ -155,7 +157,11 @@ public without sharing class HOT_ClaimLineItemController {
                 TravelToStartTime__c,
                 OverlappingClaimLineItemsIds__c
             FROM HOT_ClaimLineItem__c
-            WHERE Claim__r.Claimant__c = :claimLineItemsToReturn[0].Claimant__c AND Claim__r.Status__c != 'Withdrawn'
+            WHERE
+                Claim__r.Claimant__c = :claimLineItemsToReturn[0].Claimant__c
+                AND Claim__r.Status__c != 'Withdrawn'
+                AND Claim__r.Status__c != 'Declined by NAV'
+                AND Claim__r.Status__c != 'Declined by user'
         ];
 
         for (HOT_ClaimLineItem__c cli : claimLineItemsToReturn) {

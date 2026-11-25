@@ -17,7 +17,7 @@
 .line-period {
     margin-bottom: 0.375rem;
     color: var(--section-accent);
-    font-size: 0.8125rem;
+    font-size: 0.83rem;
     font-weight: 600;
 }
 
@@ -52,12 +52,12 @@
 }
 
 .line-link {
-    font-size: 0.75rem;
+    font-size: 0.83rem;
 }
 
 .travel-period {
     margin-top: 0.25rem;
-    font-size: 0.8125rem;
+    font-size: 0.83rem;
 }
 
 .line-group {
@@ -70,11 +70,13 @@
     gap: 0.25rem;
     margin-bottom: 0.25rem;
     color: var(--section-accent);
-    font-size: 0.75rem;
+    font-size: 0.83rem;
     font-weight: 600;
 }
 
 .line-group-heading lightning-helptext {
+    --slds-g-spacing-1: 0;
+    --lwc-spacingXxSmall: 0;
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
@@ -91,14 +93,16 @@
     min-width: 0;
 }
 
-.detail-grid dt {
-    color: #5c6670;
-    font-size: 0.75rem;
+.detail-grid dt,
+.travel-period strong {
+    color: #000000;
+    font-size: 0.83rem;
+    font-weight: 500;
 }
 
 .detail-grid dd {
     min-height: 1.125rem;
     margin-top: 0.125rem;
-    font-size: 0.8125rem;
+    font-size: 0.83rem;
     line-height: 1.35;
 }
